@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>Kaiser Permanente Largo Lab - Fetal Fibronectin (fFN) Testing SOP</title>
+<style>
+/* Optimized Kaiser Permanente Laboratory SOP Template */
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:8.5in 11in;margin:0.75in}
+html{font-size:10pt;width:100%;overflow-x:hidden}
+body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+.container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+/* Header Styling */
+.header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+.header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+.header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+/* Table of Contents - Two Column Layout */
+.toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+.toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+.toc-columns{display:flex;gap:30px}
+.toc-column{flex:1}
+.toc ul{list-style:none;padding:0}
+.toc li{margin:6px 0;padding-left:15px}
+.toc a{color:#0066cc;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+
+/* Section Styling */
+.section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+.section:last-child{border-bottom:none}
+
+/* Headings - Compact Styling */
+h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+/* Text Elements */
+p{margin:8px 0;text-align:left}
+ul,ol{margin:8px 0 8px 25px;padding:0}
+li{margin:4px 0;line-height:1.5}
+
+/* Special Sections */
+.key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+.procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+.warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+
+/* Table Styling */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+table tbody tr{border-bottom:1px solid #e0e0e0}
+table td{padding:8px;border-right:1px solid #e0e0e0}
+table tbody tr:nth-child(even){background:#f8f9fa}
+
+/* Print Optimizations */
+@media print{
+    @page{size:8.5in 11in;margin:0.75in}
+    body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+    .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+    h1,h2,h3,h4{page-break-after:avoid}
+    .toc{page-break-after:always}
+}
+
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>FETAL FIBRONECTIN (fFN) TESTING</h1>
+<h2>Rapid Test for Preterm Birth Risk Assessment</h2>
+<p><strong>Document ID:</strong> LAB-FFN-001 | <strong>Version:</strong> 5.0 | <strong>Effective Date:</strong> January 2025</p>
+<p><strong>Location:</strong> Largo Laboratory | <strong>Department:</strong> Chemistry/Immunology</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>TABLE OF CONTENTS</h3>
+<div class="toc-columns">
+<div class="toc-column">
+<ul>
+<li><a href="#purpose">1. Purpose</a></li>
+<li><a href="#scope">2. Scope</a></li>
+<li><a href="#regulatory">3. Regulatory Requirements</a></li>
+<li><a href="#principle">4. Test Principle</a></li>
+<li><a href="#clinical">5. Clinical Significance</a></li>
+<li><a href="#specimen">6. Specimen Requirements</a></li>
+<li><a href="#equipment">7. Equipment</a></li>
+<li><a href="#reagents">8. Reagents and Supplies</a></li>
+<li><a href="#qc">9. Quality Control</a></li>
+<li><a href="#calibration">10. Calibration</a></li>
+<li><a href="#procedures">11. Test Procedures</a></li>
+<li><a href="#results">12. Results and Interpretation</a></li>
+</ul>
+</div>
+<div class="toc-column">
+<ul>
+<li><a href="#reference">13. Reference Ranges</a></li>
+<li><a href="#limitations">14. Limitations</a></li>
+<li><a href="#critical">15. Critical Values</a></li>
+<li><a href="#turnaround">16. Turnaround Time</a></li>
+<li><a href="#maintenance">17. Maintenance</a></li>
+<li><a href="#troubleshooting">18. Troubleshooting</a></li>
+<li><a href="#competency">19. Competency Assessment</a></li>
+<li><a href="#safety">20. Safety</a></li>
+<li><a href="#training">21. Training</a></li>
+<li><a href="#downtime">22. Downtime Procedures</a></li>
+<li><a href="#references">23. References</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTIONS 1-23 -->
+<div class="section" id="purpose">
+<h2>1. PURPOSE</h2>
+<p>This procedure describes the standardized methodology for performing fetal fibronectin testing at Kaiser Permanente Largo Laboratory. The fFN test aids in assessing the risk of preterm delivery in symptomatic pregnant women between 22-34 weeks gestation, supporting clinical decision-making for patient management.</p>
+
+<div class="key-concept">
+<h4>Key Objectives</h4>
+<ul>
+<li>Provide rapid, accurate fFN testing for preterm labor risk assessment</li>
+<li>Support clinical decisions regarding hospital admission and treatment</li>
+<li>Maintain high negative predictive value (>99% for delivery within 7 days)</li>
+<li>Ensure proper specimen collection and handling</li>
+<li>Meet urgent turnaround time requirements for L&D patients</li>
+</ul>
+</div>
+</div>
+
+<div class="section" id="scope">
+<h2>2. SCOPE</h2>
+<p>This procedure applies to:</p>
+<ul>
+<li>Laboratory personnel performing fFN testing</li>
+<li>Labor & Delivery staff collecting specimens</li>
+<li>Emergency Department personnel</li>
+<li>Laboratory supervisors and quality staff</li>
+</ul>
+
+<div class="info-box">
+<strong>Testing Location:</strong> Main Laboratory - Immunology Section<br/>
+<strong>Backup Location:</strong> MOB Laboratory - 301-555-2000<br/>
+<strong>L&D Direct Line:</strong> Extension 6789<br/>
+<strong>Test Availability:</strong> 24/7
+</div>
+</div>
+
+<div class="section" id="regulatory">
+<h2>3. REGULATORY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Regulatory Body</th>
+<th>Requirement</th>
+<th>Compliance</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FDA</td>
+<td>510(k) cleared device</td>
+<td>Use as directed</td>
+<td>Package insert</td>
+</tr>
+<tr>
+<td>CLIA</td>
+<td>Moderate Complexity</td>
+<td>Qualified personnel</td>
+<td>Competency records</td>
+</tr>
+<tr>
+<td>CAP</td>
+<td>CHM.13800</td>
+<td>Method validation</td>
+<td>Validation study</td>
+</tr>
+<tr>
+<td>Kaiser Permanente</td>
+<td>Documents 14952_0, 13792_0</td>
+<td>Competency program</td>
+<td>Annual assessment</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="principle">
+<h2>4. TEST PRINCIPLE</h2>
+<p>The Rapid fFN test is a qualitative immunoassay detecting fetal fibronectin in cervicovaginal secretions:</p>
+<ul>
+<li>Lateral flow immunochromatographic device</li>
+<li>Monoclonal antibodies specific for fetal fibronectin</li>
+<li>Detection threshold: 50 ng/mL</li>
+<li>Visual interpretation of test and control lines</li>
+<li>Results in 10 minutes</li>
+</ul>
+
+<div class="key-concept">
+<h4>Clinical Utility</h4>
+<ul>
+<li><strong>Negative Result:</strong> <1% chance of delivery within 7-14 days</li>
+<li><strong>Positive Result:</strong> Increased risk of preterm delivery</li>
+<li>Most valuable for negative predictive value</li>
+<li>Helps avoid unnecessary interventions</li>
+</ul>
+</div>
+</div>
+
+<div class="section" id="clinical">
+<h2>5. CLINICAL SIGNIFICANCE</h2>
+<table>
+<thead>
+<tr>
+<th>Clinical Context</th>
+<th>fFN Result</th>
+<th>Interpretation</th>
+<th>Management</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symptomatic preterm labor</td>
+<td>Negative</td>
+<td>Low risk (<1% in 7 days)</td>
+<td>Consider discharge</td>
+</tr>
+<tr>
+<td>Symptomatic preterm labor</td>
+<td>Positive</td>
+<td>Increased risk</td>
+<td>Consider admission/steroids</td>
+</tr>
+<tr>
+<td>Cervical length <25mm</td>
+<td>Positive</td>
+<td>High risk</td>
+<td>Aggressive management</td>
+</tr>
+<tr>
+<td>Multiple gestation</td>
+<td>Either</td>
+<td>Limited data</td>
+<td>Clinical judgment</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="specimen">
+<h2>6. SPECIMEN REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>Critical Collection Requirements</h3>
+<ul>
+<li><strong>Timing:</strong> 22 weeks 0 days to 34 weeks 6 days gestation</li>
+<li><strong>Collection:</strong> BEFORE digital exam or transvaginal ultrasound</li>
+<li><strong>Method:</strong> Sterile speculum exam by trained provider</li>
+<li><strong>Site:</strong> Posterior fornix of vagina or ectocervix</li>
+<li><strong>Device:</strong> Use ONLY provided polyester swab</li>
+<li><strong>Duration:</strong> Gentle rotation for 10 seconds</li>
+</ul>
+</div>
+
+<div class="warning-box">
+<h3>Specimen REJECTION Criteria</h3>
+<ul>
+<li>Collection after digital cervical exam</li>
+<li>Recent intercourse (<24 hours)</li>
+<li>Vaginal bleeding (moderate to heavy)</li>
+<li>Ruptured membranes</li>
+<li>Cervical cerclage in place</li>
+<li>Advanced cervical dilation (>3 cm)</li>
+<li>Wrong swab type used</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Requirement</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swab Type</td>
+<td>Kit-provided polyester only</td>
+<td>Cotton swabs invalid</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>Room temperature</td>
+<td>In provided buffer tube</td>
+</tr>
+<tr>
+<td>Stability</td>
+<td>8 hours in buffer</td>
+<td>Test immediately if possible</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Adequate saturation</td>
+<td>10-second collection</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="equipment">
+<h2>7. EQUIPMENT</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Purpose</th>
+<th>Maintenance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timer</td>
+<td>10-minute incubation</td>
+<td>Verify accuracy monthly</td>
+</tr>
+<tr>
+<td>Test cassettes</td>
+<td>Lateral flow device</td>
+<td>Check expiration</td>
+</tr>
+<tr>
+<td>Pipettes</td>
+<td>Sample application</td>
+<td>Calibrate quarterly</td>
+</tr>
+<tr>
+<td>Refrigerator</td>
+<td>Kit storage 2-8°C</td>
+<td>Temperature monitoring</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="reagents">
+<h2>8. REAGENTS AND SUPPLIES</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Storage</th>
+<th>Stability</th>
+<th>Catalog #</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rapid fFN Test Kit</td>
+<td>2-8°C</td>
+<td>Until expiration</td>
+<td>FFN-100</td>
+</tr>
+<tr>
+<td>Collection Kit</td>
+<td>Room temp</td>
+<td>Until expiration</td>
+<td>FFN-COL</td>
+</tr>
+<tr>
+<td>QC Materials</td>
+<td>2-8°C</td>
+<td>Until expiration</td>
+<td>FFN-QC</td>
+</tr>
+<tr>
+<td>Buffer Solution</td>
+<td>Room temp</td>
+<td>Provided with kit</td>
+<td>Included</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="qc">
+<h2>9. QUALITY CONTROL</h2>
+
+<div class="critical-box">
+<h3>QC Requirements</h3>
+<ul>
+<li><strong>External QC:</strong> Positive and negative controls each new lot and monthly</li>
+<li><strong>Internal Control:</strong> Built-in control line must appear for valid test</li>
+<li><strong>Temperature Log:</strong> Daily refrigerator temperature check</li>
+<li><strong>New Lot Validation:</strong> Test controls before patient testing</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Expected Result</th>
+<th>Frequency</th>
+<th>Action if Failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positive Control</td>
+<td>Positive</td>
+<td>Monthly & new lot</td>
+<td>Do not use kit</td>
+</tr>
+<tr>
+<td>Negative Control</td>
+<td>Negative</td>
+<td>Monthly & new lot</td>
+<td>Do not use kit</td>
+</tr>
+<tr>
+<td>Internal Control</td>
+<td>Line present</td>
+<td>Each test</td>
+<td>Repeat test</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="calibration">
+<h2>10. CALIBRATION</h2>
+<p>No calibration required for qualitative lateral flow device. Verify performance with:</p>
+<ul>
+<li>Lot-to-lot comparison when changing lots</li>
+<li>Proficiency testing participation</li>
+<li>Split sample testing if available</li>
+</ul>
+</div>
+
+<div class="section" id="procedures">
+<h2>11. TEST PROCEDURES</h2>
+
+<div class="procedure-section">
+<h3>Step-by-Step Testing Procedure</h3>
+<ol>
+<li><strong>Pre-analytical:</strong>
+    <ul>
+    <li>Verify patient meets testing criteria</li>
+    <li>Check specimen collection requirements met</li>
+    <li>Allow test cassette to reach room temperature (15 min)</li>
+    <li>Label cassette with patient ID</li>
+    </ul>
+</li>
+<li><strong>Sample Preparation:</strong>
+    <ul>
+    <li>Mix specimen in buffer tube gently</li>
+    <li>Let stand 10 seconds for complete elution</li>
+    <li>Do not centrifuge or filter</li>
+    </ul>
+</li>
+<li><strong>Test Performance:</strong>
+    <ul>
+    <li>Remove cassette from pouch immediately before use</li>
+    <li>Place on flat surface</li>
+    <li>Add exactly 200 µL specimen to sample well</li>
+    <li>Start timer immediately</li>
+    <li>Read results at exactly 10 minutes</li>
+    <li>Do NOT read after 20 minutes</li>
+    </ul>
+</li>
+<li><strong>Result Interpretation:</strong>
+    <ul>
+    <li><strong>Negative:</strong> Control line only</li>
+    <li><strong>Positive:</strong> Both control and test lines (any intensity)</li>
+    <li><strong>Invalid:</strong> No control line - repeat test</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="warning-box">
+<strong>Critical Points:</strong>
+<ul>
+<li>Read at EXACTLY 10 minutes - not before or after</li>
+<li>Any visible test line = positive (even if faint)</li>
+<li>Invalid results must be repeated with new cassette</li>
+</ul>
+</div>
+</div>
+
+<div class="section" id="results">
+<h2>12. RESULTS AND INTERPRETATION</h2>
+
+<div class="key-concept">
+<h4>Result Interpretation Guide</h4>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Clinical Significance</th>
+<th>NPV/PPV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Negative</td>
+<td><1% delivery within 7 days</td>
+<td>NPV: 99.2%</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td><2% delivery within 14 days</td>
+<td>NPV: 97.3%</td>
+</tr>
+<tr>
+<td>Positive</td>
+<td>~20% delivery within 7 days</td>
+<td>PPV: 16-20%</td>
+</tr>
+<tr>
+<td>Positive</td>
+<td>~30% delivery within 14 days</td>
+<td>PPV: 25-30%</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<strong>Reporting Comments:</strong><br/>
+• Negative: "fFN negative - Low risk of preterm delivery within 7-14 days"<br/>
+• Positive: "fFN positive - Increased risk of preterm delivery"<br/>
+• Always include collection time and gestational age
+</div>
+</div>
+
+<div class="section" id="reference">
+<h2>13. REFERENCE RANGES</h2>
+<table>
+<thead>
+<tr>
+<th>Population</th>
+<th>Normal Result</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22-34 weeks gestation</td>
+<td>Negative (<50 ng/mL)</td>
+<td>Qualitative</td>
+</tr>
+<tr>
+<td><22 weeks</td>
+<td>Not validated</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>>34 weeks</td>
+<td>Not indicated</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="limitations">
+<h2>14. LIMITATIONS</h2>
+<ul>
+<li>Not validated for multiple gestations</li>
+<li>False positives with blood contamination</li>
+<li>False positives with recent intercourse</li>
+<li>False positives with bacterial vaginosis</li>
+<li>Cannot predict exact timing of delivery</li>
+<li>Lower PPV than NPV</li>
+<li>Not useful after membrane rupture</li>
+<li>Performance affected by cervical manipulation</li>
+</ul>
+</div>
+
+<div class="section" id="critical">
+<h2>15. CRITICAL VALUES</h2>
+<p>No critical values defined. All positive results should be communicated promptly to L&D for clinical correlation.</p>
+
+<div class="info-box">
+<strong>Result Communication:</strong><br/>
+• Call L&D with positive results: Extension 6789<br/>
+• Document notification in patient record<br/>
+• Typical TAT expectation: 30 minutes
+</div>
+</div>
+
+<div class="section" id="turnaround">
+<h2>16. TURNAROUND TIME</h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Target TAT</th>
+<th>From Receipt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STAT (all fFN)</td>
+<td>30 minutes</td>
+<td>L&D/ED patients</td>
+</tr>
+<tr>
+<td>Repeat testing</td>
+<td>30 minutes</td>
+<td>Invalid results</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="maintenance">
+<h2>17. MAINTENANCE</h2>
+<ul>
+<li>Daily: Temperature log verification</li>
+<li>Weekly: Inventory check, expiration dates</li>
+<li>Monthly: QC testing, timer calibration</li>
+<li>As needed: Lot validation</li>
+</ul>
+</div>
+
+<div class="section" id="troubleshooting">
+<h2>18. TROUBLESHOOTING</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No control line</td>
+<td>Insufficient sample, expired kit</td>
+<td>Repeat with new cassette</td>
+</tr>
+<tr>
+<td>Weak lines</td>
+<td>Old kit, improper storage</td>
+<td>Check expiration, storage</td>
+</tr>
+<tr>
+<td>Background color</td>
+<td>Overincubation</td>
+<td>Read at exactly 10 min</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="competency">
+<h2>19. COMPETENCY ASSESSMENT</h2>
+
+<div class="key-concept">
+<h4>Kaiser Requirements (Documents 14952_0, 13792_0)</h4>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Initial</th>
+<th>Annual</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test Performance</td>
+<td>5 tests observed</td>
+<td>2 tests observed</td>
+<td>Direct observation</td>
+</tr>
+<tr>
+<td>Result Interpretation</td>
+<td>10 images</td>
+<td>5 images</td>
+<td>Competency quiz</td>
+</tr>
+<tr>
+<td>QC Performance</td>
+<td>Both controls</td>
+<td>Documentation</td>
+<td>Review records</td>
+</tr>
+<tr>
+<td>Troubleshooting</td>
+<td>Scenarios</td>
+<td>Case review</td>
+<td>Problem solving</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="section" id="safety">
+<h2>20. SAFETY</h2>
+<ul>
+<li>Universal precautions for all specimens</li>
+<li>Gloves and lab coat required</li>
+<li>Dispose of test cassettes in biohazard waste</li>
+<li>No special chemical hazards</li>
+</ul>
+</div>
+
+<div class="section" id="training">
+<h2>21. TRAINING</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Duration</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theory</td>
+<td>2 hours</td>
+<td>Self-study module</td>
+</tr>
+<tr>
+<td>Practical</td>
+<td>5 supervised tests</td>
+<td>Direct observation</td>
+</tr>
+<tr>
+<td>Competency</td>
+<td>1 hour</td>
+<td>Assessment</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section" id="downtime">
+<h2>22. DOWNTIME PROCEDURES</h2>
+
+<div class="critical-box">
+<h3>fFN Testing Downtime</h3>
+<ul>
+<li>No analyzer required - continue manual testing</li>
+<li>If kit shortage: Send to MOB Lab 301-555-2000</li>
+<li>If no kits available: Clinical management without fFN</li>
+<li>Document all specimens for later testing if possible</li>
+</ul>
+</div>
+</div>
+
+<div class="section" id="references">
+<h2>23. REFERENCES</h2>
+<ol>
+<li>Rapid fFN Test Package Insert. Hologic, Inc.; 2024.</li>
+<li>ACOG Practice Bulletin No. 234: Prediction and Prevention of Spontaneous Preterm Birth. Obstet Gynecol. 2024.</li>
+<li>Kaiser Permanente. Competency Requirements. Documents 14952_0, 13792_0. 2024.</li>
+<li>CAP Checklist - Immunology. College of American Pathologists; 2024.</li>
+<li>Berghella V, et al. Fetal fibronectin testing for reducing preterm birth. Cochrane Database Syst Rev. 2024.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control</h4>
+<p><strong>Review:</strong> Annual | <strong>Next Review:</strong> January 2026</p>
+<p><strong>Owner:</strong> Chemistry Supervisor | <strong>Approved By:</strong> Laboratory Director</p>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>

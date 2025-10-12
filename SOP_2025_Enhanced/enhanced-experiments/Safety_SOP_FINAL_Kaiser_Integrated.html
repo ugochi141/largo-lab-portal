@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>Kaiser Permanente Largo Lab - Laboratory Safety Protocol SOP</title>
+<style>
+/* Optimized Kaiser Permanente Laboratory SOP Template */
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:8.5in 11in;margin:0.75in}
+html{font-size:10pt;width:100%;overflow-x:hidden}
+body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+.container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+/* Header Styling */
+.header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+.header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+.header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+/* Table of Contents - Two Column Layout */
+.toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+.toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+.toc-columns{display:flex;gap:30px}
+.toc-column{flex:1}
+.toc ul{list-style:none;padding:0}
+.toc li{margin:6px 0;padding-left:15px}
+.toc a{color:#0066cc;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+
+/* Section Styling */
+.section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+.section:last-child{border-bottom:none}
+
+/* Headings - Compact Styling */
+h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+/* Text Elements */
+p{margin:8px 0;text-align:left}
+ul,ol{margin:8px 0 8px 25px;padding:0}
+li{margin:4px 0;line-height:1.5}
+
+/* Special Sections */
+.key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+.procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+.warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+.emergency-box{background:#ffebee;border:2px solid #ef5350;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+.biohazard-box{background:#ffe0b2;border:2px solid #ff9800;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+
+/* Table Styling */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+table tbody tr{border-bottom:1px solid #e0e0e0}
+table td{padding:8px;border-right:1px solid #e0e0e0}
+table tbody tr:nth-child(even){background:#f8f9fa}
+
+/* Safety Alert Styling */
+.safety-alert{background:#d32f2f;color:#fff;padding:15px;border-radius:6px;margin:20px 0;font-weight:bold}
+
+/* Print Optimizations */
+@media print{
+    @page{size:8.5in 11in;margin:0.75in}
+    body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+    .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+    h1,h2,h3,h4{page-break-after:avoid}
+    .toc{page-break-after:always}
+}
+
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>LABORATORY SAFETY PROTOCOL</h1>
+<h2>Comprehensive Safety Management Program</h2>
+<p><strong>Document ID:</strong> LAB-SAFETY-001 | <strong>Version:</strong> 8.0 | <strong>Effective Date:</strong> January 2025</p>
+<p><strong>Location:</strong> Largo Laboratory | <strong>Department:</strong> All Laboratory Sections</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>TABLE OF CONTENTS</h3>
+<div class="toc-columns">
+<div class="toc-column">
+<ul>
+<li><a href="#purpose">1. Purpose</a></li>
+<li><a href="#scope">2. Scope</a></li>
+<li><a href="#regulatory">3. Regulatory Requirements</a></li>
+<li><a href="#biological">4. Biological Safety</a></li>
+<li><a href="#chemical">5. Chemical Safety</a></li>
+<li><a href="#physical">6. Physical Hazards</a></li>
+<li><a href="#ppe">7. Personal Protective Equipment</a></li>
+<li><a href="#exposure">8. Exposure Control</a></li>
+<li><a href="#spill">9. Spill Management</a></li>
+<li><a href="#waste">10. Waste Disposal</a></li>
+<li><a href="#emergency">11. Emergency Response</a></li>
+<li><a href="#fire">12. Fire Safety</a></li>
+</ul>
+</div>
+<div class="toc-column">
+<ul>
+<li><a href="#electrical">13. Electrical Safety</a></li>
+<li><a href="#ergonomics">14. Ergonomics</a></li>
+<li><a href="#incident">15. Incident Reporting</a></li>
+<li><a href="#medical">16. Medical Surveillance</a></li>
+<li><a href="#training">17. Safety Training</a></li>
+<li><a href="#inspections">18. Safety Inspections</a></li>
+<li><a href="#competency">19. Competency Assessment</a></li>
+<li><a href="#documentation">20. Documentation</a></li>
+<li><a href="#quality">21. Quality Assurance</a></li>
+<li><a href="#resources">22. Resources</a></li>
+<li><a href="#references">23. References</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTION 1: PURPOSE -->
+<div class="section" id="purpose">
+<h2>1. PURPOSE</h2>
+<p>This comprehensive safety protocol establishes standards and procedures to ensure a safe working environment for all laboratory personnel, protect patients and visitors, and maintain compliance with federal, state, and Kaiser Permanente safety regulations. This document serves as the primary reference for all laboratory safety practices.</p>
+
+<div class="key-concept">
+<h4>Safety Program Objectives</h4>
+<ul>
+<li>Eliminate workplace injuries and exposures</li>
+<li>Ensure compliance with OSHA, CAP, and Joint Commission standards</li>
+<li>Foster a culture of safety awareness and responsibility</li>
+<li>Provide comprehensive safety training and resources</li>
+<li>Maintain emergency preparedness at all times</li>
+<li>Protect staff, patients, and the environment from laboratory hazards</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 2: SCOPE -->
+<div class="section" id="scope">
+<h2>2. SCOPE</h2>
+<p>This safety protocol applies to:</p>
+<ul>
+<li>All laboratory personnel regardless of shift or position</li>
+<li>Students, observers, and temporary staff</li>
+<li>Maintenance, housekeeping, and support staff entering the laboratory</li>
+<li>Vendors and service technicians</li>
+<li>All laboratory areas including main lab, POCT sites, and MOB laboratory</li>
+</ul>
+
+<div class="info-box">
+<strong>Safety Officer:</strong> Laboratory Safety Coordinator - Extension 1234<br/>
+<strong>Emergency Contact:</strong> Security - Extension 2222 | Emergency - 911<br/>
+<strong>MOB Laboratory:</strong> 301-555-2000 (backup location)
+</div>
+</div>
+
+<!-- SECTION 3: REGULATORY REQUIREMENTS -->
+<div class="section" id="regulatory">
+<h2>3. REGULATORY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Regulation/Standard</th>
+<th>Requirement</th>
+<th>Compliance Method</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSHA Bloodborne Pathogens</td>
+<td>29 CFR 1910.1030</td>
+<td>Exposure Control Plan</td>
+<td>Annual review and training</td>
+</tr>
+<tr>
+<td>OSHA Hazard Communication</td>
+<td>29 CFR 1910.1200</td>
+<td>Chemical Hygiene Plan</td>
+<td>SDS management system</td>
+</tr>
+<tr>
+<td>CAP GEN.77100</td>
+<td>Safety program requirements</td>
+<td>Comprehensive safety manual</td>
+<td>Inspection readiness</td>
+</tr>
+<tr>
+<td>Joint Commission EC.02.02.01</td>
+<td>Hazardous materials management</td>
+<td>Waste management program</td>
+<td>Disposal logs</td>
+</tr>
+<tr>
+<td>Kaiser Documents 14952_0, 13792_0</td>
+<td>Competency requirements</td>
+<td>Annual safety competency</td>
+<td>Training records</td>
+</tr>
+<tr>
+<td>CDC/BMBL Guidelines</td>
+<td>Biosafety Level 2 practices</td>
+<td>Standard microbiological practices</td>
+<td>Risk assessments</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 4: BIOLOGICAL SAFETY -->
+<div class="section" id="biological">
+<h2>4. BIOLOGICAL SAFETY</h2>
+
+<div class="biohazard-box">
+<h3>Universal Precautions - Treat ALL Specimens as Potentially Infectious</h3>
+<ul>
+<li>Assume all blood, body fluids, and tissues contain bloodborne pathogens</li>
+<li>Use appropriate PPE for all specimen handling</li>
+<li>Never recap, bend, or break contaminated needles</li>
+<li>Dispose of sharps immediately in designated containers</li>
+<li>Decontaminate work surfaces after procedures and spills</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Biosafety Level 2 (BSL-2) Practices</h3>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Requirement</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access Control</td>
+<td>Restricted to trained personnel</td>
+<td>Badge access, visitor log</td>
+</tr>
+<tr>
+<td>Biological Safety Cabinet</td>
+<td>Use for aerosol-generating procedures</td>
+<td>Class II BSC in microbiology</td>
+</tr>
+<tr>
+<td>Decontamination</td>
+<td>10% bleach or approved disinfectant</td>
+<td>Daily and after spills</td>
+</tr>
+<tr>
+<td>Sharps Safety</td>
+<td>Safety-engineered devices</td>
+<td>Retractable needles, safety lancets</td>
+</tr>
+<tr>
+<td>Specimen Transport</td>
+<td>Leak-proof containers</td>
+<td>Secondary containment required</td>
+</tr>
+<tr>
+<td>Waste Disposal</td>
+<td>Red bag/sharps containers</td>
+<td>Contracted medical waste service</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<h3>High-Risk Specimens Requiring Extra Precautions</h3>
+<ul>
+<li>Suspected prion disease (CJD) - Special decontamination required</li>
+<li>TB specimens - Process in BSC, N95 respirator required</li>
+<li>Select agents - Notify supervisor immediately</li>
+<li>Unknown rashes or lesions - Contact Infection Control</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 5: CHEMICAL SAFETY -->
+<div class="section" id="chemical">
+<h2>5. CHEMICAL SAFETY</h2>
+
+<div class="critical-box">
+<h3>Chemical Hygiene Plan Requirements</h3>
+<ul>
+<li>Maintain current Safety Data Sheets (SDS) for all chemicals</li>
+<li>Label all containers with contents and hazards</li>
+<li>Store chemicals according to compatibility</li>
+<li>Use fume hood for volatile substances</li>
+<li>Never pipette by mouth</li>
+<li>Conduct annual chemical inventory</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Chemical Class</th>
+<th>Examples</th>
+<th>Storage</th>
+<th>Special Precautions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corrosives</td>
+<td>Acids, bases</td>
+<td>Separate cabinets</td>
+<td>Acid-resistant PPE</td>
+</tr>
+<tr>
+<td>Flammables</td>
+<td>Alcohols, acetone</td>
+<td>Flammable cabinet</td>
+<td>No ignition sources</td>
+</tr>
+<tr>
+<td>Oxidizers</td>
+<td>Bleach, peroxide</td>
+<td>Away from organics</td>
+<td>Prevent contamination</td>
+</tr>
+<tr>
+<td>Toxics</td>
+<td>Formaldehyde, xylene</td>
+<td>Ventilated storage</td>
+<td>Fume hood use</td>
+</tr>
+<tr>
+<td>Carcinogens</td>
+<td>Certain stains</td>
+<td>Designated area</td>
+<td>Special training required</td>
+</tr>
+<tr>
+<td>Compressed Gases</td>
+<td>CO2, N2</td>
+<td>Secured upright</td>
+<td>Regulator safety</td>
+</tr>
+</tbody>
+</table>
+
+<div class="procedure-section">
+<h3>Chemical Spill Response</h3>
+<ol>
+<li><strong>ASSESS:</strong> Determine spill size and hazard level</li>
+<li><strong>ALERT:</strong> Notify others in area, evacuate if necessary</li>
+<li><strong>CONTAIN:</strong> Use spill kit appropriate for chemical type</li>
+<li><strong>CLEAN:</strong> Follow SDS cleanup procedures</li>
+<li><strong>DISPOSE:</strong> Place waste in appropriate container</li>
+<li><strong>DOCUMENT:</strong> Complete incident report</li>
+</ol>
+<p><strong>Major Spill (>1 Liter):</strong> Evacuate area, call Security x2222</p>
+</div>
+</div>
+
+<!-- SECTION 6: PHYSICAL HAZARDS -->
+<div class="section" id="physical">
+<h2>6. PHYSICAL HAZARDS</h2>
+
+<table>
+<thead>
+<tr>
+<th>Hazard Type</th>
+<th>Sources</th>
+<th>Controls</th>
+<th>PPE Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Centrifuge</td>
+<td>High-speed rotation</td>
+<td>Balance loads, inspect tubes</td>
+<td>Face shield if aerosol risk</td>
+</tr>
+<tr>
+<td>Autoclave</td>
+<td>Steam, pressure</td>
+<td>Training, cycle verification</td>
+<td>Heat-resistant gloves</td>
+</tr>
+<tr>
+<td>Cryogenic</td>
+<td>Liquid nitrogen</td>
+<td>Ventilation, proper transfer</td>
+<td>Cryo gloves, face shield</td>
+</tr>
+<tr>
+<td>UV Light</td>
+<td>Biosafety cabinets</td>
+<td>Shields, warning signs</td>
+<td>UV-blocking eyewear</td>
+</tr>
+<tr>
+<td>Noise</td>
+<td>Centrifuges, alarms</td>
+<td>Distance, barriers</td>
+<td>Hearing protection if >85 dB</td>
+</tr>
+<tr>
+<td>Sharps</td>
+<td>Needles, broken glass</td>
+<td>Safety devices, proper disposal</td>
+<td>Puncture-resistant gloves</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Centrifuge Safety Protocol</h3>
+<ul>
+<li>Always balance tubes by weight, not volume</li>
+<li>Inspect tubes for cracks before use</li>
+<li>Never open during operation or before complete stop</li>
+<li>Wait 10 minutes after aerosol-generating incident</li>
+<li>Clean and disinfect rotors weekly</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 7: PPE -->
+<div class="section" id="ppe">
+<h2>7. PERSONAL PROTECTIVE EQUIPMENT (PPE)</h2>
+
+<div class="key-concept">
+<h4>Minimum PPE Requirements by Area</h4>
+<table>
+<thead>
+<tr>
+<th>Work Area</th>
+<th>Gloves</th>
+<th>Lab Coat</th>
+<th>Eye Protection</th>
+<th>Additional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specimen Processing</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Face shield for uncapping</td>
+</tr>
+<tr>
+<td>Chemistry</td>
+<td>Required</td>
+<td>Required</td>
+<td>When splash risk</td>
+<td>Chemical-resistant as needed</td>
+</tr>
+<tr>
+<td>Hematology</td>
+<td>Required</td>
+<td>Required</td>
+<td>When splash risk</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Microbiology</td>
+<td>Double gloves</td>
+<td>Required</td>
+<td>Required</td>
+<td>N95 for TB work</td>
+</tr>
+<tr>
+<td>Blood Bank</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+<td>Fluid-resistant gown if needed</td>
+</tr>
+<tr>
+<td>Molecular</td>
+<td>Required</td>
+<td>Dedicated coat</td>
+<td>When splash risk</td>
+<td>Separate pre/post-PCR PPE</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="procedure-section">
+<h3>PPE Donning and Doffing Sequence</h3>
+<p><strong>Donning (Putting On):</strong></p>
+<ol>
+<li>Perform hand hygiene</li>
+<li>Put on lab coat</li>
+<li>Put on face protection if required</li>
+<li>Put on gloves (over coat cuffs)</li>
+</ol>
+<p><strong>Doffing (Removing):</strong></p>
+<ol>
+<li>Remove gloves (turn inside out)</li>
+<li>Remove face protection if worn</li>
+<li>Remove lab coat (turn inside out)</li>
+<li>Perform hand hygiene immediately</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 8: EXPOSURE CONTROL -->
+<div class="section" id="exposure">
+<h2>8. EXPOSURE CONTROL PLAN</h2>
+
+<div class="emergency-box">
+<h3>IMMEDIATE RESPONSE TO BLOODBORNE PATHOGEN EXPOSURE</h3>
+<ol>
+<li><strong>Needlestick/Cut:</strong>
+    <ul>
+    <li>Wash with soap and water for 5 minutes</li>
+    <li>Do not squeeze wound</li>
+    </ul>
+</li>
+<li><strong>Splash to Eyes/Nose/Mouth:</strong>
+    <ul>
+    <li>Flush with water/saline for 15 minutes</li>
+    <li>Use eyewash station</li>
+    </ul>
+</li>
+<li><strong>Report Immediately:</strong>
+    <ul>
+    <li>Notify supervisor</li>
+    <li>Go to Employee Health or Emergency Department</li>
+    <li>Complete exposure incident report</li>
+    </ul>
+</li>
+<li><strong>Follow-up:</strong>
+    <ul>
+    <li>Source patient testing if consent obtained</li>
+    <li>Post-exposure prophylaxis within 2 hours if indicated</li>
+    <li>Follow-up testing per protocol</li>
+    </ul>
+</li>
+</ol>
+<p><strong style="color:red;">TIME IS CRITICAL - PEP MOST EFFECTIVE WITHIN 2 HOURS</strong></p>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Exposure Type</th>
+<th>Risk Level</th>
+<th>Action Required</th>
+<th>Follow-up</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Percutaneous (deep)</td>
+<td>High</td>
+<td>Immediate PEP evaluation</td>
+<td>6-month monitoring</td>
+</tr>
+<tr>
+<td>Percutaneous (superficial)</td>
+<td>Moderate</td>
+<td>Risk assessment</td>
+<td>Based on source status</td>
+</tr>
+<tr>
+<td>Mucous membrane</td>
+<td>Moderate</td>
+<td>Immediate flush, evaluate</td>
+<td>Based on volume/source</td>
+</tr>
+<tr>
+<td>Non-intact skin</td>
+<td>Low</td>
+<td>Wash, assess</td>
+<td>Usually none required</td>
+</tr>
+<tr>
+<td>Intact skin</td>
+<td>None</td>
+<td>Wash area</td>
+<td>No follow-up needed</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 9: SPILL MANAGEMENT -->
+<div class="section" id="spill">
+<h2>9. SPILL MANAGEMENT PROCEDURES</h2>
+
+<div class="biohazard-box">
+<h3>Biological Spill Response</h3>
+<ol>
+<li><strong>Alert:</strong> Notify others, post warning signs</li>
+<li><strong>PPE:</strong> Don appropriate protective equipment</li>
+<li><strong>Cover:</strong> Place paper towels over spill</li>
+<li><strong>Disinfect:</strong> Pour 10% bleach, let stand 20 minutes</li>
+<li><strong>Clean:</strong> Work from outside to center</li>
+<li><strong>Dispose:</strong> Place all materials in biohazard bag</li>
+<li><strong>Decontaminate:</strong> Clean area again with disinfectant</li>
+<li><strong>Document:</strong> Complete incident report</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>Spill Kit Locations and Contents</h3>
+<table>
+<thead>
+<tr>
+<th>Kit Type</th>
+<th>Location</th>
+<th>Contents</th>
+<th>Use For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Biological</td>
+<td>Each department</td>
+<td>Bleach, absorbent, PPE, bags</td>
+<td>Blood, body fluids</td>
+</tr>
+<tr>
+<td>Chemical</td>
+<td>Chemistry, storage</td>
+<td>Neutralizers, absorbent, PPE</td>
+<td>Acids, bases, solvents</td>
+</tr>
+<tr>
+<td>Mercury</td>
+<td>Safety office</td>
+<td>Mercury vacuum, sulfur</td>
+<td>Thermometer breaks</td>
+</tr>
+<tr>
+<td>Formaldehyde</td>
+<td>Histology</td>
+<td>Specialized absorbent</td>
+<td>Formalin spills</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 10: WASTE DISPOSAL -->
+<div class="section" id="waste">
+<h2>10. WASTE MANAGEMENT</h2>
+
+<table>
+<thead>
+<tr>
+<th>Waste Type</th>
+<th>Container</th>
+<th>Disposal Method</th>
+<th>Pickup Schedule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sharps</td>
+<td>Red sharps container</td>
+<td>Medical waste vendor</td>
+<td>When 3/4 full</td>
+</tr>
+<tr>
+<td>Pathological</td>
+<td>Red bag with absorbent</td>
+<td>Incineration</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>Microbiological</td>
+<td>Autoclave bags → Red bag</td>
+<td>Autoclave then disposal</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>Chemical</td>
+<td>Labeled containers</td>
+<td>Chemical waste vendor</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td>Pharmaceutical</td>
+<td>Black containers</td>
+<td>DEA-approved disposal</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Regular Trash</td>
+<td>Clear bags</td>
+<td>Municipal waste</td>
+<td>Daily</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Never Place in Regular Trash</h3>
+<ul>
+<li>Any item contaminated with blood or body fluids</li>
+<li>Sharps of any kind (even if capped)</li>
+<li>Chemical containers (even if empty)</li>
+<li>Patient information (requires shredding)</li>
+<li>Batteries or electronic waste</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 11: EMERGENCY RESPONSE -->
+<div class="section" id="emergency">
+<h2>11. EMERGENCY RESPONSE PROCEDURES</h2>
+
+<div class="safety-alert">
+EMERGENCY CODES - KNOW AND RESPOND APPROPRIATELY
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Emergency Type</th>
+<th>Laboratory Response</th>
+<th>Contact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CODE RED</td>
+<td>Fire</td>
+<td>R.A.C.E. protocol</td>
+<td>911, then x2222</td>
+</tr>
+<tr>
+<td>CODE BLUE</td>
+<td>Medical Emergency</td>
+<td>Provide CPR if trained</td>
+<td>x3333</td>
+</tr>
+<tr>
+<td>CODE GRAY</td>
+<td>Security Threat</td>
+<td>Lock down, hide</td>
+<td>x2222</td>
+</tr>
+<tr>
+<td>CODE SILVER</td>
+<td>Armed Person</td>
+<td>Run, Hide, Fight</td>
+<td>911</td>
+</tr>
+<tr>
+<td>CODE ORANGE</td>
+<td>Hazmat Spill</td>
+<td>Evacuate if large</td>
+<td>x2222</td>
+</tr>
+<tr>
+<td>CODE YELLOW</td>
+<td>Bomb Threat</td>
+<td>Evacuate if directed</td>
+<td>x2222</td>
+</tr>
+</tbody>
+</table>
+
+<div class="emergency-box">
+<h3>Evacuation Procedures</h3>
+<ol>
+<li>Secure hazardous materials if time permits</li>
+<li>Take personnel accountability roster</li>
+<li>Exit via nearest safe route</li>
+<li>Assembly point: Parking Lot B</li>
+<li>Account for all personnel</li>
+<li>Do not re-enter until all-clear given</li>
+</ol>
+<p><strong>Evacuation Routes:</strong> Posted on all exit doors</p>
+<p><strong>Emergency Supplies:</strong> Red cabinet near main exit</p>
+</div>
+</div>
+
+<!-- SECTION 12: FIRE SAFETY -->
+<div class="section" id="fire">
+<h2>12. FIRE SAFETY</h2>
+
+<div class="critical-box">
+<h3>R.A.C.E. Protocol for Fire Response</h3>
+<ul>
+<li><strong>R</strong>ESCUE - Remove anyone in immediate danger</li>
+<li><strong>A</strong>LARM - Activate fire alarm, call 911</li>
+<li><strong>C</strong>ONTAIN - Close doors to contain fire/smoke</li>
+<li><strong>E</strong>VACUATE/EXTINGUISH - Evacuate or use extinguisher if trained</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>P.A.S.S. Method for Fire Extinguisher Use</h3>
+<ul>
+<li><strong>P</strong>ULL - Pull the pin</li>
+<li><strong>A</strong>IM - Aim at base of fire</li>
+<li><strong>S</strong>QUEEZE - Squeeze the handle</li>
+<li><strong>S</strong>WEEP - Sweep side to side</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Fire Class</th>
+<th>Material Type</th>
+<th>Extinguisher Type</th>
+<th>Laboratory Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class A</td>
+<td>Ordinary combustibles</td>
+<td>Water, ABC</td>
+<td>Paper, wood, cloth</td>
+</tr>
+<tr>
+<td>Class B</td>
+<td>Flammable liquids</td>
+<td>CO2, ABC, Foam</td>
+<td>Alcohols, solvents</td>
+</tr>
+<tr>
+<td>Class C</td>
+<td>Electrical</td>
+<td>CO2, ABC</td>
+<td>Equipment, outlets</td>
+</tr>
+<tr>
+<td>Class D</td>
+<td>Metals</td>
+<td>Special dry powder</td>
+<td>Magnesium, sodium</td>
+</tr>
+<tr>
+<td>Class K</td>
+<td>Cooking oils</td>
+<td>Wet chemical</td>
+<td>Break room only</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 13: ELECTRICAL SAFETY -->
+<div class="section" id="electrical">
+<h2>13. ELECTRICAL SAFETY</h2>
+
+<div class="warning-box">
+<h3>Electrical Hazard Prevention</h3>
+<ul>
+<li>Report damaged cords or plugs immediately</li>
+<li>Never use equipment with exposed wires</li>
+<li>Keep liquids away from electrical equipment</li>
+<li>Don't overload circuits or daisy-chain power strips</li>
+<li>Ensure hands are dry before handling electrical equipment</li>
+<li>Unplug equipment before servicing</li>
+<li>Use GFCI outlets near water sources</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Voltage</th>
+<th>Special Requirements</th>
+<th>Inspection Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analyzers</td>
+<td>110-220V</td>
+<td>Dedicated circuits</td>
+<td>Annual</td>
+</tr>
+<tr>
+<td>Centrifuges</td>
+<td>220V</td>
+<td>Proper grounding</td>
+<td>Semi-annual</td>
+</tr>
+<tr>
+<td>Refrigerators</td>
+<td>110V</td>
+<td>Emergency power</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td>Microscopes</td>
+<td>110V</td>
+<td>Surge protection</td>
+<td>Annual</td>
+</tr>
+<tr>
+<td>Hot plates</td>
+<td>110V</td>
+<td>Away from flammables</td>
+<td>Before each use</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 14: ERGONOMICS -->
+<div class="section" id="ergonomics">
+<h2>14. ERGONOMICS AND INJURY PREVENTION</h2>
+
+<div class="key-concept">
+<h4>Workstation Setup Guidelines</h4>
+<ul>
+<li>Monitor at eye level, arm's length away</li>
+<li>Keyboard and mouse at elbow height</li>
+<li>Feet flat on floor or footrest</li>
+<li>Chair supporting lower back</li>
+<li>Frequently used items within easy reach</li>
+<li>Alternate sitting and standing when possible</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Repetitive Strain Injury Prevention</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Risk Factor</th>
+<th>Prevention Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pipetting</td>
+<td>Thumb strain</td>
+<td>Electronic pipettes, rotation</td>
+</tr>
+<tr>
+<td>Microscopy</td>
+<td>Neck/eye strain</td>
+<td>Adjust eyepiece, take breaks</td>
+</tr>
+<tr>
+<td>Computer work</td>
+<td>Carpal tunnel</td>
+<td>Ergonomic keyboard, stretches</td>
+</tr>
+<tr>
+<td>Specimen processing</td>
+<td>Shoulder strain</td>
+<td>Adjust work height, rotate tasks</td>
+</tr>
+<tr>
+<td>Lifting boxes</td>
+<td>Back injury</td>
+<td>Proper lifting technique, get help</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 15: INCIDENT REPORTING -->
+<div class="section" id="incident">
+<h2>15. INCIDENT REPORTING</h2>
+
+<div class="critical-box">
+<h3>Report ALL Incidents Within 24 Hours</h3>
+<p>Incidents requiring immediate reporting:</p>
+<ul>
+<li>Any injury, no matter how minor</li>
+<li>Exposure to blood or body fluids</li>
+<li>Chemical exposures or spills</li>
+<li>Near-miss events</li>
+<li>Equipment malfunctions causing safety risk</li>
+<li>Security breaches</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Incident Type</th>
+<th>Immediate Action</th>
+<th>Report To</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Needlestick</td>
+<td>First aid, Employee Health</td>
+<td>Supervisor immediately</td>
+<td>Exposure form</td>
+</tr>
+<tr>
+<td>Chemical exposure</td>
+<td>Decontaminate, medical eval</td>
+<td>Supervisor, Safety Officer</td>
+<td>Incident report</td>
+</tr>
+<tr>
+<td>Slip/Trip/Fall</td>
+<td>First aid if needed</td>
+<td>Supervisor same shift</td>
+<td>Injury report</td>
+</tr>
+<tr>
+<td>Equipment failure</td>
+<td>Tag out of service</td>
+<td>Supervisor, Biomed</td>
+<td>Work order</td>
+</tr>
+<tr>
+<td>Near miss</td>
+<td>Secure area if needed</td>
+<td>Safety committee</td>
+<td>Near-miss form</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 16: MEDICAL SURVEILLANCE -->
+<div class="section" id="medical">
+<h2>16. MEDICAL SURVEILLANCE PROGRAM</h2>
+
+<table>
+<thead>
+<tr>
+<th>Program Component</th>
+<th>Frequency</th>
+<th>Required For</th>
+<th>Provider</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TB Screening</td>
+<td>Annual</td>
+<td>All staff</td>
+<td>Employee Health</td>
+</tr>
+<tr>
+<td>Hepatitis B Vaccine</td>
+<td>Series of 3</td>
+<td>All staff</td>
+<td>Employee Health</td>
+</tr>
+<tr>
+<td>Influenza Vaccine</td>
+<td>Annual</td>
+<td>All staff</td>
+<td>Employee Health</td>
+</tr>
+<tr>
+<td>Respirator Fit Testing</td>
+<td>Annual</td>
+<td>TB lab staff</td>
+<td>Safety Office</td>
+</tr>
+<tr>
+<td>Hearing Test</td>
+<td>Baseline, periodic</td>
+<td>High noise exposure</td>
+<td>Occupational Health</td>
+</tr>
+<tr>
+<td>Vision Screening</td>
+<td>As needed</td>
+<td>Microscopy users</td>
+<td>Occupational Health</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>Employee Health Location:</strong> Main Hospital, 1st Floor<br/>
+<strong>Hours:</strong> Monday-Friday 7:00 AM - 4:30 PM<br/>
+<strong>After Hours:</strong> Emergency Department
+</div>
+</div>
+
+<!-- SECTION 17: TRAINING -->
+<div class="section" id="training">
+<h2>17. SAFETY TRAINING REQUIREMENTS</h2>
+
+<div class="key-concept">
+<h4>Mandatory Safety Training Schedule</h4>
+<table>
+<thead>
+<tr>
+<th>Training Topic</th>
+<th>Initial</th>
+<th>Refresher</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Laboratory Safety Orientation</td>
+<td>First day</td>
+<td>Annual</td>
+<td>In-person</td>
+</tr>
+<tr>
+<td>Bloodborne Pathogens</td>
+<td>Before exposure</td>
+<td>Annual</td>
+<td>Online + practical</td>
+</tr>
+<tr>
+<td>Chemical Hygiene</td>
+<td>Before use</td>
+<td>Annual</td>
+<td>Department specific</td>
+</tr>
+<tr>
+<td>Fire Safety/Evacuation</td>
+<td>First week</td>
+<td>Annual</td>
+<td>Drill participation</td>
+</tr>
+<tr>
+<td>PPE Use</td>
+<td>Before work</td>
+<td>Annual</td>
+<td>Demonstration</td>
+</tr>
+<tr>
+<td>Spill Response</td>
+<td>First month</td>
+<td>Annual</td>
+<td>Hands-on practice</td>
+</tr>
+<tr>
+<td>Emergency Codes</td>
+<td>First week</td>
+<td>Quarterly drill</td>
+<td>Simulation</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 18: INSPECTIONS -->
+<div class="section" id="inspections">
+<h2>18. SAFETY INSPECTIONS</h2>
+
+<div class="procedure-section">
+<h3>Inspection Schedule and Responsibilities</h3>
+<table>
+<thead>
+<tr>
+<th>Inspection Type</th>
+<th>Frequency</th>
+<th>Responsible Party</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily Safety Check</td>
+<td>Each shift</td>
+<td>Charge Technologist</td>
+<td>Checklist</td>
+</tr>
+<tr>
+<td>Weekly Walk-through</td>
+<td>Weekly</td>
+<td>Department Lead</td>
+<td>Inspection log</td>
+</tr>
+<tr>
+<td>Monthly Audit</td>
+<td>Monthly</td>
+<td>Safety Committee</td>
+<td>Audit report</td>
+</tr>
+<tr>
+<td>Quarterly Review</td>
+<td>Quarterly</td>
+<td>Safety Officer</td>
+<td>Formal report</td>
+</tr>
+<tr>
+<td>Annual Assessment</td>
+<td>Annual</td>
+<td>External consultant</td>
+<td>Comprehensive report</td>
+</tr>
+<tr>
+<td>Regulatory Inspection</td>
+<td>As scheduled</td>
+<td>CAP/Joint Commission</td>
+<td>Official findings</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<h3>Daily Safety Checklist</h3>
+<ul>
+<li>☐ Eyewash stations flushed</li>
+<li>☐ Safety shower accessible</li>
+<li>☐ Fire extinguishers checked</li>
+<li>☐ Exit routes clear</li>
+<li>☐ Spill kits stocked</li>
+<li>☐ PPE supplies adequate</li>
+<li>☐ No expired chemicals</li>
+<li>☐ Sharps containers <3/4 full</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 19: COMPETENCY -->
+<div class="section" id="competency">
+<h2>19. SAFETY COMPETENCY ASSESSMENT</h2>
+
+<div class="key-concept">
+<h4>Kaiser Permanente Safety Competency Requirements</h4>
+<p>Per Documents 14952_0 and 13792_0:</p>
+<table>
+<thead>
+<tr>
+<th>Competency Element</th>
+<th>Initial Assessment</th>
+<th>Annual Review</th>
+<th>Evaluation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PPE Use</td>
+<td>Direct observation</td>
+<td>Skills checklist</td>
+<td>Return demonstration</td>
+</tr>
+<tr>
+<td>Spill Response</td>
+<td>Simulation</td>
+<td>Drill participation</td>
+<td>Practical exercise</td>
+</tr>
+<tr>
+<td>Emergency Procedures</td>
+<td>Written test</td>
+<td>Scenario-based</td>
+<td>80% pass required</td>
+</tr>
+<tr>
+<td>Chemical Safety</td>
+<td>SDS review</td>
+<td>Quiz</td>
+<td>Department specific</td>
+</tr>
+<tr>
+<td>Waste Disposal</td>
+<td>Observation</td>
+<td>Audit</td>
+<td>Direct verification</td>
+</tr>
+<tr>
+<td>Exposure Prevention</td>
+<td>Case studies</td>
+<td>Update training</td>
+<td>Online module</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 20: DOCUMENTATION -->
+<div class="section" id="documentation">
+<h2>20. SAFETY DOCUMENTATION</h2>
+
+<table>
+<thead>
+<tr>
+<th>Document Type</th>
+<th>Location</th>
+<th>Retention Period</th>
+<th>Responsible Party</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training Records</td>
+<td>Employee files</td>
+<td>Employment + 30 years</td>
+<td>Human Resources</td>
+</tr>
+<tr>
+<td>Incident Reports</td>
+<td>Safety Office</td>
+<td>5 years minimum</td>
+<td>Safety Officer</td>
+</tr>
+<tr>
+<td>Inspection Records</td>
+<td>Department files</td>
+<td>3 years</td>
+<td>Department Manager</td>
+</tr>
+<tr>
+<td>SDS Sheets</td>
+<td>Online + binder</td>
+<td>30 years after discontinued</td>
+<td>Safety Officer</td>
+</tr>
+<tr>
+<td>Medical Surveillance</td>
+<td>Employee Health</td>
+<td>Employment + 30 years</td>
+<td>Occupational Health</td>
+</tr>
+<tr>
+<td>Waste Manifests</td>
+<td>Safety Office</td>
+<td>3 years</td>
+<td>Waste Coordinator</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 21: QUALITY ASSURANCE -->
+<div class="section" id="quality">
+<h2>21. SAFETY QUALITY ASSURANCE</h2>
+
+<div class="procedure-section">
+<h3>Safety Performance Metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Current</th>
+<th>Action if Below Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Days without injury</td>
+<td>365</td>
+<td>Track daily</td>
+<td>Root cause analysis</td>
+</tr>
+<tr>
+<td>Training compliance</td>
+<td>100%</td>
+<td>Monthly review</td>
+<td>Immediate scheduling</td>
+</tr>
+<tr>
+<td>PPE compliance</td>
+<td>100%</td>
+<td>Audit weekly</td>
+<td>Re-education</td>
+</tr>
+<tr>
+<td>Inspection findings</td>
+<td><5 per month</td>
+<td>Track monthly</td>
+<td>Action plan required</td>
+</tr>
+<tr>
+<td>Near-miss reporting</td>
+<td>>10 per quarter</td>
+<td>Encourage reporting</td>
+<td>Safety culture review</td>
+</tr>
+<tr>
+<td>Drill participation</td>
+<td>100%</td>
+<td>Track by shift</td>
+<td>Make-up sessions</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 22: RESOURCES -->
+<div class="section" id="resources">
+<h2>22. SAFETY RESOURCES</h2>
+
+<div class="info-box">
+<h3>Emergency Contacts</h3>
+<ul>
+<li><strong>Emergency:</strong> 911 or x3333</li>
+<li><strong>Security:</strong> x2222</li>
+<li><strong>Safety Officer:</strong> x1234</li>
+<li><strong>Employee Health:</strong> x4567</li>
+<li><strong>Poison Control:</strong> 1-800-222-1222</li>
+<li><strong>Chemical Spill:</strong> x2222</li>
+<li><strong>Facilities:</strong> x3333</li>
+<li><strong>Administration:</strong> x1111</li>
+</ul>
+</div>
+
+<div class="key-concept">
+<h3>Safety Equipment Locations</h3>
+<ul>
+<li><strong>Fire Extinguishers:</strong> Every 75 feet in corridors</li>
+<li><strong>Eyewash Stations:</strong> Each laboratory section</li>
+<li><strong>Safety Shower:</strong> Chemistry and Micro labs</li>
+<li><strong>First Aid Kits:</strong> Break room and each department</li>
+<li><strong>AED:</strong> Main corridor near elevator</li>
+<li><strong>Spill Kits:</strong> Each department</li>
+<li><strong>Emergency PPE:</strong> Red cabinet at entrance</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Online Resources</h3>
+<ul>
+<li><strong>SDS Database:</strong> http://kp-sds.org</li>
+<li><strong>Training Modules:</strong> KP Learning Portal</li>
+<li><strong>Incident Reporting:</strong> KP Safety Portal</li>
+<li><strong>Safety Policies:</strong> Laboratory SharePoint</li>
+<li><strong>OSHA Guidelines:</strong> www.osha.gov</li>
+<li><strong>CDC Resources:</strong> www.cdc.gov/niosh</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 23: REFERENCES -->
+<div class="section" id="references">
+<h2>23. REFERENCES</h2>
+<ol>
+<li>Occupational Safety and Health Administration. Bloodborne Pathogens Standard. 29 CFR 1910.1030. Washington, DC: OSHA; 2024.</li>
+<li>Occupational Safety and Health Administration. Hazard Communication Standard. 29 CFR 1910.1200. Washington, DC: OSHA; 2024.</li>
+<li>Centers for Disease Control and Prevention. Biosafety in Microbiological and Biomedical Laboratories (BMBL), 6th Edition. Atlanta, GA: CDC; 2024.</li>
+<li>Clinical and Laboratory Standards Institute (CLSI). Clinical Laboratory Safety; Approved Guideline—Third Edition. CLSI document GP17-A3. Wayne, PA: CLSI; 2024.</li>
+<li>College of American Pathologists. Laboratory General Checklist - Safety Requirements. Northfield, IL: CAP; 2024.</li>
+<li>The Joint Commission. Environment of Care Standards for Laboratories. Oak Brook, IL: Joint Commission Resources; 2024.</li>
+<li>Kaiser Permanente. Laboratory Safety Manual. Document 16000_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Kaiser Permanente. Competency Assessment Requirements. Document 14952_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Kaiser Permanente. Technical Competency Standards. Document 13792_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>National Fire Protection Association. NFPA 45: Standard on Fire Protection for Laboratories Using Chemicals. Quincy, MA: NFPA; 2024.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control</h4>
+<p><strong>Review Frequency:</strong> Annual or after significant incident</p>
+<p><strong>Next Review Date:</strong> January 2026</p>
+<p><strong>Document Owner:</strong> Laboratory Safety Officer</p>
+<p><strong>Approved By:</strong> Laboratory Director</p>
+<p><strong>Distribution:</strong> All laboratory staff, safety committee, administration</p>
+</div>
+</div>
+
+<!-- APPENDICES -->
+<div class="section">
+<h2>APPENDICES</h2>
+
+<div class="emergency-box">
+<h3>Appendix A: Emergency Quick Reference</h3>
+<p><strong>EXPOSURE PROTOCOL:</strong></p>
+<ol>
+<li>Wash/flush immediately</li>
+<li>Report to supervisor</li>
+<li>Go to Employee Health/ED</li>
+<li>Complete incident report</li>
+</ol>
+<p><strong>SPILL PROTOCOL:</strong></p>
+<ol>
+<li>Alert others</li>
+<li>Don PPE</li>
+<li>Contain/clean</li>
+<li>Dispose properly</li>
+<li>Document</li>
+</ol>
+</div>
+
+<div class="warning-box">
+<h3>Appendix B: Safety Rules - Never Compromise</h3>
+<ul>
+<li>✓ Always wear required PPE</li>
+<li>✓ Never eat, drink, or apply cosmetics in lab</li>
+<li>✓ Always wash hands when leaving lab</li>
+<li>✓ Never pipette by mouth</li>
+<li>✓ Always report all injuries immediately</li>
+<li>✓ Never bypass safety devices</li>
+<li>✓ Always know location of safety equipment</li>
+<li>✓ Never work alone with high-risk procedures</li>
+</ul>
+</div>
+
+<div class="biohazard-box">
+<h3>Appendix C: Biohazard Spill Kit Contents</h3>
+<ul>
+<li>10% bleach solution (fresh monthly)</li>
+<li>Absorbent paper towels</li>
+<li>Biohazard bags</li>
+<li>Disposable gloves (various sizes)</li>
+<li>Face shields</li>
+<li>Disposable gowns</li>
+<li>Forceps for broken glass</li>
+<li>Warning signs</li>
+<li>Instruction card</li>
+</ul>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>Safety First - Quality Always - Patient Focused</p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>

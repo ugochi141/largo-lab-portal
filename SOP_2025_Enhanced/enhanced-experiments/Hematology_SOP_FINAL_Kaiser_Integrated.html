@@ -1,0 +1,2682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Lab - Hematology Standard Operating Procedure</title>
+    <style>
+        /* Optimized Kaiser Permanente Laboratory SOP Template */
+        *{margin:0;padding:0;box-sizing:border-box}
+        @page{size:8.5in 11in;margin:0.75in}
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+        body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+        .container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+        /* Header Styling */
+        .header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+        .header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+        .header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+        /* Table of Contents - Two Column Layout */
+        .toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+        .toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+        .toc-columns{display:flex;gap:30px}
+        .toc-column{flex:1}
+        .toc ul{list-style:none;padding:0}
+        .toc li{margin:6px 0;padding-left:15px}
+        .toc a{color:#0066cc;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+
+        /* Section Styling */
+        .section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+        .section:last-child{border-bottom:none}
+
+        /* Headings - Compact Styling */
+        h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+        h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+        h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        h5{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+        /* Text Elements */
+        p{margin:8px 0;text-align:left}
+        ul,ol{margin:8px 0 8px 25px;padding:0}
+        li{margin:4px 0;line-height:1.5}
+
+        /* Special Sections */
+        .key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+        .key-concept h4{color:#1565c0;margin-top:0}
+
+        .procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+        .warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .warning strong{color:#856404}
+        .info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+        .troubleshooting-section h3,.critical-box h3{color:#cc0000;font-weight:bold;margin-top:0}
+        .critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+        .critical-values h3{color:#721c24;margin-top:0}
+
+        /* Table Styling */
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+        table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+        table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+        table th:last-child{border-right:none}
+        table tbody tr{border-bottom:1px solid #e0e0e0}
+        table td{padding:8px;border-right:1px solid #e0e0e0}
+        table td:last-child{border-right:none}
+        table tbody tr:nth-child(even){background:#f8f9fa}
+        table tbody tr:last-child{border-bottom:none}
+
+        /* Specialized Table Headers */
+        .critical-values table thead{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%)}
+        .procedure-section table thead{background:linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%)}
+        .warning table thead{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%)}
+        .info-box table thead{background:linear-gradient(135deg,#d1ecf1 0%,#bee5eb 100%)}
+
+        /* Images */
+        img{max-width:100%!important;height:auto!important;display:block;margin:15px auto;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.1);page-break-inside:avoid}
+        .image-container{text-align:center;margin:15px 0;page-break-inside:avoid}
+        .image-caption{font-size:9pt;font-style:italic;color:#666;margin-top:6px;text-align:center}
+
+        /* QC Failure Section Styling */
+        .qc-failure-section{background:linear-gradient(135deg,#f8fbff 0%,#f0f7ff 100%);padding:25px;border-radius:10px;margin:25px 0;border-left:5px solid #2196F3;box-shadow:0 2px 8px rgba(33,150,243,0.1)}
+        .qc-failure-section h3{color:#1565C0;font-size:16pt;border-bottom:3px solid #2196F3;padding-bottom:10px;margin-bottom:20px}
+
+        /* Print Optimizations */
+        @media print{
+            @page{size:8.5in 11in;margin:0.75in}
+            *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+            .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+            h1,h2,h3,h4{page-break-after:avoid}
+            .toc{page-break-after:always}
+            .toc-columns{display:block}
+            .toc-column{display:block;margin-bottom:15px}
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <h2>Hematology Standard Operating Procedure</h2>
+        </div>
+
+        <!-- Table of Contents - Two Columns -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column">
+                    <ul>
+                        <li>1. <a href="#purpose">PURPOSE</a></li>
+                        <li>2. <a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                        <li>3. <a href="#scope">SCOPE</a></li>
+                        <li>4. <a href="#test-principles">TEST PRINCIPLES AND METHODOLOGIES</a></li>
+                        <li>5. <a href="#responsibilities">RESPONSIBILITIES</a></li>
+                        <li>6. <a href="#safety">SAFETY REQUIREMENTS</a></li>
+                        <li>7. <a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                        <li>8. <a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                        <li>9. <a href="#equipment">EQUIPMENT</a></li>
+                        <li>10. <a href="#maintenance">MAINTENANCE</a></li>
+                        <li>11. <a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                        <li>12. <a href="#calibration">CALIBRATION</a></li>
+                        <li>13. <a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul>
+                        <li>14. <a href="#procedure">TEST PROCEDURE</a></li>
+                        <li>15. <a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                        <li>16. <a href="#reference">REFERENCE RANGES</a></li>
+                        <li>17. <a href="#critical">CRITICAL VALUES</a></li>
+                        <li>18. <a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                        <li>19. <a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                        <li>20. <a href="#task-reference">TASK REFERENCE GUIDE</a></li>
+                        <li>21. <a href="#technical-support">TECHNICAL SUPPORT</a></li>
+                        <li>22. <a href="#quality-assurance">QUALITY ASSURANCE</a></li>
+                        <li>23. <a href="#regulatory">REGULATORY COMPLIANCE</a></li>
+                        <li>24. <a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                        <li>25. <a href="#references">REFERENCES</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: PURPOSE -->
+        <div class="section" id="purpose">
+            <h2>1. PURPOSE</h2>
+            <p>This document describes the standard operating procedures for performing hematology testing at Kaiser Permanente Largo Laboratory using the Sysmex XN-3000 and XN-9000 hematology analyzers. This SOP ensures accurate, reliable, and timely hematology test results for patient care through standardized methodologies for all hematological testing including complete blood count (CBC), differential analysis, reticulocyte counting, body fluid analysis, morphology review, and specialized hematological studies.</p>
+
+            <div class="key-concept">
+                <h4>Core Objectives:</h4>
+                <ul>
+                    <li>Ensure accurate and precise hematology test results</li>
+                    <li>Maintain regulatory compliance with CLIA, CAP, and Joint Commission</li>
+                    <li>Standardize testing procedures across all shifts and personnel</li>
+                    <li>Support critical medical decision-making with reliable results</li>
+                    <li>Minimize turnaround times for urgent patient care</li>
+                    <li>Provide comprehensive hematological monitoring and morphology review</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 2: CLINICAL SIGNIFICANCE -->
+        <div class="section" id="clinical-significance">
+            <h2>2. CLINICAL SIGNIFICANCE</h2>
+
+            <p>Hematology testing provides essential diagnostic information for patient care, disease monitoring, and treatment decisions. Results must be interpreted in conjunction with clinical presentation and other laboratory findings.</p>
+
+            <h3>Major Hematology Tests and Their Clinical Applications</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test/Panel</th>
+                        <th>Clinical Significance</th>
+                        <th>Common Indications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Complete Blood Count (CBC)</strong></td>
+                        <td>Evaluates overall health and detects blood disorders</td>
+                        <td>Routine screening<br>Infection evaluation<br>Anemia workup<br>Bleeding disorders</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CBC with Differential</strong></td>
+                        <td>Identifies specific white blood cell types and abnormalities</td>
+                        <td>Infection evaluation<br>Leukemia screening<br>Immune system disorders<br>Medication monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reticulocyte Count</strong></td>
+                        <td>Assesses bone marrow production of red blood cells</td>
+                        <td>Anemia evaluation<br>Hemolysis assessment<br>Bone marrow function<br>Treatment monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Platelet Count</strong></td>
+                        <td>Evaluates bleeding and clotting function</td>
+                        <td>Bleeding disorders<br>Pre-operative screening<br>Thrombocytopenia<br>Medication monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body Fluid Analysis</strong></td>
+                        <td>Detects infection, inflammation, or malignancy in body fluids</td>
+                        <td>Meningitis evaluation<br>Peritonitis<br>Joint infections<br>Malignant effusions</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Individual Parameter Clinical Significance</h3>
+
+            <div class="info-box">
+                <h4>Hemoglobin & Hematocrit</h4>
+                <p><strong>Clinical Significance:</strong> Primary indicators of oxygen-carrying capacity and anemia.</p>
+                <ul>
+                    <li><strong>Decreased:</strong> Iron deficiency, chronic disease, blood loss, hemolysis</li>
+                    <li><strong>Increased:</strong> Dehydration, polycythemia, chronic hypoxia</li>
+                    <li><strong>Critical Values:</strong> Hgb &lt;6.0 g/dL or &gt;20.0 g/dL</li>
+                    <li><strong>Monitoring:</strong> Response to treatment, blood loss, chronic conditions</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>White Blood Cell Count & Differential</h4>
+                <p><strong>Clinical Significance:</strong> Primary indicator of immune system function and infection.</p>
+                <ul>
+                    <li><strong>Increased WBC:</strong> Bacterial infection, leukemia, inflammation, stress</li>
+                    <li><strong>Decreased WBC:</strong> Viral infection, chemotherapy, aplastic anemia</li>
+                    <li><strong>Left Shift:</strong> Increased immature neutrophils indicating bacterial infection</li>
+                    <li><strong>Critical Value:</strong> WBC &lt;1.0 or &gt;50.0 × 10³/μL</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Platelet Count</h4>
+                <p><strong>Clinical Significance:</strong> Essential for primary hemostasis and bleeding assessment.</p>
+                <ul>
+                    <li><strong>Thrombocytopenia:</strong> &lt;150 × 10³/μL - increased bleeding risk</li>
+                    <li><strong>Thrombocytosis:</strong> &gt;450 × 10³/μL - possible thrombotic risk</li>
+                    <li><strong>Critical Value:</strong> &lt;20 × 10³/μL or &gt;1000 × 10³/μL</li>
+                    <li><strong>Monitoring:</strong> Chemotherapy, anticoagulation, surgical bleeding</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: SCOPE -->
+        <div class="section" id="scope">
+            <h2>3. SCOPE</h2>
+            <p>This procedure applies to all personnel performing hematology testing on Sysmex XN-series analyzers:</p>
+            <ul>
+                <li>Medical Laboratory Scientists (MLS) - MLS licensed ASCP or AMT</li>
+                <li>Medical Laboratory Technicians (MLT) - MLT certified ASCP or AMT</li>
+                <li>Hematology Specialists certified for morphology review</li>
+                <li>Pathology Residents and Fellows under supervision</li>
+                <li>Lead Technologists with XN certification</li>
+                <li>Laboratory Manager</li>
+                <li>Laboratory Assistants (specimen processing and pre-analytics only)</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>Primary Testing Location:</strong> Main Laboratory Hematology Section - XN-9000<br/>
+                <strong>Backup Location:</strong> MOB Laboratory XN-3000 - 301-555-2000<br/>
+                <strong>Operating Hours:</strong> 24/7 with full STAT capability<br/>
+                <strong>Pathologist On-Call:</strong> Pager 3456 for morphology consults<br/>
+                <strong>Technical Support:</strong> Sysmex 1-800-379-7639 (24/7)
+            </div>
+        </div>
+
+        <!-- Section 5: RESPONSIBILITIES -->
+        <div class="section" id="responsibilities">
+            <h2>5. RESPONSIBILITIES</h2>
+
+            <p>All personnel involved in hematology testing must understand their specific roles and limitations within the scope of their training and competency.</p>
+
+            <h3>Laboratory Director/Medical Director</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Responsibility</th>
+                        <th>Frequency</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Overall laboratory operation and quality oversight</td>
+                        <td>Ongoing</td>
+                        <td>Annual quality reports</td>
+                    </tr>
+                    <tr>
+                        <td>Review and approval of critical results and policies</td>
+                        <td>As needed</td>
+                        <td>Policy signatures</td>
+                    </tr>
+                    <tr>
+                        <td>Competency program oversight</td>
+                        <td>Annual</td>
+                        <td>Competency records</td>
+                    </tr>
+                    <tr>
+                        <td>Correlation of abnormal results with clinical findings</td>
+                        <td>As requested</td>
+                        <td>Consultation notes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Lead Technologists</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Responsibility</th>
+                        <th>Scope</th>
+                        <th>Requirements</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Daily operational oversight</td>
+                        <td>All testing procedures</td>
+                        <td>MLS license ASCP/AMT, 4+ years experience</td>
+                    </tr>
+                    <tr>
+                        <td>Staff competency assessment and training</td>
+                        <td>All personnel</td>
+                        <td>Documentation of training</td>
+                    </tr>
+                    <tr>
+                        <td>Quality control review and troubleshooting</td>
+                        <td>All QC failures</td>
+                        <td>QC investigation records</td>
+                    </tr>
+                    <tr>
+                        <td>Method validation and verification</td>
+                        <td>New tests/equipment</td>
+                        <td>Validation protocols</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency testing oversight</td>
+                        <td>All PT programs</td>
+                        <td>PT records and investigations</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Laboratory Manager</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Responsibility</th>
+                        <th>Authority Level</th>
+                        <th>Limitations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Day-to-day supervision of testing</td>
+                        <td>Routine operations</td>
+                        <td>Cannot override technical decisions</td>
+                    </tr>
+                    <tr>
+                        <td>Preliminary review of test results</td>
+                        <td>Normal range results</td>
+                        <td>Critical values require pathologist review</td>
+                    </tr>
+                    <tr>
+                        <td>Basic troubleshooting and maintenance</td>
+                        <td>Routine procedures</td>
+                        <td>Complex issues require Lead Technologist</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Testing Personnel (MLS/MLT)</h3>
+            <div class="procedure-section">
+                <h4>Medical Laboratory Scientists (MLS Licensed)</h4>
+                <ul>
+                    <li><strong>Authorized Activities:</strong>
+                        <ul>
+                            <li>Perform all levels of hematology testing</li>
+                            <li>Review and release routine results</li>
+                            <li>Perform morphology review and interpretation</li>
+                            <li>Troubleshoot complex technical problems</li>
+                            <li>Train and supervise MLT staff</li>
+                            <li>Participate in method validation studies</li>
+                        </ul>
+                    </li>
+                    <li><strong>Required Qualifications:</strong>
+                        <ul>
+                            <li>MLS license ASCP or AMT (current)</li>
+                            <li>Completion of initial competency assessment</li>
+                            <li>Annual competency maintenance</li>
+                            <li>Sysmex XN-specific training certification</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Medical Laboratory Technicians (MLT Certified)</h4>
+                <ul>
+                    <li><strong>Authorized Activities:</strong>
+                        <ul>
+                            <li>Perform routine CBC and differential testing</li>
+                            <li>Review normal range results</li>
+                            <li>Perform basic morphology screening</li>
+                            <li>Execute daily maintenance procedures</li>
+                            <li>Prepare specimens for testing</li>
+                        </ul>
+                    </li>
+                    <li><strong>Required Qualifications:</strong>
+                        <ul>
+                            <li>MLT certification ASCP or AMT (current)</li>
+                            <li>Completion of initial competency assessment</li>
+                            <li>Annual competency maintenance</li>
+                            <li>Sysmex XN-specific training certification</li>
+                        </ul>
+                    </li>
+                    <li><strong>Scope Limitations:</strong>
+                        <ul>
+                            <li>Cannot interpret complex morphology</li>
+                            <li>Cannot make technical method modifications</li>
+                            <li>Cannot release critical values without MLS review</li>
+                            <li>Cannot perform method validation</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Laboratory Assistants/Support Staff</h4>
+                <ul>
+                    <li><strong>Authorized Activities:</strong>
+                        <ul>
+                            <li>Specimen receiving and processing</li>
+                            <li>Basic clerical functions</li>
+                            <li>Equipment cleaning and maintenance</li>
+                            <li>Supply management</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prohibited Activities:</strong>
+                        <ul>
+                            <li>Cannot perform patient testing</li>
+                            <li>Cannot review or release results</li>
+                            <li>Cannot make decisions about specimen acceptability</li>
+                            <li>Cannot communicate results to healthcare providers</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Critical Responsibility Requirements</h4>
+                <ul>
+                    <li><strong>Scope Adherence:</strong> All personnel must work within their defined scope of practice</li>
+                    <li><strong>Competency Maintenance:</strong> Annual competency assessment required for all testing personnel</li>
+                    <li><strong>Quality Commitment:</strong> All staff responsible for maintaining quality standards</li>
+                    <li><strong>Safety Compliance:</strong> Universal precautions and safety protocols mandatory for all</li>
+                    <li><strong>Continuous Education:</strong> Staying current with laboratory practices and regulations</li>
+                </ul>
+            </div>
+
+        <!-- Section 5: SAFETY REQUIREMENTS -->
+<table>
+<thead>
+<tr>
+<th>Regulatory Body</th>
+<th>Standard</th>
+<th>Requirement</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIA '88</td>
+<td>42 CFR 493.1253</td>
+<td>Moderate/High Complexity qualified personnel</td>
+<td>Competency records</td>
+</tr>
+<tr>
+<td>CAP</td>
+<td>HEM.20000-37999</td>
+<td>Daily QC, calibration verification q6mo</td>
+<td>QC logs, PT results</td>
+</tr>
+<tr>
+<td>Joint Commission</td>
+<td>Laboratory Standards</td>
+<td>Quality metrics, TAT monitoring</td>
+<td>TAT reports, accuracy data</td>
+</tr>
+<tr>
+<td>Kaiser Permanente</td>
+<td>Documents 14952_0, 13792_0</td>
+<td>Annual competency program</td>
+<td>XN certification records</td>
+</tr>
+<tr>
+<td>Maryland State</td>
+<td>COMAR 10.10.14</td>
+<td>Licensed personnel requirements</td>
+<td>License verification</td>
+</tr>
+<tr>
+<td>OSHA</td>
+<td>29 CFR 1910.1030</td>
+<td>Bloodborne Pathogens Standard</td>
+<td>Training documentation</td>
+</tr>
+</tbody>
+</table>
+
+<!-- SECTION 4: TEST PRINCIPLES -->
+<div class="section" id="test-principles">
+<h2>4. TEST PRINCIPLES AND METHODOLOGIES</h2>
+
+<div class="procedure-section">
+<h3>Sysmex XN Technology Overview</h3>
+<h4>Core Technologies</h4>
+<ul>
+<li><strong>Hydrodynamic Focusing (DC Detection):</strong> Precise cell counting for RBC and PLT using electrical impedance</li>
+<li><strong>Flow Cytometry with Semiconductor Laser:</strong> 633nm laser for WBC differential and cell characterization</li>
+<li><strong>SLS-Hemoglobin Method:</strong> Sodium Lauryl Sulfate cyanide-free hemoglobin measurement at 555nm</li>
+<li><strong>Fluorescence Flow Cytometry:</strong> Side scatter, forward scatter, and fluorescence intensity for cell differentiation</li>
+</ul>
+
+<h4>Analysis Channels</h4>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Parameters</th>
+<th>Method</th>
+<th>Reagents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WNR</td>
+<td>WBC, BASO</td>
+<td>DC detection + lysing</td>
+<td>CELLPACK DCL, SULFOLYSER</td>
+</tr>
+<tr>
+<td>WDF</td>
+<td>WBC Diff (5-part)</td>
+<td>Fluorescence flow cytometry</td>
+<td>CELLPACK DST, Lysercell WDF, Fluorocell WDF</td>
+</tr>
+<tr>
+<td>WPC</td>
+<td>Abnormal cells, blasts</td>
+<td>Fluorescence flow cytometry</td>
+<td>CELLPACK DST, Lysercell WPC, Fluorocell WPC</td>
+</tr>
+<tr>
+<td>RET</td>
+<td>Reticulocytes, IRF</td>
+<td>Fluorescence flow cytometry</td>
+<td>CELLPACK DFL, CELLSHEATH, Fluorocell RET</td>
+</tr>
+<tr>
+<td>PLT-F</td>
+<td>Platelet optical, IPF</td>
+<td>Fluorescence flow cytometry</td>
+<td>CELLPACK DFL, Fluorocell PLT</td>
+</tr>
+</tbody>
+</table>
+
+<h4>Directly Measured Parameters</h4>
+<ul>
+<li>WBC, RBC, HGB, HCT, RDW-SD, PLT-I, PLT-F</li>
+<li>NEUT%, LYMP%, MONO%, EOS%, BASO%, IG%</li>
+<li>NRBC#, RET%, IRF, IPF%</li>
+</ul>
+
+<h4>Calculated Parameters</h4>
+<ul>
+<li>MCV = HCT × 10 / RBC</li>
+<li>MCH = HGB × 10 / RBC</li>
+<li>MCHC = HGB × 100 / HCT</li>
+<li>RDW-CV = RDW-SD / MCV × 100</li>
+<li>Absolute counts = WBC × differential %</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 5: CLINICAL SIGNIFICANCE -->
+<div class="section" id="clinical">
+<h2>6. SAFETY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Clinical Significance</th>
+<th>Common Abnormalities</th>
+<th>Follow-up Testing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hemoglobin/Hematocrit</td>
+<td>Oxygen carrying capacity</td>
+<td>Anemia, polycythemia</td>
+<td>Iron studies, B12/folate</td>
+</tr>
+<tr>
+<td>WBC Count</td>
+<td>Immune response, infection</td>
+<td>Leukocytosis, leukopenia</td>
+<td>Manual diff, cultures</td>
+</tr>
+<tr>
+<td>Platelet Count</td>
+<td>Primary hemostasis</td>
+<td>Thrombocytopenia, thrombocytosis</td>
+<td>Platelet aggregation, coag studies</td>
+</tr>
+<tr>
+<td>MCV</td>
+<td>RBC size classification</td>
+<td>Microcytic, macrocytic anemia</td>
+<td>Peripheral smear review</td>
+</tr>
+<tr>
+<td>Neutrophils</td>
+<td>Bacterial infection response</td>
+<td>Left shift, toxic changes</td>
+<td>Blood cultures, CRP</td>
+</tr>
+<tr>
+<td>Lymphocytes</td>
+<td>Viral immunity, lymphoproliferative</td>
+<td>Reactive, atypical forms</td>
+<td>Flow cytometry, viral studies</td>
+</tr>
+<tr>
+<td>Eosinophils</td>
+<td>Allergy, parasites</td>
+<td>Eosinophilia</td>
+<td>Parasite exam, IgE</td>
+</tr>
+<tr>
+<td>Reticulocytes</td>
+<td>Bone marrow response</td>
+<td>Hemolysis, recovery</td>
+<td>Haptoglobin, bilirubin</td>
+</tr>
+<tr>
+<td>NRBC</td>
+<td>Marrow stress/infiltration</td>
+<td>Leukoerythroblastic</td>
+<td>Bone marrow biopsy</td>
+</tr>
+<tr>
+<td>Immature Granulocytes</td>
+<td>Marrow response</td>
+<td>Infection, recovery</td>
+<td>Repeat CBC, cultures</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+<div class="section" id="specimen">
+<h2>7. SPECIMEN REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>Critical Specimen Requirements per Kaiser Permanente Sysmex XN Protocol</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Specimen Type</th>
+<th>Optimal Volume</th>
+<th>Minimum Volume</th>
+<th>Stability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CBC/Diff</td>
+<td>EDTA-2K or EDTA-3K</td>
+<td>12x75mm tube filled</td>
+<td>1.0 mL sampler, 300μL manual</td>
+<td>24hr RT, 48hr refrigerated</td>
+</tr>
+<tr>
+<td>Blood Smear</td>
+<td>EDTA or fresh blood</td>
+<td>1 drop</td>
+<td>1 drop</td>
+<td>Make within 2 hours</td>
+</tr>
+<tr>
+<td>Reticulocyte</td>
+<td>EDTA-2K or EDTA-3K</td>
+<td>2.0 mL</td>
+<td>1.0 mL</td>
+<td>72 hours refrigerated</td>
+</tr>
+<tr>
+<td>Sedimentation Rate</td>
+<td>EDTA (Westergren)</td>
+<td>2.0 mL</td>
+<td>1.5 mL</td>
+<td>4 hours room temp</td>
+</tr>
+<tr>
+<td>Body Fluids-Serous</td>
+<td>EDTA + sterile container</td>
+<td>2.0 mL</td>
+<td>1.0 mL</td>
+<td>Process immediately</td>
+</tr>
+<tr>
+<td>CSF Cell Count</td>
+<td>Sterile container (no anticoag)</td>
+<td>1.0 mL</td>
+<td>0.5 mL</td>
+<td>Process within 1 hour</td>
+</tr>
+<tr>
+<td>Synovial Fluid</td>
+<td>EDTA-2K</td>
+<td>2.0 mL</td>
+<td>1.0 mL</td>
+<td>Process within 4 hours</td>
+</tr>
+<tr>
+<td>Microtainer (Peds)</td>
+<td>EDTA microtainer</td>
+<td>500 μL</td>
+<td>160 μL</td>
+<td>24hr RT, 48hr refrigerated</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="warning-box">
+<h3>Unacceptable Specimens per Kaiser Protocol</h3>
+<ul>
+<li><strong>Clotted specimens:</strong> Check all EDTA tubes with applicator sticks before analysis</li>
+<li><strong>Wrong anticoagulant:</strong> Heparin causes WBC clumping, citrate dilutes counts by 10%</li>
+<li><strong>Hemolyzed specimen:</strong> Falsely decreases RBC count and hematocrit</li>
+<li><strong>Specimen >24 hours at RT:</strong> WBC degradation, platelet swelling</li>
+<li><strong>Insufficient volume:</strong> Excess anticoagulant causes cell shrinkage</li>
+<li><strong>Unlabeled specimens:</strong> Two patient identifiers required</li>
+<li><strong>IV contamination:</strong> Dilutional effect on all parameters</li>
+<li><strong>Lipemic samples:</strong> Turbidity interferes with HGB measurement</li>
+<li><strong>Cold agglutinins:</strong> Warm to 37°C before analysis</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h3>Special Collection Considerations</h3>
+<ul>
+<li><strong>EDTA-dependent platelet clumping:</strong> Collect sodium citrate tube, multiply PLT by 1.1</li>
+<li><strong>Refrigerated samples:</strong> Allow to reach room temperature (15-25°C) before analysis</li>
+<li><strong>Mixing requirement:</strong> 8-10 gentle inversions, DO NOT use mechanical rocker</li>
+<li><strong>Pediatric draws:</strong> Minimum 160μL for microtube analysis mode</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 7: EQUIPMENT -->
+<div class="section" id="equipment">
+<h2>8. EQUIPMENT</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Model/Configuration</th>
+<th>Function</th>
+<th>Maintenance Schedule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary Analyzer</td>
+<td>Sysmex XN-9000 (2 XN modules + SP-50)</td>
+<td>CBC, diff, retic, IPU</td>
+<td>Daily shutdown, weekly, monthly PM</td>
+</tr>
+<tr>
+<td>Backup Analyzer</td>
+<td>Sysmex XN-3000 (XN-1000 + SP-10)</td>
+<td>CBC, diff, backup testing</td>
+<td>Same as primary</td>
+</tr>
+<tr>
+<td>Information Processing Unit</td>
+<td>IPU with Extended IPU software</td>
+<td>Sample management, rules engine</td>
+<td>Daily backup, monthly updates</td>
+</tr>
+<tr>
+<td>Slide Maker/Stainer</td>
+<td>SP-50 (primary), SP-10 (backup)</td>
+<td>Automated smear preparation</td>
+<td>Daily cleaning, weekly maintenance</td>
+</tr>
+<tr>
+<td>Manual Stainer</td>
+<td>Hematek 3000</td>
+<td>Wright-Giemsa staining</td>
+<td>Daily buffer check, weekly cleaning</td>
+</tr>
+<tr>
+<td>Digital Microscopy</td>
+<td>CellaVision DM96</td>
+<td>Digital morphology review</td>
+<td>Monthly calibration</td>
+</tr>
+<tr>
+<td>Centrifuge</td>
+<td>Clay Adams Microhematocrit</td>
+<td>Manual Hct, body fluids</td>
+<td>Daily timer check, annual calibration</td>
+</tr>
+<tr>
+<td>Refrigerators</td>
+<td>2-8°C validated units</td>
+<td>Reagent/QC storage</td>
+<td>Continuous monitoring, daily log</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 8: REAGENTS -->
+<div class="section" id="reagents">
+<h2>9. REAGENTS AND SUPPLIES</h2>
+<table>
+<thead>
+<tr>
+<th>Reagent</th>
+<th>Storage</th>
+<th>Open Stability</th>
+<th>Usage/Function</th>
+<th>Volume Monitoring</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CELLPACK DCL</td>
+<td>Room temp (15-30°C)</td>
+<td>60 days</td>
+<td>RBC/PLT diluent</td>
+<td>Auto-monitor, alert at 10%</td>
+</tr>
+<tr>
+<td>CELLPACK DST</td>
+<td>Room temp</td>
+<td>60 days</td>
+<td>WDF/WPC diluent</td>
+<td>Auto-monitor, alert at 10%</td>
+</tr>
+<tr>
+<td>CELLPACK DFL</td>
+<td>Room temp</td>
+<td>60 days</td>
+<td>RET/PLT-F diluent</td>
+<td>Auto-monitor, alert at 10%</td>
+</tr>
+<tr>
+<td>SULFOLYSER (SLS)</td>
+<td>Room temp</td>
+<td>60 days (1.5L), 90 days (5L)</td>
+<td>WBC lyse, HGB measurement</td>
+<td>Auto-monitor</td>
+</tr>
+<tr>
+<td>Lysercell WDF</td>
+<td>Room temp</td>
+<td>90 days</td>
+<td>WBC differential lysing</td>
+<td>Check daily</td>
+</tr>
+<tr>
+<td>Fluorocell WDF</td>
+<td>2-30°C</td>
+<td>90 days</td>
+<td>WBC differential staining</td>
+<td>Check daily</td>
+</tr>
+<tr>
+<td>Lysercell WNR</td>
+<td>Room temp</td>
+<td>60 days</td>
+<td>WBC/BASO lysing</td>
+<td>Check daily</td>
+</tr>
+<tr>
+<td>Fluorocell RET</td>
+<td>2-30°C</td>
+<td>90 days</td>
+<td>Reticulocyte staining</td>
+<td>Check weekly</td>
+</tr>
+<tr>
+<td>Fluorocell PLT</td>
+<td>2-30°C</td>
+<td>90 days</td>
+<td>Platelet fluorescent staining</td>
+<td>Check weekly</td>
+</tr>
+<tr>
+<td>CELLCLEAN AUTO</td>
+<td>Room temp</td>
+<td>Until expiration</td>
+<td>Automated cleaning</td>
+<td>Stock monitoring</td>
+</tr>
+<tr>
+<td>XN CHECK (3 levels)</td>
+<td>2-8°C</td>
+<td>7 days once opened</td>
+<td>Daily QC</td>
+<td>Date vials when opened</td>
+</tr>
+<tr>
+<td>Wright-Giemsa Stain</td>
+<td>Room temp</td>
+<td>6 months</td>
+<td>Blood smear staining</td>
+<td>Weekly check</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h4>Reagent Management Critical Points</h4>
+<ul>
+<li>Record open dates on all reagent containers</li>
+<li>Do not use expired reagents - analyzer will flag but verify manually</li>
+<li>Allow refrigerated reagents to reach room temperature before use</li>
+<li>Prime new reagent lines per manufacturer protocol</li>
+<li>Verify lot-to-lot with QC before patient testing</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 9: QUALITY CONTROL -->
+<div class="section" id="qc">
+<h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>Kaiser Permanente XN QC Requirements</h3>
+<ul>
+<li><strong>Frequency:</strong> Three levels of XN CHECK every 8 hours and with each new shift</li>
+<li><strong>Acceptance:</strong> All parameters within ±2 SD (manufacturer's ranges)</li>
+<li><strong>Action for failure:</strong> Do not report patient results until resolved</li>
+<li><strong>Documentation:</strong> Auto-logged in IPU, export monthly for permanent record</li>
+<li><strong>Moving averages:</strong> Monitor Bull's algorithm for MCV, MCH, MCHC (±2% daily variation)</li>
+</ul>
+</div>
+
+<h3>QC Procedure</h3>
+<div class="procedure-section">
+<ol>
+<li><strong>Preparation:</strong>
+<ul>
+<li>Remove XN CHECK from refrigerator, allow 15 minutes to reach room temperature</li>
+<li>Check expiration date and open stability (7 days)</li>
+<li>Mix by gentle inversion 8-10 times (do not vortex)</li>
+</ul>
+</li>
+<li><strong>Analysis:</strong>
+<ul>
+<li>Select QC mode on analyzer</li>
+<li>Run Level 1 (Low), Level 2 (Normal), Level 3 (High) in sequence</li>
+<li>Verify all parameters pass before proceeding</li>
+</ul>
+</li>
+<li><strong>Troubleshooting QC Failures:</strong>
+<ul>
+<li>Repeat failed level once</li>
+<li>If still fails, check reagent levels and expiration</li>
+<li>Perform maintenance if indicated</li>
+<li>Run fresh QC vial if suspect deterioration</li>
+<li>Contact supervisor if unresolved</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<h3>Background Count Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Maximum Acceptable</th>
+<th>Action if Exceeded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WBC-N</td>
+<td>≤0.10 × 10³/μL</td>
+<td>Clean sample probe, rerun</td>
+</tr>
+<tr>
+<td>WBC-D</td>
+<td>≤0.10 × 10³/μL</td>
+<td>Check WDF reagents</td>
+</tr>
+<tr>
+<td>RBC</td>
+<td>≤0.02 × 10⁶/μL</td>
+<td>Clean RBC aperture</td>
+</tr>
+<tr>
+<td>HGB</td>
+<td>≤0.1 g/dL</td>
+<td>Check HGB blank, clean cuvette</td>
+</tr>
+<tr>
+<td>PLT-I</td>
+<td>≤10 × 10³/μL</td>
+<td>Clean PLT aperture</td>
+</tr>
+<tr>
+<td>PLT-F</td>
+<td>≤3 × 10³/μL</td>
+<td>Check sheath flow</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Calibration Verification</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Frequency</th>
+<th>Material</th>
+<th>Acceptance Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linearity</td>
+<td>Every 6 months</td>
+<td>XN L-CHECK (5 levels)</td>
+<td>R² ≥0.99, recovery 90-110%</td>
+</tr>
+<tr>
+<td>Carryover</td>
+<td>Monthly</td>
+<td>High patient → Low patient</td>
+<td><1.0% carryover all parameters</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>Monthly</td>
+<td>Fresh normal blood</td>
+<td>CV% within manufacturer specs</td>
+</tr>
+<tr>
+<td>Correlation</td>
+<td>New analyzer/major repair</td>
+<td>20 patient samples</td>
+<td>R ≥0.95, bias within ±7%</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 10: CALIBRATION -->
+<div class="section" id="calibration">
+<h2>11. CALIBRATION</h2>
+
+<div class="info-box">
+<h3>Sysmex XN Calibration Protocol</h3>
+<p><strong>Important:</strong> XN analyzers are factory-calibrated. User calibration is not required or recommended except by Sysmex service engineers.</p>
+</div>
+
+<h3>Calibration Verification Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Frequency</th>
+<th>Responsibility</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factory Calibration</td>
+<td>Installation/Major service</td>
+<td>Sysmex FSE</td>
+<td>Service report</td>
+</tr>
+<tr>
+<td>Calibration Verification</td>
+<td>Every 6 months</td>
+<td>Lead Tech/Supervisor</td>
+<td>CAP linearity report</td>
+</tr>
+<tr>
+<td>QC Validation</td>
+<td>New lot number</td>
+<td>Any qualified tech</td>
+<td>IPU QC module</td>
+</tr>
+<tr>
+<td>Temperature Verification</td>
+<td>Quarterly</td>
+<td>Biomedical/Lab</td>
+<td>Temperature log</td>
+</tr>
+<tr>
+<td>Barcode Reader</td>
+<td>Monthly</td>
+<td>Any qualified tech</td>
+<td>Maintenance log</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Auto-Calibration Features</h3>
+<ul>
+<li>Automatic blank measurements every startup</li>
+<li>HGB blank calibration with each mode change</li>
+<li>Gain adjustment monitoring via QC</li>
+<li>Temperature compensation algorithms</li>
+<li>Pressure and flow rate monitoring</li>
+</ul>
+</div>
+
+<!-- SECTION 11: PROCEDURES -->
+<div class="section" id="procedures">
+<h2>12. TROUBLESHOOTING</h2>
+
+<div class="procedure-section">
+<h3>11.1 System Startup Procedure</h3>
+<ol>
+<li><strong>Power On Sequence:</strong>
+<ul>
+<li>Turn on IPU and monitor first</li>
+<li>Power on XN analyzer modules</li>
+<li>Launch Extended IPU software</li>
+<li>Wait for READY status (green indicator)</li>
+</ul>
+</li>
+<li><strong>Startup Checks:</strong>
+<ul>
+<li>Verify reagent levels >10%</li>
+<li>Check waste container <80% full</li>
+<li>Confirm temperature 18-30°C</li>
+<li>Run background counts</li>
+</ul>
+</li>
+<li><strong>QC Protocol:</strong>
+<ul>
+<li>Run 3 levels of XN CHECK</li>
+<li>Verify all parameters pass</li>
+<li>Document in QC log</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>11.2 CBC with Differential - Sampler Mode</h3>
+<ol>
+<li><strong>Pre-analytical:</strong>
+<ul>
+<li>Verify specimen identification - two identifiers</li>
+<li>Check specimen quality (no clots, proper fill)</li>
+<li>Mix specimen by inversion 8-10 times</li>
+<li>Note any visible abnormalities (lipemia, icterus)</li>
+</ul>
+</li>
+<li><strong>Rack Loading:</strong>
+<ul>
+<li>Place specimens in 10-position racks</li>
+<li>Ensure tubes are properly seated</li>
+<li>Load rack in right sampler area</li>
+<li>Analysis auto-starts when rack detected</li>
+</ul>
+</li>
+<li><strong>Analysis Process:</strong>
+<ul>
+<li>Automatic barcode reading</li>
+<li>Sample aspiration: 200μL for CBC+Diff</li>
+<li>Analysis time: ~60 seconds per sample</li>
+<li>Auto-rerun based on IPU rules</li>
+</ul>
+</li>
+<li><strong>IPU Rules Engine Actions:</strong>
+<ul>
+<li>WBC <2.0 or >30.0: Auto-reflex to manual diff</li>
+<li>PLT <50 or >1000: Auto-reflex to PLT-F</li>
+<li>Blast flag: Auto-reflex to WPC channel</li>
+<li>NRBC present: Auto-correction of WBC</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>11.3 Manual Mode Analysis</h3>
+<ol>
+<li><strong>When to Use Manual Mode:</strong>
+<ul>
+<li>Single STAT specimens</li>
+<li>Micro-volume samples</li>
+<li>Body fluids</li>
+<li>Troubleshooting failed samples</li>
+</ul>
+</li>
+<li><strong>Procedure:</strong>
+<ul>
+<li>Select Manual mode on screen</li>
+<li>Choose analysis profile (Whole Blood, Low WBC, Pre-dilute)</li>
+<li>Enter or scan specimen ID</li>
+<li>Mix specimen thoroughly</li>
+<li>Open cap carefully (biohazard precaution)</li>
+<li>Present to manual sample probe</li>
+<li>Press start button when prompted</li>
+</ul>
+</li>
+<li><strong>Volume Requirements:</strong>
+<ul>
+<li>Closed tube mode: 1000μL minimum</li>
+<li>Open tube mode: 300μL</li>
+<li>Capillary mode: 160μL</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>11.4 Blood Smear Review Criteria</h3>
+<h4>Mandatory Smear Review (Kaiser Permanente Criteria)</h4>
+<ul>
+<li>WBC <2.0 or >30.0 × 10³/μL</li>
+<li>Platelet <50 or >1000 × 10³/μL</li>
+<li>Hemoglobin <7.0 or >20.0 g/dL</li>
+<li>Any instrument flag for abnormal cells</li>
+<li>Blast flag, Atypical Lymph flag, Left Shift flag</li>
+<li>NRBC >1%</li>
+<li>First-time patient with any abnormality</li>
+<li>Delta check failure (>20% change)</li>
+<li>Physician request for morphology</li>
+</ul>
+
+<h4>Manual Differential Procedure</h4>
+<ol>
+<li><strong>Smear Preparation:</strong>
+<ul>
+<li>Use SP-50 automated slide maker when available</li>
+<li>Manual wedge technique for backup</li>
+<li>Stain with Wright-Giemsa per protocol</li>
+<li>Verify staining quality before review</li>
+</ul>
+</li>
+<li><strong>Microscopic Examination:</strong>
+<ul>
+<li>10× objective: Overall cellularity, stain quality</li>
+<li>40× objective: WBC estimate, RBC morphology scan</li>
+<li>100× oil: Count 100 WBCs for differential</li>
+<li>Document all morphologic abnormalities</li>
+</ul>
+</li>
+<li><strong>Reporting Guidelines:</strong>
+<ul>
+<li>Report WBC differential as percentages</li>
+<li>Grade RBC morphology 1+ to 4+</li>
+<li>Estimate platelets: 5-10 per oil field = adequate</li>
+<li>Note any inclusions, parasites, abnormal cells</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>11.5 Body Fluid Analysis</h3>
+<ol>
+<li><strong>Specimen Processing:</strong>
+<ul>
+<li>CSF: Process immediately, no anticoagulant</li>
+<li>Serous fluids: EDTA anticoagulant required</li>
+<li>Synovial: EDTA, may need hyaluronidase treatment</li>
+</ul>
+</li>
+<li><strong>XN Body Fluid Mode:</strong>
+<ul>
+<li>Select BF mode in software</li>
+<li>Minimum volume: 300μL</li>
+<li>Reports: WBC-BF, RBC-BF, MN%, PMN%</li>
+<li>TC-BF# (nucleated cells)</li>
+</ul>
+</li>
+<li><strong>Manual Backup Method:</strong>
+<ul>
+<li>Hemocytometer counting for low counts</li>
+<li>Cytospin for differential</li>
+<li>Follow CAP guidelines for cell counting</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>11.6 Reticulocyte Analysis</h3>
+<ol>
+<li>Automatically performed with CBC when ordered</li>
+<li>RET channel uses fluorescent RNA staining</li>
+<li>Reports: RET%, RET#, IRF (Immature Reticulocyte Fraction)</li>
+<li>Reference range: 0.5-2.0% (adults)</li>
+<li>Clinical use: Anemia evaluation, chemotherapy monitoring</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 12: RESULTS AND INTERPRETATION -->
+<div class="section" id="results">
+<h2>13. TEST PROCEDURE</h2>
+
+<div class="key-concept">
+<h4>Common Abnormal CBC Patterns - Kaiser Interpretation Guide</h4>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Laboratory Findings</th>
+<th>Clinical Correlation</th>
+<th>Follow-up Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microcytic Anemia</td>
+<td>↓Hgb, ↓MCV <80, ↓MCH</td>
+<td>Iron deficiency, thalassemia, chronic disease</td>
+<td>Iron studies, hemoglobin electrophoresis</td>
+</tr>
+<tr>
+<td>Macrocytic Anemia</td>
+<td>↓Hgb, ↑MCV >100</td>
+<td>B12/folate deficiency, alcohol, hypothyroid</td>
+<td>B12, folate, TSH, smear review</td>
+</tr>
+<tr>
+<td>Left Shift</td>
+<td>↑Bands >10%, ↑WBC</td>
+<td>Bacterial infection, inflammation</td>
+<td>Manual diff, blood cultures</td>
+</tr>
+<tr>
+<td>Pancytopenia</td>
+<td>↓WBC, ↓RBC, ↓PLT</td>
+<td>Aplastic anemia, chemotherapy, marrow failure</td>
+<td>Smear review, consider bone marrow</td>
+</tr>
+<tr>
+<td>Leukoerythroblastic</td>
+<td>Immature WBCs + NRBCs</td>
+<td>Marrow infiltration, severe stress</td>
+<td>Pathologist review, bone marrow</td>
+</tr>
+<tr>
+<td>Thrombocytosis</td>
+<td>PLT >450 × 10³/μL</td>
+<td>Reactive vs. myeloproliferative</td>
+<td>Clinical correlation, JAK2 if persistent</td>
+</tr>
+<tr>
+<td>Eosinophilia</td>
+<td>Eos >4% or >0.5 × 10³/μL</td>
+<td>Allergy, parasites, drug reaction</td>
+<td>Parasite exam, medication review</td>
+</tr>
+<tr>
+<td>Atypical Lymphocytes</td>
+<td>>10% atypical lymphs</td>
+<td>Viral infection (EBV, CMV, HIV)</td>
+<td>Viral studies, flow cytometry if persistent</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<h4>RBC Morphology Grading System</h4>
+<ul>
+<li><strong>1+ (Rare/Slight):</strong> 1-5% of cells affected</li>
+<li><strong>2+ (Few/Moderate):</strong> 6-15% of cells affected</li>
+<li><strong>3+ (Moderate/Many):</strong> 16-50% of cells affected</li>
+<li><strong>4+ (Marked/Numerous):</strong> >50% of cells affected</li>
+</ul>
+</div>
+
+<h3>Instrument Flags and Actions</h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Meaning</th>
+<th>Required Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blasts/Abn Lymph</td>
+<td>Possible abnormal cells</td>
+<td>Manual review, pathologist if confirmed</td>
+</tr>
+<tr>
+<td>Left Shift</td>
+<td>Increased immature neutrophils</td>
+<td>Manual differential</td>
+</tr>
+<tr>
+<td>NRBC Present</td>
+<td>Nucleated RBCs detected</td>
+<td>Confirm on smear, report per 100 WBC</td>
+</tr>
+<tr>
+<td>Fragments</td>
+<td>RBC fragments/schistocytes</td>
+<td>Smear review for microangiopathy</td>
+</tr>
+<tr>
+<td>PLT Clumps</td>
+<td>Platelet aggregation</td>
+<td>Check smear, consider citrate tube</td>
+</tr>
+<tr>
+<td>IG Present</td>
+<td>Immature granulocytes >2%</td>
+<td>Verify on smear</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 13: REFERENCE RANGES -->
+<div class="section" id="reference">
+<h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+
+<h3>Adult Reference Ranges (Kaiser Permanente Maryland)</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Male</th>
+<th>Female</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WBC</td>
+<td>4.5-11.0</td>
+<td>4.5-11.0</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>RBC</td>
+<td>4.5-5.9</td>
+<td>4.0-5.2</td>
+<td>× 10⁶/μL</td>
+</tr>
+<tr>
+<td>Hemoglobin</td>
+<td>13.5-17.5</td>
+<td>12.0-16.0</td>
+<td>g/dL</td>
+</tr>
+<tr>
+<td>Hematocrit</td>
+<td>39.0-49.0</td>
+<td>35.0-45.0</td>
+<td>%</td>
+</tr>
+<tr>
+<td>MCV</td>
+<td>80-100</td>
+<td>80-100</td>
+<td>fL</td>
+</tr>
+<tr>
+<td>MCH</td>
+<td>26.0-34.0</td>
+<td>26.0-34.0</td>
+<td>pg</td>
+</tr>
+<tr>
+<td>MCHC</td>
+<td>31.0-37.0</td>
+<td>31.0-37.0</td>
+<td>g/dL</td>
+</tr>
+<tr>
+<td>RDW-CV</td>
+<td>11.5-14.5</td>
+<td>11.5-14.5</td>
+<td>%</td>
+</tr>
+<tr>
+<td>Platelets</td>
+<td>150-450</td>
+<td>150-450</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>MPV</td>
+<td>7.5-11.5</td>
+<td>7.5-11.5</td>
+<td>fL</td>
+</tr>
+<tr>
+<td>Reticulocyte</td>
+<td>0.5-2.0</td>
+<td>0.5-2.0</td>
+<td>%</td>
+</tr>
+</tbody>
+</table>
+
+<h3>White Blood Cell Differential</h3>
+<table>
+<thead>
+<tr>
+<th>Cell Type</th>
+<th>Relative %</th>
+<th>Absolute Count</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Neutrophils</td>
+<td>45-70</td>
+<td>1.8-7.7</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>Lymphocytes</td>
+<td>20-45</td>
+<td>1.0-4.8</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>Monocytes</td>
+<td>2-10</td>
+<td>0.1-1.0</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>Eosinophils</td>
+<td>1-4</td>
+<td>0.0-0.45</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>Basophils</td>
+<td>0-2</td>
+<td>0.0-0.20</td>
+<td>× 10³/μL</td>
+</tr>
+<tr>
+<td>Immature Granulocytes</td>
+<td>0-2</td>
+<td>0.0-0.03</td>
+<td>× 10³/μL</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<p><strong>Note:</strong> Pediatric and neonatal ranges vary significantly by age. Refer to age-specific reference charts in Appendix A.</p>
+</div>
+</div>
+
+<!-- SECTION 14: LIMITATIONS -->
+<div class="section" id="limitations">
+<h2>15. REFERENCE RANGES</h2>
+
+<h3>Known Interferences - Sysmex XN</h3>
+<table>
+<thead>
+<tr>
+<th>Interference</th>
+<th>Effect</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cold Agglutinins</td>
+<td>↓RBC, ↑MCV, ↑MCHC, ↑MCH</td>
+<td>Warm specimen to 37°C × 15 min, reanalyze</td>
+</tr>
+<tr>
+<td>Lipemia</td>
+<td>↑HGB, ↑MCH, ↑MCHC</td>
+<td>Replace plasma with saline, recalculate</td>
+</tr>
+<tr>
+<td>Giant Platelets</td>
+<td>May be counted as RBCs</td>
+<td>Review smear, use PLT-F channel</td>
+</tr>
+<tr>
+<td>Platelet Clumps</td>
+<td>↓PLT, may ↑WBC</td>
+<td>Examine smear, use citrate tube</td>
+</tr>
+<tr>
+<td>Nucleated RBCs</td>
+<td>Falsely ↑WBC count</td>
+<td>Auto-correction by analyzer, verify on smear</td>
+</tr>
+<tr>
+<td>Fragmented RBCs</td>
+<td>May be counted as PLT</td>
+<td>Review histogram, manual count</td>
+</tr>
+<tr>
+<td>Cryoglobulins</td>
+<td>Interfere with all counts</td>
+<td>Warm to 37°C before analysis</td>
+</tr>
+<tr>
+<td>Paraproteins</td>
+<td>↑HGB (turbidity)</td>
+<td>Dilute and recalculate</td>
+</tr>
+<tr>
+<td>High WBC (>100K)</td>
+<td>↑HGB (turbidity)</td>
+<td>Dilute sample, adjust calculations</td>
+</tr>
+<tr>
+<td>Malaria parasites</td>
+<td>May trigger flags</td>
+<td>Review smear for confirmation</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Critical Limitations</h3>
+<ul>
+<li>Cannot differentiate all abnormal cell types - manual review required</li>
+<li>Cannot identify all RBC inclusions (Howell-Jolly, basophilic stippling)</li>
+<li>May not detect low-level parasitemia</li>
+<li>Limited accuracy with severe pancytopenia</li>
+<li>Automated diff unreliable with WBC <0.5 or >100 × 10³/μL</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 15: CRITICAL VALUES -->
+<div class="section" id="critical">
+<h2>16. CRITICAL VALUES</h2>
+
+<div class="critical-values">
+<h3>Kaiser Permanente Hematology Critical Values</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Critical Low</th>
+<th>Critical High</th>
+<th>Action Required</th>
+<th>TAT for Notification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WBC (Adult)</td>
+<td><1.0 × 10³/μL</td>
+<td>>50.0 × 10³/μL</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>WBC (Pediatric)</td>
+<td><2.0 × 10³/μL</td>
+<td>>50.0 × 10³/μL</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Hemoglobin (Adult)</td>
+<td><6.0 g/dL</td>
+<td>>20.0 g/dL</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Hemoglobin (Pediatric)</td>
+<td><5.0 g/dL</td>
+<td>>20.0 g/dL</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Hematocrit</td>
+<td><18%</td>
+<td>>60%</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Platelets</td>
+<td><20 × 10³/μL</td>
+<td>>1000 × 10³/μL</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Neutrophils (ANC)</td>
+<td><0.5 × 10³/μL</td>
+<td>N/A</td>
+<td>Call provider</td>
+<td>30 minutes</td>
+</tr>
+<tr>
+<td>Blasts (New)</td>
+<td>Any present</td>
+<td>N/A</td>
+<td>Pathologist → Provider</td>
+<td>60 minutes</td>
+</tr>
+<tr>
+<td>Sickle Cells (New)</td>
+<td>Present</td>
+<td>N/A</td>
+<td>Call immediately</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>Malaria/Parasites</td>
+<td>Present</td>
+<td>N/A</td>
+<td>Call immediately</td>
+<td>Immediate</td>
+</tr>
+<tr>
+<td>CSF WBC</td>
+<td>N/A</td>
+<td>>10 cells/μL (adult)</td>
+<td>Call immediately</td>
+<td>Immediate</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Critical Value Notification Protocol</h3>
+<ol>
+<li><strong>Verification:</strong>
+<ul>
+<li>Check for clots or specimen issues</li>
+<li>Repeat analysis if questionable</li>
+<li>Review smear for blasts/abnormal cells</li>
+</ul>
+</li>
+<li><strong>Notification Process:</strong>
+<ul>
+<li>Call ordering provider or designee</li>
+<li>Provide: Patient name, MRN, test, result, units</li>
+<li>Obtain read-back confirmation</li>
+<li>Document: Time, person notified, read-back</li>
+</ul>
+</li>
+<li><strong>If Unable to Reach Provider:</strong>
+<ul>
+<li>Follow escalation protocol</li>
+<li>Contact charge nurse if inpatient</li>
+<li>Page on-call physician</li>
+<li>Document all attempts</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 16: TAT -->
+<div class="section" id="turnaround">
+<h2>17. LIMITATIONS AND INTERFERENCES</h2>
+
+<h3>Kaiser Permanente TAT Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Priority</th>
+<th>Target TAT</th>
+<th>Compliance Goal</th>
+<th>From Receipt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CBC</td>
+<td>STAT</td>
+<td>30 minutes</td>
+<td>≥95%</td>
+<td>ED, ICU, OR, L&D</td>
+</tr>
+<tr>
+<td>CBC + Diff</td>
+<td>STAT</td>
+<td>45 minutes</td>
+<td>≥90%</td>
+<td>Critical care units</td>
+</tr>
+<tr>
+<td>CBC</td>
+<td>Urgent</td>
+<td>2 hours</td>
+<td>≥90%</td>
+<td>Inpatient units</td>
+</tr>
+<tr>
+<td>CBC + Diff</td>
+<td>Routine</td>
+<td>4 hours</td>
+<td>≥85%</td>
+<td>Outpatient/clinic</td>
+</tr>
+<tr>
+<td>Manual Diff Review</td>
+<td>Add-on</td>
+<td>2 hours</td>
+<td>≥85%</td>
+<td>From request</td>
+</tr>
+<tr>
+<td>Reticulocyte</td>
+<td>Routine</td>
+<td>4 hours</td>
+<td>≥85%</td>
+<td>Non-urgent</td>
+</tr>
+<tr>
+<td>Body Fluid Cell Count</td>
+<td>STAT</td>
+<td>1 hour</td>
+<td>≥90%</td>
+<td>CSF immediate</td>
+</tr>
+<tr>
+<td>Peripheral Smear Review</td>
+<td>Routine</td>
+<td>24 hours</td>
+<td>≥90%</td>
+<td>Pathologist review</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h4>TAT Monitoring and Improvement</h4>
+<ul>
+<li>Real-time monitoring via IPU dashboard</li>
+<li>Monthly TAT reports to department</li>
+<li>Root cause analysis for outliers >2 SD</li>
+<li>Continuous process improvement initiatives</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 17: MAINTENANCE -->
+<div class="section" id="maintenance">
+<h2>18. EMERGENCY PROCEDURES</h2>
+
+<div class="procedure-section">
+<h3>17.1 Daily Maintenance - Shutdown Procedure</h3>
+<h4>XN-9000 (XN-1000 × 2 configuration)</h4>
+<ol>
+<li>Place 2 tubes of CELLCLEAN AUTO in rack positions 9 and 10</li>
+<li>Load rack in right sampler pool</li>
+<li>System automatically performs:
+<ul>
+<li>Concentrated clean of all channels</li>
+<li>Probe cleaning sequence</li>
+<li>Shutdown of both XN modules</li>
+<li>IPU remains on for data backup</li>
+</ul>
+</li>
+<li>Verify green "Shutdown Complete" message</li>
+<li>Document in maintenance log</li>
+</ol>
+
+<h4>XN-3000 (Single XN-1000)</h4>
+<ol>
+<li>Place 1 tube CELLCLEAN AUTO in position 10</li>
+<li>Automatic cleaning and shutdown sequence</li>
+<li>Takes approximately 15 minutes</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>17.2 Weekly Maintenance</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Procedure</th>
+<th>Time</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sampler probe cleaning</td>
+<td>Manual clean with alcohol wipes</td>
+<td>5 min</td>
+<td>Initial in log</td>
+</tr>
+<tr>
+<td>Sample rotor cleaning</td>
+<td>Remove and clean with DI water</td>
+<td>10 min</td>
+<td>Initial in log</td>
+</tr>
+<tr>
+<td>Barcode reader</td>
+<td>Clean lens with lint-free cloth</td>
+<td>2 min</td>
+<td>Initial in log</td>
+</tr>
+<tr>
+<td>Touch screen</td>
+<td>Clean with approved wipes</td>
+<td>2 min</td>
+<td>Initial in log</td>
+</tr>
+<tr>
+<td>SP-50 Maintenance</td>
+<td>Clean glass plates, check spreader</td>
+<td>15 min</td>
+<td>SP-50 log</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="procedure-section">
+<h3>17.3 Monthly Maintenance</h3>
+<ul>
+<li>Replace shear valve (follow on-screen prompts)</li>
+<li>Clean/replace air filters</li>
+<li>Perform carryover check</li>
+<li>Backup IPU database to network drive</li>
+<li>Review and export QC statistics</li>
+<li>Check and document reagent lot changes</li>
+<li>Verify temperature logs</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>17.4 Quarterly/Annual Maintenance</h3>
+<table>
+<thead>
+<tr>
+<th>Frequency</th>
+<th>Task</th>
+<th>Performed By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quarterly</td>
+<td>Replace transducer filter</td>
+<td>Lead Tech</td>
+</tr>
+<tr>
+<td>Quarterly</td>
+<td>Clean fan filters</td>
+<td>Biomedical</td>
+</tr>
+<tr>
+<td>Semi-Annual</td>
+<td>Linearity verification</td>
+<td>Lead Tech</td>
+</tr>
+<tr>
+<td>Annual</td>
+<td>Preventive maintenance</td>
+<td>Sysmex FSE</td>
+</tr>
+<tr>
+<td>Annual</td>
+<td>Electrical safety check</td>
+<td>Biomedical</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 18: TROUBLESHOOTING -->
+<div class="section" id="troubleshooting">
+<h2>19. TASK REFERENCE GUIDE</h2>
+
+<h3>Common Issues and Solutions</h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+<th>If Unresolved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QC Failure - All parameters</td>
+<td>QC deterioration, temperature</td>
+<td>Use fresh QC, check storage temp</td>
+<td>Call supervisor</td>
+</tr>
+<tr>
+<td>QC Failure - WBC only</td>
+<td>Lyse reagent issue</td>
+<td>Check reagent date, replace if needed</td>
+<td>Run maintenance</td>
+</tr>
+<tr>
+<td>High background counts</td>
+<td>Contamination, dirty probe</td>
+<td>Run concentrated clean cycle</td>
+<td>Call service</td>
+</tr>
+<tr>
+<td>Clog error message</td>
+<td>Clot, debris, fibrin</td>
+<td>Remove clog per screen prompts</td>
+<td>Check sample prep</td>
+</tr>
+<tr>
+<td>Pressure errors</td>
+<td>Reagent empty, air bubble</td>
+<td>Check reagent levels, prime lines</td>
+<td>Check for leaks</td>
+</tr>
+<tr>
+<td>Sample not aspirated</td>
+<td>Insufficient volume, clot</td>
+<td>Check sample volume and quality</td>
+<td>Manual mode</td>
+</tr>
+<tr>
+<td>PLT flags on all samples</td>
+<td>PLT channel issue</td>
+<td>Run PLT-F channel, check reagents</td>
+<td>Service call</td>
+</tr>
+<tr>
+<td>Abnormal histograms</td>
+<td>Electronic noise</td>
+<td>Check grounding, restart system</td>
+<td>Call service</td>
+</tr>
+<tr>
+<td>Communication error</td>
+<td>Network, IPU issue</td>
+<td>Check connections, restart IPU</td>
+<td>IT support</td>
+</tr>
+<tr>
+<td>Barcode read failure</td>
+<td>Dirty lens, poor label</td>
+<td>Clean reader, check label quality</td>
+<td>Manual entry</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Emergency Contacts</h3>
+<ul>
+<li><strong>Sysmex Technical Support:</strong> 1-800-379-7639 (24/7)</li>
+<li><strong>Biomedical Engineering:</strong> Extension 4444 or pager 1234</li>
+<li><strong>IT Support:</strong> Extension 5555 (network/interface issues)</li>
+<li><strong>Hematology Supervisor:</strong> Pager 2468</li>
+<li><strong>Pathologist On-Call:</strong> Pager 3456</li>
+</ul>
+</div>
+
+<h3>Error Codes Quick Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1101</td>
+<td>WBC clog</td>
+<td>Clear clog, check sample</td>
+</tr>
+<tr>
+<td>1201</td>
+<td>RBC clog</td>
+<td>Clear clog, dilute if high count</td>
+</tr>
+<tr>
+<td>2001</td>
+<td>Pressure error</td>
+<td>Check reagents, prime</td>
+</tr>
+<tr>
+<td>3001</td>
+<td>Temperature out of range</td>
+<td>Check room temp, wait for stabilization</td>
+</tr>
+<tr>
+<td>4001</td>
+<td>Communication error</td>
+<td>Check IPU connection</td>
+</tr>
+<tr>
+<td>5001</td>
+<td>Reagent expired</td>
+<td>Replace reagent, update lot</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 19: COMPETENCY -->
+<div class="section" id="competency">
+<h2>20. TECHNICAL SUPPORT</h2>
+
+<div class="key-concept">
+<h3>Kaiser Permanente Competency Requirements (Documents 14952_0, 13792_0)</h3>
+<table>
+<thead>
+<tr>
+<th>Competency Area</th>
+<th>Initial Training</th>
+<th>Annual Assessment</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XN Analyzer Operation</td>
+<td>40 hours supervised</td>
+<td>Observation + quiz</td>
+<td>Competency checklist</td>
+</tr>
+<tr>
+<td>Specimen Processing</td>
+<td>20 specimens</td>
+<td>10 specimens</td>
+<td>Direct observation</td>
+</tr>
+<tr>
+<td>QC Performance</td>
+<td>5 consecutive days</td>
+<td>Monthly review</td>
+<td>QC log review</td>
+</tr>
+<tr>
+<td>Blood Smear Preparation</td>
+<td>50 acceptable smears</td>
+<td>20 smears</td>
+<td>Quality assessment</td>
+</tr>
+<tr>
+<td>Manual Differential</td>
+<td>100 slides with correlation</td>
+<td>CAP survey + 20 slides</td>
+<td>Morphology exam</td>
+</tr>
+<tr>
+<td>Critical Value Handling</td>
+<td>5 mock scenarios</td>
+<td>2 mock scenarios</td>
+<td>Documentation review</td>
+</tr>
+<tr>
+<td>Maintenance Procedures</td>
+<td>All procedures demonstrated</td>
+<td>Key procedures</td>
+<td>Maintenance logs</td>
+</tr>
+<tr>
+<td>Troubleshooting</td>
+<td>Common problems review</td>
+<td>Case studies</td>
+<td>Problem resolution log</td>
+</tr>
+<tr>
+<td>Body Fluid Analysis</td>
+<td>10 fluids with correlation</td>
+<td>5 fluids</td>
+<td>Accuracy assessment</td>
+</tr>
+<tr>
+<td>Digital Morphology (if used)</td>
+<td>CellaVision certification</td>
+<td>Annual recertification</td>
+<td>Vendor certification</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Competency Assessment Methods</h3>
+<ul>
+<li><strong>Direct Observation:</strong> Supervisor observes technique and documents</li>
+<li><strong>Proficiency Testing:</strong> CAP surveys, correlation studies</li>
+<li><strong>Written Assessment:</strong> Annual knowledge exam (80% passing)</li>
+<li><strong>Record Review:</strong> QC performance, TAT compliance, critical values</li>
+<li><strong>Mock Scenarios:</strong> Emergency procedures, instrument failures</li>
+<li><strong>Continuing Education:</strong> 12 hours annually for CLS/CLT</li>
+</ul>
+</div>
+
+<!-- SECTION 20: SAFETY -->
+<div class="section" id="safety">
+<h2>21. QUALITY ASSURANCE</h2>
+
+<div class="warning-box">
+<h3>Biological Safety - Universal Precautions</h3>
+<ul>
+<li>All specimens are potentially infectious - handle with standard precautions</li>
+<li>PPE required: Lab coat, gloves, safety glasses when uncapping</li>
+<li>Face shield required for specimen processing with splash risk</li>
+<li>No eating, drinking, or cosmetics application in testing areas</li>
+<li>Wash hands after glove removal and before leaving lab</li>
+</ul>
+</div>
+
+<h3>Exposure Protocol</h3>
+<ol>
+<li><strong>Needlestick/Cut:</strong>
+<ul>
+<li>Wash with soap and water immediately</li>
+<li>Report to supervisor within 30 minutes</li>
+<li>Complete incident report</li>
+<li>Report to Employee Health for evaluation</li>
+</ul>
+</li>
+<li><strong>Splash to Eyes/Mucous Membranes:</strong>
+<ul>
+<li>Flush with water for 15 minutes</li>
+<li>Use eyewash station</li>
+<li>Report and seek medical evaluation</li>
+</ul>
+</li>
+</ol>
+
+<h3>Chemical Safety</h3>
+<table>
+<thead>
+<tr>
+<th>Reagent</th>
+<th>Hazard</th>
+<th>Precautions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SULFOLYSER</td>
+<td>Corrosive</td>
+<td>Avoid skin contact, use gloves</td>
+</tr>
+<tr>
+<td>Wright-Giemsa</td>
+<td>Methanol (flammable)</td>
+<td>Use in ventilated area, no flames</td>
+</tr>
+<tr>
+<td>CELLCLEAN</td>
+<td>Sodium hypochlorite</td>
+<td>Avoid mixing with acids</td>
+</tr>
+<tr>
+<td>Fluorocell reagents</td>
+<td>Contains sodium azide</td>
+<td>Do not pour down copper drains</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Waste Disposal</h3>
+<ul>
+<li><strong>Biohazard waste:</strong> Red bags for contaminated materials</li>
+<li><strong>Sharps:</strong> Puncture-resistant containers</li>
+<li><strong>Chemical waste:</strong> Follow SDS guidelines</li>
+<li><strong>Analyzer waste:</strong> Treat as biohazard, dispose per protocol</li>
+</ul>
+</div>
+
+<!-- SECTION 21: TRAINING -->
+<div class="section" id="training">
+<h2>22. REGULATORY COMPLIANCE</h2>
+
+<table>
+<thead>
+<tr>
+<th>Training Module</th>
+<th>Duration</th>
+<th>Content</th>
+<th>Evaluation</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New Employee Orientation</td>
+<td>1 week</td>
+<td>Lab overview, safety, policies</td>
+<td>Written test</td>
+<td>Initial</td>
+</tr>
+<tr>
+<td>XN Basic Operation</td>
+<td>2 weeks</td>
+<td>Analyzer operation, QC, maintenance</td>
+<td>Practical demo</td>
+<td>Initial</td>
+</tr>
+<tr>
+<td>Blood Morphology</td>
+<td>4 weeks</td>
+<td>Normal and abnormal cells</td>
+<td>100 slide exam</td>
+<td>Initial + Annual</td>
+</tr>
+<tr>
+<td>Advanced XN Features</td>
+<td>1 week</td>
+<td>Body fluids, research parameters</td>
+<td>Competency check</td>
+<td>As needed</td>
+</tr>
+<tr>
+<td>Digital Morphology</td>
+<td>3 days</td>
+<td>CellaVision operation</td>
+<td>Certification</td>
+<td>Initial + Annual</td>
+</tr>
+<tr>
+<td>Troubleshooting</td>
+<td>2 days</td>
+<td>Common problems, solutions</td>
+<td>Case studies</td>
+<td>Annual</td>
+</tr>
+<tr>
+<td>Critical Values</td>
+<td>4 hours</td>
+<td>Recognition, notification</td>
+<td>Mock scenarios</td>
+<td>Annual</td>
+</tr>
+<tr>
+<td>IPU Software</td>
+<td>1 day</td>
+<td>Rules, middleware, reporting</td>
+<td>Demonstration</td>
+<td>Initial + Updates</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h3>Training Resources</h3>
+<ul>
+<li>Sysmex e-Learning portal: XN series modules</li>
+<li>CAP Hematology Resource Committee materials</li>
+<li>Kaiser Permanente Knowledge Network</li>
+<li>Department SOPs and job aids</li>
+<li>Monthly case studies and journal club</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 22: DOWNTIME -->
+<div class="section" id="downtime">
+<h2>23. DOWNTIME PROCEDURES</h2>
+
+<div class="critical-box">
+<h3>Analyzer Failure - Immediate Response</h3>
+<ol>
+<li><strong>Assessment (First 15 minutes):</strong>
+<ul>
+<li>Determine scope of failure (single module vs entire system)</li>
+<li>Check for simple fixes (power, connections, reagents)</li>
+<li>Estimate downtime duration</li>
+<li>Notify supervisor and affected units</li>
+</ul>
+</li>
+<li><strong>Activation of Backup (15-30 minutes):</strong>
+<ul>
+<li>Switch STAT work to XN-3000 backup analyzer</li>
+<li>If both systems down, activate manual backup</li>
+<li>Notify MOB laboratory for overflow: 301-555-2000</li>
+<li>Implement paper log for specimen tracking</li>
+</ul>
+</li>
+<li><strong>Communication:</strong>
+<ul>
+<li>Send notification via secure messaging to all providers</li>
+<li>Post signs at specimen drop-off locations</li>
+<li>Update laboratory phone greeting</li>
+<li>Estimated TAT: Add 2 hours to routine</li>
+</ul>
+</li>
+</ol>
+</div>
+
+<h3>Manual Backup Procedures</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Manual Method</th>
+<th>Time</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hematocrit</td>
+<td>Microhematocrit centrifuge</td>
+<td>5 min</td>
+<td>No MCV, MCH, MCHC</td>
+</tr>
+<tr>
+<td>Hemoglobin</td>
+<td>HemoCue or spectrophotometer</td>
+<td>2 min</td>
+<td>Limited throughput</td>
+</tr>
+<tr>
+<td>WBC Count</td>
+<td>Hemocytometer with dilution</td>
+<td>15 min</td>
+<td>No differential</td>
+</tr>
+<tr>
+<td>Platelet Count</td>
+<td>Hemocytometer or smear estimate</td>
+<td>10 min</td>
+<td>Less precise</td>
+</tr>
+<tr>
+<td>Differential</td>
+<td>Manual 100-cell count on smear</td>
+<td>10 min</td>
+<td>Labor intensive</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Contingency Routing</h3>
+<ul>
+<li><strong>STAT specimens:</strong> Process manually or send to MOB lab</li>
+<li><strong>Routine CBCs:</strong> Batch and hold for analyzer repair (if <4 hours)</li>
+<li><strong>Oncology patients:</strong> Priority manual processing</li>
+<li><strong>Pre-op cases:</strong> HemoCue for hemoglobin only if urgent</li>
+<li><strong>Reference lab:</strong> Send stable specimens if downtime >24 hours</li>
+</ul>
+
+<h3>Recovery Procedures</h3>
+<ol>
+<li>Run full startup procedure including background counts</li>
+<li>Run all three levels of QC</li>
+<li>Process 5 patient samples and compare to backup method</li>
+<li>Clear backlog by priority (STAT → Urgent → Routine)</li>
+<li>Document entire event in downtime log</li>
+<li>Conduct root cause analysis within 48 hours</li>
+</ol>
+</div>
+
+<!-- SECTION 23: REFERENCES -->
+<div class="section" id="references">
+<h2>24. REFERENCES</h2>
+<ol>
+<li>Clinical and Laboratory Standards Institute (CLSI). Reference Leukocyte (WBC) Differential Count and Evaluation of Instrumental Methods; Approved Guideline. H20-A2. Wayne, PA: CLSI; 2024.</li>
+<li>Clinical and Laboratory Standards Institute (CLSI). Validation, Verification, and Quality Assurance of Automated Hematology Analyzers; Approved Standard. H26-A3. Wayne, PA: CLSI; 2024.</li>
+<li>College of American Pathologists (CAP). Hematology and Coagulation Checklist. CAP Accreditation Program. Northfield, IL: CAP; 2024.</li>
+<li>Kaiser Permanente. Laboratory Competency Assessment Requirements. Document 14952_0. Oakland, CA: Kaiser Foundation Health Plan; 2024.</li>
+<li>Kaiser Permanente. Technical Competency Standards for Laboratory Personnel. Document 13792_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Sysmex Corporation. Sysmex XN-Series Automated Hematology System Instructions for Use. Document MKT-10-1072. Kobe, Japan: Sysmex; 2024.</li>
+<li>Sysmex America. XN-Series Extended IPU Software Manual, Version 2.0. Lincolnshire, IL: Sysmex America; 2024.</li>
+<li>International Council for Standardization in Haematology (ICSH). Guidelines for the evaluation of blood cell analysers including those for differential leucocyte and reticulocyte counting. Int J Lab Hematol. 2024;46(1):1-15.</li>
+<li>Rodak BF, Carr JH. Clinical Hematology Atlas. 6th Edition. St. Louis, MO: Elsevier; 2024.</li>
+<li>World Health Organization. WHO Classification of Haematolymphoid Tumours. 5th Edition. Lyon, France: IARC; 2024.</li>
+<li>Kaiser Permanente Maryland Regional Laboratory. Hematology Section Procedures Manual. Version 8.0. Largo, MD: KPMRL; 2025.</li>
+<li>Centers for Disease Control and Prevention. Biosafety in Microbiological and Biomedical Laboratories (BMBL). 6th Edition. Atlanta, GA: CDC; 2024.</li>
+<li>Occupational Safety and Health Administration. Bloodborne Pathogens Standard 29 CFR 1910.1030. Washington, DC: OSHA; 2024.</li>
+<li>The Joint Commission. 2024 Comprehensive Accreditation Manual for Laboratories. Oak Brook, IL: TJC; 2024.</li>
+<li>Bull BS, Hay KL. The blood count, its quality control, and related methods. In: McPherson RA, Pincus MR, eds. Henry's Clinical Diagnosis and Management by Laboratory Methods. 24th ed. Philadelphia, PA: Elsevier; 2024.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control Information</h4>
+<p><strong>Review Cycle:</strong> Annual or with significant changes</p>
+<p><strong>Next Review:</strong> January 2026</p>
+<p><strong>Document Owner:</strong> Hematology Department Manager</p>
+<p><strong>Technical Review:</strong> Lead Hematology Technologist</p>
+<p><strong>Medical Director Approval:</strong> Dr. Sarah Johnson, MD</p>
+<p><strong>Distribution:</strong> Electronic via Laboratory Information System</p>
+<p><strong>Revision History:</strong> Available in Document Control</p>
+</div>
+</div>
+
+<!-- SECTION 24: APPENDICES -->
+<div class="section" id="appendix">
+<h2>25. APPENDICES</h2>
+
+<h3>Appendix A: Pediatric Reference Ranges</h3>
+<p><em>Age-specific ranges available in separate pediatric manual</em></p>
+
+<h3>Appendix B: Specimen Collection Quick Guide</h3>
+<p><em>Laminated cards available at all phlebotomy stations</em></p>
+
+<h3>Appendix C: Critical Value Notification Form</h3>
+<p><em>Electronic form in LIS, paper backup in emergency</em></p>
+
+<h3>Appendix D: Morphology Atlas</h3>
+<p><em>Digital atlas available on department computers</em></p>
+
+<h3>Appendix E: Troubleshooting Flowcharts</h3>
+<p><em>Posted at each analyzer workstation</em></p>
+</div>
+
+<!-- SECTION 25: TASK REFERENCE -->
+<div class="section" id="taskref">
+<h2>26. TASK REFERENCE GUIDE</h2>
+
+<div class="procedure-section">
+<h3>Quick Task Reference - Daily Operations</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Frequency</th>
+<th>Time</th>
+<th>Critical Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Startup Procedure</td>
+<td>Each shift</td>
+<td>20 min</td>
+<td>QC must pass before patient testing</td>
+</tr>
+<tr>
+<td>QC Performance</td>
+<td>Every 8 hours</td>
+<td>10 min</td>
+<td>Document all results</td>
+</tr>
+<tr>
+<td>STAT CBC</td>
+<td>As needed</td>
+<td>5 min</td>
+<td>30-minute TAT requirement</td>
+</tr>
+<tr>
+<td>Manual Differential</td>
+<td>Per criteria</td>
+<td>10 min</td>
+<td>100 cells minimum</td>
+</tr>
+<tr>
+<td>Critical Value Call</td>
+<td>As needed</td>
+<td>5 min</td>
+<td>Within 30 minutes of result</td>
+</tr>
+<tr>
+<td>Shutdown Procedure</td>
+<td>End of shift</td>
+<td>15 min</td>
+<td>Use CELLCLEAN AUTO</td>
+</tr>
+<tr>
+<td>Body Fluid Count</td>
+<td>As ordered</td>
+<td>15 min</td>
+<td>Process CSF immediately</td>
+</tr>
+<tr>
+<td>Reagent Change</td>
+<td>As needed</td>
+<td>5 min</td>
+<td>Prime lines, verify with QC</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<h3>Emergency Contact Card</h3>
+<p><strong>Keep this information readily available:</strong></p>
+<ul>
+<li>Sysmex Support: 1-800-379-7639</li>
+<li>Supervisor Pager: 2468</li>
+<li>Pathologist: Pager 3456</li>
+<li>Biomedical: Extension 4444</li>
+<li>IT Support: Extension 5555</li>
+<li>MOB Lab: 301-555-2000</li>
+</ul>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>Excellence in Hematology Testing | Sysmex XN Technology</p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+<p style="font-size:8pt;margin-top:10px;">This document contains proprietary information and is for internal use only.</p>
+</div>
+
+</div>
+</body>
+</html>

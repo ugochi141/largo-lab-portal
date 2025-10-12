@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<h2 style="color: var(--kp-blue); margin-bottom: 2rem;">📊 SOP Management Dashboard</h2>
+
+<!-- Statistics Cards -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--kp-blue), var(--kp-dark-blue)); color: white;">
+        <h3>📚 Total SOPs</h3>
+        <p style="font-size: 2rem; font-weight: bold;">{{ data.statistics.total }}</p>
+    </div>
+
+    <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--success-green), #1e7e34); color: white;">
+        <h3>✅ Active SOPs</h3>
+        <p style="font-size: 2rem; font-weight: bold;">{{ data.statistics.active }}</p>
+    </div>
+
+    <div class="card" style="text-align: center; background: linear-gradient(135deg, var(--warning-yellow), #e0a800); color: white;">
+        <h3>📝 Draft SOPs</h3>
+        <p style="font-size: 2rem; font-weight: bold;">{{ data.statistics.draft }}</p>
+    </div>
+
+    <div class="card" style="text-align: center; background: linear-gradient(135deg, #17a2b8, #138496); color: white;">
+        <h3>🔄 Under Review</h3>
+        <p style="font-size: 2rem; font-weight: bold;">{{ data.statistics.review }}</p>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card">
+    <h3 style="color: var(--kp-blue); margin-bottom: 1rem;">🚀 Quick Actions</h3>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="{{ url_for('create_sop') }}" class="btn">📝 Create New SOP</a>
+        <button class="btn btn-warning" onclick="alert('Feature coming soon!')">📊 Generate Report</button>
+    </div>
+</div>
+
+<!-- Recent Updates -->
+<div class="card">
+    <h3 style="color: var(--kp-blue); margin-bottom: 1rem;">📈 Recent SOP Updates</h3>
+
+    {% if data.recent_updates %}
+    <table>
+        <thead>
+            <tr>
+                <th>Document Code</th>
+                <th>Title</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sop in data.recent_updates %}
+            <tr>
+                <td><strong>{{ sop.document_identifier }}</strong></td>
+                <td>{{ sop.procedure_title }}</td>
+                <td>{{ sop.laboratory_department }}</td>
+                <td>
+                    <span class="status-badge status-{{ sop.document_status }}">
+                        {{ sop.document_status.title() }}
+                    </span>
+                </td>
+                <td>{{ sop.modification_timestamp | format_datetime }}</td>
+                <td>
+                    <a href="{{ url_for('view_sop', sop_id=sop.id) }}" class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.85rem;">👁️ View</a>
+                    {% if current_user.has_permission('edit') or sop.author_id == current_user.id %}
+                    <a href="{{ url_for('edit_sop', sop_id=sop.id) }}" class="btn btn-warning" style="padding: 0.25rem 0.5rem; font-size: 0.85rem;">✏️ Edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #666; padding: 2rem;">
+        No SOPs found. <a href="{{ url_for('create_sop') }}" class="btn" style="padding: 0.5rem 1rem;">Create your first SOP</a>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

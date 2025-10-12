@@ -1,0 +1,77 @@
+
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                h1 { color: #366092; }
+                h2 { color: #366092; }
+                .critical { background-color: #ffcccc; font-weight: bold; }
+                .urgent { background-color: #fff3cd; font-weight: bold; }
+                .routine { background-color: #d4edda; }
+                table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background-color: #366092; color: white; }
+                .alert { background-color: #ff6666; color: white; padding: 10px; margin: 10px 0; }
+                .note { background-color: #f0f0f0; padding: 10px; margin: 10px 0; }
+            </style>
+        </head>
+        <body>
+            <h1>Largo Lab Inventory Order Request</h1>
+            <p><strong>Generated:</strong> 2025-09-10 20:56</p>
+            <p><strong>From:</strong> MOB Lab (Core) & AUC Lab (STAT)</p>
+        
+            <div class="alert">
+                <h2>⚠️ URGENT: EXPIRING ITEMS - ACTION REQUIRED</h2>
+            
+                <p><strong>ALT (Alanine Aminotransferase) Reagent Pack</strong><br>
+                Current Stock: 25 packs<br>
+                PAR Level: 8 packs<br>
+                EXCESS TO REDISTRIBUTE: 17 packs<br>
+                EXPIRES OCT 31 - MUST REDISTRIBUTE!<br>
+                <strong>Contact other Kaiser locations immediately!</strong></p>
+                </div>
+            <h2>🟡 URGENT - LOW STOCK ITEMS</h2>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Manufacturer</th>
+                    <th>Catalog #</th>
+                    <th>Supplier ID</th>
+                    <th>Package Size</th>
+                    <th>Current</th>
+                    <th>Reorder Point</th>
+                    <th>Order Qty</th>
+                    <th>Location</th>
+                </tr>
+            
+                <tr class="urgent">
+                    <td>MEDTOX Negative Control</td>
+                    <td>MEDTOX</td>
+                    <td>DT-NEG</td>
+                    <td>10283225</td>
+                    <td>3mL x 5 vials</td>
+                    <td>1</td>
+                    <td>3</td>
+                    <td>4 Box</td>
+                    <td>TBD</td>
+                </tr>
+                </table>
+        <div class="note">
+            <h3>Important Notes:</h3>
+            <ul>
+                <li><strong>Supplier ID Verification:</strong> Several supplier IDs need verification (marked as VERIFY or CHECK)</li>
+                <li><strong>MEDTOX QC:</strong> Remember to log all QC in Cerner when received</li>
+                <li><strong>Delivery Location:</strong> Split deliveries between MOB and AUC as indicated</li>
+                <li><strong>Questions:</strong> Contact Lorraine (primary) or Ingrid (backup)</li>
+            </ul>
+        </div>
+        
+        <p><strong>Lab Contacts:</strong><br>
+        MOB Lab: Lorraine (Primary)<br>
+        AUC Lab: Ingrid (Secondary)<br>
+        Tech Lead: Maxwell Booker (Supplier ID verification)</p>
+        
+        <p><em>This is an automated message from the Largo Lab Inventory Management System</em></p>
+        </body>
+        </html>
+        

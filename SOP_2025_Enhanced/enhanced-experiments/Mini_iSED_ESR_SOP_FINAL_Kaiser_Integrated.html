@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>Kaiser Permanente Largo Lab - Mini iSED ESR Standard Operating Procedure</title>
+<style>
+/* Optimized Kaiser Permanente Laboratory SOP Template */
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:8.5in 11in;margin:0.75in}
+html{font-size:10pt;width:100%;overflow-x:hidden}
+body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+.container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+/* Header Styling */
+.header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+.header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+.header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+/* Table of Contents - Two Column Layout */
+.toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+.toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+.toc-columns{display:flex;gap:30px}
+.toc-column{flex:1}
+.toc ul{list-style:none;padding:0}
+.toc li{margin:6px 0;padding-left:15px}
+.toc a{color:#0066cc;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+
+/* Section Styling */
+.section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+.section:last-child{border-bottom:none}
+
+/* Headings - Compact Styling */
+h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+/* Text Elements */
+p{margin:8px 0;text-align:left}
+ul,ol{margin:8px 0 8px 25px;padding:0}
+li{margin:4px 0;line-height:1.5}
+
+/* Special Sections */
+.key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+.procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+.warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+.critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+
+/* Table Styling */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+table tbody tr{border-bottom:1px solid #e0e0e0}
+table td{padding:8px;border-right:1px solid #e0e0e0}
+table tbody tr:nth-child(even){background:#f8f9fa}
+
+/* Print Optimizations */
+@media print{
+    @page{size:8.5in 11in;margin:0.75in}
+    body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+    .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+    h1,h2,h3,h4{page-break-after:avoid}
+    .toc{page-break-after:always}
+}
+
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>MINI iSED ESR ANALYZER</h1>
+<h2>Standard Operating Procedure - Erythrocyte Sedimentation Rate Testing</h2>
+<p><strong>Document ID:</strong> LAB-HEM-002 | <strong>Version:</strong> 6.0 | <strong>Effective Date:</strong> January 2025</p>
+<p><strong>Location:</strong> Largo Laboratory | <strong>Department:</strong> Hematology</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>TABLE OF CONTENTS</h3>
+<div class="toc-columns">
+<div class="toc-column">
+<ul>
+<li><a href="#purpose">1. Purpose</a></li>
+<li><a href="#scope">2. Scope</a></li>
+<li><a href="#regulatory">3. Regulatory Requirements</a></li>
+<li><a href="#principle">4. Test Principle</a></li>
+<li><a href="#clinical">5. Clinical Significance</a></li>
+<li><a href="#specimen">6. Specimen Requirements</a></li>
+<li><a href="#equipment">7. Equipment</a></li>
+<li><a href="#reagents">8. Reagents and Supplies</a></li>
+<li><a href="#qc">9. Quality Control</a></li>
+<li><a href="#calibration">10. Calibration</a></li>
+<li><a href="#patient-testing">11. Patient Testing</a></li>
+<li><a href="#results">12. Results and Interpretation</a></li>
+</ul>
+</div>
+<div class="toc-column">
+<ul>
+<li><a href="#reference">13. Reference Ranges</a></li>
+<li><a href="#limitations">14. Limitations</a></li>
+<li><a href="#critical">15. Critical Values</a></li>
+<li><a href="#turnaround">16. Turnaround Time</a></li>
+<li><a href="#maintenance">17. Maintenance</a></li>
+<li><a href="#troubleshooting">18. Troubleshooting</a></li>
+<li><a href="#competency">19. Competency Assessment</a></li>
+<li><a href="#safety">20. Safety</a></li>
+<li><a href="#training">21. Training</a></li>
+<li><a href="#downtime">22. Downtime Procedures</a></li>
+<li><a href="#references">23. References</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTION 1: PURPOSE -->
+<div class="section" id="purpose">
+<h2>1. PURPOSE</h2>
+<p>This procedure describes the standardized methodology for performing Erythrocyte Sedimentation Rate (ESR) testing using the Mini iSED automated ESR analyzer at Kaiser Permanente Largo Laboratory. The Mini iSED provides accurate, automated ESR measurements in compliance with CLIA, CAP, and Joint Commission requirements.</p>
+
+<div class="key-concept">
+<h4>Key Objectives</h4>
+<ul>
+<li>Standardize ESR testing across all shifts and operators</li>
+<li>Ensure accurate and timely ESR results for patient care</li>
+<li>Maintain regulatory compliance with all accrediting bodies</li>
+<li>Minimize pre-analytical and analytical errors</li>
+<li>Provide consistent, reproducible results</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 2: SCOPE -->
+<div class="section" id="scope">
+<h2>2. SCOPE</h2>
+<p>This procedure applies to all laboratory personnel performing ESR testing at the Largo Laboratory, including:</p>
+<ul>
+<li>Medical Laboratory Scientists (MLS)</li>
+<li>Medical Laboratory Technicians (MLT)</li>
+<li>Phlebotomists (specimen collection only)</li>
+<li>Laboratory Assistants (specimen processing only)</li>
+<li>Lead Technologists and Supervisors</li>
+</ul>
+
+<div class="info-box">
+<strong>Backup Testing Location:</strong> MOB Laboratory (Building B, 2nd Floor)<br/>
+<strong>Contact:</strong> MOB Lab: 301-555-2000 | Main Lab: 301-555-1000
+</div>
+</div>
+
+<!-- SECTION 3: REGULATORY REQUIREMENTS -->
+<div class="section" id="regulatory">
+<h2>3. REGULATORY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Regulatory Body</th>
+<th>Requirement</th>
+<th>Compliance Method</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIA</td>
+<td>Moderate Complexity Testing</td>
+<td>Follow manufacturer's instructions</td>
+<td>Annual competency assessment</td>
+</tr>
+<tr>
+<td>CAP</td>
+<td>HEM.37550 - ESR Performance</td>
+<td>Daily QC, method validation</td>
+<td>QC logs, validation records</td>
+</tr>
+<tr>
+<td>Joint Commission</td>
+<td>Laboratory Standards</td>
+<td>Standardized procedures</td>
+<td>Policy compliance documentation</td>
+</tr>
+<tr>
+<td>Kaiser Permanente</td>
+<td>Documents 14952_0, 13792_0</td>
+<td>Competency requirements</td>
+<td>Training records, assessments</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 4: TEST PRINCIPLE -->
+<div class="section" id="principle">
+<h2>4. TEST PRINCIPLE</h2>
+<p>The Mini iSED measures the erythrocyte sedimentation rate using an automated photometric capillary stopped flow kinetic analysis method. The system:</p>
+
+<div class="procedure-section">
+<h4>Measurement Process</h4>
+<ol>
+<li>Aspirates whole blood sample into measurement capillary</li>
+<li>Positions sample vertically in temperature-controlled chamber (18-25°C)</li>
+<li>Uses infrared sensors to track RBC-plasma interface</li>
+<li>Measures aggregation and sedimentation kinetics</li>
+<li>Calculates ESR value using proprietary algorithms</li>
+<li>Corrects for hematocrit variations automatically</li>
+<li>Reports results in mm/hour (Westergren equivalent)</li>
+</ol>
+</div>
+
+<p><strong>Method Correlation:</strong> Results correlate with modified Westergren method (r² > 0.95)</p>
+</div>
+
+<!-- SECTION 5: CLINICAL SIGNIFICANCE -->
+<div class="section" id="clinical">
+<h2>5. CLINICAL SIGNIFICANCE</h2>
+<p>ESR is a non-specific marker of inflammation used to:</p>
+<ul>
+<li>Monitor inflammatory and autoimmune diseases</li>
+<li>Screen for occult disease</li>
+<li>Monitor treatment response in temporal arteritis and polymyalgia rheumatica</li>
+<li>Support diagnosis of multiple myeloma and other plasma cell dyscrasias</li>
+<li>Assess disease activity in rheumatoid arthritis</li>
+</ul>
+
+<div class="warning-box">
+<strong>Clinical Alert:</strong> ESR must be interpreted in conjunction with clinical findings and other laboratory results. Isolated ESR elevation is not diagnostic of any specific condition.
+</div>
+</div>
+
+<!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+<div class="section" id="specimen">
+<h2>6. SPECIMEN REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Requirement</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specimen Type</td>
+<td>Whole blood</td>
+<td>Do not use serum or plasma</td>
+</tr>
+<tr>
+<td>Anticoagulant</td>
+<td>EDTA (purple top)</td>
+<td>3.2% sodium citrate acceptable (blue top)</td>
+</tr>
+<tr>
+<td>Volume Required</td>
+<td>1.0 mL minimum</td>
+<td>2.0 mL preferred for repeat testing</td>
+</tr>
+<tr>
+<td>Stability</td>
+<td>4 hours at room temperature</td>
+<td>24 hours at 2-8°C</td>
+</tr>
+<tr>
+<td>Mixing Requirements</td>
+<td>Invert 8-10 times</td>
+<td>Gentle mixing to avoid hemolysis</td>
+</tr>
+</tbody>
+</table>
+
+<div class="critical-box">
+<h3>Specimen Rejection Criteria</h3>
+<ul>
+<li>Clotted specimens</li>
+<li>Hemolyzed samples (moderate to severe)</li>
+<li>Specimens > 4 hours old at room temperature</li>
+<li>Insufficient volume (< 1.0 mL)</li>
+<li>Wrong anticoagulant</li>
+<li>Unlabeled or mislabeled specimens</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 7: EQUIPMENT -->
+<div class="section" id="equipment">
+<h2>7. EQUIPMENT</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Model/Details</th>
+<th>Maintenance Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mini iSED Analyzer</td>
+<td>Model MIS-2000</td>
+<td>Daily, Weekly, Monthly</td>
+</tr>
+<tr>
+<td>Barcode Scanner</td>
+<td>Integrated scanner</td>
+<td>Weekly cleaning</td>
+</tr>
+<tr>
+<td>Temperature Monitor</td>
+<td>Internal sensor (18-25°C)</td>
+<td>Daily verification</td>
+</tr>
+<tr>
+<td>Sample Mixer</td>
+<td>Automated rocker</td>
+<td>Weekly inspection</td>
+</tr>
+<tr>
+<td>Computer System</td>
+<td>LIS Interface PC</td>
+<td>Monthly updates</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 8: REAGENTS AND SUPPLIES -->
+<div class="section" id="reagents">
+<h2>8. REAGENTS AND SUPPLIES</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Catalog Number</th>
+<th>Storage</th>
+<th>Expiration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QC Level 1 (Normal)</td>
+<td>MIS-QC1</td>
+<td>2-8°C</td>
+<td>Check vial</td>
+</tr>
+<tr>
+<td>QC Level 2 (Abnormal)</td>
+<td>MIS-QC2</td>
+<td>2-8°C</td>
+<td>Check vial</td>
+</tr>
+<tr>
+<td>Cleaning Solution</td>
+<td>MIS-CLEAN</td>
+<td>Room temperature</td>
+<td>1 year</td>
+</tr>
+<tr>
+<td>Sample Cups</td>
+<td>MIS-CUPS</td>
+<td>Room temperature</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Calibration Standard</td>
+<td>MIS-CAL</td>
+<td>2-8°C</td>
+<td>6 months</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>Ordering:</strong> Submit orders through Kaiser Supply Chain Management System<br/>
+<strong>Emergency Orders:</strong> Contact vendor directly: 1-800-ESR-TEST
+</div>
+</div>
+
+<!-- SECTION 9: QUALITY CONTROL -->
+<div class="section" id="qc">
+<h2>9. QUALITY CONTROL</h2>
+
+<div class="qc-failure-section">
+<h3>QC Performance Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>QC Level</th>
+<th>Frequency</th>
+<th>Expected Range</th>
+<th>Action if Failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Level 1 (Normal)</td>
+<td>Every 8 hours</td>
+<td>8-15 mm/hr</td>
+<td>Repeat QC, troubleshoot</td>
+</tr>
+<tr>
+<td>Level 2 (Abnormal)</td>
+<td>Every 8 hours</td>
+<td>35-55 mm/hr</td>
+<td>Repeat QC, troubleshoot</td>
+</tr>
+<tr>
+<td>Both Levels</td>
+<td>After maintenance</td>
+<td>Within ±2 SD</td>
+<td>Do not report results</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="critical-box">
+<h3>Critical QC Rules - NOTIFICATION REQUIRED</h3>
+<ul>
+<li><strong>1-3s Rule:</strong> One control exceeds ±3 SD - STOP testing immediately</li>
+<li><strong>2-2s Rule:</strong> Two consecutive controls exceed ±2 SD - Investigate systematic error</li>
+<li><strong>R-4s Rule:</strong> Range between controls exceeds 4 SD - Random error suspected</li>
+<li><strong>10x Rule:</strong> Ten consecutive points on same side of mean - Calibration drift</li>
+</ul>
+<p><strong>Required Notifications:</strong></p>
+<ol>
+<li>Lead Technologist: Immediate notification</li>
+<li>Laboratory Supervisor: Within 30 minutes</li>
+<li>Document in QC log with corrective actions</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 10: CALIBRATION -->
+<div class="section" id="calibration">
+<h2>10. CALIBRATION</h2>
+<table>
+<thead>
+<tr>
+<th>Calibration Type</th>
+<th>Frequency</th>
+<th>Acceptance Criteria</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factory Calibration</td>
+<td>At installation</td>
+<td>Correlation r² > 0.95</td>
+<td>Installation report</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Quarterly</td>
+<td>Within ±10% of target</td>
+<td>Calibration log</td>
+</tr>
+<tr>
+<td>After Service</td>
+<td>As needed</td>
+<td>Pass all QC levels</td>
+<td>Service report</td>
+</tr>
+<tr>
+<td>Temperature</td>
+<td>Daily</td>
+<td>18-25°C ±1°C</td>
+<td>Temperature log</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 11: PATIENT TESTING -->
+<div class="section" id="patient-testing">
+<h2>11. PATIENT TESTING PROCEDURE</h2>
+
+<div class="procedure-section">
+<h3>Step-by-Step Procedure</h3>
+<ol>
+<li><strong>Pre-analytical:</strong>
+    <ul>
+    <li>Verify patient identification (two identifiers)</li>
+    <li>Check specimen collection time and temperature</li>
+    <li>Inspect for clots, hemolysis, or other issues</li>
+    <li>Allow refrigerated samples to reach room temperature (15 minutes)</li>
+    </ul>
+</li>
+<li><strong>Sample Preparation:</strong>
+    <ul>
+    <li>Mix specimen gently by inversion (8-10 times)</li>
+    <li>Do not vortex or shake vigorously</li>
+    <li>Ensure no bubbles present</li>
+    </ul>
+</li>
+<li><strong>Analyzer Operation:</strong>
+    <ul>
+    <li>Log into Mini iSED system with user ID</li>
+    <li>Verify QC is current and acceptable</li>
+    <li>Select "Patient Test" mode</li>
+    <li>Scan specimen barcode</li>
+    <li>Load specimen in designated position</li>
+    <li>Press "Start" to begin analysis</li>
+    </ul>
+</li>
+<li><strong>During Analysis:</strong>
+    <ul>
+    <li>Monitor for error messages</li>
+    <li>Observe for proper sample aspiration</li>
+    <li>Do not disturb analyzer during measurement</li>
+    <li>Analysis time: approximately 20 seconds</li>
+    </ul>
+</li>
+<li><strong>Result Review:</strong>
+    <ul>
+    <li>Verify patient demographics match</li>
+    <li>Check for analyzer flags or warnings</li>
+    <li>Compare with previous results if available</li>
+    <li>Apply delta checks (>50% change from previous)</li>
+    </ul>
+</li>
+<li><strong>Result Release:</strong>
+    <ul>
+    <li>Approve result in LIS</li>
+    <li>Add comments for abnormal results</li>
+    <li>Notify provider for critical values</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="warning-box">
+<strong>Important:</strong> Do not report results if:
+<ul>
+<li>QC is not acceptable</li>
+<li>Specimen quality is questionable</li>
+<li>Analyzer displays error codes</li>
+<li>Results are incompatible with clinical picture</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 12: RESULTS AND INTERPRETATION -->
+<div class="section" id="results">
+<h2>12. RESULTS AND INTERPRETATION</h2>
+<table>
+<thead>
+<tr>
+<th>Result Range</th>
+<th>Interpretation</th>
+<th>Clinical Correlation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-20 mm/hr</td>
+<td>Normal</td>
+<td>No evidence of inflammation</td>
+</tr>
+<tr>
+<td>21-40 mm/hr</td>
+<td>Mild elevation</td>
+<td>Minor inflammation, infection</td>
+</tr>
+<tr>
+<td>41-70 mm/hr</td>
+<td>Moderate elevation</td>
+<td>Active inflammatory process</td>
+</tr>
+<tr>
+<td>>70 mm/hr</td>
+<td>Marked elevation</td>
+<td>Severe inflammation, possible malignancy</td>
+</tr>
+<tr>
+<td>>100 mm/hr</td>
+<td>Critical elevation</td>
+<td>Urgent clinical correlation needed</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h4>Factors Affecting ESR</h4>
+<strong>Increases ESR:</strong> Pregnancy, anemia, renal disease, hyperfibrinogenemia<br/>
+<strong>Decreases ESR:</strong> Polycythemia, sickle cells, spherocytosis, hypofibrinogenemia
+</div>
+</div>
+
+<!-- SECTION 13: REFERENCE RANGES -->
+<div class="section" id="reference">
+<h2>13. REFERENCE RANGES</h2>
+<table>
+<thead>
+<tr>
+<th>Population</th>
+<th>Age Range</th>
+<th>Normal Range (mm/hr)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Male</td>
+<td><50 years</td>
+<td>0-15</td>
+</tr>
+<tr>
+<td>Male</td>
+<td>≥50 years</td>
+<td>0-20</td>
+</tr>
+<tr>
+<td>Female</td>
+<td><50 years</td>
+<td>0-20</td>
+</tr>
+<tr>
+<td>Female</td>
+<td>≥50 years</td>
+<td>0-30</td>
+</tr>
+<tr>
+<td>Pediatric</td>
+<td>0-2 years</td>
+<td>3-13</td>
+</tr>
+<tr>
+<td>Pediatric</td>
+<td>2-18 years</td>
+<td>3-20</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Note:</strong> Reference ranges may vary based on methodology and population. Always use laboratory-established ranges.</p>
+</div>
+
+<!-- SECTION 14: LIMITATIONS -->
+<div class="section" id="limitations">
+<h2>14. LIMITATIONS</h2>
+<ul>
+<li><strong>Technical Limitations:</strong>
+    <ul>
+    <li>Cannot process severely lipemic or icteric samples</li>
+    <li>Requires minimum 1.0 mL sample volume</li>
+    <li>Temperature sensitive (must be 18-25°C)</li>
+    <li>Cannot analyze clotted specimens</li>
+    </ul>
+</li>
+<li><strong>Clinical Limitations:</strong>
+    <ul>
+    <li>Non-specific test - elevated in many conditions</li>
+    <li>Normal ESR does not exclude disease</li>
+    <li>Cannot differentiate between inflammatory conditions</li>
+    <li>Affected by numerous physiological factors</li>
+    </ul>
+</li>
+<li><strong>Interfering Substances:</strong>
+    <ul>
+    <li>Heparin contamination causes falsely elevated results</li>
+    <li>Cold agglutinins interfere with measurement</li>
+    <li>Paraproteins may affect sedimentation</li>
+    </ul>
+</li>
+</ul>
+</div>
+
+<!-- SECTION 15: CRITICAL VALUES -->
+<div class="section" id="critical">
+<h2>15. CRITICAL VALUES</h2>
+
+<div class="critical-values">
+<h3>Critical Value Protocol</h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Action Required</th>
+<th>Timeframe</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESR >100 mm/hr</td>
+<td>Call provider immediately</td>
+<td>Within 30 minutes</td>
+<td>Document in LIS</td>
+</tr>
+<tr>
+<td>New patient >70 mm/hr</td>
+<td>Verify and notify</td>
+<td>Within 1 hour</td>
+<td>Note in chart</td>
+</tr>
+<tr>
+<td>Delta >50% increase</td>
+<td>Review clinical status</td>
+<td>Same shift</td>
+<td>Add comment</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Notification Procedure:</strong></p>
+<ol>
+<li>Verify result by repeat analysis if possible</li>
+<li>Contact ordering provider or on-call physician</li>
+<li>Document: Date, time, person notified, read-back confirmation</li>
+<li>Enter notification in critical value log</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 16: TURNAROUND TIME -->
+<div class="section" id="turnaround">
+<h2>16. TURNAROUND TIME</h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Target TAT</th>
+<th>From Receipt to Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STAT</td>
+<td>30 minutes</td>
+<td>Notify if delayed</td>
+</tr>
+<tr>
+<td>Urgent</td>
+<td>1 hour</td>
+<td>Priority processing</td>
+</tr>
+<tr>
+<td>Routine</td>
+<td>2 hours</td>
+<td>Standard workflow</td>
+</tr>
+<tr>
+<td>Add-on</td>
+<td>2 hours</td>
+<td>From add-on request</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>TAT Monitoring:</strong> Monthly review of TAT metrics with goal of >90% compliance<br/>
+<strong>Delay Notification:</strong> Contact ordering location if TAT will be exceeded
+</div>
+</div>
+
+<!-- SECTION 17: MAINTENANCE -->
+<div class="section" id="maintenance">
+<h2>17. MAINTENANCE PROCEDURES</h2>
+
+<div class="procedure-section">
+<h3>Daily Maintenance</h3>
+<ul>
+<li>Clean sample probe with alcohol wipe</li>
+<li>Wipe external surfaces with approved disinfectant</li>
+<li>Check reagent levels and expiration dates</li>
+<li>Verify temperature is within range (18-25°C)</li>
+<li>Perform background check</li>
+<li>Run QC samples</li>
+<li>Document in maintenance log</li>
+</ul>
+
+<h3>Weekly Maintenance</h3>
+<ul>
+<li>Perform complete probe cleaning cycle</li>
+<li>Clean barcode scanner window</li>
+<li>Check sample mixer operation</li>
+<li>Review QC trends and Levey-Jennings charts</li>
+<li>Backup analyzer database</li>
+<li>Verify LIS interface communication</li>
+</ul>
+
+<h3>Monthly Maintenance</h3>
+<ul>
+<li>Replace probe cleaning solution</li>
+<li>Calibration verification with standards</li>
+<li>Clean internal optics per manufacturer</li>
+<li>Review error logs and troubleshooting history</li>
+<li>Update software if applicable</li>
+<li>Comprehensive system diagnostic check</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 18: TROUBLESHOOTING -->
+<div class="section" id="troubleshooting">
+<h2>18. TROUBLESHOOTING GUIDE</h2>
+
+<div class="troubleshooting-section">
+<h3>Common Issues and Solutions</h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QC Failure</td>
+<td>Expired controls, temperature issue</td>
+<td>Check expiration, verify temperature, remix QC</td>
+</tr>
+<tr>
+<td>Error: "Sample Aspiration Failed"</td>
+<td>Clot, insufficient volume, probe blocked</td>
+<td>Check sample, clean probe, verify volume</td>
+</tr>
+<tr>
+<td>Results flagged "H" or "L"</td>
+<td>Hemolysis, lipemia, abnormal cells</td>
+<td>Inspect sample, request recollection if needed</td>
+</tr>
+<tr>
+<td>No LIS communication</td>
+<td>Network issue, interface down</td>
+<td>Check connections, restart interface, call IT</td>
+</tr>
+<tr>
+<td>Temperature out of range</td>
+<td>Environmental, sensor failure</td>
+<td>Adjust room temp, verify sensor, call service</td>
+</tr>
+<tr>
+<td>Inconsistent results</td>
+<td>Sample not mixed, analyzer drift</td>
+<td>Remix sample, recalibrate, run controls</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Service Contact:</strong> 1-800-ESR-HELP (24/7 Technical Support)</p>
+<p><strong>Kaiser IT Support:</strong> Extension 5555</p>
+</div>
+</div>
+
+<!-- SECTION 19: COMPETENCY ASSESSMENT -->
+<div class="section" id="competency">
+<h2>19. COMPETENCY ASSESSMENT</h2>
+
+<div class="key-concept">
+<h4>Kaiser Permanente Competency Requirements</h4>
+<p>Per Documents 14952_0 and 13792_0, all personnel must demonstrate competency in:</p>
+
+<table>
+<thead>
+<tr>
+<th>Competency Element</th>
+<th>Initial Training</th>
+<th>Annual Assessment</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct Observation</td>
+<td>5 patient samples</td>
+<td>2 patient samples</td>
+<td>Competency checklist</td>
+</tr>
+<tr>
+<td>QC Performance</td>
+<td>All levels</td>
+<td>All levels</td>
+<td>QC log review</td>
+</tr>
+<tr>
+<td>Maintenance Tasks</td>
+<td>All procedures</td>
+<td>Selected procedures</td>
+<td>Maintenance log</td>
+</tr>
+<tr>
+<td>Problem Solving</td>
+<td>Case scenarios</td>
+<td>Troubleshooting exercise</td>
+<td>Written assessment</td>
+</tr>
+<tr>
+<td>Result Interpretation</td>
+<td>10 cases</td>
+<td>5 cases</td>
+<td>Case review form</td>
+</tr>
+<tr>
+<td>Safety Compliance</td>
+<td>Full assessment</td>
+<td>Annual review</td>
+<td>Safety checklist</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Competency Frequency:</strong></p>
+<ul>
+<li>Initial: Upon hire or new test implementation</li>
+<li>Six months: After initial training</li>
+<li>Annual: Every 12 months thereafter</li>
+<li>Retraining: After extended absence (>2 months) or performance issues</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 20: SAFETY -->
+<div class="section" id="safety">
+<h2>20. SAFETY REQUIREMENTS</h2>
+
+<div class="warning-box">
+<h3>Biological Safety</h3>
+<ul>
+<li>Treat all specimens as potentially infectious</li>
+<li>Wear appropriate PPE: gloves, lab coat, safety glasses</li>
+<li>Work behind splash shield when handling open tubes</li>
+<li>No eating, drinking, or applying cosmetics in work area</li>
+<li>Decontaminate work surfaces with 10% bleach or approved disinfectant</li>
+<li>Dispose of specimens in biohazard containers</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Chemical Safety</h3>
+<ul>
+<li>Review SDS for all reagents and cleaning solutions</li>
+<li>Store chemicals according to compatibility</li>
+<li>Use fume hood for volatile substances</li>
+<li>Maintain chemical inventory with expiration dates</li>
+<li>Report all chemical spills immediately</li>
+</ul>
+
+<h3>Emergency Procedures</h3>
+<ul>
+<li><strong>Needlestick/Exposure:</strong> Immediately wash area, report to supervisor, seek medical attention</li>
+<li><strong>Chemical Spill:</strong> Contain, neutralize if safe, evacuate if necessary</li>
+<li><strong>Fire:</strong> RACE protocol - Rescue, Alarm, Contain, Evacuate</li>
+<li><strong>Power Failure:</strong> Switch to backup power, implement downtime procedures</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 21: TRAINING -->
+<div class="section" id="training">
+<h2>21. TRAINING REQUIREMENTS</h2>
+
+<table>
+<thead>
+<tr>
+<th>Training Phase</th>
+<th>Duration</th>
+<th>Activities</th>
+<th>Evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Orientation</td>
+<td>2 hours</td>
+<td>Review SOP, observe demonstration</td>
+<td>Written quiz (80% pass)</td>
+</tr>
+<tr>
+<td>Hands-on Training</td>
+<td>4 hours</td>
+<td>Practice with trainer supervision</td>
+<td>Practical skills checklist</td>
+</tr>
+<tr>
+<td>Independent Practice</td>
+<td>1 week</td>
+<td>Perform testing with oversight</td>
+<td>Accuracy verification</td>
+</tr>
+<tr>
+<td>Competency Assessment</td>
+<td>2 hours</td>
+<td>Complete all competency elements</td>
+<td>Final sign-off</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h4>Training Resources</h4>
+<ul>
+<li>Manufacturer's training videos and manuals</li>
+<li>Kaiser Permanente Learning Management System modules</li>
+<li>Peer mentoring with experienced technologists</li>
+<li>Monthly department education meetings</li>
+<li>External webinars and continuing education</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 22: DOWNTIME PROCEDURES -->
+<div class="section" id="downtime">
+<h2>22. DOWNTIME PROCEDURES</h2>
+
+<div class="critical-box">
+<h3>Immediate Actions During Analyzer Failure</h3>
+<ol>
+<li><strong>Notify:</strong>
+    <ul>
+    <li>Lead Technologist immediately</li>
+    <li>Laboratory Supervisor within 30 minutes</li>
+    <li>Affected clinical units within 1 hour</li>
+    </ul>
+</li>
+<li><strong>Implement Backup Testing:</strong>
+    <ul>
+    <li>Route STAT specimens to MOB Laboratory</li>
+    <li>Contact: MOB Lab at 301-555-2000</li>
+    <li>Arrange specimen transport via pneumatic tube or courier</li>
+    </ul>
+</li>
+<li><strong>Manual Method (Emergency Only):</strong>
+    <ul>
+    <li>Use Westergren manual ESR tubes if available</li>
+    <li>Follow manual ESR procedure (separate SOP)</li>
+    <li>Document all manual results with method notation</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>Extended Downtime Protocol (>4 hours)</h3>
+<ul>
+<li>Activate formal contingency plan with administration</li>
+<li>Arrange for rental/loaner analyzer if available</li>
+<li>Consider sending specimens to reference laboratory</li>
+<li>Update LIS with downtime messages</li>
+<li>Maintain specimen log for result reconciliation</li>
+<li>Communicate expected resolution time to clinical units</li>
+</ul>
+
+<h3>Recovery Procedures</h3>
+<ol>
+<li>Perform all required maintenance before restart</li>
+<li>Run calibration verification</li>
+<li>Analyze QC at all levels (must pass before patient testing)</li>
+<li>Process any backlogged STAT specimens first</li>
+<li>Verify all results entered correctly in LIS</li>
+<li>Document downtime event in quality log</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 23: REFERENCES -->
+<div class="section" id="references">
+<h2>23. REFERENCES</h2>
+<ol>
+<li>Clinical and Laboratory Standards Institute (CLSI). Procedures for the Erythrocyte Sedimentation Rate Test; Approved Standard—Fifth Edition. CLSI document H02-A5. Wayne, PA: CLSI; 2022.</li>
+<li>College of American Pathologists (CAP). Hematology and Coagulation Checklist. CAP Accreditation Program. Northfield, IL: CAP; 2024.</li>
+<li>Kaiser Permanente. Laboratory Competency Assessment Requirements. Document 14952_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Kaiser Permanente. Technical Competency Standards for Laboratory Personnel. Document 13792_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Mini iSED Operator Manual, Version 6.0. Manufacturer Documentation. 2024.</li>
+<li>Centers for Medicare & Medicaid Services (CMS). Clinical Laboratory Improvement Amendments (CLIA) Regulations. 42 CFR Part 493. 2024.</li>
+<li>The Joint Commission. Comprehensive Accreditation Manual for Laboratories. Oak Brook, IL: Joint Commission Resources; 2024.</li>
+<li>Jou JM, Lewis SM, Briggs C, et al. ICSH review of the measurement of the erythrocyte sedimentation rate. Int J Lab Hematol. 2024;46(2):125-132.</li>
+<li>Bedell SE, Bush BT. Erythrocyte sedimentation rate: from folklore to facts. Am J Med. 2023;136(10):1000-1008.</li>
+<li>Kaiser Permanente Northern California Regional Laboratory Manual. Section: Hematology Testing. 2025 Edition.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control</h4>
+<p><strong>Review Frequency:</strong> Annual or with significant changes</p>
+<p><strong>Next Review Date:</strong> January 2026</p>
+<p><strong>Document Owner:</strong> Hematology Department Lead</p>
+<p><strong>Approved By:</strong> Laboratory Director</p>
+<p><strong>Distribution:</strong> All laboratory staff via LIS document portal</p>
+</div>
+</div>
+
+<!-- APPENDICES -->
+<div class="section">
+<h2>APPENDICES</h2>
+
+<div class="procedure-section">
+<h3>Appendix A: Quick Reference Guide</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Key Points</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QC</td>
+<td>2 levels, must pass before testing</td>
+<td>Every 8 hours</td>
+</tr>
+<tr>
+<td>Sample Prep</td>
+<td>Mix 8-10 times, room temperature</td>
+<td>Each sample</td>
+</tr>
+<tr>
+<td>Critical Value</td>
+<td>>100 mm/hr - call immediately</td>
+<td>As occurs</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>Daily clean, weekly full maintenance</td>
+<td>Per schedule</td>
+</tr>
+<tr>
+<td>Downtime</td>
+<td>Send to MOB Lab: 301-555-2000</td>
+<td>When needed</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<h3>Appendix B: Contact Information</h3>
+<ul>
+<li><strong>Hematology Lead Tech:</strong> Extension 1234</li>
+<li><strong>Laboratory Supervisor:</strong> Extension 1000</li>
+<li><strong>MOB Laboratory:</strong> 301-555-2000</li>
+<li><strong>IT Support:</strong> Extension 5555</li>
+<li><strong>Vendor Support:</strong> 1-800-ESR-HELP</li>
+<li><strong>Emergency:</strong> Code Blue: 3333</li>
+</ul>
+</div>
+
+<div class="warning-box">
+<h3>Appendix C: Critical Reminders</h3>
+<ul>
+<li>Never report results without acceptable QC</li>
+<li>Always verify patient identification</li>
+<li>Document all critical value notifications</li>
+<li>Maintain specimen at proper temperature</li>
+<li>Follow universal precautions at all times</li>
+<li>Complete annual competency assessments</li>
+</ul>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>This document contains confidential and proprietary information</p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>

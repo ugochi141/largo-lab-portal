@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Laboratory - Liat System Procedure</title>
+    <style>
+        /* Optimized Kaiser Permanente Laboratory SOP Template */
+        *{margin:0;padding:0;box-sizing:border-box}
+        @page{size:8.5in 11in;margin:0.75in}
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+        body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+        .container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+        /* Header Styling */
+        .header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+        .header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+        .header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+        /* Table of Contents - Two Column Layout */
+        .toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+        .toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+        .toc-columns{display:flex;gap:30px}
+        .toc-column{flex:1}
+        .toc ul{list-style:none;padding:0}
+        .toc li{margin:6px 0;padding-left:15px}
+        .toc a{color:#0066cc;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+
+        /* Section Styling */
+        .section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+        .section:last-child{border-bottom:none}
+
+        /* Headings - Compact Styling */
+        h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+        h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+        h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        h5{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+        /* Text Elements */
+        p{margin:8px 0;text-align:left}
+        ul,ol{margin:8px 0 8px 25px;padding:0}
+        li{margin:4px 0;line-height:1.5}
+
+        /* Special Sections */
+        .key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+        .key-concept h4{color:#1565c0;margin-top:0}
+
+        .procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+        .warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .warning strong{color:#856404}
+        .info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+        .troubleshooting-section h3,.critical-box h3{color:#cc0000;font-weight:bold;margin-top:0}
+        .critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+        .critical-values h3{color:#721c24;margin-top:0}
+
+        /* Table Styling */
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+        table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+        table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+        table th:last-child{border-right:none}
+        table tbody tr{border-bottom:1px solid #e0e0e0}
+        table td{padding:8px;border-right:1px solid #e0e0e0}
+        table td:last-child{border-right:none}
+        table tbody tr:nth-child(even){background:#f8f9fa}
+        table tbody tr:last-child{border-bottom:none}
+
+        /* Specialized Table Headers */
+        .critical-values table thead{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%)}
+        .procedure-section table thead{background:linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%)}
+        .warning table thead{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%)}
+        .info-box table thead{background:linear-gradient(135deg,#d1ecf1 0%,#bee5eb 100%)}
+
+        /* Images */
+        img{max-width:100%!important;height:auto!important;display:block;margin:15px auto;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.1);page-break-inside:avoid}
+        .image-container{text-align:center;margin:15px 0;page-break-inside:avoid}
+        .image-caption{font-size:9pt;font-style:italic;color:#666;margin-top:6px;text-align:center}
+
+        /* QC Failure Section Styling */
+        .qc-failure-section{background:linear-gradient(135deg,#f8fbff 0%,#f0f7ff 100%);padding:25px;border-radius:10px;margin:25px 0;border-left:5px solid #2196F3;box-shadow:0 2px 8px rgba(33,150,243,0.1)}
+        .qc-failure-section h3{color:#1565C0;font-size:16pt;border-bottom:3px solid #2196F3;padding-bottom:10px;margin-bottom:20px}
+
+        /* Print Optimizations */
+        @media print{
+            @page{size:8.5in 11in;margin:0.75in}
+            *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+            .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+            h1,h2,h3,h4{page-break-after:avoid}
+            .toc{page-break-after:always}
+            .toc-columns{display:block}
+            .toc-column{display:block;margin-bottom:15px}
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <h2>Liat System Standard Operating Procedure</h2>
+        </div>
+
+        <!-- Table of Contents - Two Columns -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column">
+                    <ul>
+                        <li>1. <a href="#purpose">Purpose</a></li>
+                        <li>2. <a href="#scope">Scope</a></li>
+                        <li>3. <a href="#responsibilities">Responsibilities</a></li>
+                        <li>4. <a href="#definitions">Definitions</a></li>
+                        <li>5. <a href="#clinical-significance">Clinical Significance</a></li>
+                        <li>6. <a href="#test-components">Test Components Available</a></li>
+                        <li>7. <a href="#equipment">Equipment and Materials</a></li>
+                        <li>8. <a href="#safety">Safety Requirements</a></li>
+                        <li>8.5. <a href="#startup">Daily Startup & Pre-Routine</a></li>
+                        <li>9. <a href="#specimen">Specimen Requirements</a></li>
+                        <li>10. <a href="#qc">Quality Control Requirements</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul>
+                        <li>11. <a href="#calibration">Calibration</a></li>
+                        <li>12. <a href="#maintenance">Maintenance</a></li>
+                        <li>13. <a href="#procedure">Test Procedures</a></li>
+                        <li>14. <a href="#results">Result Reporting</a></li>
+                        <li>15. <a href="#reference">Reference Ranges</a></li>
+                        <li>16. <a href="#critical">Critical Values</a></li>
+                        <li>17. <a href="#limitations">Limitations</a></li>
+                        <li>18. <a href="#troubleshooting">Troubleshooting</a></li>
+                        <li>19. <a href="#downtime">Downtime Procedures</a></li>
+                        <li>20. <a href="#quality">Quality Assurance</a></li>
+                        <li>21. <a href="#references">References</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Purpose -->
+        <div class="section" id="purpose">
+            <h2>1. PURPOSE</h2>
+            <p>This document describes the standard operating procedures for performing molecular diagnostic testing using the Roche cobas® Liat System at Kaiser Permanente Largo Laboratory. This SOP ensures accurate, reliable, and rapid point-of-care molecular test results for patient care.</p>
+
+            <div class="key-concept">
+                <h4>Why Liat Molecular Testing Is Important:</h4>
+                <p>The cobas® Liat System provides rapid molecular diagnostic results at the point of care, enabling:</p>
+                <ul>
+                    <li>Rapid detection of infectious agents (Influenza A/B, RSV, Strep A, SARS-CoV-2)</li>
+                    <li>Quick turnaround time (20 minutes or less)</li>
+                    <li>Immediate clinical decision making</li>
+                    <li>Improved patient outcomes through timely treatment</li>
+                    <li>Reduced unnecessary antibiotic use</li>
+                    <li>Infection control and isolation decisions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 2: Scope -->
+        <div class="section" id="scope">
+            <h2>2. SCOPE</h2>
+            <p>This procedure applies to Medical Laboratory Technicians (MLTs), Medical Laboratory Scientists (MLSs), and authorized Point-of-Care personnel trained and competent in performing molecular testing on the cobas® Liat System at Kaiser Permanente Largo Laboratory.</p>
+
+            <h3>Test Menu Includes:</h3>
+            <ul>
+                <li>Influenza A/B</li>
+                <li>Respiratory Syncytial Virus (RSV)</li>
+                <li>Influenza A/B & RSV</li>
+                <li>Strep A</li>
+                <li>SARS-CoV-2 (COVID-19)</li>
+                <li>SARS-CoV-2 & Influenza A/B</li>
+                <li>Clostridium difficile (C. diff)</li>
+            </ul>
+
+            <h3>Personnel Requirements:</h3>
+            <div class="procedure-section">
+                <p>Only trained and competency-assessed personnel may operate the cobas® Liat System. Training includes:</p>
+                <ol>
+                    <li>Initial training by qualified trainer (minimum 8 hours)</li>
+                    <li>Supervised practice (minimum 10 patient samples)</li>
+                    <li>Written competency assessment</li>
+                    <li>Practical competency demonstration</li>
+                    <li>Annual competency reassessment</li>
+                    <li>Completion of Roche cobas® Liat online training modules</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 3: Responsibilities -->
+        <div class="section" id="responsibilities">
+            <h2>3. RESPONSIBILITIES</h2>
+
+            <h3>Medical Laboratory Technician (MLT)</h3>
+            <ul>
+                <li>Perform daily QC and document results</li>
+                <li>Process STAT molecular specimens</li>
+                <li>Maintain cobas® Liat cleanliness and perform daily maintenance</li>
+                <li>Report critical/positive results immediately to nursing staff</li>
+                <li>Troubleshoot basic instrument errors</li>
+                <li>Maintain adequate inventory of test tubes and supplies</li>
+                <li>Monitor test tube expiration dates</li>
+            </ul>
+
+            <h3>Medical Laboratory Scientist (MLS)</h3>
+            <ul>
+                <li>Perform all MLT duties as needed</li>
+                <li>Review and validate QC results</li>
+                <li>Perform instrument troubleshooting</li>
+                <li>Train new staff on Liat procedures</li>
+                <li>Participate in proficiency testing program</li>
+                <li>Perform software updates as directed</li>
+                <li>Review exception reports</li>
+            </ul>
+
+            <h3>Bench Lead Technologist</h3>
+            <ul>
+                <li>Oversee daily operations of molecular testing</li>
+                <li>Review and sign off on monthly QC summaries</li>
+                <li>Coordinate maintenance schedules</li>
+                <li>Investigate QC failures and implement corrective actions</li>
+                <li>Serve as primary contact for technical issues</li>
+                <li>Maintain competency assessment records</li>
+                <li>Update procedures as needed</li>
+                <li>Monitor turnaround times and implement improvements</li>
+            </ul>
+
+            <h3>Turnaround Time Requirements</h3>
+            <div class="procedure-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Run Time</th>
+                            <th>TAT Goal</th>
+                            <th>Acceptable Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Influenza A/B</td>
+                            <td>20 minutes</td>
+                            <td>45 minutes</td>
+                            <td>30-60 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Strep A</td>
+                            <td>15 minutes</td>
+                            <td>30 minutes</td>
+                            <td>20-45 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>SARS-CoV-2</td>
+                            <td>20 minutes</td>
+                            <td>45 minutes</td>
+                            <td>30-60 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>C. difficile</td>
+                            <td>20 minutes</td>
+                            <td>45 minutes</td>
+                            <td>30-60 minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 4: Definitions -->
+        <div class="section" id="definitions">
+            <h2>4. DEFINITIONS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ct Value</td>
+                        <td>Cycle threshold - The number of cycles required for fluorescent signal to exceed background</td>
+                    </tr>
+                    <tr>
+                        <td>EUA</td>
+                        <td>Emergency Use Authorization - FDA authorization for use during public health emergency</td>
+                    </tr>
+                    <tr>
+                        <td>IC</td>
+                        <td>Internal Control - Ensures proper specimen processing and amplification</td>
+                    </tr>
+                    <tr>
+                        <td>LOD</td>
+                        <td>Limit of Detection - Lowest concentration reliably detected</td>
+                    </tr>
+                    <tr>
+                        <td>NAAT</td>
+                        <td>Nucleic Acid Amplification Test</td>
+                    </tr>
+                    <tr>
+                        <td>PCR</td>
+                        <td>Polymerase Chain Reaction - Method used to amplify target nucleic acids</td>
+                    </tr>
+                    <tr>
+                        <td>POC</td>
+                        <td>Point of Care - Testing performed near patient</td>
+                    </tr>
+                    <tr>
+                        <td>RT-PCR</td>
+                        <td>Real-Time PCR - Quantitative PCR method</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 5: Clinical Significance -->
+        <div class="section" id="clinical-significance">
+            <h2>5. CLINICAL SIGNIFICANCE</h2>
+
+            <p>Molecular diagnostic testing using the cobas® Liat System provides critical information for diagnosis, treatment, and infection control decisions.</p>
+
+            <h3>Test Clinical Applications</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Clinical Significance</th>
+                        <th>Common Indications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Influenza A/B</strong></td>
+                        <td>Rapid diagnosis of influenza infection</td>
+                        <td>Fever, cough, body aches during flu season<br>Antiviral treatment decisions<br>Infection control measures</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RSV</strong></td>
+                        <td>Detection of Respiratory Syncytial Virus</td>
+                        <td>Bronchiolitis in infants<br>Respiratory symptoms in elderly<br>Immunocompromised patients</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Strep A</strong></td>
+                        <td>Detection of Group A Streptococcus</td>
+                        <td>Pharyngitis/sore throat<br>Antibiotic treatment decisions<br>Rheumatic fever prevention</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SARS-CoV-2</strong></td>
+                        <td>Detection of COVID-19 virus</td>
+                        <td>COVID-19 symptoms<br>Pre-procedure screening<br>Contact tracing<br>Return to work clearance</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Clinical Impact</h3>
+
+            <div class="info-box">
+                <h4>Influenza A/B Testing</h4>
+                <p><strong>Clinical Significance:</strong> Enables rapid antiviral treatment within 48 hours of symptom onset.</p>
+                <ul>
+                    <li><strong>Sensitivity:</strong> 97.8% for Influenza A, 98.1% for Influenza B</li>
+                    <li><strong>Specificity:</strong> 99.5% for both</li>
+                    <li><strong>Treatment Impact:</strong> Reduces symptom duration by 1-2 days if treated early</li>
+                    <li><strong>Public Health:</strong> Prevents transmission in healthcare settings</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Strep A Testing</h4>
+                <p><strong>Clinical Significance:</strong> Prevents complications of untreated streptococcal infection.</p>
+                <ul>
+                    <li><strong>Sensitivity:</strong> 97.4%</li>
+                    <li><strong>Specificity:</strong> 95.8%</li>
+                    <li><strong>Prevents:</strong> Rheumatic fever, post-streptococcal glomerulonephritis</li>
+                    <li><strong>Antibiotic Stewardship:</strong> Reduces unnecessary antibiotic use</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>SARS-CoV-2 Testing</h4>
+                <p><strong>Clinical Significance:</strong> Critical for COVID-19 diagnosis and infection control.</p>
+                <ul>
+                    <li><strong>Sensitivity:</strong> 96.7%</li>
+                    <li><strong>Specificity:</strong> 99.3%</li>
+                    <li><strong>Detection:</strong> Can detect virus 1-2 days before symptom onset</li>
+                    <li><strong>Variants:</strong> Detects all known variants of concern</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 6: Test Components Available -->
+        <div class="section" id="test-components">
+            <h2>6. TEST COMPONENTS AVAILABLE</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test Code</th>
+                        <th>Test Name</th>
+                        <th>Specimen Type</th>
+                        <th>Collection Device</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FLU</td>
+                        <td>Influenza A/B</td>
+                        <td>Nasopharyngeal swab</td>
+                        <td>Flocked swab in VTM</td>
+                    </tr>
+                    <tr>
+                        <td>RSV</td>
+                        <td>Respiratory Syncytial Virus</td>
+                        <td>Nasopharyngeal swab</td>
+                        <td>Flocked swab in VTM</td>
+                    </tr>
+                    <tr>
+                        <td>FLURSV</td>
+                        <td>Flu A/B & RSV</td>
+                        <td>Nasopharyngeal swab</td>
+                        <td>Flocked swab in VTM</td>
+                    </tr>
+                    <tr>
+                        <td>STREP</td>
+                        <td>Strep A</td>
+                        <td>Throat swab</td>
+                        <td>Rayon or Dacron swab</td>
+                    </tr>
+                    <tr>
+                        <td>COVID</td>
+                        <td>SARS-CoV-2</td>
+                        <td>Nasopharyngeal/Nasal swab</td>
+                        <td>Flocked swab in VTM</td>
+                    </tr>
+                    <tr>
+                        <td>CDIFF</td>
+                        <td>C. difficile</td>
+                        <td>Stool</td>
+                        <td>Sterile container</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 7: Equipment and Materials -->
+        <div class="section" id="equipment">
+            <h2>7. EQUIPMENT AND MATERIALS</h2>
+
+            <h3>Primary Equipment</h3>
+            <ul>
+                <li>cobas® Liat System analyzer(s)</li>
+                <li>Barcode scanner (if applicable)</li>
+                <li>Timer</li>
+                <li>Refrigerator (2-8°C) for test tube storage</li>
+                <li>Computer with cobas® Liat software</li>
+                <li>Printer for result reports</li>
+            </ul>
+
+            <h3>Test Tubes and Supplies</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Catalog #</th>
+                        <th>Storage</th>
+                        <th>Stability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Influenza A/B Test Tubes</td>
+                        <td>07002220190</td>
+                        <td>2-25°C</td>
+                        <td>Until expiration date</td>
+                    </tr>
+                    <tr>
+                        <td>Strep A Test Tubes</td>
+                        <td>07002238190</td>
+                        <td>2-25°C</td>
+                        <td>Until expiration date</td>
+                    </tr>
+                    <tr>
+                        <td>SARS-CoV-2 Test Tubes</td>
+                        <td>09319417190</td>
+                        <td>2-25°C</td>
+                        <td>Until expiration date</td>
+                    </tr>
+                    <tr>
+                        <td>QC Check Tubes</td>
+                        <td>07341890190</td>
+                        <td>2-25°C</td>
+                        <td>Until expiration date</td>
+                    </tr>
+                    <tr>
+                        <td>Transfer pipettes</td>
+                        <td>N/A</td>
+                        <td>Room temperature</td>
+                        <td>N/A</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Collection Supplies</h3>
+            <ul>
+                <li>Nasopharyngeal flocked swabs</li>
+                <li>Throat swabs (rayon or Dacron)</li>
+                <li>Viral Transport Media (VTM)</li>
+                <li>Sterile saline</li>
+                <li>Sample collection labels</li>
+            </ul>
+        </div>
+
+        <!-- Section 8: Safety Requirements -->
+        <div class="section" id="safety">
+            <h2>8. SAFETY REQUIREMENTS</h2>
+
+            <div class="warning">
+                <h3>⚠️ Universal Precautions</h3>
+                <p>All patient specimens must be handled as potentially infectious. Follow standard precautions at all times.</p>
+            </div>
+
+            <h3>Personal Protective Equipment (PPE)</h3>
+            <ul>
+                <li>Laboratory coat (must be worn at all times)</li>
+                <li>Disposable gloves (change between specimens)</li>
+                <li>Safety glasses or face shield when handling open specimens</li>
+                <li>N95 respirator when handling suspected COVID-19 specimens (if aerosolization risk)</li>
+            </ul>
+
+            <h3>Specimen Handling</h3>
+            <div class="procedure-section">
+                <ol>
+                    <li>Process all specimens in a biological safety cabinet when possible</li>
+                    <li>Use sealed carriers for specimen transport</li>
+                    <li>Decontaminate work surfaces with 10% bleach or EPA-approved disinfectant</li>
+                    <li>Dispose of all test tubes and swabs in biohazard waste</li>
+                    <li>Wash hands thoroughly after removing gloves</li>
+                </ol>
+            </div>
+
+            <h3>Spill Procedure</h3>
+            <div class="critical-box">
+                <h3>Biological Spill Response</h3>
+                <ol>
+                    <li>Alert others in the area</li>
+                    <li>Put on appropriate PPE</li>
+                    <li>Cover spill with absorbent material</li>
+                    <li>Pour 10% bleach over the spill, working from outside to center</li>
+                    <li>Allow 20 minutes contact time</li>
+                    <li>Clean up with disposable materials</li>
+                    <li>Dispose in biohazard waste</li>
+                    <li>Decontaminate area again</li>
+                    <li>Document incident</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 8.5: Daily Startup -->
+        <div class="section" id="startup">
+            <h2>8.5. DAILY STARTUP & PRE-ROUTINE</h2>
+
+            <div class="procedure-section">
+                <h3>Daily Startup Checklist</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Task</th>
+                            <th>Complete</th>
+                            <th>Initials</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>06:00</td>
+                            <td>Turn on Liat instrument(s)</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:05</td>
+                            <td>Check instrument status lights (all green)</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:10</td>
+                            <td>Review previous shift notes</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:15</td>
+                            <td>Check test tube inventory and expiration dates</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:20</td>
+                            <td>Run QC Check tube</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:40</td>
+                            <td>Verify QC results acceptable</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:45</td>
+                            <td>Document in QC log</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                        <tr>
+                            <td>06:50</td>
+                            <td>Check pending test orders</td>
+                            <td>☐</td>
+                            <td>_____</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 9: Specimen Requirements -->
+        <div class="section" id="specimen">
+            <h2>9. SPECIMEN REQUIREMENTS</h2>
+
+            <h3>Specimen Collection and Handling</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Specimen Type</th>
+                        <th>Collection Method</th>
+                        <th>Storage</th>
+                        <th>Stability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Influenza/RSV</td>
+                        <td>Nasopharyngeal swab</td>
+                        <td>Flocked swab, place in VTM</td>
+                        <td>Room temp: 8 hrs<br>2-8°C: 72 hrs</td>
+                        <td>Test within 8 hours if possible</td>
+                    </tr>
+                    <tr>
+                        <td>Strep A</td>
+                        <td>Throat swab</td>
+                        <td>Swab posterior pharynx and tonsillar pillars</td>
+                        <td>Room temp: 4 hrs<br>2-8°C: 48 hrs</td>
+                        <td>Test immediately if possible</td>
+                    </tr>
+                    <tr>
+                        <td>SARS-CoV-2</td>
+                        <td>NP or Nasal swab</td>
+                        <td>Flocked swab in VTM or saline</td>
+                        <td>Room temp: 8 hrs<br>2-8°C: 72 hrs</td>
+                        <td>Test within 24 hours</td>
+                    </tr>
+                    <tr>
+                        <td>C. difficile</td>
+                        <td>Stool</td>
+                        <td>5-10 mL liquid or 5g formed stool</td>
+                        <td>2-8°C: 72 hrs<br>-20°C: 7 days</td>
+                        <td>Test within 48 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Specimen Rejection Criteria</h3>
+            <div class="warning">
+                <p><strong>Reject specimens if:</strong></p>
+                <ul>
+                    <li>Unlabeled or mislabeled</li>
+                    <li>Wrong specimen type (e.g., saliva for flu test)</li>
+                    <li>Specimen leaked or contaminated</li>
+                    <li>Exceeded stability limits</li>
+                    <li>Calcium alginate or wooden shaft swabs (inhibit PCR)</li>
+                    <li>Dry swabs without transport media</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 10: Quality Control -->
+        <div class="section" id="qc">
+            <h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+
+            <div class="critical-values">
+                <h3>⚠️ CRITICAL QC RULE</h3>
+                <p><strong>NEVER report patient results if QC is not acceptable. This is a zero-tolerance policy.</strong></p>
+            </div>
+
+            <h3>QC Schedule</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>QC Type</th>
+                        <th>Frequency</th>
+                        <th>Acceptable Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>QC Check Tube</td>
+                        <td>Daily before patient testing</td>
+                        <td>PASS result required</td>
+                    </tr>
+                    <tr>
+                        <td>External Controls</td>
+                        <td>With each new lot/shipment</td>
+                        <td>Positive and negative controls pass</td>
+                    </tr>
+                    <tr>
+                        <td>Internal Control</td>
+                        <td>With each patient sample</td>
+                        <td>IC must be detected</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>QC Failure Response</h3>
+            <div class="qc-failure-section">
+                <h3>QC Failure Actions</h3>
+                <ol>
+                    <li>DO NOT report any patient results</li>
+                    <li>Repeat QC immediately with new QC tube</li>
+                    <li>If QC fails again:
+                        <ul>
+                            <li>Check expiration dates</li>
+                            <li>Check storage conditions</li>
+                            <li>Check for error messages</li>
+                            <li>Run QC on different Liat instrument if available</li>
+                        </ul>
+                    </li>
+                    <li>If QC still fails:
+                        <ul>
+                            <li>Remove instrument from service</li>
+                            <li>Contact Lead Technologist</li>
+                            <li>Contact Roche Technical Support if needed</li>
+                            <li>Document in instrument log</li>
+                        </ul>
+                    </li>
+                    <li>Do not resume testing until QC passes</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 11: Calibration -->
+        <div class="section" id="calibration">
+            <h2>11. CALIBRATION</h2>
+
+            <p>The cobas® Liat System is factory-calibrated and does not require user calibration. However, the following verifications are required:</p>
+
+            <h3>Calibration Verification</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Frequency</th>
+                        <th>Performed By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>QC Check Tube verification</td>
+                        <td>Daily</td>
+                        <td>MLT/MLS</td>
+                    </tr>
+                    <tr>
+                        <td>Temperature verification</td>
+                        <td>Monthly</td>
+                        <td>Lead Tech</td>
+                    </tr>
+                    <tr>
+                        <td>Software version check</td>
+                        <td>Monthly</td>
+                        <td>Lead Tech</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency testing</td>
+                        <td>Quarterly</td>
+                        <td>MLS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 12: Maintenance -->
+        <div class="section" id="maintenance">
+            <h2>12. MAINTENANCE</h2>
+
+            <h3>Daily Maintenance</h3>
+            <ul>
+                <li>Clean external surfaces with 70% alcohol</li>
+                <li>Check and clean barcode reader lens</li>
+                <li>Verify all status lights are green</li>
+                <li>Document in maintenance log</li>
+            </ul>
+
+            <h3>Weekly Maintenance</h3>
+            <ul>
+                <li>Clean analyzer drawer and sample port</li>
+                <li>Check for software updates</li>
+                <li>Review error logs</li>
+                <li>Inventory test tubes and supplies</li>
+            </ul>
+
+            <h3>Monthly Maintenance</h3>
+            <ul>
+                <li>Download and archive test results</li>
+                <li>Review QC trends</li>
+                <li>Check and document instrument serial numbers</li>
+                <li>Verify network connectivity</li>
+            </ul>
+
+            <h3>As Needed Maintenance</h3>
+            <div class="procedure-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Error code displayed</td>
+                            <td>Refer to error code guide, contact support if needed</td>
+                        </tr>
+                        <tr>
+                            <td>Barcode not reading</td>
+                            <td>Clean scanner lens with lens paper</td>
+                        </tr>
+                        <tr>
+                            <td>Drawer not closing</td>
+                            <td>Check for obstructions, clean drawer tracks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 13: Test Procedures -->
+        <div class="section" id="procedure">
+            <h2>13. TEST PROCEDURES</h2>
+
+            <h3>General Testing Procedure</h3>
+
+            <div class="procedure-section">
+                <h4>Step-by-Step Testing Process</h4>
+                <ol>
+                    <li><strong>Specimen Receipt</strong>
+                        <ul>
+                            <li>Verify patient identification matches requisition</li>
+                            <li>Check specimen adequacy</li>
+                            <li>Note collection time</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pre-analytical</strong>
+                        <ul>
+                            <li>Allow refrigerated specimens to come to room temperature (15 min)</li>
+                            <li>Mix specimen gently by inverting 5 times</li>
+                            <li>Remove test tube from pouch</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sample Preparation</strong>
+                        <ul>
+                            <li>Using transfer pipette, add sample to fill line on test tube</li>
+                            <li>Cap tube securely</li>
+                            <li>Invert 3 times to mix</li>
+                        </ul>
+                    </li>
+                    <li><strong>Loading Sample</strong>
+                        <ul>
+                            <li>Press "Run Test" on Liat screen</li>
+                            <li>Scan or enter patient ID</li>
+                            <li>Scan test tube barcode</li>
+                            <li>Open drawer when prompted</li>
+                            <li>Insert tube with barcode facing out</li>
+                            <li>Close drawer</li>
+                        </ul>
+                    </li>
+                    <li><strong>During Run</strong>
+                        <ul>
+                            <li>Monitor progress on screen</li>
+                            <li>Do not open drawer during run</li>
+                            <li>Run time varies by test (15-20 minutes)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Result Review</strong>
+                        <ul>
+                            <li>Review result on screen</li>
+                            <li>Check for error flags</li>
+                            <li>Verify internal control passed</li>
+                        </ul>
+                    </li>
+                    <li><strong>Result Reporting</strong>
+                        <ul>
+                            <li>Release result to LIS</li>
+                            <li>Call critical/positive results immediately</li>
+                            <li>Document in log if required</li>
+                        </ul>
+                    </li>
+                    <li><strong>Post-analytical</strong>
+                        <ul>
+                            <li>Remove and dispose test tube in biohazard waste</li>
+                            <li>Clean drawer if needed</li>
+                            <li>Store specimen per retention policy</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Test-Specific Procedures</h3>
+
+            <div class="info-box">
+                <h4>Strep A Testing</h4>
+                <p><strong>Special Considerations:</strong></p>
+                <ul>
+                    <li>Throat swab must contact posterior pharynx and both tonsillar pillars</li>
+                    <li>Avoid touching tongue, teeth, or gums</li>
+                    <li>Process within 4 hours if stored at room temperature</li>
+                    <li>Positive results are definitive</li>
+                    <li>Negative results in high-risk patients may need backup culture</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>COVID-19 Testing</h4>
+                <p><strong>Special Considerations:</strong></p>
+                <ul>
+                    <li>Use enhanced PPE when handling specimens</li>
+                    <li>Process in biological safety cabinet if available</li>
+                    <li>Report all positives to Infection Control immediately</li>
+                    <li>Follow state reporting requirements</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 14: Result Reporting -->
+        <div class="section" id="results">
+            <h2>14. RESULT REPORTING</h2>
+
+            <h3>Result Interpretation</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Interpretation</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Detected/Positive</td>
+                        <td>Target organism detected</td>
+                        <td>Report immediately, call if critical</td>
+                    </tr>
+                    <tr>
+                        <td>Not Detected/Negative</td>
+                        <td>Target organism not detected</td>
+                        <td>Report normally</td>
+                    </tr>
+                    <tr>
+                        <td>Invalid</td>
+                        <td>Internal control failed</td>
+                        <td>Repeat test with new specimen</td>
+                    </tr>
+                    <tr>
+                        <td>Error</td>
+                        <td>Instrument or process error</td>
+                        <td>Troubleshoot and repeat</td>
+                    </tr>
+                    <tr>
+                        <td>No Result</td>
+                        <td>Test not completed</td>
+                        <td>Investigate cause and repeat</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Critical Value Notification</h3>
+            <div class="critical-values">
+                <h3>Immediate Notification Required For:</h3>
+                <ul>
+                    <li>All positive Influenza A/B results</li>
+                    <li>All positive RSV results</li>
+                    <li>All positive SARS-CoV-2 results</li>
+                    <li>Positive Strep A in high-risk patients</li>
+                    <li>Positive C. difficile results</li>
+                </ul>
+                <p><strong>Notification Process:</strong></p>
+                <ol>
+                    <li>Call nursing unit immediately (within 15 minutes)</li>
+                    <li>Provide patient name, MRN, test result</li>
+                    <li>Obtain read-back confirmation</li>
+                    <li>Document time, person notified, and read-back in LIS</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 15: Reference Ranges -->
+        <div class="section" id="reference">
+            <h2>15. REFERENCE RANGES</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Reference Range</th>
+                        <th>Reportable Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Influenza A</td>
+                        <td>Not Detected</td>
+                        <td>Detected/Not Detected</td>
+                    </tr>
+                    <tr>
+                        <td>Influenza B</td>
+                        <td>Not Detected</td>
+                        <td>Detected/Not Detected</td>
+                    </tr>
+                    <tr>
+                        <td>RSV</td>
+                        <td>Not Detected</td>
+                        <td>Detected/Not Detected</td>
+                    </tr>
+                    <tr>
+                        <td>Strep A</td>
+                        <td>Negative</td>
+                        <td>Positive/Negative</td>
+                    </tr>
+                    <tr>
+                        <td>SARS-CoV-2</td>
+                        <td>Not Detected</td>
+                        <td>Detected/Not Detected</td>
+                    </tr>
+                    <tr>
+                        <td>C. difficile</td>
+                        <td>Negative</td>
+                        <td>Positive/Negative</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 16: Critical Values -->
+        <div class="section" id="critical">
+            <h2>16. CRITICAL VALUES</h2>
+
+            <p>All positive/detected results for the following tests are considered critical and require immediate notification:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Critical Result</th>
+                        <th>Notification Time</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#ffebee">
+                        <td>SARS-CoV-2</td>
+                        <td>Detected</td>
+                        <td>Immediately</td>
+                        <td>STAT</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td>Influenza A/B</td>
+                        <td>Detected</td>
+                        <td>Within 15 min</td>
+                        <td>Urgent</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td>RSV</td>
+                        <td>Detected</td>
+                        <td>Within 15 min</td>
+                        <td>Urgent</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td>C. difficile</td>
+                        <td>Positive</td>
+                        <td>Within 15 min</td>
+                        <td>Urgent</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 17: Limitations -->
+        <div class="section" id="limitations">
+            <h2>17. LIMITATIONS</h2>
+
+            <h3>Test Limitations</h3>
+            <ul>
+                <li>Results should be interpreted in conjunction with clinical presentation</li>
+                <li>Negative results do not rule out infection</li>
+                <li>Test performance may be affected by:
+                    <ul>
+                        <li>Improper specimen collection</li>
+                        <li>Specimen collected too early or late in disease course</li>
+                        <li>Improper specimen transport or storage</li>
+                        <li>Technical errors in performing the test</li>
+                        <li>Viral load below limit of detection</li>
+                    </ul>
+                </li>
+                <li>Mutations in viral genome may affect detection</li>
+                <li>Does not differentiate between viable and non-viable organisms</li>
+            </ul>
+
+            <h3>Interfering Substances</h3>
+            <div class="warning">
+                <p><strong>The following may interfere with test results:</strong></p>
+                <ul>
+                    <li>Blood contamination (>5%)</li>
+                    <li>Mucoid specimens</li>
+                    <li>Nasal sprays or drops if used within 24 hours</li>
+                    <li>Throat lozenges or mouth rinses</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 18: Troubleshooting -->
+        <div class="section" id="troubleshooting">
+            <h2>18. TROUBLESHOOTING</h2>
+
+            <div class="troubleshooting-section">
+                <h3>Common Issues and Solutions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Possible Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Invalid Result</td>
+                            <td>• Insufficient sample<br>• Improper mixing<br>• Expired test tube</td>
+                            <td>• Repeat with new specimen<br>• Ensure proper fill level<br>• Check expiration dates</td>
+                        </tr>
+                        <tr>
+                            <td>Error Code 101</td>
+                            <td>• Drawer not closed properly<br>• Test tube not seated</td>
+                            <td>• Open and reclose drawer<br>• Ensure tube clicks into place</td>
+                        </tr>
+                        <tr>
+                            <td>Error Code 201</td>
+                            <td>• Barcode read error</td>
+                            <td>• Clean barcode<br>• Manual entry if needed</td>
+                        </tr>
+                        <tr>
+                            <td>No Internal Control</td>
+                            <td>• PCR inhibition<br>• Specimen issue</td>
+                            <td>• Dilute specimen 1:2 with saline<br>• Recollect specimen</td>
+                        </tr>
+                        <tr>
+                            <td>QC Failure</td>
+                            <td>• Expired QC<br>• Temperature excursion<br>• Instrument issue</td>
+                            <td>• Check expiration<br>• Review storage logs<br>• Contact service</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>When to Call Service</h3>
+            <div class="critical-box">
+                <p><strong>Contact Roche Technical Support (1-800-XXX-XXXX) if:</strong></p>
+                <ul>
+                    <li>Repeated QC failures after troubleshooting</li>
+                    <li>Error codes persist after basic troubleshooting</li>
+                    <li>Physical damage to instrument</li>
+                    <li>Software errors or freezing</li>
+                    <li>Temperature alarm</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 19: Downtime Procedures -->
+        <div class="section" id="downtime">
+            <h2>19. DOWNTIME PROCEDURES</h2>
+
+            <div class="critical-box">
+                <h3>⚠️ Instrument Downtime Protocol</h3>
+                <p>When cobas® Liat is unavailable:</p>
+            </div>
+
+            <h3>Immediate Actions</h3>
+            <ol>
+                <li>Notify nursing units and providers</li>
+                <li>Post downtime notices</li>
+                <li>Implement alternative testing methods</li>
+            </ol>
+
+            <h3>Alternative Testing Options</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Alternative Method</th>
+                        <th>TAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Influenza A/B</td>
+                        <td>Send to main lab for PCR</td>
+                        <td>2-4 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Strep A</td>
+                        <td>Rapid antigen test or culture</td>
+                        <td>15 min or 24-48 hrs</td>
+                    </tr>
+                    <tr>
+                        <td>SARS-CoV-2</td>
+                        <td>Send to main lab for PCR</td>
+                        <td>2-4 hours</td>
+                    </tr>
+                    <tr>
+                        <td>RSV</td>
+                        <td>Send to main lab for PCR</td>
+                        <td>2-4 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Specimen Handling During Downtime</h3>
+            <div class="procedure-section">
+                <ul>
+                    <li>Label specimens clearly with collection time</li>
+                    <li>Store at 2-8°C if delay expected</li>
+                    <li>Batch specimens for send-out if needed</li>
+                    <li>Document all specimens affected</li>
+                    <li>Prioritize STAT and critical specimens</li>
+                </ul>
+            </div>
+
+            <h3>Recovery Procedures</h3>
+            <ol>
+                <li>When instrument returns to service:
+                    <ul>
+                        <li>Run QC before patient testing</li>
+                        <li>Process backlogged STAT specimens first</li>
+                        <li>Notify units that testing has resumed</li>
+                        <li>Document downtime duration and cause</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Section 20: Quality Assurance -->
+        <div class="section" id="quality">
+            <h2>20. QUALITY ASSURANCE</h2>
+
+            <h3>Quality Indicators</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Goal</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TAT Compliance</td>
+                        <td>&gt;95% meet TAT goals</td>
+                        <td>Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>QC Pass Rate</td>
+                        <td>&gt;98%</td>
+                        <td>Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Specimen Rejection Rate</td>
+                        <td>&lt;2%</td>
+                        <td>Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Critical Value Notification</td>
+                        <td>100% within 15 min</td>
+                        <td>Monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency Testing</td>
+                        <td>100% pass rate</td>
+                        <td>Quarterly</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Competency Assessment</h3>
+            <div class="procedure-section">
+                <p><strong>Annual competency assessment includes:</strong></p>
+                <ul>
+                    <li>Direct observation of patient testing</li>
+                    <li>Review of QC and maintenance records</li>
+                    <li>Written examination</li>
+                    <li>Problem-solving scenarios</li>
+                    <li>Proficiency testing review</li>
+                    <li>Review of worksheets and result reporting</li>
+                </ul>
+            </div>
+
+            <h3>Document Control</h3>
+            <ul>
+                <li>This SOP is reviewed annually</li>
+                <li>Changes require approval from Laboratory Director</li>
+                <li>Obsolete versions are archived for 2 years</li>
+                <li>All staff must read and acknowledge updates</li>
+            </ul>
+        </div>
+
+        <!-- Section 21: References -->
+        <div class="section" id="references">
+            <h2>21. REFERENCES</h2>
+
+            <ol>
+                <li>Roche cobas® Liat System Operator's Manual, Version 6.0</li>
+                <li>cobas® Liat Influenza A/B Package Insert, 2023</li>
+                <li>cobas® Liat Strep A Package Insert, 2023</li>
+                <li>cobas® Liat SARS-CoV-2 Package Insert, 2023</li>
+                <li>CLSI MM13-A: Collection, Transport, Preparation, and Storage of Specimens for Molecular Methods</li>
+                <li>CAP Molecular Pathology Checklist, 2023 Edition</li>
+                <li>CDC Guidelines for Respiratory Virus Testing</li>
+                <li>Kaiser Permanente Laboratory Policy Manual</li>
+                <li>FDA Emergency Use Authorization for SARS-CoV-2 Testing</li>
+            </ol>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #0066cc;">
+            <p style="font-size: 9pt; color: #666;">
+                <strong>Document Control:</strong><br>
+                Document Number: MAS.LAB.MICRO.001<br>
+                Version: 2.0<br>
+                Effective Date: January 1, 2025<br>
+                Review Date: January 1, 2026<br>
+                Approved By: [Laboratory Director Name], MD<br>
+                Distribution: Microbiology Department, Point of Care Testing
+            </p>
+        </div>
+    </div>
+</body>
+</html>

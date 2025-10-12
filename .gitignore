@@ -22,3 +22,15 @@
 # Editor files
 .vscode
 .idea
+
+# Sensitive files
+*notion*.py
+*NOTION*.md
+*secret*.json
+*power_automate*.json
+*.env
+.env.*
+
+# Nested git repositories
+Ugochi-Ndubuisi/
+ugochi141.github.io/

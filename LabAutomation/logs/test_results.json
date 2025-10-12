@@ -1,0 +1,71 @@
+{
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "errors": 0,
+    "total": 10
+  },
+  "details": [
+    {
+      "test": "Environment Configuration",
+      "status": "PASS",
+      "message": "Core environment variables configured (Notion optional)",
+      "timestamp": "2025-10-04T20:52:26.382378"
+    },
+    {
+      "test": "Dependencies",
+      "status": "PASS",
+      "message": "All required packages installed",
+      "timestamp": "2025-10-04T20:52:26.790620"
+    },
+    {
+      "test": "Notion Connection",
+      "status": "PASS",
+      "message": "Notion integration retired; connection test skipped",
+      "timestamp": "2025-10-04T20:52:26.790633"
+    },
+    {
+      "test": "Teams Webhook",
+      "status": "PASS",
+      "message": "Webhook working correctly",
+      "timestamp": "2025-10-04T20:52:27.992428"
+    },
+    {
+      "test": "Crisis Monitor",
+      "status": "PASS",
+      "message": "Health check: HEALTHY",
+      "timestamp": "2025-10-04T20:52:29.000093"
+    },
+    {
+      "test": "Advanced Automation",
+      "status": "PASS",
+      "message": "AI prediction working: 100 samples",
+      "timestamp": "2025-10-04T20:52:29.103292"
+    },
+    {
+      "test": "Database Operations",
+      "status": "PASS",
+      "message": "Notion databases retired; operations test skipped",
+      "timestamp": "2025-10-04T20:52:29.103300"
+    },
+    {
+      "test": "Alert System",
+      "status": "PASS",
+      "message": "Generated 1 alerts correctly",
+      "timestamp": "2025-10-04T20:52:29.103307"
+    },
+    {
+      "test": "Performance Metrics",
+      "status": "PASS",
+      "message": "Performance score calculated: 68.3",
+      "timestamp": "2025-10-04T20:52:29.103319"
+    },
+    {
+      "test": "AI Features",
+      "status": "PASS",
+      "message": "Detected 2 anomalies, predicted volume: 138.6",
+      "timestamp": "2025-10-04T20:52:29.103328"
+    }
+  ],
+  "timestamp": "2025-10-04T20:52:29.103451"
+}

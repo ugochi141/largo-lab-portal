@@ -1,0 +1,101 @@
+{
+  "Executive Dashboard": {
+    "filter": {
+      "Priority": [
+        "P0",
+        "P1"
+      ],
+      "Status": [
+        "New",
+        "In Progress"
+      ]
+    },
+    "sort": [
+      {
+        "property": "Priority",
+        "direction": "ascending"
+      }
+    ],
+    "properties": [
+      "Incident ID",
+      "Priority",
+      "Department",
+      "SLA Status",
+      "Assigned To"
+    ]
+  },
+  "Daily Operations": {
+    "filter": {
+      "Status": [
+        "New",
+        "Acknowledged",
+        "In Progress"
+      ]
+    },
+    "sort": [
+      {
+        "property": "Priority",
+        "direction": "ascending"
+      },
+      {
+        "property": "Created",
+        "direction": "descending"
+      }
+    ],
+    "properties": [
+      "Incident ID",
+      "Priority",
+      "Department",
+      "Response Time",
+      "Patient Impact"
+    ]
+  },
+  "SLA Monitoring": {
+    "filter": {
+      "SLA Status": [
+        "At Risk",
+        "Breached"
+      ]
+    },
+    "sort": [
+      {
+        "property": "Created",
+        "direction": "ascending"
+      }
+    ],
+    "properties": [
+      "Incident ID",
+      "Priority",
+      "SLA Status",
+      "Response Time",
+      "Assigned To"
+    ]
+  },
+  "Department Performance": {
+    "group_by": "Department",
+    "sort": [
+      {
+        "property": "Resolution Time",
+        "direction": "descending"
+      }
+    ],
+    "properties": [
+      "Incident ID",
+      "Priority",
+      "Resolution Time",
+      "Staff Member"
+    ]
+  },
+  "Analytics View": {
+    "filter": {
+      "Created": "Last 30 days"
+    },
+    "sort": [
+      {
+        "property": "Resolution Time",
+        "direction": "descending"
+      }
+    ],
+    "properties": "All properties"
+  }
+}

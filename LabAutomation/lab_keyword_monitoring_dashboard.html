@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente Lab - HR & Operations Keyword Monitoring Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1e3c72;
+            color: #1e3c72;
+        }
+
+        .priority-section {
+            margin-bottom: 25px;
+        }
+
+        .priority-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .priority-critical {
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            color: white;
+        }
+
+        .priority-high {
+            background: linear-gradient(135deg, #ff9f43, #ff8c00);
+            color: white;
+        }
+
+        .priority-medium {
+            background: linear-gradient(135deg, #feca57, #ff9f43);
+            color: white;
+        }
+
+        .priority-low {
+            background: linear-gradient(135deg, #48dbfb, #0abde3);
+            color: white;
+        }
+
+        .priority-compliance {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .keyword-tag {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .keyword-tag:hover {
+            background: #e9ecef;
+            transform: scale(1.05);
+        }
+
+        .keyword-tag.critical {
+            border-color: #ff4757;
+            background: #fff5f5;
+        }
+
+        .keyword-tag.high {
+            border-color: #ff9f43;
+            background: #fff8f1;
+        }
+
+        .keyword-tag.medium {
+            border-color: #feca57;
+            background: #fffbf0;
+        }
+
+        .keyword-tag.low {
+            border-color: #48dbfb;
+            background: #f0fcff;
+        }
+
+        .keyword-tag.compliance {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .test-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .test-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .test-results {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+
+        .detected-keyword {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        .integration-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .integration-card {
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+        }
+
+        .integration-card.connected {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .integration-card.disconnected {
+            border-color: #dc3545;
+            background: #fff8f8;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-green {
+            background: #28a745;
+        }
+
+        .status-red {
+            background: #dc3545;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 Kaiser Permanente Lab Operations</h1>
+        <p>HR & Operations Keyword Monitoring Dashboard</p>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-grid">
+            <!-- Overview Stats -->
+            <div class="card">
+                <h2>📊 Monitoring Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">247</div>
+                        <div class="stat-label">Total Keywords</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Priority Levels</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Integrations</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Status -->
+            <div class="card">
+                <h2>🔗 Integration Status</h2>
+                <div class="integration-status">
+                    <div class="integration-card connected">
+                        <span class="status-indicator status-green"></span>
+                        <strong>Microsoft Teams</strong><br>
+                        <small>Connected & Active</small>
+                    </div>
+                    <div class="integration-card connected">
+                        <span class="status-indicator status-green"></span>
+                        <strong>Power Automate</strong><br>
+                        <small>5 Flows Running</small>
+                    </div>
+                    <div class="integration-card connected">
+                        <span class="status-indicator status-green"></span>
+                        <strong>Notion Database</strong><br>
+                        <small>Real-time Sync</small>
+                    </div>
+                    <div class="integration-card connected">
+                        <span class="status-indicator status-green"></span>
+                        <strong>SMS Alerts</strong><br>
+                        <small>On-Call Ready</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Critical Keywords -->
+        <div class="card">
+            <h2>🚨 Critical Priority Keywords</h2>
+            <div class="priority-section">
+                <div class="priority-header priority-critical">
+                    🔴 IMMEDIATE ACTION REQUIRED
+                </div>
+                <div class="keyword-grid">
+                    <div class="keyword-tag critical">STAT</div>
+                    <div class="keyword-tag critical">critical value</div>
+                    <div class="keyword-tag critical">panic value</div>
+                    <div class="keyword-tag critical">code blue</div>
+                    <div class="keyword-tag critical">code red</div>
+                    <div class="keyword-tag critical">emergency</div>
+                    <div class="keyword-tag critical">patient safety</div>
+                    <div class="keyword-tag critical">wrong blood</div>
+                    <div class="keyword-tag critical">transfusion urgent</div>
+                    <div class="keyword-tag critical">contamination</div>
+                    <div class="keyword-tag critical">system down</div>
+                    <div class="keyword-tag critical">analyzer down</div>
+                    <div class="keyword-tag critical">no coverage</div>
+                    <div class="keyword-tag critical">alone in lab</div>
+                    <div class="keyword-tag critical">all techs out</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Priority Keywords -->
+        <div class="card">
+            <h2>⚠️ High Priority Keywords</h2>
+            <div class="priority-section">
+                <div class="priority-header priority-high">
+                    🟠 URGENT ATTENTION NEEDED
+                </div>
+                <div class="keyword-grid">
+                    <div class="keyword-tag high">calling out</div>
+                    <div class="keyword-tag high">call out</div>
+                    <div class="keyword-tag high">sick today</div>
+                    <div class="keyword-tag high">can't make it</div>
+                    <div class="keyword-tag high">no show</div>
+                    <div class="keyword-tag high">absent</div>
+                    <div class="keyword-tag high">need coverage</div>
+                    <div class="keyword-tag high">short staffed</div>
+                    <div class="keyword-tag high">understaffed</div>
+                    <div class="keyword-tag high">QC failure</div>
+                    <div class="keyword-tag high">TAT breach</div>
+                    <div class="keyword-tag high">instrument failure</div>
+                    <div class="keyword-tag high">network down</div>
+                    <div class="keyword-tag high">power outage</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medium Priority Keywords -->
+        <div class="card">
+            <h2>⚠️ Medium Priority Keywords</h2>
+            <div class="priority-section">
+                <div class="priority-header priority-medium">
+                    🟡 REVIEW NEEDED
+                </div>
+                <div class="keyword-grid">
+                    <div class="keyword-tag medium">late</div>
+                    <div class="keyword-tag medium">tardy</div>
+                    <div class="keyword-tag medium">running late</div>
+                    <div class="keyword-tag medium">leaving early</div>
+                    <div class="keyword-tag medium">third occurrence</div>
+                    <div class="keyword-tag medium">excessive absences</div>
+                    <div class="keyword-tag medium">TAT exceeded</div>
+                    <div class="keyword-tag medium">backlog</div>
+                    <div class="keyword-tag medium">specimen rejected</div>
+                    <div class="keyword-tag medium">supplies low</div>
+                    <div class="keyword-tag medium">calibration error</div>
+                    <div class="keyword-tag medium">maintenance</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compliance Keywords -->
+        <div class="card">
+            <h2>📋 HR Compliance Keywords</h2>
+            <div class="priority-section">
+                <div class="priority-header priority-compliance">
+                    🟠 COMPLIANCE MONITORING
+                </div>
+                <div class="keyword-grid">
+                    <div class="keyword-tag compliance">FMLA</div>
+                    <div class="keyword-tag compliance">medical leave</div>
+                    <div class="keyword-tag compliance">LOA</div>
+                    <div class="keyword-tag compliance">workers comp</div>
+                    <div class="keyword-tag compliance">injury</div>
+                    <div class="keyword-tag compliance">maternity leave</div>
+                    <div class="keyword-tag compliance">disciplinary action</div>
+                    <div class="keyword-tag compliance">write up</div>
+                    <div class="keyword-tag compliance">performance review</div>
+                    <div class="keyword-tag compliance">probation</div>
+                    <div class="keyword-tag compliance">terminated</div>
+                    <div class="keyword-tag compliance">suspended</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informational Keywords -->
+        <div class="card">
+            <h2>ℹ️ Informational Keywords</h2>
+            <div class="priority-section">
+                <div class="priority-header priority-low">
+                    🔵 INFORMATION ONLY
+                </div>
+                <div class="keyword-grid">
+                    <div class="keyword-tag low">schedule</div>
+                    <div class="keyword-tag low">shift</div>
+                    <div class="keyword-tag low">swap shift</div>
+                    <div class="keyword-tag low">vacation</div>
+                    <div class="keyword-tag low">PTO</div>
+                    <div class="keyword-tag low">appointment</div>
+                    <div class="keyword-tag low">jury duty</div>
+                    <div class="keyword-tag low">returning</div>
+                    <div class="keyword-tag low">back from leave</div>
+                    <div class="keyword-tag low">attendance</div>
+                    <div class="keyword-tag low">present</div>
+                    <div class="keyword-tag low">clock in</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Center -->
+        <div class="card full-width">
+            <h2>🧪 Keyword Detection Testing Center</h2>
+            <div class="test-section">
+                <p><strong>Test your message for keyword detection:</strong></p>
+                <input type="text" class="test-input" id="testMessage" 
+                       placeholder="Type a test message here (e.g., 'Chemistry analyzer down - need STAT coverage')">
+                <button class="test-button" onclick="testKeywords()">🔍 Test Keywords</button>
+                
+                <div class="test-results" id="testResults" style="display: none;">
+                    <h4>Detected Keywords:</h4>
+                    <div id="detectedKeywords"></div>
+                    <h4>Priority Level:</h4>
+                    <div id="priorityLevel"></div>
+                    <h4>Recommended Action:</h4>
+                    <div id="recommendedAction"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Power Automate Configuration -->
+        <div class="card full-width">
+            <h2>⚡ Power Automate Configuration</h2>
+            <p><strong>Sample Flow Condition for Critical Alerts:</strong></p>
+            <div class="code-block">
+@or(
+  contains(toLower(triggerBody()['body']['content']), 'stat'),
+  contains(toLower(triggerBody()['body']['content']), 'critical value'),
+  contains(toLower(triggerBody()['body']['content']), 'emergency'),
+  contains(toLower(triggerBody()['body']['content']), 'system down'),
+  contains(toLower(triggerBody()['body']['content']), 'no coverage')
+)
+            </div>
+            
+            <p><strong>Notification Action Template:</strong></p>
+            <div class="code-block">
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock", 
+      "text": "🚨 CRITICAL LAB ALERT",
+      "weight": "bolder",
+      "color": "attention"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {"title": "Keyword:", "value": "@{variables('DetectedKeyword')}"},
+        {"title": "Priority:", "value": "CRITICAL"},
+        {"title": "Time:", "value": "@{utcNow()}"}
+      ]
+    }
+  ]
+}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const keywords = {
+            critical: ['STAT', 'critical value', 'panic value', 'code blue', 'code red', 'emergency', 'patient safety', 'wrong blood', 'system down', 'analyzer down', 'no coverage', 'alone in lab'],
+            high: ['calling out', 'call out', 'sick today', 'no show', 'absent', 'need coverage', 'short staffed', 'QC failure', 'TAT breach', 'instrument failure'],
+            medium: ['late', 'tardy', 'leaving early', 'excessive absences', 'backlog', 'supplies low', 'maintenance'],
+            compliance: ['FMLA', 'medical leave', 'workers comp', 'injury', 'disciplinary action', 'write up', 'terminated'],
+            low: ['schedule', 'vacation', 'PTO', 'appointment', 'attendance', 'present', 'clock in']
+        };
+
+        function testKeywords() {
+            const message = document.getElementById('testMessage').value.toLowerCase();
+            const results = document.getElementById('testResults');
+            const detectedDiv = document.getElementById('detectedKeywords');
+            const priorityDiv = document.getElementById('priorityLevel');
+            const actionDiv = document.getElementById('recommendedAction');
+            
+            let detected = [];
+            let highestPriority = 'low';
+            
+            // Check each priority level
+            for (const [priority, keywordList] of Object.entries(keywords)) {
+                for (const keyword of keywordList) {
+                    if (message.includes(keyword.toLowerCase())) {
+                        detected.push({keyword, priority});
+                        if (priority === 'critical') highestPriority = 'critical';
+                        else if (priority === 'high' && highestPriority !== 'critical') highestPriority = 'high';
+                        else if (priority === 'medium' && !['critical', 'high'].includes(highestPriority)) highestPriority = 'medium';
+                        else if (priority === 'compliance' && !['critical', 'high', 'medium'].includes(highestPriority)) highestPriority = 'compliance';
+                    }
+                }
+            }
+            
+            // Display results
+            if (detected.length > 0) {
+                detectedDiv.innerHTML = detected.map(item => 
+                    `<span class="detected-keyword">${item.keyword} (${item.priority})</span>`
+                ).join('');
+                
+                const priorityColors = {
+                    critical: '🔴 CRITICAL',
+                    high: '🟠 HIGH', 
+                    medium: '🟡 MEDIUM',
+                    compliance: '🟠 COMPLIANCE',
+                    low: '🔵 LOW'
+                };
+                
+                priorityDiv.innerHTML = `<strong>${priorityColors[highestPriority]}</strong>`;
+                
+                const actions = {
+                    critical: '🚨 Immediate notification + SMS to on-call + Teams @channel mention',
+                    high: '⚠️ Teams notification + Email to supervisor + Update dashboard',
+                    medium: '📧 Email notification + Daily digest + Log incident',
+                    compliance: '📋 HR notification + Compliance tracking + Manager alert',
+                    low: 'ℹ️ Dashboard update + Weekly summary report'
+                };
+                
+                actionDiv.innerHTML = actions[highestPriority];
+                results.style.display = 'block';
+            } else {
+                detectedDiv.innerHTML = '<em>No keywords detected</em>';
+                priorityDiv.innerHTML = '<em>No priority assigned</em>';
+                actionDiv.innerHTML = '<em>No action required</em>';
+                results.style.display = 'block';
+            }
+        }
+
+        // Add enter key support for testing
+        document.getElementById('testMessage').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testKeywords();
+            }
+        });
+    </script>
+</body>
+</html>

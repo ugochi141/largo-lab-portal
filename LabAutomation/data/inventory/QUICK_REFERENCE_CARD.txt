@@ -1,0 +1,34 @@
+
+# LARGO LAB INVENTORY - QUICK REFERENCE CARD
+
+## Daily Tasks (Every Shift):
+1. Check SUMMARY tab for alerts
+2. Update HAND COUNT for items used
+3. Note any supplier ID discrepancies
+4. Save file after updates
+
+## Low Stock (<10 items):
+1. Enter quantity needed in REQ QTY
+2. Change STATUS to "LOW STOCK"
+3. Notify Nathaniel for ordering
+
+## Receiving Supplies:
+1. Verify supplier ID matches packing slip
+2. Update HAND COUNT
+3. Add EXPIRATION DATE for reagents
+4. Enter LOT NUMBER
+
+## Emergency Contacts:
+- Inventory Issues: Lorraine (primary), Ingrid (backup)
+- Supply Orders: Nathaniel Burmeister
+- IT Support: Help Desk x1234
+
+## Overflow Procedures:
+- MOB overwhelmed → Send to AUC
+- Urine processing: Lorraine → Mimi (backup)
+- Always communicate via Teams first
+
+## File Location:
+Teams > Largo Lab > Files > Inventory > LARGO_LAB_INVENTORY_CURRENT.xlsx
+
+--- Print and post at each workstation ---

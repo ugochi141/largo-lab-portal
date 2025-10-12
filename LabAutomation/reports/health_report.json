@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-09-09T19:49:27.385489",
+  "status": "healthy",
+  "checks": {
+    "basic": "pass"
+  },
+  "metrics": {
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "recommendations": []
+}

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente SOP Editor - Production Ready</title>
+    <link rel="stylesheet" href="css/sop-styles.css">
+    <style>
+        /* Production-Ready SOP Editor Styles */
+        .editor-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Left Panel - Section Manager */
+        .section-manager {
+            width: 300px;
+            background: #f5f5f5;
+            border-right: 2px solid #ddd;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .section-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .section-item {
+            background: white;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .section-item:hover {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-item.dragging {
+            opacity: 0.5;
+        }
+
+        .section-item.active {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+        }
+
+        .section-number {
+            font-weight: bold;
+            color: #2E7D32;
+            margin-right: 10px;
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .section-btn {
+            width: 25px;
+            height: 25px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .add-section-btn {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #2E7D32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Middle Panel - Editor */
+        .editor-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            background: white;
+        }
+
+        .editor-toolbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 15px 0;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+            z-index: 100;
+        }
+
+        .toolbar-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .toolbar-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .section-content-editor {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .section-header-editor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title-input {
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-bottom: 2px solid #2E7D32;
+            padding: 5px;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .subsection-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 3px solid #2196F3;
+            border-radius: 3px;
+        }
+
+        .subsection-controls {
+            float: right;
+        }
+
+        .add-subsection-btn {
+            padding: 5px 10px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Right Panel - Preview/TOC */
+        .preview-panel {
+            width: 350px;
+            background: #fafafa;
+            border-left: 2px solid #ddd;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .toc-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .toc-preview h3 {
+            color: #2E7D32;
+            border-bottom: 2px solid #2E7D32;
+            padding-bottom: 10px;
+        }
+
+        .toc-item {
+            padding: 5px 0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .toc-item:hover {
+            color: #2196F3;
+        }
+
+        .toc-subsection {
+            padding-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Content Editing */
+        .content-editable {
+            min-height: 100px;
+            padding: 10px;
+            border: 1px dashed #ddd;
+            border-radius: 5px;
+            background: white;
+            outline: none;
+        }
+
+        .content-editable:focus {
+            border-color: #2196F3;
+            background: #f8f9fa;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2E7D32;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .save-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .save-indicator.saving {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Modal for Adding Sections */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .template-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .template-section-btn {
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .template-section-btn:hover {
+            background: #e3f2fd;
+            border-color: #2196F3;
+        }
+
+        /* Export Options */
+        .export-options {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .export-btn {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .export-btn:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- Left Panel: Section Manager -->
+        <div class="section-manager">
+            <h2>📋 SOP Sections</h2>
+            <p style="font-size: 12px; color: #666;">Drag to reorder • Click to edit</p>
+
+            <ul class="section-list" id="sectionList">
+                <!-- Sections will be dynamically added here -->
+            </ul>
+
+            <button class="add-section-btn" onclick="showAddSectionModal()">
+                ➕ Add New Section
+            </button>
+
+            <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px;">
+                <strong>Tips:</strong>
+                <ul style="font-size: 12px; margin: 5px 0;">
+                    <li>Drag sections to reorder</li>
+                    <li>Click ✏️ to rename</li>
+                    <li>Click 👁️ to show/hide</li>
+                    <li>Click 🗑️ to delete</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Middle Panel: Content Editor -->
+        <div class="editor-panel">
+            <div class="editor-toolbar">
+                <h1 style="margin: 0 0 10px 0;">
+                    <span contenteditable="true" id="sopTitle">Kaiser Permanente Laboratory SOP</span>
+                </h1>
+                <div class="toolbar-buttons">
+                    <button class="toolbar-btn" onclick="saveSOPLocal()">
+                        💾 Save Draft
+                    </button>
+                    <button class="toolbar-btn" onclick="autoNumber()">
+                        🔢 Auto Number
+                    </button>
+                    <button class="toolbar-btn" onclick="insertTable()">
+                        📊 Insert Table
+                    </button>
+                    <button class="toolbar-btn" onclick="insertImage()">
+                        🖼️ Insert Image
+                    </button>
+                    <button class="toolbar-btn" onclick="insertWarningBox()">
+                        ⚠️ Warning Box
+                    </button>
+                    <button class="toolbar-btn" onclick="insertInfoBox()">
+                        ℹ️ Info Box
+                    </button>
+                    <button class="toolbar-btn" onclick="validateSOP()">
+                        ✅ Validate
+                    </button>
+                    <button class="toolbar-btn" onclick="previewPrint()">
+                        🖨️ Print Preview
+                    </button>
+                </div>
+            </div>
+
+            <div id="editorContent">
+                <!-- Dynamic section content will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Right Panel: TOC and Export -->
+        <div class="preview-panel">
+            <div class="toc-preview">
+                <h3>📑 Table of Contents</h3>
+                <div id="tocPreview">
+                    <!-- TOC will be dynamically generated -->
+                </div>
+            </div>
+
+            <div class="export-options">
+                <h3>📤 Export Options</h3>
+                <button class="export-btn" onclick="exportHTML()">
+                    🌐 Export as HTML
+                </button>
+                <button class="export-btn" onclick="exportPDF()">
+                    📄 Export as PDF
+                </button>
+                <button class="export-btn" onclick="exportWord()">
+                    📝 Export as Word
+                </button>
+                <button class="export-btn" onclick="exportJSON()">
+                    📊 Export as JSON
+                </button>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 5px;">
+                <strong>Compliance Status:</strong>
+                <ul style="font-size: 12px; margin: 5px 0; list-style: none;">
+                    <li>✅ Kaiser Format</li>
+                    <li>✅ CLIA/CAP Ready</li>
+                    <li>✅ 23 Sections</li>
+                    <li id="validationStatus">⏳ Not Validated</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="save-indicator" id="saveIndicator">
+            <span id="saveStatus">Ready</span>
+            <span id="lastSaved">Last saved: Never</span>
+        </div>
+        <div>
+            <span id="sectionCount">0 sections</span> |
+            <span id="wordCount">0 words</span> |
+            <span id="userName">User: Lab Tech</span>
+        </div>
+    </div>
+
+    <!-- Add Section Modal -->
+    <div class="modal" id="addSectionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Section</h2>
+                <button onclick="closeModal()" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+            </div>
+
+            <input type="text" id="customSectionName" placeholder="Custom section name..."
+                   style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px;">
+
+            <h3>Or choose from templates:</h3>
+            <div class="template-sections">
+                <button class="template-section-btn" onclick="addTemplateSection('Purpose')">Purpose</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Clinical Significance')">Clinical Significance</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Scope')">Scope</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Responsibilities')">Responsibilities</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Safety Requirements')">Safety Requirements</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Specimen Requirements')">Specimen Requirements</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Reagents and Supplies')">Reagents & Supplies</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Equipment')">Equipment</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Maintenance')">Maintenance</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Quality Control')">Quality Control</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Calibration')">Calibration</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Troubleshooting')">Troubleshooting</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Test Procedure')">Test Procedure</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Calculations')">Calculations</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Reference Ranges')">Reference Ranges</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Critical Values')">Critical Values</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Limitations')">Limitations</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Emergency Procedures')">Emergency Procedures</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Technical Support')">Technical Support</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Quality Assurance')">Quality Assurance</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Regulatory Compliance')">Regulatory Compliance</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Downtime Procedures')">Downtime Procedures</button>
+                <button class="template-section-btn" onclick="addTemplateSection('References')">References</button>
+                <button class="template-section-btn" onclick="addTemplateSection('Appendix')">Appendix</button>
+            </div>
+
+            <button onclick="addCustomSection()"
+                    style="width: 100%; padding: 10px; background: #2E7D32; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Add Custom Section
+            </button>
+        </div>
+    </div>
+
+    <script src="js/sop-editor-engine.js"></script>
+    <script>
+        // Initialize the SOP Editor
+        document.addEventListener('DOMContentLoaded', function() {
+            sopEditor.init();
+        });
+    </script>
+</body>
+</html>

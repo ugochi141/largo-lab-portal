@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>KAISER PERMANENTE MID-ATLANTIC STATES</h1>
+            <h2>Laboratory Services</h2>
+            <h3>Microbiology Department - Cepheid GeneXpert System</h3>
+        </div>
+
+        <div class="metadata-grid">
+            <div class="metadata-item">
+                <strong>Document Code:</strong> KPMAS.LAB.MICRO.GENEXPERT.001_2
+            </div>
+            <div class="metadata-item">
+                <strong>Effective Date:</strong> January 2025
+            </div>
+            <div class="metadata-item">
+                <strong>Review Date:</strong> January 2026
+            </div>
+            <div class="metadata-item">
+                <strong>Department:</strong> Microbiology
+            </div>
+            <div class="metadata-item">
+                <strong>Author:</strong> Technical Quality Specialist
+            </div>
+            <div class="metadata-item">
+                <strong>Approvals:</strong> Technical Quality Specialist, Laboratory Director
+            </div>
+            <div class="metadata-item">
+                <strong>Prepared For:</strong> Kaiser Permanente Largo Laboratory
+            </div>
+        </div>
+        .header { text-align: center; border-bottom: 3px solid #0066cc; padding-bottom: 15px; margin-bottom: 25px; } .header h1 { color: #0066cc; font-size: 20pt; margin-bottom: 8px; font-weight: bold; } .header h2 { color: #666666; font-size: 12pt; margin: 0;
+        font-weight: normal; } .header h3 { color: #004499; font-size: 11pt; margin-top: 12px; font-weight: 500; } .metadata-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; background: #f0f8ff; border: 1px
+        solid #0066cc; padding: 18px; border-radius: 6px; margin-bottom: 30px; } .metadata-item { font-size: 10pt; color: #333333; } .metadata-item strong { color: #0066cc; display: block; margin-bottom: 3px; } /* Table of Contents */ .toc { background:
+        #f0f8ff; padding: 20px; border-left: 4px solid #0066cc; margin-bottom: 30px; page-break-after: always; } .toc h2 { color: #0066cc; margin-bottom: 15px; font-size: 18pt; } .toc ol { list-style: none; counter-reset: toc-counter; } .toc li { counter-increment:
+        toc-counter; margin: 8px 0; padding-left: 30px; position: relative; } .toc li:before { content: counter(toc-counter) "."; position: absolute; left: 0; font-weight: bold; color: #0066cc; } .toc a { color: #0066cc; text-decoration: none; } .toc
+        a:hover { text-decoration: underline; } /* Section Styling */ .section { margin: 30px 0; page-break-inside: avoid; } .critical-box h4 { color: #856404; margin-top: 0; } .critical-qc-rule { background: #f8d7da; border: 2px solid #dc3545; border-radius:
+        6px; padding: 15px; margin: 20px 0; } .critical-qc-rule h4 { color: #721c24; margin-top: 0; } /* Tables */ table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; } th { background: linear-gradient(135deg, #e8f4f8 0%,
+        #d1e7f3 100%); color: #000; padding: 10px; text-align: left; font-weight: bold; border: 1px solid #0066cc; } td { padding: 8px; border: 1px solid #ddd; } tr:nth-child(even) { background: #f8f9fa; } /* Warning and Info Boxes */ .warning-box { background:
+        #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 15px 0; } .info-box { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 12px; margin: 15px 0; } .success-box { background: #d4edda; border-left: 4px solid #28a745; padding:
+        12px; margin: 15px 0; } /* Kaiser Huddle Box */ .kaiser-huddle { background: linear-gradient(135deg, #e7f3ff 0%, #d1e7f3 100%); border: 2px solid #0066cc; border-radius: 8px; padding: 15px; margin: 20px 0; } .kaiser-huddle h4 { color: #0066cc;
+        margin-top: 0; } /* Competency Box */ .competency-box { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 6px; padding: 15px; margin: 20px 0; } .competency-box h4 { color: #2e7d32; margin-top: 0; } /* Print Styles */ @media print
+        { body { font-size: 10pt; line-height: 1.4; } .section { page-break-inside: avoid; } .kp-header { background: #0066cc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } } /* Checkbox Lists */ .checklist { list-style: none;
+        padding-left: 0; } .checklist li { margin: 8px 0; padding-left: 25px; position: relative; } .checklist li:before { content: "☐"; position: absolute; left: 0; font-size: 14pt; } /* Step Lists */ .step-list { counter-reset: step-counter; list-style:
+        none; padding-left: 0; } .step-list li { counter-increment: step-counter; margin: 15px 0; padding-left: 40px; position: relative; } .step-list li:before { content: counter(step-counter); position: absolute; left: 0; background: #0066cc; color:
+        white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10pt; } /* Kaiser Palette Harmonization */ html, body { background-color: #f5f5f5; color: #333333;
+        } body { min-height: 100vh; margin: 0 auto; } .container, .main-container, .kp-container, .content-wrapper { background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding: 25px; } .header, .kp-header, header { border-bottom:
+        3px solid #0066cc; padding-bottom: 15px; margin-bottom: 20px; } .header h1, .kp-header h1, h1 { color: #0066cc !important; } h2 { color: #0066cc !important; border-bottom: 2px solid #0066cc; padding-bottom: 6px; } h3 { color: #004499 !important;
+        } table { background-color: #ffffff !important; border-collapse: collapse; } th { background-color: #f0f8ff !important; color: #0066cc !important; } .toc { background-color: #f0f8ff; border-left: 4px solid #0066cc; } @media print { html, body
+        { background-color: #ffffff !important; } .container, .main-container, .kp-container, .content-wrapper { box-shadow: none !important; border-radius: 0 !important; background-color: #ffffff !important; } }
+        </style>
+        </head>
+
+        <body>
+            <!-- KP HEADER SECTION -->
+            <div class="kp-header">
+                <h1>KAISER PERMANENTE MID-ATLANTIC STATES</h1>
+                <h2>Laboratory Services</h2>
+                <h3>Molecular Diagnostics - Cepheid GeneXpert System</h3>
+            </div>
+
+            <div class="kp-header-info">
+                <div>
+                    <strong>Document Code:</strong> KPMAS.LAB.MOL.GX.001_3
+                </div>
+                <div>
+                    <strong>Effective Date:</strong> January 2025
+                </div>
+                <div>
+                    <strong>Review Date:</strong> January 2026
+                </div>
+                <div>
+                    <strong>Department:</strong> Molecular Diagnostics/Microbiology
+                </div>
+                <div>
+                    <strong>Author:</strong> Technical Quality Specialist
+                </div>
+                <div>
+                    <strong>Approved By:</strong> Laboratory Director
+                </div>
+            </div>
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="toc">
+                <h2>TABLE OF CONTENTS</h2>
+                <ol>
+                    <li><a href="#purpose">PURPOSE</a></li>
+                    <li><a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                    <li><a href="#scope">SCOPE</a></li>
+                    <li><a href="#responsibilities">RESPONSIBILITIES</a></li>
+                    <li><a href="#safety">SAFETY REQUIREMENTS</a></li>
+                    <li><a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                    <li><a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                    <li><a href="#equipment">EQUIPMENT</a></li>
+                    <li><a href="#maintenance">MAINTENANCE</a></li>
+                    <li><a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                    <li><a href="#calibration">CALIBRATION</a></li>
+                    <li><a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    <li><a href="#procedure">TEST PROCEDURE</a></li>
+                    <li><a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                    <li><a href="#reference">REFERENCE RANGES</a></li>
+                    <li><a href="#critical">CRITICAL VALUES</a></li>
+                    <li><a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                    <li><a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                    <li><a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                    <li><a href="#support">TECHNICAL SUPPORT</a></li>
+                    <li><a href="#qa">QUALITY ASSURANCE</a></li>
+                    <li><a href="#compliance">REGULATORY COMPLIANCE</a></li>
+                    <li><a href="#references">REFERENCES</a></li>
+                </ol>
+            </div>
+
+            <!-- SECTION 1: PURPOSE -->
+            <div class="section" id="purpose">
+                <h2>1. PURPOSE</h2>
+                <p>This Standard Operating Procedure (SOP) provides comprehensive instructions for the operation, maintenance, and quality control of the Cepheid GeneXpert System for molecular diagnostic testing in accordance with Kaiser Permanente Mid-Atlantic
+                    States Laboratory standards, ensuring compliance with CLIA, CAP, and Joint Commission requirements.</p>
+
+                <div class="info-box">
+                    <strong>Key Objectives:</strong>
+                    <ul>
+                        <li>Standardize GeneXpert System operations across all testing locations</li>
+                        <li>Ensure accurate detection of infectious agents and genetic markers</li>
+                        <li>Maintain compliance with molecular diagnostic regulatory requirements</li>
+                        <li>Support antimicrobial stewardship and infection control initiatives</li>
+                        <li>Provide rapid results for critical clinical decisions</li>
+                        <li>Integrate Kaiser Huddle recommendations for continuous improvement</li>
+                    </ul>
+                </div>
+
+                <div class="kaiser-huddle">
+                    <h4>📋 Kaiser Huddle Focus Points</h4>
+                    <ul>
+                        <li>GeneXpert testing supports rapid isolation decisions and treatment optimization</li>
+                        <li>Critical for tuberculosis, MRSA screening, and multi-drug resistant organisms</li>
+                        <li>Enables same-day therapeutic decisions for high-risk patients</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 2: CLINICAL SIGNIFICANCE -->
+            <div class="section" id="clinical-significance">
+                <h2>2. CLINICAL SIGNIFICANCE</h2>
+                <p>The Cepheid GeneXpert System provides critical molecular diagnostic capabilities for detecting infectious agents, antibiotic resistance genes, and genetic mutations that directly impact patient care and public health.</p>
+
+                <h3>Clinical Applications by Assay</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assay</th>
+                            <th>Clinical Significance</th>
+                            <th>Impact on Patient Care</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MTB/RIF Ultra</strong></td>
+                            <td>TB detection & rifampin resistance</td>
+                            <td>Immediate isolation, treatment initiation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MRSA/SA</strong></td>
+                            <td>MRSA colonization/infection</td>
+                            <td>Infection control, antibiotic selection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C. difficile</strong></td>
+                            <td>Toxigenic C. diff detection</td>
+                            <td>Isolation, treatment decisions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SARS-CoV-2</strong></td>
+                            <td>COVID-19 diagnosis</td>
+                            <td>Isolation, treatment, contact tracing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CT/NG</strong></td>
+                            <td>STI detection</td>
+                            <td>Treatment, partner notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GBS</strong></td>
+                            <td>Group B Strep screening</td>
+                            <td>Intrapartum antibiotic prophylaxis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flu/RSV</strong></td>
+                            <td>Respiratory virus detection</td>
+                            <td>Antiviral therapy, cohorting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CARBA-R</strong></td>
+                            <td>Carbapenemase detection</td>
+                            <td>Critical for infection control</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Clinical Interpretation Guidelines</h3>
+                <ul>
+                    <li><strong>Positive results:</strong> Indicate presence of target nucleic acid; consider clinical context</li>
+                    <li><strong>Negative results:</strong> Do not exclude infection if pre-test probability is high</li>
+                    <li><strong>Invalid results:</strong> Require repeat testing; may indicate specimen quality issues</li>
+                    <li><strong>Resistance markers:</strong> Guide empiric therapy but require confirmation for definitive treatment</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 3: SCOPE -->
+            <div class="section" id="scope">
+                <h2>3. SCOPE</h2>
+                <p>This procedure applies to all Kaiser Permanente Mid-Atlantic States laboratory personnel performing molecular diagnostic testing on the Cepheid GeneXpert Systems, including:</p>
+                <ul>
+                    <li>Medical Laboratory Scientists (MLS/CLS) - Primary operators</li>
+                    <li>Medical Technologists (MT) - Primary operators</li>
+                    <li>Medical Laboratory Technicians (MLT) - Under supervision</li>
+                    <li>Microbiology Specialists - TB and specialized testing</li>
+                    <li>Laboratory Assistants - Specimen processing only</li>
+                    <li>Students and trainees - Under direct supervision</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Testing Locations:</strong>
+                    <ul>
+                        <li>Main Laboratory - Molecular Diagnostics Section (4 GeneXpert instruments)</li>
+                        <li>Microbiology Laboratory - TB Testing Area (2 dedicated instruments)</li>
+                        <li>Emergency Department Satellite Lab (1 instrument for STAT testing)</li>
+                        <li>MOB Laboratory (1 backup instrument)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 4: RESPONSIBILITIES -->
+            <div class="section" id="responsibilities">
+                <h2>4. RESPONSIBILITIES</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Primary Responsibilities</th>
+                            <th>Additional Responsibilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Laboratory Director</strong></td>
+                            <td>Overall compliance and quality oversight<br>Final review of validation studies</td>
+                            <td>Annual SOP review and approval<br>New assay implementation decisions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Quality Specialist</strong></td>
+                            <td>SOP maintenance and updates<br>Competency assessments<br>Method validations</td>
+                            <td>Troubleshooting complex issues<br>Regulatory compliance monitoring<br>PT program coordination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Technologist</strong></td>
+                            <td>Daily operational oversight<br>Staff scheduling and training<br>Inventory management</td>
+                            <td>QC review and trending<br>Maintenance coordination<br>First-line troubleshooting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medical Laboratory Scientist</strong></td>
+                            <td>Perform testing per SOP<br>Review and release results<br>Perform maintenance</td>
+                            <td>QC documentation<br>Critical value reporting<br>Training new staff</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medical Laboratory Technician</strong></td>
+                            <td>Perform routine testing<br>Process QC samples<br>Maintain logs</td>
+                            <td>Assist with maintenance<br>Reagent preparation<br>Supply monitoring</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medical Laboratory Assistant</strong></td>
+                            <td>Specimen accessioning<br>Pre-analytical processing<br>Supply management</td>
+                            <td>Clerical support<br>Specimen transport<br>Basic maintenance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="competency-box">
+                    <h4>📋 Kaiser Permanente Competency Requirements</h4>
+                    <ul>
+                        <li><strong>Document 14952_0:</strong> Personnel and Competency Binder for Medical Laboratory Assistant - MOB</li>
+                        <li><strong>Document 13792_0:</strong> Personnel and Competency Binder for MT and MLT - MOB</li>
+                        <li><strong>Additional Requirement:</strong> TB testing requires specialized BSL-3 training and N95 fit testing</li>
+                    </ul>
+                    <p><em>All personnel must complete competency assessments before performing procedures. Annual competency renewal required with six-month assessments for new assays. TB testing requires additional annual safety competency.</em></p>
+                </div>
+            </div>
+
+            <!-- SECTION 5: SAFETY REQUIREMENTS -->
+            <div class="section" id="safety">
+                <h2>5. SAFETY REQUIREMENTS</h2>
+
+                <div class="warning-box">
+                    <strong>⚠️ BIOSAFETY ALERT:</strong>
+                    <p>GeneXpert testing involves potentially highly infectious agents including M. tuberculosis, SARS-CoV-2, and multi-drug resistant organisms. Strict adherence to biosafety protocols is mandatory.</p>
+                </div>
+
+                <h3>Biosafety Levels by Assay</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assay</th>
+                            <th>Biosafety Level</th>
+                            <th>Special Requirements</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MTB/RIF Ultra</td>
+                            <td>BSL-3 practices</td>
+                            <td>N95 respirator, biosafety cabinet</td>
+                        </tr>
+                        <tr>
+                            <td>SARS-CoV-2</td>
+                            <td>BSL-2 enhanced</td>
+                            <td>N95 respirator recommended</td>
+                        </tr>
+                        <tr>
+                            <td>MRSA/SA</td>
+                            <td>BSL-2</td>
+                            <td>Standard PPE</td>
+                        </tr>
+                        <tr>
+                            <td>C. difficile</td>
+                            <td>BSL-2</td>
+                            <td>Contact precautions</td>
+                        </tr>
+                        <tr>
+                            <td>CT/NG, GBS</td>
+                            <td>BSL-2</td>
+                            <td>Standard PPE</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Personal Protective Equipment Requirements</h3>
+                <ul>
+                    <li><strong>All testing:</strong> Lab coat, gloves, safety glasses</li>
+                    <li><strong>TB testing:</strong> N95 respirator (fit-tested), double gloves, disposable gown</li>
+                    <li><strong>COVID testing:</strong> N95 respirator, face shield, disposable gown</li>
+                    <li><strong>Sample preparation:</strong> Biosafety cabinet for TB and COVID specimens</li>
+                </ul>
+
+                <h3>Chemical Safety</h3>
+                <ul>
+                    <li>Reagent cartridges contain guanidine thiocyanate (irritant)</li>
+                    <li>Sample reagent contains sodium hydroxide (corrosive)</li>
+                    <li>SDS available in laboratory and KP intranet</li>
+                    <li>Spill kit location: Molecular Lab Cabinet M2</li>
+                    <li>Emergency shower/eyewash: Room 305, North wall</li>
+                </ul>
+
+                <h3>Waste Management</h3>
+                <ul>
+                    <li>Used cartridges: Biohazard waste (red bags)</li>
+                    <li>TB cartridges: Autoclave before disposal</li>
+                    <li>Sharps: Appropriate sharps containers only</li>
+                    <li>Chemical waste: Follow KP hazardous waste protocol</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+            <div class="section" id="specimen">
+                <h2>6. SPECIMEN REQUIREMENTS</h2>
+
+                <h3>Specimen Types by Assay</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assay</th>
+                            <th>Specimen Type(s)</th>
+                            <th>Collection Container</th>
+                            <th>Volume Required</th>
+                            <th>Stability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MTB/RIF Ultra</strong></td>
+                            <td>Sputum, BAL, CSF, tissue</td>
+                            <td>Sterile container</td>
+                            <td>1-3 mL (sputum)</td>
+                            <td>7 days at 2-8°C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MRSA/SA</strong></td>
+                            <td>Nasal swab, wound</td>
+                            <td>Copan ESwab or dry swab</td>
+                            <td>1 swab</td>
+                            <td>48 hrs at room temp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C. difficile</strong></td>
+                            <td>Unformed stool</td>
+                            <td>Sterile container</td>
+                            <td>1-5 mL</td>
+                            <td>24 hrs at 2-8°C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SARS-CoV-2</strong></td>
+                            <td>NP swab, nasal, saliva</td>
+                            <td>VTM or dry swab</td>
+                            <td>1 swab or 1 mL</td>
+                            <td>72 hrs at 2-8°C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CT/NG</strong></td>
+                            <td>Urine, swabs</td>
+                            <td>Sterile container</td>
+                            <td>1-30 mL urine</td>
+                            <td>7 days at 2-30°C</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GBS</strong></td>
+                            <td>Vaginal/rectal swab</td>
+                            <td>Lim broth or dry swab</td>
+                            <td>1 swab</td>
+                            <td>24 hrs at room temp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flu/RSV</strong></td>
+                            <td>NP swab</td>
+                            <td>VTM</td>
+                            <td>1 swab</td>
+                            <td>48 hrs at 2-8°C</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Specimen Rejection Criteria</h3>
+                <ul>
+                    <li>Insufficient labeling (requires two patient identifiers)</li>
+                    <li>Specimen/requisition mismatch</li>
+                    <li>Improper collection device or transport media</li>
+                    <li>Formed stool for C. difficile testing</li>
+                    <li>Saliva or mouth rinse for TB testing</li>
+                    <li>Specimens exceeding stability timeframes</li>
+                    <li>Leaking, contaminated, or compromised containers</li>
+                    <li>Multiple specimen types mixed in single container</li>
+                </ul>
+
+                <div class="critical-box">
+                    <h4>⚠️ TB Specimen Handling</h4>
+                    <p>All suspected TB specimens must be processed in the biosafety cabinet. Never open TB specimens on the open bench. Decontaminate all work surfaces with tuberculocidal disinfectant after processing.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 7: REAGENTS AND SUPPLIES -->
+            <div class="section" id="reagents">
+                <h2>7. REAGENTS AND SUPPLIES</h2>
+
+                <h3>GeneXpert Cartridges and Reagents</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Catalog Number</th>
+                            <th>Storage</th>
+                            <th>Stability</th>
+                            <th>Par Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Xpert MTB/RIF Ultra</td>
+                            <td>GXMTB/RIF-US-50</td>
+                            <td>2-28°C</td>
+                            <td>Check expiration</td>
+                            <td>100 tests</td>
+                        </tr>
+                        <tr>
+                            <td>Xpert MRSA/SA</td>
+                            <td>GXMRSA/SA-CE-10</td>
+                            <td>2-28°C</td>
+                            <td>Check expiration</td>
+                            <td>50 tests</td>
+                        </tr>
+                        <tr>
+                            <td>Xpert C. difficile</td>
+                            <td>GXCDIFF-CE-10</td>
+                            <td>2-28°C</td>
+                            <td>Check expiration</td>
+                            <td>40 tests</td>
+                        </tr>
+                        <tr>
+                            <td>Xpert SARS-CoV-2</td>
+                            <td>XPRSARS-COV2-10</td>
+                            <td>2-28°C</td>
+                            <td>Check expiration</td>
+                            <td>100 tests</td>
+                        </tr>
+                        <tr>
+                            <td>Xpert CT/NG</td>
+                            <td>GXCT/NG-CE-10</td>
+                            <td>2-28°C</td>
+                            <td>Check expiration</td>
+                            <td>30 tests</td>
+                        </tr>
+                        <tr>
+                            <td>Sample Reagent (TB)</td>
+                            <td>GXSR-2</td>
+                            <td>2-28°C</td>
+                            <td>18 months</td>
+                            <td>10 bottles</td>
+                        </tr>
+                        <tr>
+                            <td>Check-Sample</td>
+                            <td>GXCHECK-CE-5</td>
+                            <td>2-28°C</td>
+                            <td>Until expiration</td>
+                            <td>2 kits</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Supply Management Protocol</h3>
+                <ul>
+                    <li>Weekly inventory by Lead Technologist using par level system</li>
+                    <li>Automatic reorder triggered at 40% of par level</li>
+                    <li>Emergency stock maintained at MOB laboratory (20% of main lab par)</li>
+                    <li>Temperature monitoring: Continuous with daily review</li>
+                    <li>FIFO (First In, First Out) rotation strictly enforced</li>
+                    <li>Lot-to-lot validation required before use</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 8: EQUIPMENT -->
+            <div class="section" id="equipment">
+                <h2>8. EQUIPMENT</h2>
+
+                <h3>GeneXpert Instrument Inventory</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Instrument</th>
+                            <th>Model/Modules</th>
+                            <th>Serial/Asset#</th>
+                            <th>Location</th>
+                            <th>Dedicated Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GeneXpert #1</td>
+                            <td>GX-XVI (16 modules)</td>
+                            <td>804231<br>KP-2024-101</td>
+                            <td>Molecular Lab</td>
+                            <td>General testing</td>
+                        </tr>
+                        <tr>
+                            <td>GeneXpert #2</td>
+                            <td>GX-XVI (16 modules)</td>
+                            <td>804232<br>KP-2024-102</td>
+                            <td>Molecular Lab</td>
+                            <td>General testing</td>
+                        </tr>
+                        <tr>
+                            <td>GeneXpert #3</td>
+                            <td>GX-IV (4 modules)</td>
+                            <td>709114<br>KP-2024-103</td>
+                            <td>Micro Lab</td>
+                            <td>TB testing only</td>
+                        </tr>
+                        <tr>
+                            <td>GeneXpert #4</td>
+                            <td>GX-IV (4 modules)</td>
+                            <td>709115<br>KP-2024-104</td>
+                            <td>Micro Lab</td>
+                            <td>TB backup</td>
+                        </tr>
+                        <tr>
+                            <td>GeneXpert #5</td>
+                            <td>GX-II (2 modules)</td>
+                            <td>602334<br>KP-2024-105</td>
+                            <td>ED Satellite</td>
+                            <td>STAT testing</td>
+                        </tr>
+                        <tr>
+                            <td>GeneXpert #6</td>
+                            <td>GX-IV (4 modules)</td>
+                            <td>709116<br>KP-2024-106</td>
+                            <td>MOB Lab</td>
+                            <td>Backup/overflow</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Ancillary Equipment</h3>
+                <ul>
+                    <li>Class II, Type A2 Biosafety Cabinet (TB specimen processing)</li>
+                    <li>Vortex mixers (3 units)</li>
+                    <li>Micropipettes (P1000, calibrated annually)</li>
+                    <li>Centrifuge (for CSF specimens)</li>
+                    <li>Refrigerators with continuous monitoring (2-8°C)</li>
+                    <li>Computer workstations with GeneXpert software</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 9: MAINTENANCE -->
+            <div class="section" id="maintenance">
+                <h2>9. MAINTENANCE</h2>
+
+                <h3>Daily Maintenance Checklist</h3>
+                <ul class="checklist">
+                    <li>Check module status indicators (all green)</li>
+                    <li>Verify adequate cartridge inventory</li>
+                    <li>Review overnight run logs for errors</li>
+                    <li>Clean exterior surfaces with approved disinfectant</li>
+                    <li>Document in maintenance log</li>
+                    <li>Check printer paper and toner levels</li>
+                </ul>
+
+                <h3>Weekly Maintenance Tasks</h3>
+                <ul class="checklist">
+                    <li>Run Xpert Check cartridge on each instrument</li>
+                    <li>Clean module doors and latches</li>
+                    <li>Verify network connectivity and data backup</li>
+                    <li>Review QC trends with supervisor</li>
+                    <li>Check and clean air vents</li>
+                    <li>Inventory maintenance supplies</li>
+                </ul>
+
+                <h3>Monthly Maintenance Requirements</h3>
+                <ul class="checklist">
+                    <li>Deep clean of all modules</li>
+                    <li>Calibration verification if indicated</li>
+                    <li>Review error logs with Technical Quality Specialist</li>
+                    <li>Update software if new version available</li>
+                    <li>Test backup power supply (UPS)</li>
+                    <li>Verify biosafety cabinet certification current</li>
+                </ul>
+
+                <h3>Annual Maintenance</h3>
+                <p>Performed by Cepheid Field Service Engineer:</p>
+                <ul>
+                    <li>Complete module inspection and cleaning</li>
+                    <li>Optical system verification</li>
+                    <li>Temperature calibration check</li>
+                    <li>Mechanical systems lubrication</li>
+                    <li>Software updates and validation</li>
+                    <li>Replacement of wear parts</li>
+                </ul>
+
+                <h3>Module Plunger Maintenance</h3>
+                <div class="warning-box">
+                    <strong>Critical Maintenance Item:</strong>
+                    <p>Plunger assembly cleaning required every 5000 tests or when errors occur. Document each cleaning with date, module number, and technologist initials.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Maintenance Documentation:</strong>
+                    <p>All maintenance must be recorded in the Laboratory Equipment Problem Log (Document 16234_2). Include date, time, action taken, and outcome. Retain records for instrument lifetime.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 10: QUALITY CONTROL -->
+            <div class="section" id="qc">
+                <h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+
+                <h3>QC Materials and Frequency</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control Type</th>
+                            <th>Product</th>
+                            <th>Frequency</th>
+                            <th>Acceptance Criteria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sample Processing Control</td>
+                            <td>Internal to each cartridge</td>
+                            <td>Every test</td>
+                            <td>Must pass for valid result</td>
+                        </tr>
+                        <tr>
+                            <td>Probe Check Control</td>
+                            <td>Internal to each cartridge</td>
+                            <td>Every test</td>
+                            <td>Must pass for valid result</td>
+                        </tr>
+                        <tr>
+                            <td>Xpert Check</td>
+                            <td>Check cartridge</td>
+                            <td>Weekly per instrument</td>
+                            <td>All parameters "PASS"</td>
+                        </tr>
+                        <tr>
+                            <td>External Positive Control</td>
+                            <td>Assay-specific</td>
+                            <td>New lot/shipment</td>
+                            <td>Positive result</td>
+                        </tr>
+                        <tr>
+                            <td>External Negative Control</td>
+                            <td>Assay-specific</td>
+                            <td>New lot/shipment</td>
+                            <td>Negative result</td>
+                        </tr>
+                        <tr>
+                            <td>Proficiency Testing</td>
+                            <td>CAP surveys</td>
+                            <td>Per CAP schedule</td>
+                            <td>≥80% consensus</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>QC Failure Protocol</h3>
+                <div class="critical-qc-rule">
+                    <h4>⚠️ CRITICAL QC RULE</h4>
+                    <p>NEVER report patient results if QC is not acceptable. Patient safety depends on accurate results.</p>
+
+                    <strong>If QC fails:</strong>
+                    <ol>
+                        <li>STOP - Do not report any patient results from affected module/instrument</li>
+                        <li>Investigate and document the failure</li>
+                        <li>Perform troubleshooting per manufacturer guidelines</li>
+                        <li>Rerun QC after corrective action</li>
+                        <li>If QC still fails, remove module/instrument from service</li>
+                    </ol>
+
+                    <strong>Follow-up Notification Requirements:</strong>
+                    <ol>
+                        <li>Immediately notify Lead Technologist of QC failure</li>
+                        <li>Document all troubleshooting steps in QC log</li>
+                        <li>Contact Cepheid Technical Support (1-888-838-3222) and obtain case number</li>
+                        <li>Notify Technical Quality Specialist with:
+                            <ul>
+                                <li>Module/instrument affected</li>
+                                <li>Troubleshooting performed</li>
+                                <li>Cepheid case number</li>
+                                <li>Current status</li>
+                            </ul>
+                        </li>
+                        <li>Notify Laboratory Manager with complete documentation</li>
+                    </ol>
+
+                    <p style="color: #721c24; font-weight: bold;">
+                        CRITICAL: Patient results from the last acceptable QC may need review if systematic error is identified.
+                    </p>
+                </div>
+
+                <h3>Invalid/Error Result Management</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Result Type</th>
+                            <th>Frequency Threshold</th>
+                            <th>Action Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Invalid</td>
+                            <td>&gt;10% per assay</td>
+                            <td>Investigate specimen quality, collection issues</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td>
+                            <td>&gt;5% per module</td>
+                            <td>Module maintenance, possible service call</td>
+                        </tr>
+                        <tr>
+                            <td>No Result</td>
+                            <td>Any occurrence</td>
+                            <td>Repeat test, check for instrument issues</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Documentation Requirements</h3>
+                <p>Reference: Kaiser Permanente QC Evaluation and Action Plan Job Aid (Document 14016_0)</p>
+                <ul>
+                    <li>All QC results documented in LIS and paper log</li>
+                    <li>Corrective actions documented with resolution</li>
+                    <li>Monthly QC review by supervisor</li>
+                    <li>Trending analysis quarterly</li>
+                    <li>Records retained per CAP requirements (2 years minimum)</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 11: CALIBRATION -->
+            <div class="section" id="calibration">
+                <h2>11. CALIBRATION</h2>
+                <p>The GeneXpert System is factory-calibrated and does not require user calibration. System verification is performed through:</p>
+
+                <h3>Calibration Verification</h3>
+                <ul>
+                    <li><strong>Method:</strong> Xpert Check cartridge</li>
+                    <li><strong>Frequency:</strong> Weekly and after service</li>
+                    <li><strong>Parameters verified:</strong>
+                        <ul>
+                            <li>Optical system (all channels)</li>
+                            <li>Thermal control</li>
+                            <li>Motor control</li>
+                            <li>Fluidics system</li>
+                        </ul>
+                    </li>
+                    <li><strong>Acceptance:</strong> All parameters must show "PASS"</li>
+                    <li><strong>Action if fail:</strong> Module taken offline, service requested</li>
+                </ul>
+
+                <h3>Temperature Verification</h3>
+                <ul>
+                    <li>Verified during annual preventive maintenance</li>
+                    <li>Documented in service report</li>
+                    <li>Acceptable range: ±1°C from set points</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 12: TROUBLESHOOTING -->
+            <div class="section" id="troubleshooting">
+                <h2>12. TROUBLESHOOTING</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Possible Causes</th>
+                            <th>Corrective Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Error 2008</strong><br>Syringe motion</td>
+                            <td>• Plunger obstruction<br> • Cartridge not seated properly<br> • Module mechanical issue</td>
+                            <td>• Reseat cartridge firmly<br> • Clean plunger assembly<br> • Try different module<br> • If persists, call service</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Invalid Result</strong></td>
+                            <td>• Insufficient sample<br> • Inhibitors present<br> • Improper sample preparation</td>
+                            <td>• Verify sample volume adequate<br> • Check sample quality<br> • Repeat with new cartridge<br> • Request new specimen if needed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Error 5007</strong><br>Probe check failed</td>
+                            <td>• Expired cartridge<br> • Storage temperature excursion<br> • Manufacturing issue</td>
+                            <td>• Check expiration date<br> • Verify storage conditions<br> • Try cartridge from different lot<br> • Contact manufacturer if lot issue</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Module won't start</strong></td>
+                            <td>• Door not closed properly<br> • Module offline<br> • Communication error</td>
+                            <td>• Ensure door clicks closed<br> • Check module status in software<br> • Restart GeneXpert software<br> • Power cycle if necessary</td>
+                        </tr>
+                        <tr>
+                            <td><strong>High Invalid Rate</strong><br>(&gt;10%)</td>
+                            <td>• Collection issues<br> • Transport delays<br> • Module problems</td>
+                            <td>• Review collection procedures<br> • Check specimen transport times<br> • Run Xpert Check<br> • Evaluate pre-analytical variables</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Results not transmitting</strong></td>
+                            <td>• LIS interface down<br> • Network issues<br> • Result review pending</td>
+                            <td>• Check network connection<br> • Verify LIS interface status<br> • Manually enter if necessary<br> • Contact IT support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RIF Resistance Indeterminate</strong><br>(TB testing)</td>
+                            <td>• Low bacterial load<br> • Mixed populations<br> • Rare mutations</td>
+                            <td>• Report as indeterminate<br> • Recommend culture & DST<br> • Consult with TB specialist<br> • Consider repeat testing</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>⚠️ When Unable to Resolve:</strong>
+                    <ol>
+                        <li>Document all troubleshooting attempts</li>
+                        <li>Contact Cepheid Technical Support: 1-888-838-3222</li>
+                        <li>Obtain case reference number</li>
+                        <li>Remove affected module from service</li>
+                        <li>Route specimens to backup instrument/location</li>
+                        <li>Notify Technical Quality Specialist and Laboratory Manager</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- SECTION 13: TEST PROCEDURE -->
+            <div class="section" id="procedure">
+                <h2>13. TEST PROCEDURE</h2>
+
+                <h3>Turnaround Time Requirements</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Run Time</th>
+                            <th>TAT Goal (from receipt)</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MTB/RIF Ultra</td>
+                            <td>90 minutes</td>
+                            <td>2 hours</td>
+                            <td>STAT</td>
+                        </tr>
+                        <tr>
+                            <td>MRSA/SA</td>
+                            <td>60 minutes</td>
+                            <td>90 minutes</td>
+                            <td>Urgent</td>
+                        </tr>
+                        <tr>
+                            <td>C. difficile</td>
+                            <td>45 minutes</td>
+                            <td>2 hours</td>
+                            <td>Urgent</td>
+                        </tr>
+                        <tr>
+                            <td>SARS-CoV-2</td>
+                            <td>45 minutes</td>
+                            <td>2 hours</td>
+                            <td>STAT/Urgent</td>
+                        </tr>
+                        <tr>
+                            <td>CT/NG</td>
+                            <td>90 minutes</td>
+                            <td>4 hours</td>
+                            <td>Routine</td>
+                        </tr>
+                        <tr>
+                            <td>GBS</td>
+                            <td>50 minutes</td>
+                            <td>90 minutes</td>
+                            <td>STAT for labor</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>General Testing Procedure</h3>
+
+                <h4>Pre-Analytical Steps</h4>
+                <ol class="step-list">
+                    <li>Verify specimen identification (two identifiers required)</li>
+                    <li>Check specimen acceptability against criteria</li>
+                    <li>Allow refrigerated cartridges to reach room temperature (minimum 30 minutes)</li>
+                    <li>Don appropriate PPE for specimen type</li>
+                    <li>For TB specimens, work in biosafety cabinet</li>
+                </ol>
+
+                <h4>Sample Preparation (varies by test)</h4>
+                <div class="subsection">
+                    <strong>MTB/RIF Ultra (Sputum):</strong>
+                    <ol>
+                        <li>In BSC, add 2:1 ratio of Sample Reagent to sputum</li>
+                        <li>Vortex vigorously for 10 seconds</li>
+                        <li>Incubate 15 minutes at room temperature</li>
+                        <li>Vortex again for 10 seconds</li>
+                    </ol>
+
+                    <strong>MRSA/SA (Nasal swab):</strong>
+                    <ol>
+                        <li>Insert swab into elution reagent vial</li>
+                        <li>Break swab at score line</li>
+                        <li>Cap and vortex for 10 seconds</li>
+                    </ol>
+
+                    <strong>C. difficile (Stool):</strong>
+                    <ol>
+                        <li>Insert swab into unformed stool</li>
+                        <li>Transfer to sample reagent vial</li>
+                        <li>Vortex for 10 seconds</li>
+                    </ol>
+                </div>
+
+                <h4>Analytical Steps</h4>
+                <ol class="step-list">
+                    <li>Log into GeneXpert computer system</li>
+                    <li>Select "Create Test" from menu</li>
+                    <li>Scan or enter patient information</li>
+                    <li>Select appropriate assay</li>
+                    <li>Scan cartridge barcode</li>
+                    <li>Open cartridge lid and transfer specimen:
+                        <ul>
+                            <li>Use transfer pipette provided</li>
+                            <li>Dispense slowly to avoid bubbles</li>
+                            <li>Do not overfill chamber</li>
+                        </ul>
+                    </li>
+                    <li>Close cartridge lid firmly</li>
+                    <li>Load cartridge into designated module within 30 minutes</li>
+                    <li>Close module door until it clicks</li>
+                    <li>Test starts automatically</li>
+                    <li>Monitor progress on screen</li>
+                </ol>
+
+                <h4>Post-Analytical Steps</h4>
+                <ol class="step-list">
+                    <li>Review results when complete</li>
+                    <li>Verify internal controls passed</li>
+                    <li>Interpret results according to guidelines</li>
+                    <li>Release results in LIS</li>
+                    <li>Remove cartridge and dispose in biohazard waste</li>
+                    <li>For TB cartridges, autoclave before disposal</li>
+                    <li>Clean module door and work area</li>
+                    <li>Document any issues or comments</li>
+                </ol>
+
+                <div class="critical-box">
+                    <h4>⚠️ Critical Testing Notes</h4>
+                    <ul>
+                        <li>Never reuse cartridges</li>
+                        <li>Process specimens within stability timeframes</li>
+                        <li>TB specimens require BSL-3 practices</li>
+                        <li>Critical values require immediate notification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 14: RESULT REPORTING -->
+            <div class="section" id="calculations">
+                <h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+
+                <h3>Result Interpretation by Assay</h3>
+
+                <h4>MTB/RIF Ultra Results</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>MTB Result</th>
+                            <th>RIF Resistance</th>
+                            <th>Interpretation</th>
+                            <th>Report</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>MTB complex present, Rifampin resistance detected</td>
+                            <td>Notify immediately; MDR-TB protocol</td>
+                        </tr>
+                        <tr>
+                            <td>DETECTED</td>
+                            <td>NOT DETECTED</td>
+                            <td>MTB complex present, Rifampin sensitive</td>
+                            <td>Critical value notification</td>
+                        </tr>
+                        <tr>
+                            <td>DETECTED</td>
+                            <td>INDETERMINATE</td>
+                            <td>MTB present, resistance indeterminate</td>
+                            <td>Recommend culture & DST</td>
+                        </tr>
+                        <tr>
+                            <td>TRACE</td>
+                            <td>N/A</td>
+                            <td>Very low level MTB detected</td>
+                            <td>Clinical correlation required</td>
+                        </tr>
+                        <tr>
+                            <td>NOT DETECTED</td>
+                            <td>N/A</td>
+                            <td>MTB complex not detected</td>
+                            <td>Does not rule out TB</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Semi-Quantitative Results (MTB)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Result Category</th>
+                            <th>Ct Range</th>
+                            <th>Bacterial Load</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HIGH</td>
+                            <td>&lt;16</td>
+                            <td>High bacterial burden</td>
+                        </tr>
+                        <tr>
+                            <td>MEDIUM</td>
+                            <td>16-22</td>
+                            <td>Moderate bacterial burden</td>
+                        </tr>
+                        <tr>
+                            <td>LOW</td>
+                            <td>22-28</td>
+                            <td>Low bacterial burden</td>
+                        </tr>
+                        <tr>
+                            <td>VERY LOW</td>
+                            <td>&gt;28</td>
+                            <td>Very low bacterial burden</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Standard Report Comments</h3>
+                <ul>
+                    <li><strong>TB Detected:</strong> "M. tuberculosis complex DNA detected. Rifampin resistance [result]. Culture recommended for phenotypic DST and species identification."</li>
+                    <li><strong>MRSA Detected:</strong> "Methicillin-resistant S. aureus (MRSA) DNA detected. Implement contact precautions."</li>
+                    <li><strong>C. diff Positive:</strong> "Toxigenic C. difficile DNA detected. Correlate with clinical symptoms."</li>
+                    <li><strong>Negative Results:</strong> "Target not detected. Negative results do not rule out infection."</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 15: REFERENCE RANGES -->
+            <div class="section" id="reference">
+                <h2>15. REFERENCE RANGES</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Normal Result</th>
+                            <th>Abnormal Result</th>
+                            <th>Clinical Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MTB/RIF</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED/TRACE</td>
+                            <td>Isolation, treatment, contact investigation</td>
+                        </tr>
+                        <tr>
+                            <td>MRSA</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>Contact precautions, decolonization consideration</td>
+                        </tr>
+                        <tr>
+                            <td>C. difficile</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>Isolation, treatment if symptomatic</td>
+                        </tr>
+                        <tr>
+                            <td>SARS-CoV-2</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>Isolation, treatment, contact tracing</td>
+                        </tr>
+                        <tr>
+                            <td>CT/NG</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>Treatment, partner notification</td>
+                        </tr>
+                        <tr>
+                            <td>GBS</td>
+                            <td>NOT DETECTED</td>
+                            <td>DETECTED</td>
+                            <td>Intrapartum antibiotic prophylaxis</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 16: CRITICAL VALUES -->
+            <div class="section" id="critical">
+                <h2>16. CRITICAL VALUES</h2>
+
+                <div class="critical-box">
+                    <h4>⚠️ IMMEDIATE NOTIFICATION REQUIRED</h4>
+                    <p>The following results require immediate notification to healthcare provider AND infection control:</p>
+                </div>
+
+                <table style="background-color: #ffebee;">
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Critical Result</th>
+                            <th>Notification Time</th>
+                            <th>Additional Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>M. tuberculosis</strong></td>
+                            <td>DETECTED (any level)</td>
+                            <td>Within 1 hour</td>
+                            <td>• Notify Infection Control immediately<br> • Airborne isolation required<br> • Public Health notification<br> • Contact investigation initiated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rifampin Resistance</strong></td>
+                            <td>DETECTED</td>
+                            <td>Within 30 minutes</td>
+                            <td>• Notify ID physician immediately<br> • MDR-TB protocol activated<br> • State TB program notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SARS-CoV-2</strong></td>
+                            <td>DETECTED</td>
+                            <td>Within 2 hours</td>
+                            <td>• Isolation protocol<br> • Employee Health if staff<br> • Visitor restriction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CARBA-R</strong></td>
+                            <td>Any gene DETECTED</td>
+                            <td>Within 1 hour</td>
+                            <td>• Enhanced contact precautions<br> • Infection Control immediate notification<br> • Environmental cleaning protocol</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GBS (in labor)</strong></td>
+                            <td>DETECTED</td>
+                            <td>Within 30 minutes</td>
+                            <td>• L&D immediate notification<br> • Antibiotic prophylaxis STAT</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Critical Value Documentation</h3>
+                <ul>
+                    <li>Record date and time of result</li>
+                    <li>Document notification time</li>
+                    <li>Record name and title of person notified</li>
+                    <li>Perform read-back verification</li>
+                    <li>Document in LIS and critical value log</li>
+                    <li>Follow up to ensure action taken</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 17: LIMITATIONS -->
+            <div class="section" id="limitations">
+                <h2>17. LIMITATIONS AND INTERFERENCES</h2>
+
+                <h3>General Test Limitations</h3>
+                <ul>
+                    <li>Detects nucleic acid, not viable organisms</li>
+                    <li>Cannot determine if detected organism is causing current symptoms</li>
+                    <li>Does not detect all possible pathogens</li>
+                    <li>Negative results do not rule out infection</li>
+                    <li>Not validated for asymptomatic screening (except where specified)</li>
+                    <li>Results must be interpreted with clinical findings</li>
+                </ul>
+
+                <h3>Assay-Specific Limitations</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Assay</th>
+                            <th>Specific Limitations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MTB/RIF Ultra</strong></td>
+                            <td>• Does not differentiate MTB complex species<br> • May detect non-viable organisms post-treatment<br> • Some rare RIF mutations not detected</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MRSA/SA</strong></td>
+                            <td>• Does not detect all SCCmec types<br> • Empty cassette variants may cause false positives<br> • Screening test only, not for infection diagnosis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C. difficile</strong></td>
+                            <td>• Detects gene, not active toxin production<br> • May detect colonization<br> • Not for test of cure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CT/NG</strong></td>
+                            <td>• Not validated for pharyngeal specimens<br> • Cross-reactivity with some Neisseria species<br> • Not for test of cure &lt;3 weeks post-treatment</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Known Interferences</h3>
+                <ul>
+                    <li><strong>Blood:</strong> Large amounts may inhibit PCR</li>
+                    <li><strong>Mucus:</strong> Excessive mucus may cause invalid results</li>
+                    <li><strong>Medications:</strong> Recent antibiotics may cause false negatives</li>
+                    <li><strong>Transport delays:</strong> May degrade nucleic acid</li>
+                    <li><strong>Improper collection:</strong> Major cause of false negatives</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 18: EMERGENCY PROCEDURES -->
+            <div class="section" id="emergency">
+                <h2>18. EMERGENCY PROCEDURES</h2>
+
+                <h3>Scenario 1: All GeneXpert Systems Down</h3>
+                <div class="subsection">
+                    <h4>Immediate Actions:</h4>
+                    <ol>
+                        <li>Notify Laboratory Manager and on-call director</li>
+                        <li>Contact Cepheid emergency support: 1-888-838-3222</li>
+                        <li>Implement contingency testing plan</li>
+                    </ol>
+
+                    <h4>Backup Testing Options:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Alternative Method</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TB</td>
+                                <td>Send to State Lab</td>
+                                <td>Maryland DOH</td>
+                            </tr>
+                            <tr>
+                                <td>MRSA</td>
+                                <td>Culture method</td>
+                                <td>Microbiology lab</td>
+                            </tr>
+                            <tr>
+                                <td>C. difficile</td>
+                                <td>EIA or send out</td>
+                                <td>Chemistry or Reference</td>
+                            </tr>
+                            <tr>
+                                <td>COVID-19</td>
+                                <td>Rapid antigen or send out</td>
+                                <td>POC or Reference</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Scenario 2: TB Specimen Spill/Exposure</h3>
+                <div class="subsection">
+                    <h4>Immediate Response:</h4>
+                    <ol>
+                        <li>Alert all personnel - evacuate area if aerosol generated</li>
+                        <li>Close biosafety cabinet sash if involved</li>
+                        <li>Remove contaminated PPE carefully</li>
+                        <li>For skin exposure: wash with soap and water immediately</li>
+                        <li>For eye exposure: flush at eyewash station for 15 minutes</li>
+                    </ol>
+
+                    <h4>Decontamination:</h4>
+                    <ol>
+                        <li>Don fresh PPE including N95 respirator</li>
+                        <li>Cover spill with absorbent material</li>
+                        <li>Apply tuberculocidal disinfectant liberally</li>
+                        <li>Allow 20-minute contact time</li>
+                        <li>Clean with disposable materials</li>
+                        <li>Re-disinfect area</li>
+                        <li>Dispose all materials as biohazard waste</li>
+                    </ol>
+
+                    <h4>Follow-up:</h4>
+                    <ul>
+                        <li>Report to Employee Health immediately</li>
+                        <li>Complete incident report</li>
+                        <li>Baseline TB testing if indicated</li>
+                        <li>Document in exposure log</li>
+                    </ul>
+                </div>
+
+                <h3>Scenario 3: Power Failure</h3>
+                <div class="subsection">
+                    <ol>
+                        <li>UPS battery backup maintains power for 30 minutes</li>
+                        <li>Save all work and properly shut down if extended outage expected</li>
+                        <li>Tests in progress will abort - will need repeat</li>
+                        <li>Transfer STAT specimens to MOB lab if available</li>
+                        <li>When power returns:
+                            <ul>
+                                <li>Restart all systems</li>
+                                <li>Run Xpert Check on all instruments</li>
+                                <li>Verify network connectivity</li>
+                                <li>Check temperature logs for storage areas</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- SECTION 19: DOWNTIME PROCEDURES -->
+            <div class="section" id="downtime">
+                <h2>19. DOWNTIME PROCEDURES</h2>
+
+                <h3>Complete System Downtime Protocol</h3>
+                <ol>
+                    <li><strong>Assessment Phase (0-15 minutes):</strong>
+                        <ul>
+                            <li>Determine scope of downtime</li>
+                            <li>Identify affected instruments/modules</li>
+                            <li>Contact Cepheid support if technical issue</li>
+                            <li>Estimate downtime duration</li>
+                        </ul>
+                    </li>
+
+                    <li><strong>Communication (15-30 minutes):</strong>
+                        <ul>
+                            <li>Notify all stakeholders via overhead page</li>
+                            <li>Send LIS broadcast message</li>
+                            <li>Contact ED, ICU, and ID physicians</li>
+                            <li>Post notices at specimen receiving</li>
+                        </ul>
+                    </li>
+
+                    <li><strong>Specimen Management:</strong>
+                        <ul>
+                            <li>Stop accepting new GeneXpert specimens</li>
+                            <li>Store specimens appropriately:
+                                <ul>
+                                    <li>TB specimens: 2-8°C up to 7 days</li>
+                                    <li>MRSA swabs: Room temp up to 48 hours</li>
+                                    <li>C. diff: 2-8°C up to 24 hours</li>
+                                </ul>
+                            </li>
+                            <li>Document all held specimens on downtime log</li>
+                        </ul>
+                    </li>
+
+                    <li><strong>Alternative Testing:</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Action</th>
+                                    <th>TAT Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>STAT TB</td>
+                                    <td>Send to State Lab via courier</td>
+                                    <td>24-48 hours</td>
+                                </tr>
+                                <tr>
+                                    <td>STAT COVID</td>
+                                    <td>Rapid antigen if appropriate</td>
+                                    <td>15 minutes</td>
+                                </tr>
+                                <tr>
+                                    <td>Urgent MRSA</td>
+                                    <td>Route to MOB Lab</td>
+                                    <td>2-3 hours</td>
+                                </tr>
+                                <tr>
+                                    <td>Routine</td>
+                                    <td>Hold for up to 24 hours</td>
+                                    <td>Next day</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ol>
+
+                <h3>LIS Downtime</h3>
+                <div class="subsection">
+                    <h4>Manual Processing:</h4>
+                    <ol>
+                        <li>Use downtime requisition forms (red folder at each station)</li>
+                        <li>Assign sequential downtime numbers (DT-001, DT-002, etc.)</li>
+                        <li>Continue testing - results stored in GeneXpert system</li>
+                        <li>Print results and attach to downtime forms</li>
+                        <li>Call critical values directly</li>
+                        <li>Fax routine results to units</li>
+                    </ol>
+
+                    <h4>Recovery:</h4>
+                    <ol>
+                        <li>When LIS returns, enter all results in chronological order</li>
+                        <li>Match downtime numbers to patient records</li>
+                        <li>Verify all critical values were communicated</li>
+                        <li>File downtime logs for 30 days minimum</li>
+                        <li>Conduct post-downtime review with IT</li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <strong>Backup Laboratory Contacts:</strong><br> MOB Laboratory GeneXpert: Extension 5555<br> Regional Reference Lab: 410-555-1234<br> State TB Laboratory: 410-555-5678<br> On-call Supervisor: Pager 410-555-0777
+                </div>
+            </div>
+
+            <!-- SECTION 20: TECHNICAL SUPPORT -->
+            <div class="section" id="support">
+                <h2>20. TECHNICAL SUPPORT</h2>
+
+                <h3>Contact Directory</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Issue Type</th>
+                            <th>Primary Contact</th>
+                            <th>Secondary Contact</th>
+                            <th>When to Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Technical Questions</strong></td>
+                            <td>Lead Technologist<br>Ext: 3456</td>
+                            <td>Technical Quality Specialist<br>Ext: 3789</td>
+                            <td>Protocol clarification, Method questions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Equipment Problems</strong></td>
+                            <td>Cepheid Support<br>1-888-838-3222</td>
+                            <td>Biomedical Engineering<br>Ext: 4567</td>
+                            <td>Module errors, System failures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QC Failures</strong></td>
+                            <td>Lead Technologist<br>Ext: 3456</td>
+                            <td>Technical Quality Specialist<br>Ext: 3789</td>
+                            <td>After initial troubleshooting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TB Results</strong></td>
+                            <td>TB Control Officer<br>Pager: 1234</td>
+                            <td>Infectious Disease<br>Pager: 5678</td>
+                            <td>All positive TB results</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Critical Values</strong></td>
+                            <td>Ordering Provider<br>Per chart</td>
+                            <td>Unit Charge Nurse<br>Per location</td>
+                            <td>Per critical value list</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Hours</strong></td>
+                            <td>On-call Supervisor<br>Pager: 0777</td>
+                            <td>Laboratory Director<br>Pager: 0999</td>
+                            <td>Urgent issues off-shift</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT/LIS Issues</strong></td>
+                            <td>Help Desk<br>Ext: 4357</td>
+                            <td>LIS Administrator<br>Ext: 4359</td>
+                            <td>Interface or connectivity issues</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supply Issues</strong></td>
+                            <td>Laboratory Manager<br>Ext: 3000</td>
+                            <td>Lead Technologist<br>Ext: 3456</td>
+                            <td>Stock shortages, Backorders</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Validation/Verification</strong></td>
+                            <td>Technical Quality Specialist<br>Ext: 3789</td>
+                            <td>Laboratory Manager<br>Ext: 3000</td>
+                            <td>New lots, New methods</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Vendor Support Information</h3>
+                <div class="info-box">
+                    <strong>Cepheid Technical Support</strong><br> Phone: 1-888-838-3222 (24/7)<br> Email: techsupport@cepheid.com<br> Web Portal: https://cepheid.force.com<br> Account Number: KP-MDATL-2024
+                </div>
+            </div>
+
+            <!-- SECTION 21: QUALITY ASSURANCE -->
+            <div class="section" id="qa">
+                <h2>21. QUALITY ASSURANCE</h2>
+
+                <h3>Documentation Requirements</h3>
+
+                <div class="warning-box">
+                    <strong>⚠️ ONE STRIKE POLICY FOR DOCUMENTATION</strong>
+                    <p>Kaiser Permanente enforces strict documentation standards. Failure to properly document testing, QC, maintenance, or patient results may result in immediate corrective action. Documentation must be contemporaneous, accurate, and complete.</p>
+                </div>
+
+                <h3>Quality Indicators - Monthly Monitoring</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                            <th>Action if Not Met</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TAT Compliance</td>
+                            <td>≥90%</td>
+                            <td>Root cause analysis, process improvement</td>
+                        </tr>
+                        <tr>
+                            <td>Invalid Rate</td>
+                            <td>≤10%</td>
+                            <td>Specimen collection review, training</td>
+                        </tr>
+                        <tr>
+                            <td>Error Rate</td>
+                            <td>≤5%</td>
+                            <td>Module maintenance, possible service</td>
+                        </tr>
+                        <tr>
+                            <td>Critical Value Notification</td>
+                            <td>100%</td>
+                            <td>Immediate investigation, retraining</td>
+                        </tr>
+                        <tr>
+                            <td>QC Compliance</td>
+                            <td>100%</td>
+                            <td>Corrective action, competency review</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Proficiency Testing</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Program</th>
+                            <th>Frequency</th>
+                            <th>Passing Score</th>
+                            <th>Action if Fail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CAP TB/Mycobacteria</td>
+                            <td>2x/year</td>
+                            <td>≥80%</td>
+                            <td>Cessation of testing</td>
+                        </tr>
+                        <tr>
+                            <td>CAP Molecular</td>
+                            <td>3x/year</td>
+                            <td>≥80%</td>
+                            <td>Root cause analysis</td>
+                        </tr>
+                        <tr>
+                            <td>CAP MRSA</td>
+                            <td>3x/year</td>
+                            <td>≥80%</td>
+                            <td>Method review</td>
+                        </tr>
+                        <tr>
+                            <td>CDC TB Program</td>
+                            <td>Annual</td>
+                            <td>100%</td>
+                            <td>Remediation required</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Competency Assessment Requirements</h3>
+                <div class="competency-box">
+                    <h4>Annual Competency Components (per Documents 14952_0 and 13792_0)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Method</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Direct Observation</td>
+                                <td>Checklist-based observation</td>
+                                <td>Initial, 6 months, Annual</td>
+                            </tr>
+                            <tr>
+                                <td>QC/PT Review</td>
+                                <td>Review of QC and PT performance</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Maintenance Skills</td>
+                                <td>Observation or record review</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Problem Solving</td>
+                                <td>Case scenarios</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Safety Practices</td>
+                                <td>Observation and quiz</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>TB-Specific Safety</td>
+                                <td>BSL-3 practices assessment</td>
+                                <td>Annual (TB testers only)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 22: REGULATORY COMPLIANCE -->
+            <div class="section" id="compliance">
+                <h2>22. REGULATORY COMPLIANCE</h2>
+
+                <h3>CLIA Requirements</h3>
+                <ul>
+                    <li>Certificate Type: High Complexity</li>
+                    <li>CLIA Number: 21D0123456</li>
+                    <li>Personnel meet requirements per 42 CFR 493.1489</li>
+                    <li>Proficiency testing enrollment maintained</li>
+                    <li>Method validations on file for all assays</li>
+                    <li>QC frequency meets or exceeds manufacturer recommendations</li>
+                </ul>
+
+                <h3>CAP Accreditation Standards</h3>
+                <ul>
+                    <li><strong>MOL.30625:</strong> Molecular controls with each run</li>
+                    <li><strong>MOL.31025:</strong> Amplification and detection controls</li>
+                    <li><strong>MOL.39850:</strong> Contamination prevention measures</li>
+                    <li><strong>GEN.30000:</strong> QC at required frequency</li>
+                    <li><strong>GEN.41920:</strong> Instrument maintenance documented</li>
+                    <li><strong>GEN.20375:</strong> Competency assessment documented</li>
+                </ul>
+
+                <h3>CDC TB Program Requirements</h3>
+                <ul>
+                    <li>Participate in CDC TB proficiency program</li>
+                    <li>Report all positive TB to public health within 24 hours</li>
+                    <li>Maintain BSL-3 practices for TB testing</li>
+                    <li>Annual safety training for TB testing personnel</li>
+                    <li>Collaborate with TB Control Program</li>
+                </ul>
+
+                <h3>Joint Commission Standards</h3>
+                <ul>
+                    <li>Critical value reporting within defined timeframes</li>
+                    <li>Annual competency assessment for all staff</li>
+                    <li>Equipment maintenance per manufacturer</li>
+                    <li>Patient identification verification</li>
+                    <li>Documentation of all variances</li>
+                </ul>
+
+                <h3>Document Retention Schedule</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Document Type</th>
+                            <th>Retention Period</th>
+                            <th>Storage Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Patient Results</td>
+                            <td>7 years</td>
+                            <td>LIS Archive</td>
+                        </tr>
+                        <tr>
+                            <td>QC Records</td>
+                            <td>2 years</td>
+                            <td>QC Database + Paper</td>
+                        </tr>
+                        <tr>
+                            <td>Instrument Maintenance</td>
+                            <td>Life of instrument</td>
+                            <td>Instrument binder</td>
+                        </tr>
+                        <tr>
+                            <td>Validation Studies</td>
+                            <td>Life of method + 2 years</td>
+                            <td>Validation files</td>
+                        </tr>
+                        <tr>
+                            <td>PT Records</td>
+                            <td>2 years</td>
+                            <td>PT binder</td>
+                        </tr>
+                        <tr>
+                            <td>Competency Records</td>
+                            <td>Duration of employment + 2 years</td>
+                            <td>Personnel files</td>
+                        </tr>
+                        <tr>
+                            <td>TB Testing Records</td>
+                            <td>5 years</td>
+                            <td>TB program files</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 23: REFERENCES -->
+            <div class="section" id="references">
+                <h2>23. REFERENCES</h2>
+
+                <h3>Primary Kaiser Permanente References</h3>
+                <ol>
+                    <li>Document 14952_0: Personnel and Competency Binder for Medical Laboratory Assistant - MOB</li>
+                    <li>Document 13792_0: Personnel and Competency Binder for MT and MLT - MOB</li>
+                    <li>Document 14016_0: Quality Control Evaluation and Action Plan Job Aid</li>
+                    <li>Document 16234_2: Laboratory Equipment Problem Log</li>
+                    <li>KPMAS.LAB.MOL.001: Molecular Diagnostics Policies and Procedures</li>
+                    <li>KPMAS.LAB.TB.001: Tuberculosis Testing Safety Protocol</li>
+                    <li>Kaiser Permanente National Laboratory Standards Manual, Current Edition</li>
+                </ol>
+
+                <h3>Manufacturer Documentation</h3>
+                <ol>
+                    <li>GeneXpert System User Manual, Current Version</li>
+                    <li>Xpert MTB/RIF Ultra Package Insert</li>
+                    <li>Xpert MRSA/SA Package Insert</li>
+                    <li>Xpert C. difficile Package Insert</li>
+                    <li>Xpert SARS-CoV-2 Package Insert</li>
+                    <li>All current assay-specific package inserts</li>
+                </ol>
+
+                <h3>Regulatory and Standards</h3>
+                <ol>
+                    <li>CLSI M48: Molecular Methods for Tuberculosis</li>
+                    <li>CLSI MM03: Molecular Diagnostic Methods for Infectious Diseases</li>
+                    <li>CLSI M29: Protection of Laboratory Workers from Occupationally Acquired Infections</li>
+                    <li>CAP Molecular Pathology Checklist, Current Edition</li>
+                    <li>CDC Guidelines for Safe Work Practices in Laboratories</li>
+                    <li>WHO Guidelines on Tuberculosis Testing</li>
+                    <li>CLIA Regulations, 42 CFR Part 493</li>
+                </ol>
+
+                <h3>Clinical Guidelines</h3>
+                <ol>
+                    <li>CDC Core Curriculum on Tuberculosis</li>
+                    <li>IDSA/SHEA C. difficile Clinical Practice Guidelines</li>
+                    <li>CDC MRSA Prevention Guidelines</li>
+                    <li>CDC Guidelines for STI Testing</li>
+                    <li>ACOG Group B Streptococcus Screening Guidelines</li>
+                </ol>
+
+                <h3>Online Resources</h3>
+                <ol>
+                    <li>Cepheid Technical Portal: https://cepheid.force.com</li>
+                    <li>CDC TB Resources: https://www.cdc.gov/tb</li>
+                    <li>CAP e-LAB Solutions: https://elss.cap.org</li>
+                    <li>FDA Medical Device Database: https://www.accessdata.fda.gov</li>
+                    <li>Kaiser Permanente Laboratory Intranet (VPN required)</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>Note:</strong> All online resources should be accessed through secure connections. For Kaiser Permanente internal resources, use VPN when accessing from outside the facility network. Verify current package inserts before testing.
+                </div>
+            </div>
+
+            <!-- APPROVAL SIGNATURES -->
+            <div class="section">
+                <h2>DOCUMENT APPROVAL</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Name</th>
+                            <th>Signature</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Author</td>
+                            <td>Technical Quality Specialist</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Reviewer</td>
+                            <td>Molecular Laboratory Supervisor</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Reviewer</td>
+                            <td>TB Control Officer</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Approver</td>
+                            <td>Laboratory Director</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- REVISION HISTORY -->
+            <div class="section">
+                <h2>REVISION HISTORY</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Description of Changes</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.0</td>
+                            <td>01/2023</td>
+                            <td>Initial release</td>
+                            <td>Technical Quality Specialist</td>
+                        </tr>
+                        <tr>
+                            <td>2.0</td>
+                            <td>01/2024</td>
+                            <td>Added CARBA-R and additional COVID variants</td>
+                            <td>Technical Quality Specialist</td>
+                        </tr>
+                        <tr>
+                            <td>3.0</td>
+                            <td>01/2025</td>
+                            <td>Updated for Kaiser Permanente standards, enhanced QC procedures, added competency requirements</td>
+                            <td>Technical Quality Specialist</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </body>
+
+        </html>

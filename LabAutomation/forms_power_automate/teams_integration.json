@@ -1,0 +1,67 @@
+{
+  "teams_app": {
+    "name": "Lab Inventory Bot",
+    "description": "Automated inventory management for Largo Labs",
+    "capabilities": [
+      "Form submission notifications",
+      "Daily inventory summaries",
+      "Critical item alerts",
+      "Order status updates"
+    ]
+  },
+  "channels": [
+    {
+      "name": "Lab Inventory Updates",
+      "purpose": "Real-time inventory updates and form submissions"
+    },
+    {
+      "name": "Supply Orders",
+      "purpose": "Order requests and status updates"
+    },
+    {
+      "name": "Critical Alerts",
+      "purpose": "Urgent inventory issues and expiring items"
+    }
+  ],
+  "adaptive_cards": [
+    {
+      "name": "Inventory Update Card",
+      "template": {
+        "type": "AdaptiveCard",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "New Inventory Update",
+            "weight": "Bolder",
+            "size": "Medium"
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "Staff",
+                "value": "${staffName}"
+              },
+              {
+                "title": "Location",
+                "value": "${labLocation}"
+              },
+              {
+                "title": "Item",
+                "value": "${itemDescription}"
+              },
+              {
+                "title": "Count",
+                "value": "${handCount}"
+              },
+              {
+                "title": "Status",
+                "value": "${status}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

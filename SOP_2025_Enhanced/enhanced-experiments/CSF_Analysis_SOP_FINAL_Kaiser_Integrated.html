@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>Kaiser Permanente Largo Lab - Cerebrospinal Fluid Analysis SOP</title>
+<style>
+/* Optimized Kaiser Permanente Laboratory SOP Template */
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:8.5in 11in;margin:0.75in}
+html{font-size:10pt;width:100%;overflow-x:hidden}
+body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+.container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+/* Header Styling */
+.header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+.header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+.header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+/* Table of Contents - Two Column Layout */
+.toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+.toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+.toc-columns{display:flex;gap:30px}
+.toc-column{flex:1}
+.toc ul{list-style:none;padding:0}
+.toc li{margin:6px 0;padding-left:15px}
+.toc a{color:#0066cc;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+
+/* Section Styling */
+.section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+.section:last-child{border-bottom:none}
+
+/* Headings - Compact Styling */
+h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+/* Text Elements */
+p{margin:8px 0;text-align:left}
+ul,ol{margin:8px 0 8px 25px;padding:0}
+li{margin:4px 0;line-height:1.5}
+
+/* Special Sections */
+.key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+.procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+.warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+.critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+
+/* Table Styling */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+table tbody tr{border-bottom:1px solid #e0e0e0}
+table td{padding:8px;border-right:1px solid #e0e0e0}
+table tbody tr:nth-child(even){background:#f8f9fa}
+
+/* Print Optimizations */
+@media print{
+    @page{size:8.5in 11in;margin:0.75in}
+    body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+    .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+    h1,h2,h3,h4{page-break-after:avoid}
+    .toc{page-break-after:always}
+}
+
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>CEREBROSPINAL FLUID (CSF) ANALYSIS</h1>
+<h2>Comprehensive CSF Testing Standard Operating Procedure</h2>
+<p><strong>Document ID:</strong> LAB-CSF-001 | <strong>Version:</strong> 6.0 | <strong>Effective Date:</strong> January 2025</p>
+<p><strong>Location:</strong> Largo Laboratory | <strong>Department:</strong> Hematology/Chemistry/Microbiology</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>TABLE OF CONTENTS</h3>
+<div class="toc-columns">
+<div class="toc-column">
+<ul>
+<li><a href="#purpose">1. Purpose</a></li>
+<li><a href="#scope">2. Scope</a></li>
+<li><a href="#regulatory">3. Regulatory Requirements</a></li>
+<li><a href="#principle">4. Test Principles</a></li>
+<li><a href="#clinical">5. Clinical Significance</a></li>
+<li><a href="#specimen">6. Specimen Requirements</a></li>
+<li><a href="#equipment">7. Equipment</a></li>
+<li><a href="#reagents">8. Reagents and Supplies</a></li>
+<li><a href="#qc">9. Quality Control</a></li>
+<li><a href="#calibration">10. Calibration</a></li>
+<li><a href="#procedures">11. Test Procedures</a></li>
+<li><a href="#results">12. Results and Interpretation</a></li>
+</ul>
+</div>
+<div class="toc-column">
+<ul>
+<li><a href="#reference">13. Reference Ranges</a></li>
+<li><a href="#limitations">14. Limitations</a></li>
+<li><a href="#critical">15. Critical Values</a></li>
+<li><a href="#turnaround">16. Turnaround Time</a></li>
+<li><a href="#maintenance">17. Maintenance</a></li>
+<li><a href="#troubleshooting">18. Troubleshooting</a></li>
+<li><a href="#competency">19. Competency Assessment</a></li>
+<li><a href="#safety">20. Safety</a></li>
+<li><a href="#training">21. Training</a></li>
+<li><a href="#downtime">22. Downtime Procedures</a></li>
+<li><a href="#references">23. References</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTION 1: PURPOSE -->
+<div class="section" id="purpose">
+<h2>1. PURPOSE</h2>
+<p>This procedure establishes standardized protocols for cerebrospinal fluid analysis at Kaiser Permanente Largo Laboratory. CSF analysis is critical for diagnosing meningitis, encephalitis, subarachnoid hemorrhage, multiple sclerosis, and other central nervous system disorders. This document ensures rapid, accurate testing to support urgent clinical decisions.</p>
+
+<div class="key-concept">
+<h4>Critical Objectives</h4>
+<ul>
+<li>Provide immediate CSF analysis for life-threatening conditions</li>
+<li>Ensure proper specimen handling to maintain cell viability</li>
+<li>Coordinate testing across multiple laboratory departments</li>
+<li>Maintain strict TAT requirements for STAT CSF specimens</li>
+<li>Support diagnosis of infectious and inflammatory CNS conditions</li>
+<li>Comply with all regulatory requirements for body fluid testing</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 2: SCOPE -->
+<div class="section" id="scope">
+<h2>2. SCOPE</h2>
+<p>This procedure applies to all personnel involved in CSF testing:</p>
+<ul>
+<li>Medical Laboratory Scientists performing cell counts and differentials</li>
+<li>Chemistry technologists performing glucose and protein analysis</li>
+<li>Microbiology staff performing cultures and Gram stains</li>
+<li>Laboratory assistants receiving and distributing specimens</li>
+<li>Pathologists reviewing abnormal findings</li>
+</ul>
+
+<div class="info-box">
+<strong>STAT Priority:</strong> All CSF specimens are treated as STAT<br/>
+<strong>Departments Involved:</strong> Hematology, Chemistry, Microbiology<br/>
+<strong>Backup Location:</strong> MOB Laboratory - 301-555-2000<br/>
+<strong>Pathologist Consultation:</strong> Pager 3456 for malignant cells
+</div>
+</div>
+
+<!-- SECTION 3: REGULATORY REQUIREMENTS -->
+<div class="section" id="regulatory">
+<h2>3. REGULATORY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Regulatory Body</th>
+<th>Requirement</th>
+<th>Compliance</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIA</td>
+<td>High Complexity</td>
+<td>Qualified personnel only</td>
+<td>Competency records</td>
+</tr>
+<tr>
+<td>CAP</td>
+<td>HEM.35400</td>
+<td>Body fluid analysis</td>
+<td>QC and PT records</td>
+</tr>
+<tr>
+<td>Joint Commission</td>
+<td>Critical results</td>
+<td>Immediate notification</td>
+<td>Critical value log</td>
+</tr>
+<tr>
+<td>Kaiser Permanente</td>
+<td>Documents 14952_0, 13792_0</td>
+<td>Competency requirements</td>
+<td>Training documentation</td>
+</tr>
+<tr>
+<td>CDC</td>
+<td>Biosafety Level 2</td>
+<td>Universal precautions</td>
+<td>Safety training</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 4: TEST PRINCIPLES -->
+<div class="section" id="principle">
+<h2>4. TEST PRINCIPLES</h2>
+
+<div class="procedure-section">
+<h3>CSF Test Components</h3>
+
+<h4>Cell Count and Differential</h4>
+<ul>
+<li>Manual counting using hemocytometer (Neubauer chamber)</li>
+<li>Undiluted specimen for normal CSF</li>
+<li>Dilution with acetic acid for high counts</li>
+<li>Wright-Giemsa stain for differential on concentrated specimen</li>
+</ul>
+
+<h4>Chemistry Analysis</h4>
+<ul>
+<li><strong>Glucose:</strong> Hexokinase method (compare with serum glucose)</li>
+<li><strong>Protein:</strong> Turbidimetric or dye-binding method</li>
+<li><strong>Lactate:</strong> Enzymatic method (bacterial vs viral differentiation)</li>
+<li><strong>LDH:</strong> Kinetic enzymatic method</li>
+</ul>
+
+<h4>Microbiological Studies</h4>
+<ul>
+<li>Gram stain for bacteria</li>
+<li>India ink or cryptococcal antigen</li>
+<li>Bacterial culture (aerobic/anaerobic)</li>
+<li>Viral PCR panels when indicated</li>
+</ul>
+
+<h4>Specialized Tests</h4>
+<ul>
+<li>Oligoclonal bands (multiple sclerosis)</li>
+<li>Cytology for malignant cells</li>
+<li>Flow cytometry for lymphoma</li>
+<li>Xanthochromia assessment</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 5: CLINICAL SIGNIFICANCE -->
+<div class="section" id="clinical">
+<h2>5. CLINICAL SIGNIFICANCE</h2>
+
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>WBC Count</th>
+<th>Predominant Cell</th>
+<th>Glucose</th>
+<th>Protein</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal CSF</td>
+<td>0-5/µL</td>
+<td>Lymphocytes</td>
+<td>50-80 mg/dL</td>
+<td>15-45 mg/dL</td>
+</tr>
+<tr>
+<td>Bacterial Meningitis</td>
+<td>100-10,000/µL</td>
+<td>Neutrophils</td>
+<td>Decreased</td>
+<td>Increased</td>
+</tr>
+<tr>
+<td>Viral Meningitis</td>
+<td>10-1,000/µL</td>
+<td>Lymphocytes</td>
+<td>Normal</td>
+<td>Normal/Slight ↑</td>
+</tr>
+<tr>
+<td>TB Meningitis</td>
+<td>50-500/µL</td>
+<td>Lymphocytes</td>
+<td>Decreased</td>
+<td>Increased</td>
+</tr>
+<tr>
+<td>Fungal Meningitis</td>
+<td>20-500/µL</td>
+<td>Lymphocytes</td>
+<td>Decreased</td>
+<td>Increased</td>
+</tr>
+<tr>
+<td>Subarachnoid Hemorrhage</td>
+<td>RBCs present</td>
+<td>-</td>
+<td>Normal</td>
+<td>Increased</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+<div class="section" id="specimen">
+<h2>6. SPECIMEN REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>CRITICAL: CSF Specimen Handling</h3>
+<ul>
+<li><strong>Collection:</strong> Sterile technique by physician only</li>
+<li><strong>Tubes:</strong> Typically 4 tubes collected in order</li>
+<li><strong>Priority:</strong> ALL CSF specimens are STAT</li>
+<li><strong>Transport:</strong> Hand deliver immediately at room temperature</li>
+<li><strong>Processing:</strong> Begin analysis within 1 hour of collection</li>
+<li><strong>DO NOT REFRIGERATE:</strong> Cells deteriorate rapidly</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Tube Number</th>
+<th>Typical Use</th>
+<th>Department</th>
+<th>Minimum Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tube 1</td>
+<td>Chemistry (glucose, protein)</td>
+<td>Chemistry</td>
+<td>0.5 mL</td>
+</tr>
+<tr>
+<td>Tube 2</td>
+<td>Microbiology (culture, Gram stain)</td>
+<td>Microbiology</td>
+<td>1.0 mL</td>
+</tr>
+<tr>
+<td>Tube 3</td>
+<td>Cell count and differential</td>
+<td>Hematology</td>
+<td>0.5 mL</td>
+</tr>
+<tr>
+<td>Tube 4</td>
+<td>Hold for additional tests</td>
+<td>Variable</td>
+<td>0.5 mL</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Specimen Rejection Criteria</h3>
+<ul>
+<li>Unlabeled specimens (NEVER process unlabeled CSF)</li>
+<li>Visible contamination</li>
+<li>Specimen >1 hour old without cell count performed</li>
+<li>Refrigerated specimen for cell count</li>
+<li>Clotted specimen</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 7: EQUIPMENT -->
+<div class="section" id="equipment">
+<h2>7. EQUIPMENT</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Use</th>
+<th>Location</th>
+<th>Maintenance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hemocytometer</td>
+<td>Manual cell counts</td>
+<td>Hematology</td>
+<td>Clean after each use</td>
+</tr>
+<tr>
+<td>Microscope</td>
+<td>Cell differential</td>
+<td>Hematology</td>
+<td>Daily cleaning</td>
+</tr>
+<tr>
+<td>Cytocentrifuge</td>
+<td>Concentrate cells</td>
+<td>Hematology</td>
+<td>Weekly maintenance</td>
+</tr>
+<tr>
+<td>Chemistry Analyzer</td>
+<td>Glucose, protein</td>
+<td>Chemistry</td>
+<td>Per schedule</td>
+</tr>
+<tr>
+<td>Incubator 35°C</td>
+<td>Cultures</td>
+<td>Microbiology</td>
+<td>Daily temp check</td>
+</tr>
+<tr>
+<td>Biosafety Cabinet</td>
+<td>Specimen processing</td>
+<td>Micro/Heme</td>
+<td>Annual certification</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 8: REAGENTS -->
+<div class="section" id="reagents">
+<h2>8. REAGENTS AND SUPPLIES</h2>
+<table>
+<thead>
+<tr>
+<th>Reagent/Supply</th>
+<th>Purpose</th>
+<th>Storage</th>
+<th>Expiration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Turk's Solution</td>
+<td>WBC dilution</td>
+<td>Room temp</td>
+<td>1 year</td>
+</tr>
+<tr>
+<td>Crystal Violet</td>
+<td>Nuclear staining</td>
+<td>Room temp</td>
+<td>2 years</td>
+</tr>
+<tr>
+<td>Wright-Giemsa Stain</td>
+<td>Differential</td>
+<td>Room temp</td>
+<td>6 months</td>
+</tr>
+<tr>
+<td>Albumin 22%</td>
+<td>Cell preservation</td>
+<td>2-8°C</td>
+<td>Check vial</td>
+</tr>
+<tr>
+<td>CSF Controls</td>
+<td>QC</td>
+<td>2-8°C</td>
+<td>Per manufacturer</td>
+</tr>
+<tr>
+<td>Gram Stain Reagents</td>
+<td>Bacteria ID</td>
+<td>Room temp</td>
+<td>1 year</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 9: QUALITY CONTROL -->
+<div class="section" id="qc">
+<h2>9. QUALITY CONTROL</h2>
+
+<div class="critical-box">
+<h3>CSF QC Requirements</h3>
+<ul>
+<li><strong>Cell Count QC:</strong> Commercial control or patient correlation</li>
+<li><strong>Chemistry QC:</strong> Run with each batch of CSF specimens</li>
+<li><strong>Microscope QC:</strong> Stage micrometer calibration monthly</li>
+<li><strong>Gram Stain QC:</strong> Positive and negative controls daily</li>
+<li><strong>Temperature Monitoring:</strong> All storage units continuously</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>QC Frequency</th>
+<th>Acceptable Range</th>
+<th>Action if Failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual Cell Count</td>
+<td>Monthly proficiency</td>
+<td>±20% of target</td>
+<td>Retrain, recount</td>
+</tr>
+<tr>
+<td>CSF Glucose</td>
+<td>Each batch</td>
+<td>±10% or ±10 mg/dL</td>
+<td>Troubleshoot, recalibrate</td>
+</tr>
+<tr>
+<td>CSF Protein</td>
+<td>Each batch</td>
+<td>±10% or ±5 mg/dL</td>
+<td>Check reagents</td>
+</tr>
+<tr>
+<td>Differential Accuracy</td>
+<td>Quarterly slide review</td>
+<td>90% agreement</td>
+<td>Review training</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 10: CALIBRATION -->
+<div class="section" id="calibration">
+<h2>10. CALIBRATION</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment/Test</th>
+<th>Calibration</th>
+<th>Frequency</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hemocytometer</td>
+<td>Depth verification</td>
+<td>Initial use</td>
+<td>0.1 mm ± 2%</td>
+</tr>
+<tr>
+<td>Microscope</td>
+<td>Stage micrometer</td>
+<td>Monthly</td>
+<td>Measurement accuracy</td>
+</tr>
+<tr>
+<td>CSF Chemistry</td>
+<td>Multi-point</td>
+<td>Lot change</td>
+<td>Linearity check</td>
+</tr>
+<tr>
+<td>Pipettes</td>
+<td>Gravimetric</td>
+<td>Quarterly</td>
+<td>±2% accuracy</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 11: PROCEDURES -->
+<div class="section" id="procedures">
+<h2>11. CSF TESTING PROCEDURES</h2>
+
+<div class="procedure-section">
+<h3>A. CSF Cell Count Procedure</h3>
+<ol>
+<li><strong>Initial Assessment:</strong>
+    <ul>
+    <li>Note appearance (clear, cloudy, bloody, xanthochromic)</li>
+    <li>If bloody, note if clearing occurs between tubes</li>
+    <li>Process immediately - DO NOT REFRIGERATE</li>
+    </ul>
+</li>
+<li><strong>Cell Count - Clear CSF:</strong>
+    <ul>
+    <li>Mix specimen gently</li>
+    <li>Load both sides of hemocytometer with undiluted CSF</li>
+    <li>Count WBCs in all 9 large squares on both sides</li>
+    <li>Count RBCs in 5 small center squares if present</li>
+    </ul>
+</li>
+<li><strong>Cell Count - Cloudy CSF:</strong>
+    <ul>
+    <li>Dilute with Turk's solution (1:10 or 1:100)</li>
+    <li>Mix and load hemocytometer</li>
+    <li>Count cells and multiply by dilution factor</li>
+    </ul>
+</li>
+<li><strong>Calculations:</strong>
+    <ul>
+    <li>WBC/µL = (cells counted × dilution) / (squares counted × 0.1)</li>
+    <li>RBC/µL = (cells counted × dilution) / (squares counted × 0.02)</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>B. CSF Differential Procedure</h3>
+<ol>
+<li><strong>Prepare Concentrated Smear:</strong>
+    <ul>
+    <li>Add 1 drop 22% albumin to 0.5 mL CSF</li>
+    <li>Cytocentrifuge at 700 rpm for 5 minutes</li>
+    <li>Air dry slides completely</li>
+    <li>Stain with Wright-Giemsa</li>
+    </ul>
+</li>
+<li><strong>Perform Differential:</strong>
+    <ul>
+    <li>Count 100 cells if possible</li>
+    <li>Report percentages of each cell type</li>
+    <li>Note any abnormal cells (malignant, ependymal)</li>
+    <li>Call pathologist for suspicious cells</li>
+    </ul>
+</li>
+<li><strong>If <10 cells present:</strong>
+    <ul>
+    <li>Report actual number seen</li>
+    <li>Note "Insufficient cells for differential"</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>C. Traumatic Tap Correction</h3>
+<p>For bloody CSF, correct WBC count using peripheral blood counts:</p>
+<ul>
+<li>Corrected WBC = Observed WBC - (Blood WBC × CSF RBC / Blood RBC)</li>
+<li>Add 1 WBC for every 500-1000 RBCs as rule of thumb</li>
+<li>Note correction on report</li>
+</ul>
+</div>
+
+<div class="warning-box">
+<h3>Critical Procedures</h3>
+<ul>
+<li>NEVER refrigerate CSF for cell counts</li>
+<li>ALWAYS process within 1 hour</li>
+<li>ALWAYS compare glucose with concurrent serum glucose</li>
+<li>ALWAYS notify immediately for positive Gram stain</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 12: RESULTS -->
+<div class="section" id="results">
+<h2>12. RESULTS INTERPRETATION</h2>
+
+<div class="key-concept">
+<h4>CSF Analysis Patterns</h4>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Interpretation</th>
+<th>Clinical Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>↑ Neutrophils + ↓ Glucose</td>
+<td>Bacterial meningitis likely</td>
+<td>Immediate antibiotic therapy</td>
+</tr>
+<tr>
+<td>↑ Lymphocytes + Normal Glucose</td>
+<td>Viral meningitis likely</td>
+<td>Supportive care</td>
+</tr>
+<tr>
+<td>Xanthochromia + RBCs</td>
+<td>Subarachnoid hemorrhage</td>
+<td>Neurosurgery consult</td>
+</tr>
+<tr>
+<td>↑ Eosinophils</td>
+<td>Parasitic infection</td>
+<td>Consider parasites</td>
+</tr>
+<tr>
+<td>Malignant cells</td>
+<td>Meningeal carcinomatosis</td>
+<td>Oncology consult</td>
+</tr>
+<tr>
+<td>Oligoclonal bands</td>
+<td>Multiple sclerosis</td>
+<td>Neurology follow-up</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<h4>CSF/Serum Glucose Ratio</h4>
+<ul>
+<li><strong>Normal:</strong> CSF glucose = 60-70% of blood glucose</li>
+<li><strong>Decreased ratio (<40%):</strong> Bacterial, TB, or fungal meningitis</li>
+<li><strong>Normal ratio:</strong> Viral meningitis, other conditions</li>
+<li><strong>Always obtain concurrent serum glucose for comparison</strong></li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 13: REFERENCE RANGES -->
+<div class="section" id="reference">
+<h2>13. REFERENCE RANGES</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Adults</th>
+<th>Neonates</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WBC Count</td>
+<td>0-5</td>
+<td>0-30</td>
+<td>cells/µL</td>
+</tr>
+<tr>
+<td>RBC Count</td>
+<td>0</td>
+<td>0-500</td>
+<td>cells/µL</td>
+</tr>
+<tr>
+<td>Neutrophils</td>
+<td>0-2%</td>
+<td>0-5%</td>
+<td>% of WBCs</td>
+</tr>
+<tr>
+<td>Lymphocytes</td>
+<td>60-80%</td>
+<td>60-80%</td>
+<td>% of WBCs</td>
+</tr>
+<tr>
+<td>Monocytes</td>
+<td>15-30%</td>
+<td>15-30%</td>
+<td>% of WBCs</td>
+</tr>
+<tr>
+<td>Glucose</td>
+<td>50-80</td>
+<td>60-90</td>
+<td>mg/dL</td>
+</tr>
+<tr>
+<td>Protein</td>
+<td>15-45</td>
+<td>15-150</td>
+<td>mg/dL</td>
+</tr>
+<tr>
+<td>Lactate</td>
+<td>10-24</td>
+<td>10-24</td>
+<td>mg/dL</td>
+</tr>
+<tr>
+<td>Opening Pressure</td>
+<td>60-200</td>
+<td>60-180</td>
+<td>mm H2O</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 14: LIMITATIONS -->
+<div class="section" id="limitations">
+<h2>14. LIMITATIONS</h2>
+<ul>
+<li><strong>Cell Deterioration:</strong> WBCs lyse rapidly; 40% loss in 2 hours at room temp</li>
+<li><strong>Traumatic Tap:</strong> Blood contamination affects all parameters</li>
+<li><strong>Low Cell Counts:</strong> Difficult to perform accurate differential</li>
+<li><strong>Previous Antibiotics:</strong> May cause negative cultures despite infection</li>
+<li><strong>Small Volume:</strong> May limit testing options</li>
+<li><strong>Refrigeration:</strong> Destroys cells, invalidates count</li>
+<li><strong>Hypoglycorrhachia:</strong> May occur in non-infectious conditions</li>
+</ul>
+
+<div class="warning-box">
+<h3>Critical Limitations</h3>
+<ul>
+<li>Normal CSF does not rule out all CNS infections</li>
+<li>Early bacterial meningitis may show normal glucose</li>
+<li>Viral PCR may be negative early in infection</li>
+<li>Xanthochromia develops 2-4 hours after SAH</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 15: CRITICAL VALUES -->
+<div class="section" id="critical">
+<h2>15. CRITICAL VALUES</h2>
+
+<div class="critical-values">
+<h3>CSF Critical Values - IMMEDIATE NOTIFICATION</h3>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Critical Threshold</th>
+<th>Action</th>
+<th>Timeframe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positive Gram Stain</td>
+<td>Any bacteria seen</td>
+<td>Call physician + ID</td>
+<td>IMMEDIATELY</td>
+</tr>
+<tr>
+<td>WBC Count</td>
+<td>>10 cells/µL</td>
+<td>Call physician</td>
+<td>Within 15 min</td>
+</tr>
+<tr>
+<td>Malignant Cells</td>
+<td>Any identified</td>
+<td>Call pathologist first</td>
+<td>IMMEDIATELY</td>
+</tr>
+<tr>
+<td>Glucose</td>
+<td><40 mg/dL</td>
+<td>Call physician</td>
+<td>Within 15 min</td>
+</tr>
+<tr>
+<td>Protein</td>
+<td>>100 mg/dL</td>
+<td>Call physician</td>
+<td>Within 30 min</td>
+</tr>
+<tr>
+<td>India Ink Positive</td>
+<td>Cryptococcus seen</td>
+<td>Call physician + ID</td>
+<td>IMMEDIATELY</td>
+</tr>
+<tr>
+<td>Predominant PMNs</td>
+<td>>50% neutrophils</td>
+<td>Call physician</td>
+<td>Within 15 min</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Notification Protocol:</strong></p>
+<ol>
+<li>Call ordering physician directly</li>
+<li>If unavailable, call attending/on-call</li>
+<li>For positive micro, also notify Infection Control</li>
+<li>Document: Time, person notified, read-back</li>
+<li>Enter in critical value log</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 16: TAT -->
+<div class="section" id="turnaround">
+<h2>16. TURNAROUND TIME REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>CSF TAT Requirements - ALL SPECIMENS ARE STAT</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>TAT from Receipt</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cell Count</td>
+<td>30 minutes</td>
+<td>STAT</td>
+</tr>
+<tr>
+<td>Gram Stain</td>
+<td>30 minutes</td>
+<td>STAT</td>
+</tr>
+<tr>
+<td>Glucose/Protein</td>
+<td>45 minutes</td>
+<td>STAT</td>
+</tr>
+<tr>
+<td>Cell Differential</td>
+<td>60 minutes</td>
+<td>STAT</td>
+</tr>
+<tr>
+<td>Culture (Preliminary)</td>
+<td>24 hours</td>
+<td>STAT setup</td>
+</tr>
+<tr>
+<td>India Ink/Crypto Ag</td>
+<td>60 minutes</td>
+<td>STAT</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="info-box">
+<strong>TAT Monitoring:</strong><br/>
+• Real-time tracking of all CSF specimens<br/>
+• Escalation if TAT will be exceeded<br/>
+• Monthly TAT review with goal >95% compliance<br/>
+• Root cause analysis for delays
+</div>
+</div>
+
+<!-- SECTION 17: MAINTENANCE -->
+<div class="section" id="maintenance">
+<h2>17. EQUIPMENT MAINTENANCE</h2>
+
+<div class="procedure-section">
+<h3>Daily Maintenance</h3>
+<ul>
+<li>Clean hemocytometer with 70% alcohol after each use</li>
+<li>Clean microscope objectives and stage</li>
+<li>Check cytocentrifuge balance</li>
+<li>Verify incubator temperatures</li>
+<li>Clean biosafety cabinet work surface</li>
+</ul>
+
+<h3>Weekly Maintenance</h3>
+<ul>
+<li>Deep clean hemocytometer with mild detergent</li>
+<li>Check microscope alignment</li>
+<li>Clean cytocentrifuge chambers</li>
+<li>Verify pipette accuracy with QC check</li>
+</ul>
+
+<h3>Monthly Maintenance</h3>
+<ul>
+<li>Calibrate microscope with stage micrometer</li>
+<li>Service cytocentrifuge per schedule</li>
+<li>Check all reagent expiration dates</li>
+<li>Review temperature logs</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 18: TROUBLESHOOTING -->
+<div class="section" id="troubleshooting">
+<h2>18. TROUBLESHOOTING</h2>
+
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No cells on cytocentrifuge slide</td>
+<td>Cells lysed, wrong speed</td>
+<td>Check specimen age, adjust settings</td>
+</tr>
+<tr>
+<td>Unable to differentiate cells</td>
+<td>Poor staining, thick smear</td>
+<td>Adjust stain time, dilute specimen</td>
+</tr>
+<tr>
+<td>Discrepant tube counts</td>
+<td>Traumatic tap, clotting</td>
+<td>Compare tubes 1 and 3/4</td>
+</tr>
+<tr>
+<td>High background on Gram stain</td>
+<td>Over-decolorization</td>
+<td>Adjust technique, fresh reagents</td>
+</tr>
+<tr>
+<td>Chemistry results questionable</td>
+<td>Hemolysis, wrong tube</td>
+<td>Check specimen quality</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 19: COMPETENCY -->
+<div class="section" id="competency">
+<h2>19. COMPETENCY ASSESSMENT</h2>
+
+<div class="key-concept">
+<h4>Kaiser Requirements (Documents 14952_0, 13792_0)</h4>
+<table>
+<thead>
+<tr>
+<th>Competency Element</th>
+<th>Initial</th>
+<th>Annual</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual Cell Counting</td>
+<td>10 specimens</td>
+<td>5 specimens</td>
+<td>Accuracy ±20%</td>
+</tr>
+<tr>
+<td>Differential Skills</td>
+<td>20 slides</td>
+<td>10 slides</td>
+<td>90% concordance</td>
+</tr>
+<tr>
+<td>Gram Stain</td>
+<td>Known samples</td>
+<td>Proficiency test</td>
+<td>100% accuracy</td>
+</tr>
+<tr>
+<td>Critical Value Response</td>
+<td>Mock scenarios</td>
+<td>Documentation review</td>
+<td>100% compliance</td>
+</tr>
+<tr>
+<td>Specimen Processing</td>
+<td>Direct observation</td>
+<td>Skills checklist</td>
+<td>No deviations</td>
+</tr>
+<tr>
+<td>Safety Practices</td>
+<td>Initial training</td>
+<td>Annual review</td>
+<td>Observation</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 20: SAFETY -->
+<div class="section" id="safety">
+<h2>20. SAFETY REQUIREMENTS</h2>
+
+<div class="warning-box">
+<h3>CSF Safety Precautions</h3>
+<ul>
+<li>CSF is HIGH RISK - may contain meningitis pathogens</li>
+<li>ALWAYS work in biosafety cabinet for opens/transfers</li>
+<li>Use face shield when uncapping tubes</li>
+<li>Double gloves recommended</li>
+<li>Decontaminate all surfaces with 10% bleach</li>
+<li>Autoclave all CSF waste before disposal</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Exposure Protocol</h3>
+<ol>
+<li>Immediately wash/flush affected area</li>
+<li>Report to supervisor</li>
+<li>Seek medical evaluation at Employee Health</li>
+<li>Complete exposure incident report</li>
+<li>Follow up per protocol</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 21: TRAINING -->
+<div class="section" id="training">
+<h2>21. TRAINING REQUIREMENTS</h2>
+
+<table>
+<thead>
+<tr>
+<th>Training Component</th>
+<th>Duration</th>
+<th>Content</th>
+<th>Evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSF Theory</td>
+<td>4 hours</td>
+<td>Anatomy, pathophysiology</td>
+<td>Written exam</td>
+</tr>
+<tr>
+<td>Cell Counting</td>
+<td>2 days</td>
+<td>Hemocytometer technique</td>
+<td>Practical test</td>
+</tr>
+<tr>
+<td>Morphology</td>
+<td>1 week</td>
+<td>Normal and abnormal cells</td>
+<td>Unknown slides</td>
+</tr>
+<tr>
+<td>Chemistry/Micro</td>
+<td>2 days</td>
+<td>Integrated testing</td>
+<td>Mock specimens</td>
+</tr>
+<tr>
+<td>Critical Values</td>
+<td>2 hours</td>
+<td>Recognition and response</td>
+<td>Scenarios</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 22: DOWNTIME -->
+<div class="section" id="downtime">
+<h2>22. DOWNTIME PROCEDURES</h2>
+
+<div class="critical-box">
+<h3>CSF Testing During Downtime</h3>
+<p><strong>CSF testing CANNOT be delayed - implement immediately:</strong></p>
+<ol>
+<li><strong>Cell Count:</strong> Continue with manual hemocytometer</li>
+<li><strong>Chemistry:</strong>
+    <ul>
+    <li>Use POCT glucose meter if validated for CSF</li>
+    <li>Send to MOB Lab: 301-555-2000</li>
+    </ul>
+</li>
+<li><strong>Gram Stain:</strong> Continue manual staining</li>
+<li><strong>If Complete Failure:</strong>
+    <ul>
+    <li>Hand-carry ALL CSF to MOB Laboratory</li>
+    <li>Call ahead: 301-555-2000</li>
+    <li>Send technologist with specimen if possible</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="info-box">
+<strong>Manual Backup Supplies Location:</strong><br/>
+• Hemocytometers: Hematology drawer 3<br/>
+• Counting fluid: Refrigerator shelf 2<br/>
+• Manual stains: Microbiology cabinet<br/>
+• Emergency kit: Red box by door
+</div>
+</div>
+
+<!-- SECTION 23: REFERENCES -->
+<div class="section" id="references">
+<h2>23. REFERENCES</h2>
+<ol>
+<li>Clinical and Laboratory Standards Institute (CLSI). Body Fluid Analysis for Cellular Composition. H56-A. Wayne, PA: CLSI; 2024.</li>
+<li>Clinical and Laboratory Standards Institute (CLSI). Reference Leukocyte (WBC) Differential Count. H20-A2. Wayne, PA: CLSI; 2024.</li>
+<li>College of American Pathologists (CAP). Hematology Checklist - Body Fluids. CAP Accreditation Program. Northfield, IL: CAP; 2024.</li>
+<li>Kaiser Permanente. Competency Assessment Requirements. Document 14952_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Kaiser Permanente. Technical Competency Standards. Document 13792_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Ringsrud KM, Linné JJ. Urinalysis and Body Fluids, 7th Edition. St. Louis, MO: Elsevier; 2024.</li>
+<li>Centers for Disease Control and Prevention. Biosafety in Microbiological and Biomedical Laboratories, 6th Edition. Atlanta, GA: CDC; 2024.</li>
+<li>Hussong D, et al. Laboratory diagnosis of central nervous system infections. Clin Lab Med. 2024;44(1):45-63.</li>
+<li>Wright BL, et al. Cerebrospinal fluid analysis in clinical diagnosis. J Neurol. 2024;271(2):543-558.</li>
+<li>Kaiser Permanente Northern California Regional Laboratory Manual. Body Fluids Section. 2025 Edition.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control</h4>
+<p><strong>Review Frequency:</strong> Annual or with significant changes</p>
+<p><strong>Next Review Date:</strong> January 2026</p>
+<p><strong>Document Owner:</strong> Hematology Supervisor</p>
+<p><strong>Approved By:</strong> Laboratory Director</p>
+<p><strong>Distribution:</strong> All involved departments via LIS</p>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>Excellence in CSF Analysis - Critical for Patient Care</p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>

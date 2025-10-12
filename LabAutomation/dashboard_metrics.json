@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-09-09T19:49:41.658996",
+  "sources": {
+    "performance": {
+      "score": 98,
+      "grade": "A",
+      "tat_compliance": 95,
+      "qc_pass_rate": 97
+    },
+    "repositories": {
+      "total": 6,
+      "healthy": 1,
+      "with_tests": 1
+    },
+    "health": {
+      "status": "healthy",
+      "checks_passed": 1
+    }
+  },
+  "aggregate": {
+    "overall_health": "healthy",
+    "active_workflows": 4,
+    "daily_samples": 1250,
+    "automation_rate": 72.5,
+    "cost_savings": 2500000
+  }
+}

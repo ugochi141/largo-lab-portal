@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Laboratory - Clinical Chemistry Procedure</title>
+    <style>
+        /* Optimized Kaiser Permanente Laboratory SOP Template */
+        *{margin:0;padding:0;box-sizing:border-box}
+        @page{size:8.5in 11in;margin:0.75in}
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+        body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:8.5in;margin:0 auto;padding:0.5in;background:#f5f5f5;word-wrap:break-word;overflow-wrap:break-word}
+        .container{background:#fff;padding:30px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0;word-wrap:break-word;overflow-wrap:break-word}
+
+        /* Header Styling */
+        .header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+        .header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+        .header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+        /* Table of Contents - Two Column Layout */
+        .toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+        .toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+        .toc-columns{display:flex;gap:30px}
+        .toc-column{flex:1}
+        .toc ul{list-style:none;padding:0}
+        .toc li{margin:6px 0;padding-left:15px}
+        .toc a{color:#0066cc;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+
+        /* Section Styling */
+        .section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+        .section:last-child{border-bottom:none}
+
+        /* Headings - Compact Styling */
+        h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+        h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+        h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        h5{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+        /* Text Elements */
+        p{margin:8px 0;text-align:left;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+        ul,ol{margin:8px 0 8px 25px;padding:0;word-wrap:break-word;overflow-wrap:break-word}
+        li{margin:4px 0;line-height:1.5;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+
+        /* Special Sections */
+        .key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+        .key-concept h4{color:#1565c0;margin-top:0}
+
+        .procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+        .warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .warning strong{color:#856404}
+        .info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+        .troubleshooting-section h3,.critical-box h3{color:#cc0000;font-weight:bold;margin-top:0}
+        .critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+        .critical-values h3{color:#721c24;margin-top:0}
+
+        /* Table Styling */
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+        table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+        table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+        table th:last-child{border-right:none}
+        table tbody tr{border-bottom:1px solid #e0e0e0}
+        table td{padding:8px;border-right:1px solid #e0e0e0}
+        table td:last-child{border-right:none}
+        table tbody tr:nth-child(even){background:#f8f9fa}
+        table tbody tr:last-child{border-bottom:none}
+
+        /* Specialized Table Headers */
+        .critical-values table thead{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%)}
+        .procedure-section table thead{background:linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%)}
+        .warning table thead{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%)}
+        .info-box table thead{background:linear-gradient(135deg,#d1ecf1 0%,#bee5eb 100%)}
+
+        /* Images */
+        img{max-width:100%!important;height:auto!important;display:block;margin:15px auto;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.1);page-break-inside:avoid}
+        .image-container{text-align:center;margin:15px 0;page-break-inside:avoid}
+        .image-caption{font-size:9pt;font-style:italic;color:#666;margin-top:6px;text-align:center}
+
+        /* QC Failure Section Styling */
+        .qc-failure-section{background:linear-gradient(135deg,#f8fbff 0%,#f0f7ff 100%);padding:25px;border-radius:10px;margin:25px 0;border-left:5px solid #2196F3;box-shadow:0 2px 8px rgba(33,150,243,0.1)}
+        .qc-failure-section h3{color:#1565C0;font-size:16pt;border-bottom:3px solid #2196F3;padding-bottom:10px;margin-bottom:20px}
+
+        /* Print Optimizations */
+        @media print{
+            @page{size:8.5in 11in;margin:0.75in}
+            *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+            .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+            h1,h2,h3,h4{page-break-after:avoid}
+            .toc{page-break-after:always}
+            .toc-columns{display:block}
+            .toc-column{display:block;margin-bottom:15px}
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <h2>Clinical Chemistry Standard Operating Procedure<br><span style="font-size:10pt;color:#888;">Cobas® Pure Integrated Solutions</span></h2>
+        </div>
+
+        <!-- Table of Contents - Two Columns -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column">
+                    <ul>
+                        <li>1. <a href="#purpose">PURPOSE</a></li>
+                        <li>2. <a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                        <li>3. <a href="#scope">SCOPE</a></li>
+                        <li>4. <a href="#responsibilities">RESPONSIBILITIES</a></li>
+                        <li>5. <a href="#safety">SAFETY REQUIREMENTS</a></li>
+                        <li>6. <a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                        <li>7. <a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                        <li>8. <a href="#equipment">EQUIPMENT</a></li>
+                        <li>9. <a href="#maintenance">MAINTENANCE</a></li>
+                        <li>10. <a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                        <li>11. <a href="#calibration">CALIBRATION</a></li>
+                        <li>12. <a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul>
+                        <li>13. <a href="#procedure">TEST PROCEDURE</a></li>
+                        <li>14. <a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                        <li>15. <a href="#reference">REFERENCE RANGES</a></li>
+                        <li>16. <a href="#critical">CRITICAL VALUES</a></li>
+                        <li>17. <a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                        <li>18. <a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                        <li>19. <a href="#task-reference">TASK REFERENCE GUIDE</a></li>
+                        <li>20. <a href="#technical-support">TECHNICAL SUPPORT</a></li>
+                        <li>21. <a href="#quality-assurance">QUALITY ASSURANCE</a></li>
+                        <li>22. <a href="#regulatory">REGULATORY COMPLIANCE</a></li>
+                        <li>23. <a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                        <li>24. <a href="#references">REFERENCES</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: PURPOSE -->
+        <div class="section" id="purpose">
+            <h2>1. PURPOSE</h2>
+            <p>This document describes the standard operating procedures for performing clinical chemistry testing at Kaiser Permanente Largo Laboratory using the Cobas® Pure Integrated Solutions analyzer. This SOP ensures accurate, reliable, and timely chemistry test results for patient care through standardized methodologies for all clinical chemistry testing including routine chemistry panels, electrolytes, metabolic markers, cardiac biomarkers, liver function tests, renal function assessments, therapeutic drug monitoring, and specialized chemistry assays.</p>
+
+            <div class="key-concept">
+                <h4>Core Objectives:</h4>
+                <ul>
+                    <li>Ensure accurate and precise chemistry test results</li>
+                    <li>Maintain regulatory compliance with CLIA, CAP, and Joint Commission</li>
+                    <li>Standardize testing procedures across all shifts and personnel</li>
+                    <li>Support critical medical decision-making with reliable results</li>
+                    <li>Minimize turnaround times for urgent patient care</li>
+                    <li>Provide comprehensive metabolic and therapeutic monitoring</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 2: CLINICAL SIGNIFICANCE -->
+        <div class="section" id="clinical-significance">
+            <h2>2. CLINICAL SIGNIFICANCE</h2>
+
+            <p>Clinical chemistry testing provides essential diagnostic information for patient care, disease monitoring, and treatment decisions. Results must be interpreted in conjunction with clinical presentation and other laboratory findings.</p>
+
+            <h3>Major Chemistry Panels and Their Clinical Applications</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test/Panel</th>
+                        <th>Clinical Significance</th>
+                        <th>Common Indications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Basic Metabolic Panel</strong></td>
+                        <td>Assesses kidney function, blood sugar, and electrolyte balance</td>
+                        <td>Pre-operative evaluation<br>Monitoring chronic conditions<br>Emergency assessment<br>Medication monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comprehensive Metabolic Panel</strong></td>
+                        <td>BMP plus liver function and protein status</td>
+                        <td>Annual health screening<br>Initial patient workup<br>Liver disease evaluation<br>Nutritional assessment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Liver Function Tests</strong></td>
+                        <td>Evaluates hepatocellular injury and liver synthetic function</td>
+                        <td>Jaundice evaluation<br>Drug toxicity monitoring<br>Hepatitis screening<br>Cirrhosis monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cardiac Markers</strong></td>
+                        <td>Diagnose and rule out myocardial infarction</td>
+                        <td>Chest pain evaluation<br>MI diagnosis<br>Risk stratification<br>Heart failure assessment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lipid Panel</strong></td>
+                        <td>Cardiovascular risk assessment</td>
+                        <td>Screening for dyslipidemia<br>Monitoring statin therapy<br>Metabolic syndrome evaluation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Individual Test Clinical Significance</h3>
+
+            <div class="info-box">
+                <h4>Glucose</h4>
+                <p><strong>Clinical Significance:</strong> Primary marker for diabetes diagnosis and monitoring.</p>
+                <ul>
+                    <li><strong>Increased:</strong> Diabetes mellitus, stress response, pancreatitis, Cushing's syndrome</li>
+                    <li><strong>Decreased:</strong> Insulin overdose, insulinoma, liver disease, adrenal insufficiency</li>
+                    <li><strong>Critical Values:</strong> &lt;40 mg/dL or &gt;500 mg/dL</li>
+                    <li><strong>Diagnostic Criteria:</strong> Fasting ≥126 mg/dL = Diabetes</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Creatinine & eGFR</h4>
+                <p><strong>Clinical Significance:</strong> Most reliable markers of kidney function.</p>
+                <ul>
+                    <li><strong>Increased Creatinine:</strong> Acute/chronic renal failure, dehydration, rhabdomyolysis</li>
+                    <li><strong>Decreased eGFR:</strong> Indicates reduced kidney function</li>
+                    <li><strong>Critical Value:</strong> Creatinine &gt;10 mg/dL</li>
+                    <li><strong>CKD Stages:</strong> Based on eGFR values</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>Cardiac Markers</h4>
+                <p><strong>Troponin I:</strong> Gold standard biomarker for myocardial infarction.</p>
+                <ul>
+                    <li><strong>Peak Time:</strong> 12-24 hours post-MI</li>
+                    <li><strong>Duration:</strong> Remains elevated 7-14 days</li>
+                    <li><strong>Critical:</strong> Any elevation above 99th percentile (>0.04 ng/mL)</li>
+                    <li><strong>Serial Testing:</strong> Repeat at 3-6 hours for trending</li>
+                </ul>
+            </div>
+
+            <h3>Test Methodologies on Cobas® Pure</h3>
+            <div class="procedure-section">
+                <h4>Analytical Methods Overview</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method Type</th>
+                            <th>Tests</th>
+                            <th>Principle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ion-Selective Electrode (ISE)</strong></td>
+                            <td>Sodium, Potassium, Chloride, CO2</td>
+                            <td>Direct potentiometry measurement of ion activity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Photometric</strong></td>
+                            <td>BUN, Creatinine, Glucose, ALT, AST, ALP, Bilirubin</td>
+                            <td>Absorbance measurement at specific wavelengths</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Turbidimetric</strong></td>
+                            <td>CRP, Microalbumin, HbA1c, IgG, IgA</td>
+                            <td>Light scattering measurement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enzymatic</strong></td>
+                            <td>Cholesterol, Triglycerides, HDL, LDL, Amylase, Lipase</td>
+                            <td>Enzyme-catalyzed color reactions</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Note:</strong> The Cobas® Pure system uses optimized reagents and calibrators specific for each methodology to ensure accuracy and precision.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: SCOPE -->
+        <div class="section" id="scope">
+            <h2>3. SCOPE</h2>
+            <p>This procedure applies to Medical Laboratory Technicians (MLTs) and Medical Laboratory Scientists (MLSs) trained and competent in performing chemistry testing on the Cobas® Pure Integrated Solutions analyzer at Kaiser Permanente Largo Laboratory.</p>
+
+            <h3>Personnel Included:</h3>
+            <ul>
+                <li>Medical Laboratory Scientists (MLS)</li>
+                <li>Medical Laboratory Technicians (MLT)</li>
+                <li>Chemistry Department Specialists</li>
+                <li>Laboratory Assistants (specimen processing only)</li>
+                <li>Lead Technologists and Supervisors</li>
+                <li>Pathology Residents and Clinical Fellows</li>
+            </ul>
+
+            <h3>Test Menu Includes:</h3>
+            <ul>
+                <li>Basic Metabolic Panel (BMP) - 8 tests</li>
+                <li>Comprehensive Metabolic Panel (CMP) - 14 tests</li>
+                <li>Liver Function Tests (LFT)</li>
+                <li>Renal Function Panel</li>
+                <li>Lipid Panel</li>
+                <li>Cardiac Markers (Troponin I, BNP, CK-MB)</li>
+                <li>Thyroid Function Tests (TSH, T3, T4)</li>
+                <li>Therapeutic Drug Monitoring</li>
+                <li>Individual Chemistry Tests</li>
+            </ul>
+
+            <h3>Personnel Requirements:</h3>
+            <div class="procedure-section">
+                <p>Only trained and competency-assessed personnel may operate the Cobas® Pure analyzer. Training includes:</p>
+                <ol>
+                    <li>Initial training by qualified trainer (minimum 40 hours)</li>
+                    <li>Supervised practice (minimum 50 patient samples)</li>
+                    <li>Written competency assessment (minimum 80% pass score)</li>
+                    <li>Practical competency demonstration</li>
+                    <li>Annual competency reassessment</li>
+                    <li>Completion of Roche Cobas® Pure online training modules</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 4: RESPONSIBILITIES -->
+        <div class="section" id="responsibilities">
+            <h2>4. RESPONSIBILITIES</h2>
+
+            <h3>Medical Laboratory Technician (MLT)</h3>
+            <ul>
+                <li>Perform daily QC and document results in LIS</li>
+                <li>Process routine and STAT chemistry specimens</li>
+                <li>Maintain Cobas® Pure cleanliness and perform daily maintenance</li>
+                <li>Report critical values immediately to nursing staff (within 30 minutes)</li>
+                <li>Troubleshoot basic instrument errors using job aids</li>
+                <li>Maintain adequate inventory of reagents and supplies</li>
+                <li>Monitor reagent expiration dates and onboard stability</li>
+                <li>Perform specimen processing and aliquoting</li>
+            </ul>
+
+            <h3>Medical Laboratory Scientist (MLS)</h3>
+            <ul>
+                <li>Perform all MLT duties as needed</li>
+                <li>Review and validate QC results</li>
+                <li>Perform special chemistry tests and manual procedures</li>
+                <li>Troubleshoot complex instrument issues</li>
+                <li>Train new staff on chemistry procedures</li>
+                <li>Participate in proficiency testing program</li>
+                <li>Perform calibrations and linearity studies</li>
+                <li>Review auto-verification exceptions</li>
+                <li>Perform method validations for new tests</li>
+            </ul>
+
+            <h3>Bench Lead Technologist</h3>
+            <ul>
+                <li>Oversee daily operations of chemistry bench</li>
+                <li>Review and sign off on monthly QC summaries</li>
+                <li>Coordinate preventive maintenance schedules</li>
+                <li>Investigate QC failures and implement corrective actions</li>
+                <li>Serve as primary contact for technical issues</li>
+                <li>Maintain competency assessment records</li>
+                <li>Update procedures as needed</li>
+                <li>Monitor turnaround times and implement improvements</li>
+                <li>Coordinate with Roche service representatives</li>
+            </ul>
+
+            <h3>Turnaround Time Requirements</h3>
+            <div class="procedure-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>TAT Goal</th>
+                            <th>Acceptable Range</th>
+                            <th>Measurement Point</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>STAT</td>
+                            <td>45 minutes</td>
+                            <td>30-60 minutes</td>
+                            <td>Collection to result</td>
+                        </tr>
+                        <tr>
+                            <td>Urgent</td>
+                            <td>90 minutes</td>
+                            <td>60-120 minutes</td>
+                            <td>Receipt to result</td>
+                        </tr>
+                        <tr>
+                            <td>Routine</td>
+                            <td>4 hours</td>
+                            <td>2-6 hours</td>
+                            <td>Receipt to result</td>
+                        </tr>
+                        <tr>
+                            <td>Critical Values</td>
+                            <td>30 minutes</td>
+                            <td>Immediately</td>
+                            <td>Result to notification</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 5: SAFETY REQUIREMENTS -->
+        <div class="section" id="safety">
+            <h2>5. SAFETY REQUIREMENTS</h2>
+
+            <div class="warning">
+                <h3>⚠️ Universal Precautions</h3>
+                <p>All patient specimens must be handled as potentially infectious. Follow standard precautions and bloodborne pathogen protocols at all times.</p>
+            </div>
+
+            <h3>Personal Protective Equipment (PPE)</h3>
+            <ul>
+                <li>Laboratory coat (must be worn at all times in testing areas)</li>
+                <li>Disposable gloves (change between specimens and when contaminated)</li>
+                <li>Safety glasses or face shield when handling open specimens</li>
+                <li>Closed-toe shoes (no sandals or open-toe footwear)</li>
+            </ul>
+
+            <h3>Chemical Safety</h3>
+            <div class="procedure-section">
+                <p><strong>Reagent Handling:</strong></p>
+                <ul>
+                    <li>Review SDS for all reagents before use</li>
+                    <li>Some reagents contain sodium azide (toxic)</li>
+                    <li>Avoid contact with skin and mucous membranes</li>
+                    <li>Do not pipette by mouth</li>
+                    <li>Wash hands thoroughly after handling</li>
+                    <li>Use fume hood for volatile reagents</li>
+                    <li>Store chemicals according to compatibility</li>
+                </ul>
+            </div>
+
+            <h3>Biological Safety</h3>
+            <ul>
+                <li>Treat all specimens as potentially infectious</li>
+                <li>Clean spills immediately with 10% bleach solution</li>
+                <li>Dispose of all biological waste in appropriate biohazard containers</li>
+                <li>Report all exposures immediately to supervisor</li>
+                <li>Follow post-exposure protocol if needle stick or splash occurs</li>
+            </ul>
+
+            <h3>Electrical Safety</h3>
+            <ul>
+                <li>Do not operate equipment with wet hands</li>
+                <li>Report any frayed cords or electrical issues immediately</li>
+                <li>Ensure proper grounding of all equipment</li>
+                <li>Do not override safety interlocks</li>
+            </ul>
+
+            <div class="critical-box">
+                <h3>Spill Response Procedure</h3>
+                <ol>
+                    <li>Alert others in the area</li>
+                    <li>Put on appropriate PPE (gloves, gown, face protection)</li>
+                    <li>Cover spill with absorbent material</li>
+                    <li>Pour 10% bleach solution over the spill</li>
+                    <li>Allow 20 minutes contact time</li>
+                    <li>Clean up with disposable materials</li>
+                    <li>Dispose in biohazard waste</li>
+                    <li>Decontaminate area again with bleach</li>
+                    <li>Remove PPE and wash hands</li>
+                    <li>Document incident in log</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 6: SPECIMEN REQUIREMENTS -->
+        <div class="section" id="specimen">
+            <h2>6. SPECIMEN REQUIREMENTS</h2>
+
+            <h3>Specimen Types and Collection</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tube Type</th>
+                        <th>Color</th>
+                        <th>Tests</th>
+                        <th>Minimum Volume</th>
+                        <th>Special Requirements</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Serum Separator (SST)</td>
+                        <td>Gold</td>
+                        <td>Most chemistry tests</td>
+                        <td>3.5 mL</td>
+                        <td>Clot 30 min, centrifuge within 2 hrs</td>
+                    </tr>
+                    <tr>
+                        <td>Lithium Heparin</td>
+                        <td>Light Green</td>
+                        <td>STAT chemistry, Troponin</td>
+                        <td>3.0 mL</td>
+                        <td>Mix well, centrifuge immediately</td>
+                    </tr>
+                    <tr>
+                        <td>EDTA</td>
+                        <td>Lavender</td>
+                        <td>HbA1c, BNP</td>
+                        <td>3.0 mL</td>
+                        <td>Mix well, do not centrifuge for HbA1c</td>
+                    </tr>
+                    <tr>
+                        <td>Sodium Fluoride</td>
+                        <td>Gray</td>
+                        <td>Glucose, Lactate</td>
+                        <td>2.0 mL</td>
+                        <td>Mix well, separate within 30 min</td>
+                    </tr>
+                    <tr>
+                        <td>Plain Red</td>
+                        <td>Red</td>
+                        <td>Special chemistry</td>
+                        <td>5.0 mL</td>
+                        <td>Clot 60 min before centrifuge</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Specimen Processing Requirements</h3>
+            <div class="procedure-section">
+                <p><strong>Centrifugation Parameters:</strong></p>
+                <ul>
+                    <li>Speed: 3000 rpm (1800 x g)</li>
+                    <li>Time: 10 minutes</li>
+                    <li>Temperature: Room temperature (20-25°C)</li>
+                    <li>Balance tubes before centrifugation</li>
+                </ul>
+            </div>
+
+            <h3>Specimen Rejection Criteria</h3>
+            <div class="warning">
+                <p><strong>Reject specimens if ANY of the following conditions exist:</strong></p>
+                <ul>
+                    <li>Hemolysis (H index >100) - affects K, LDH, AST, others</li>
+                    <li>Lipemia (L index >300) - may require ultracentrifugation</li>
+                    <li>Icterus (I index >20) - may interfere with some methods</li>
+                    <li>Insufficient volume for ordered tests</li>
+                    <li>Wrong tube type for requested test</li>
+                    <li>Clotted heparin specimens</li>
+                    <li>Unlabeled or mislabeled specimens</li>
+                    <li>Specimens exceeding stability limits</li>
+                    <li>Contaminated specimens (IV fluid, etc.)</li>
+                </ul>
+            </div>
+
+            <h3>Specimen Stability</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analyte</th>
+                        <th>Room Temp</th>
+                        <th>Refrigerated</th>
+                        <th>Frozen</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Glucose</td>
+                        <td>2 hours</td>
+                        <td>24 hours</td>
+                        <td>3 months</td>
+                        <td>Separate within 30 min</td>
+                    </tr>
+                    <tr>
+                        <td>Potassium</td>
+                        <td>4 hours</td>
+                        <td>48 hours</td>
+                        <td>Not recommended</td>
+                        <td>Avoid hemolysis</td>
+                    </tr>
+                    <tr>
+                        <td>Troponin</td>
+                        <td>4 hours</td>
+                        <td>24 hours</td>
+                        <td>3 months</td>
+                        <td>Avoid repeated freeze-thaw</td>
+                    </tr>
+                    <tr>
+                        <td>BMP/CMP</td>
+                        <td>4 hours</td>
+                        <td>48 hours</td>
+                        <td>6 months</td>
+                        <td>Separate serum/plasma</td>
+                    </tr>
+                    <tr>
+                        <td>Liver Enzymes</td>
+                        <td>8 hours</td>
+                        <td>3 days</td>
+                        <td>6 months</td>
+                        <td>Stable analytes</td>
+                    </tr>
+                    <tr>
+                        <td>Ammonia</td>
+                        <td>15 minutes on ice</td>
+                        <td>2 hours on ice</td>
+                        <td>Not recommended</td>
+                        <td>Process immediately</td>
+                    </tr>
+                    <tr>
+                        <td>Lactate</td>
+                        <td>15 minutes on ice</td>
+                        <td>4 hours on ice</td>
+                        <td>2 weeks</td>
+                        <td>Gray top preferred</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 7: REAGENTS AND SUPPLIES -->
+        <div class="section" id="reagents">
+            <h2>7. REAGENTS AND SUPPLIES</h2>
+
+            <h3>Reagents and Supplies</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Catalog #</th>
+                        <th>Storage</th>
+                        <th>Onboard Stability</th>
+                        <th>Shelf Life</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Chemistry Reagents</strong></td>
+                        <td>Various</td>
+                        <td>2-8°C</td>
+                        <td>28-56 days</td>
+                        <td>12-18 months</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CFAS Calibrator</strong></td>
+                        <td>10759350</td>
+                        <td>2-8°C</td>
+                        <td>24 hours at 15-25°C</td>
+                        <td>Until expiration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PreciControl ClinChem Multi 1</strong></td>
+                        <td>05947774</td>
+                        <td>2-8°C</td>
+                        <td>8 hours at 15-25°C</td>
+                        <td>30 days after reconstitution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PreciControl ClinChem Multi 2</strong></td>
+                        <td>05947626</td>
+                        <td>2-8°C</td>
+                        <td>8 hours at 15-25°C</td>
+                        <td>30 days after reconstitution</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ISE Standard</strong></td>
+                        <td>03185702</td>
+                        <td>15-25°C</td>
+                        <td>Continuous use</td>
+                        <td>Until expiration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sample Cups</strong></td>
+                        <td>11406680</td>
+                        <td>15-25°C</td>
+                        <td>N/A</td>
+                        <td>2 years</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Consumables</h3>
+            <ul>
+                <li>Hitachi cups and sample cups</li>
+                <li>Reagent bottles and caps</li>
+                <li>Pipette tips (various sizes)</li>
+                <li>Aliquot tubes and labels</li>
+                <li>Absorbent pads for spills</li>
+                <li>PPE (gloves, lab coats, safety glasses)</li>
+            </ul>
+
+            <div class="info-box">
+                <h4>Reagent Management System</h4>
+                <ul>
+                    <li>Automatic inventory tracking via LIS</li>
+                    <li>Reorder points set at 2-week supply minimum</li>
+                    <li>FIFO (First In, First Out) rotation strictly enforced</li>
+                    <li>Temperature monitoring 24/7 with alarms</li>
+                    <li>Lot-to-lot verification required before use</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 8: EQUIPMENT -->
+        <div class="section" id="equipment">
+            <h2>8. EQUIPMENT</h2>
+
+            <h3>Primary Equipment</h3>
+            <ul>
+                <li>Cobas® Pure Integrated Solutions analyzer (c503 module)</li>
+                <li>Cobas® ISE module for electrolytes</li>
+                <li>Centrifuge (3000 rpm capability, refrigerated)</li>
+                <li>Refrigerators (2-8°C) with temperature monitoring</li>
+                <li>Freezers (-20°C and -70°C) for specimen storage</li>
+                <li>Calibrated pipettes (10-1000 μL range)</li>
+                <li>Barcode scanner and label printer</li>
+                <li>Computer workstation with LIS interface</li>
+            </ul>
+
+            <h3>Equipment Specifications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Equipment</th>
+                        <th>Model</th>
+                        <th>Tests Performed</th>
+                        <th>Throughput</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Primary Analyzer</td>
+                        <td>Cobas® Pure c503</td>
+                        <td>All chemistry tests</td>
+                        <td>1000 tests/hour</td>
+                    </tr>
+                    <tr>
+                        <td>Backup Analyzer</td>
+                        <td>Cobas® c311</td>
+                        <td>Essential chemistry</td>
+                        <td>300 tests/hour</td>
+                    </tr>
+                    <tr>
+                        <td>POC Backup</td>
+                        <td>i-STAT</td>
+                        <td>Critical care panels</td>
+                        <td>As needed</td>
+                    </tr>
+                    <tr>
+                        <td>Centrifuge</td>
+                        <td>Eppendorf 5810R</td>
+                        <td>Sample processing</td>
+                        <td>28 tubes/run</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 9: MAINTENANCE -->
+        <div class="section" id="maintenance">
+            <h2>9. MAINTENANCE</h2>
+
+            <h3>Daily Maintenance - Cobas® Pure Integrated Solutions</h3>
+            <div class="info-box">
+                <h4>Maintenance Overview</h4>
+                <p>The Cobas® Pure system includes:</p>
+                <ul>
+                    <li><strong>Self-operating maintenance (SOM):</strong> Automatic scheduled actions without operator interaction</li>
+                    <li><strong>Software-controlled maintenance:</strong> System-performed actions (fully automatic or interactive)</li>
+                    <li><strong>Manual maintenance:</strong> Hands-on actions requiring operator interaction</li>
+                </ul>
+            </div>
+
+            <div class="procedure-section">
+                <h4>Pre-Routine Daily Tasks:</h4>
+                <ol>
+                    <li><strong>System Startup Check:</strong>
+                        <ul>
+                            <li>Check for splashes and spilled liquid on instrument surfaces</li>
+                            <li>Check for leakage on syringes</li>
+                            <li>Verify photometer check values are &lt;1.4 Abs</li>
+                            <li>Ensure ventilation caps on drain pipes are properly closed</li>
+                        </ul>
+                    </li>
+                    <li><strong>Run Daily Wash Rack:</strong>
+                        <ul>
+                            <li>Position 2: 600 µL of ISE Cleaning Solution/Activator</li>
+                            <li>Position 3: 600 µL of SysClean</li>
+                            <li>Prevents contamination of flow path and dilution vessel</li>
+                            <li><strong>Note:</strong> ISE calibration required after daily wash</li>
+                        </ul>
+                    </li>
+                    <li><strong>Check Reagent Status:</strong>
+                        <ul>
+                            <li>Review reagent levels and expiration dates</li>
+                            <li>Check onboard stability</li>
+                            <li>Load new reagents as needed</li>
+                        </ul>
+                    </li>
+                    <li><strong>Documentation:</strong>
+                        <ul>
+                            <li>Complete daily maintenance checklist</li>
+                            <li>Document any issues in maintenance log</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Weekly Maintenance</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Procedure</th>
+                        <th>Time Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ISE Electrode Cleaning</td>
+                        <td>Run ISE cleaning solution</td>
+                        <td>30 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Probe Cleaning</td>
+                        <td>Run intensive wash cycle</td>
+                        <td>20 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Cuvette Wash</td>
+                        <td>Run detergent wash</td>
+                        <td>45 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Replace Probe Wash</td>
+                        <td>Change wash solution</td>
+                        <td>10 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Monthly Maintenance</h3>
+            <ul>
+                <li>Replace ISE electrodes (or as needed based on performance)</li>
+                <li>Clean and inspect all fluid paths</li>
+                <li>Lubricate mechanical parts per manufacturer specs</li>
+                <li>Backup instrument parameters and patient data</li>
+                <li>Review and archive QC data</li>
+                <li>Update reagent inventory</li>
+            </ul>
+
+            <h3>Preventive Maintenance (Roche Service)</h3>
+            <div class="procedure-section">
+                <p><strong>Quarterly PM by Roche includes:</strong></p>
+                <ul>
+                    <li>Complete system diagnostics</li>
+                    <li>Replacement of wear parts</li>
+                    <li>Optical system alignment</li>
+                    <li>Temperature verification</li>
+                    <li>Pipettor volume verification</li>
+                    <li>Software updates if available</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 10: QUALITY CONTROL -->
+        <div class="section" id="qc">
+            <h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+
+            <div class="critical-values">
+                <h3>⚠️ CRITICAL QC RULE</h3>
+                <p><strong>NEVER report patient results if QC is not acceptable. Patient testing is prohibited when QC fails.</strong></p>
+            </div>
+
+            <h3>QC Schedule</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>QC Type</th>
+                        <th>Frequency</th>
+                        <th>Levels</th>
+                        <th>Acceptable Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Daily QC</td>
+                        <td>Every 24 hours</td>
+                        <td>Level 1 & 2</td>
+                        <td>Within ±2 SD</td>
+                    </tr>
+                    <tr>
+                        <td>Third Party QC</td>
+                        <td>Monthly</td>
+                        <td>External control</td>
+                        <td>Within manufacturer range</td>
+                    </tr>
+                    <tr>
+                        <td>Linearity</td>
+                        <td>Semi-annually</td>
+                        <td>5 levels</td>
+                        <td>R² ≥0.99</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency Testing</td>
+                        <td>3x per year</td>
+                        <td>CAP samples</td>
+                        <td>80% pass rate</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Westgard Rules Applied</h3>
+            <div class="info-box">
+                <h4>Multi-Rule QC System</h4>
+                <p>The following Westgard rules are applied for QC evaluation:</p>
+                <ul>
+                    <li><strong>1-2s:</strong> Warning rule - One control exceeds 2 SD</li>
+                    <li><strong>1-3s:</strong> Rejection rule - One control exceeds 3 SD</li>
+                    <li><strong>2-2s:</strong> Rejection rule - Two consecutive controls exceed 2 SD on same side</li>
+                    <li><strong>R-4s:</strong> Rejection rule - Range between controls exceeds 4 SD</li>
+                    <li><strong>4-1s:</strong> Rejection rule - Four consecutive controls exceed 1 SD on same side</li>
+                    <li><strong>10x:</strong> Rejection rule - Ten consecutive controls on same side of mean</li>
+                </ul>
+            </div>
+
+            <h3>QC Failure Response</h3>
+            <div class="qc-failure-section">
+                <h3>QC Failure Actions</h3>
+                <ol>
+                    <li><strong>STOP all patient testing immediately</strong></li>
+                    <li>Document failure in QC log with:
+                        <ul>
+                            <li>Date and time</li>
+                            <li>Analyte(s) affected</li>
+                            <li>QC lot number</li>
+                            <li>Observed value vs expected range</li>
+                        </ul>
+                    </li>
+                    <li>Troubleshooting steps:
+                        <ul>
+                            <li>Check QC expiration date and storage</li>
+                            <li>Verify correct QC lot number in system</li>
+                            <li>Repeat QC with fresh vial</li>
+                            <li>Check reagent expiration and onboard stability</li>
+                            <li>Review recent calibration status</li>
+                            <li>Check for visible reagent contamination</li>
+                        </ul>
+                    </li>
+                    <li>If QC still fails:
+                        <ul>
+                            <li>Recalibrate affected analyte(s)</li>
+                            <li>Run QC again after calibration</li>
+                            <li>If persistent, change reagent lot</li>
+                            <li>Contact Lead Tech or Supervisor</li>
+                        </ul>
+                    </li>
+                    <li>Document all corrective actions taken</li>
+                    <li>Do not resume patient testing until:
+                        <ul>
+                            <li>QC passes on two consecutive runs</li>
+                            <li>Lead Tech approves resumption</li>
+                            <li>Root cause is identified and resolved</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 11: CALIBRATION -->
+        <div class="section" id="calibration">
+            <h2>11. CALIBRATION</h2>
+
+            <h3>Calibration Schedule</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analyte</th>
+                        <th>Frequency</th>
+                        <th>Calibrator</th>
+                        <th>Acceptance Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ISE (Na, K, Cl)</td>
+                        <td>Every 4 hours</td>
+                        <td>ISE Standard</td>
+                        <td>Slope 54-60 mV</td>
+                    </tr>
+                    <tr>
+                        <td>Routine Chemistry</td>
+                        <td>Lot change or monthly</td>
+                        <td>CFAS</td>
+                        <td>Within ±5% of target</td>
+                    </tr>
+                    <tr>
+                        <td>Enzymes</td>
+                        <td>Lot change or monthly</td>
+                        <td>CFAS</td>
+                        <td>Factor within range</td>
+                    </tr>
+                    <tr>
+                        <td>Troponin</td>
+                        <td>Lot change</td>
+                        <td>Specific calibrator</td>
+                        <td>CV <10%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Calibration Procedure</h3>
+            <div class="procedure-section">
+                <ol>
+                    <li>Prepare calibrator according to package insert</li>
+                    <li>Allow to equilibrate to room temperature (15 minutes)</li>
+                    <li>Mix gently by inversion (avoid foam)</li>
+                    <li>Load on analyzer within stability time</li>
+                    <li>Run calibration in duplicate</li>
+                    <li>Review calibration report for:
+                        <ul>
+                            <li>Factor within acceptable range</li>
+                            <li>SD and CV acceptable</li>
+                            <li>No error flags</li>
+                        </ul>
+                    </li>
+                    <li>Run QC to verify calibration</li>
+                    <li>Document in calibration log</li>
+                </ol>
+            </div>
+
+            <h3>Calibration Verification</h3>
+            <ul>
+                <li>Required every 6 months or as needed</li>
+                <li>Use linearity materials spanning AMR</li>
+                <li>Results must be within ±10% of expected</li>
+                <li>Document all results and corrective actions</li>
+            </ul>
+        </div>
+
+        <!-- Section 12: TROUBLESHOOTING -->
+        <div class="section" id="troubleshooting">
+            <h2>12. TROUBLESHOOTING</h2>
+
+            <div class="troubleshooting-section">
+                <h3>Common Issues and Solutions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Possible Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>QC out of range</td>
+                            <td>• Expired QC<br>• Wrong lot number<br>• Calibration drift</td>
+                            <td>• Check expiration<br>• Verify lot in LIS<br>• Recalibrate</td>
+                        </tr>
+                        <tr>
+                            <td>Probe crash</td>
+                            <td>• Clot in sample<br>• Bent probe<br>• Incorrect cup position</td>
+                            <td>• Check for clots<br>• Inspect probe<br>• Realign cups</td>
+                        </tr>
+                        <tr>
+                            <td>ISE drift</td>
+                            <td>• Electrode aging<br>• Air bubble<br>• Protein buildup</td>
+                            <td>• Replace electrode<br>• Prime system<br>• Run cleaning</td>
+                        </tr>
+                        <tr>
+                            <td>Reagent alarm</td>
+                            <td>• Low volume<br>• Expired<br>• Contamination</td>
+                            <td>• Replace reagent<br>• Check dates<br>• Inspect for turbidity</td>
+                        </tr>
+                        <tr>
+                            <td>Sample not found</td>
+                            <td>• Barcode unreadable<br>• Insufficient volume<br>• Wrong position</td>
+                            <td>• Clean barcode<br>• Check volume<br>• Verify position</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Error Codes and Actions</h3>
+            <div class="info-box">
+                <h4>Common Error Codes</h4>
+                <ul>
+                    <li><strong>E001:</strong> Sample probe error - Check for clots, clean probe</li>
+                    <li><strong>E101:</strong> Reagent probe error - Check reagent volume</li>
+                    <li><strong>E201:</strong> Temperature error - Check incubator temp</li>
+                    <li><strong>E301:</strong> Photometer error - Call service</li>
+                    <li><strong>E401:</strong> ISE error - Check electrodes and solutions</li>
+                    <li><strong>E501:</strong> Communication error - Check LIS connection</li>
+                </ul>
+            </div>
+
+            <h3>When to Call Service</h3>
+            <div class="critical-box">
+                <p><strong>Contact Roche Technical Support if:</strong></p>
+                <ul>
+                    <li>Repeated QC failures after troubleshooting</li>
+                    <li>Persistent error codes</li>
+                    <li>Abnormal instrument sounds</li>
+                    <li>Temperature alarms</li>
+                    <li>Photometer errors</li>
+                    <li>Software issues</li>
+                    <li>Physical damage to instrument</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 13: TEST PROCEDURE -->
+        <div class="section" id="procedure">
+            <h2>13. TEST PROCEDURE</h2>
+
+            <h3>Specimen Processing Workflow</h3>
+
+            <div class="procedure-section">
+                <h4>Pre-Analytical Phase</h4>
+                <ol>
+                    <li><strong>Specimen Receipt</strong>
+                        <ul>
+                            <li>Verify patient identification (2 identifiers)</li>
+                            <li>Check specimen integrity</li>
+                            <li>Note collection time</li>
+                            <li>Prioritize STAT specimens</li>
+                        </ul>
+                    </li>
+                    <li><strong>Centrifugation</strong>
+                        <ul>
+                            <li>Balance tubes in centrifuge</li>
+                            <li>Spin at 3000 rpm for 10 minutes</li>
+                            <li>Check for complete separation</li>
+                            <li>Note any HIL indices</li>
+                        </ul>
+                    </li>
+                    <li><strong>Aliquoting (if needed)</strong>
+                        <ul>
+                            <li>Use proper PPE</li>
+                            <li>Label aliquots with patient ID</li>
+                            <li>Avoid contamination between specimens</li>
+                            <li>Store appropriately</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="procedure-section">
+                <h4>Analytical Phase</h4>
+                <ol>
+                    <li><strong>Loading Specimens</strong>
+                        <ul>
+                            <li>Place specimens in analyzer racks</li>
+                            <li>Ensure barcode is readable</li>
+                            <li>Load STAT specimens in priority positions</li>
+                            <li>Start analysis</li>
+                        </ul>
+                    </li>
+                    <li><strong>During Analysis</strong>
+                        <ul>
+                            <li>Monitor for instrument alarms</li>
+                            <li>Check for clots or bubbles</li>
+                            <li>Observe HIL indices</li>
+                            <li>Note any error flags</li>
+                        </ul>
+                    </li>
+                    <li><strong>Result Review</strong>
+                        <ul>
+                            <li>Check for critical values</li>
+                            <li>Review delta checks</li>
+                            <li>Verify auto-verification criteria</li>
+                            <li>Investigate any flags</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Special Procedures</h3>
+
+            <div class="info-box">
+                <h4>Dilution Protocol</h4>
+                <p>For results exceeding AMR:</p>
+                <ol>
+                    <li>Dilute specimen with normal saline (not water)</li>
+                    <li>Common dilutions: 1:2, 1:5, 1:10</li>
+                    <li>Rerun diluted specimen</li>
+                    <li>Multiply result by dilution factor</li>
+                    <li>Document dilution in LIS</li>
+                    <li>Verify linearity of dilution</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <h4>Reflex Testing</h4>
+                <p>Automatic reflex tests triggered by:</p>
+                <ul>
+                    <li>Glucose >200 mg/dL → Add HbA1c</li>
+                    <li>Elevated liver enzymes → Add GGT</li>
+                    <li>Abnormal protein → Add protein electrophoresis</li>
+                    <li>Elevated Troponin → Serial Troponins at 3, 6 hours</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 14: CALCULATIONS AND RESULT REPORTING -->
+        <div class="section" id="calculations">
+            <h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+
+            <h3>Common Calculations</h3>
+
+            <div class="procedure-section">
+                <h4>Calculated Values</h4>
+                <ul>
+                    <li><strong>Anion Gap:</strong> Na - (Cl + CO2) [Normal: 8-16 mEq/L]</li>
+                    <li><strong>Osmolality (calculated):</strong> 2(Na) + Glucose/18 + BUN/2.8 [Normal: 275-295 mOsm/kg]</li>
+                    <li><strong>Corrected Calcium:</strong> Total Ca + 0.8(4.0 - Albumin) [if albumin <4.0]</li>
+                    <li><strong>A/G Ratio:</strong> Albumin/Globulin [Normal: 1.2-2.2]</li>
+                    <li><strong>BUN/Creatinine Ratio:</strong> BUN/Creatinine [Normal: 10-20:1]</li>
+                    <li><strong>LDL Cholesterol:</strong> Total Chol - HDL - (Trig/5) [if Trig <400]</li>
+                    <li><strong>eGFR:</strong> CKD-EPI or MDRD formula based on creatinine, age, sex, race</li>
+                </ul>
+            </div>
+
+            <h3>Result Reporting</h3>
+
+            <h4>Auto-Verification Criteria</h4>
+            <p>Results meeting ALL criteria below are auto-released:</p>
+            <ul>
+                <li>QC acceptable for the day</li>
+                <li>No instrument error flags</li>
+                <li>Results within reportable range</li>
+                <li>Delta check within acceptable limits</li>
+                <li>No critical values</li>
+                <li>HIL indices acceptable</li>
+            </ul>
+
+            <h4>Manual Review Required</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Condition</th>
+                        <th>Action Required</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Critical value</td>
+                        <td>Call provider immediately</td>
+                        <td>Document time, person notified</td>
+                    </tr>
+                    <tr>
+                        <td>Delta check failure</td>
+                        <td>Verify patient ID, rerun if needed</td>
+                        <td>Note in LIS</td>
+                    </tr>
+                    <tr>
+                        <td>HIL interference</td>
+                        <td>Report with comment</td>
+                        <td>Add interpretive comment</td>
+                    </tr>
+                    <tr>
+                        <td>Dilution performed</td>
+                        <td>Calculate corrected result</td>
+                        <td>Note dilution factor</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Delta Check Criteria</h3>
+            <div class="info-box">
+                <h4>Significant Changes Requiring Review</h4>
+                <ul>
+                    <li><strong>Glucose:</strong> >50 mg/dL or >50% change</li>
+                    <li><strong>Potassium:</strong> >1.0 mEq/L change</li>
+                    <li><strong>Sodium:</strong> >5 mEq/L change</li>
+                    <li><strong>Creatinine:</strong> >0.3 mg/dL or >50% change</li>
+                    <li><strong>Hemoglobin:</strong> >2 g/dL change</li>
+                    <li><strong>Platelet:</strong> >50% change</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 15: REFERENCE RANGES -->
+        <div class="section" id="reference">
+            <h2>15. REFERENCE RANGES</h2>
+
+            <h3>Basic Metabolic Panel</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analyte</th>
+                        <th>Reference Range</th>
+                        <th>Critical Low</th>
+                        <th>Critical High</th>
+                        <th>Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Glucose</td>
+                        <td>70-99 (fasting)</td>
+                        <td><40</td>
+                        <td>>500</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>BUN</td>
+                        <td>7-20</td>
+                        <td>N/A</td>
+                        <td>>100</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>Creatinine</td>
+                        <td>0.6-1.2</td>
+                        <td>N/A</td>
+                        <td>>10</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>Sodium</td>
+                        <td>136-145</td>
+                        <td><120</td>
+                        <td>>160</td>
+                        <td>mEq/L</td>
+                    </tr>
+                    <tr>
+                        <td>Potassium</td>
+                        <td>3.5-5.1</td>
+                        <td><2.5</td>
+                        <td>>6.5</td>
+                        <td>mEq/L</td>
+                    </tr>
+                    <tr>
+                        <td>Chloride</td>
+                        <td>98-107</td>
+                        <td><80</td>
+                        <td>>115</td>
+                        <td>mEq/L</td>
+                    </tr>
+                    <tr>
+                        <td>CO2</td>
+                        <td>22-29</td>
+                        <td><15</td>
+                        <td>>40</td>
+                        <td>mEq/L</td>
+                    </tr>
+                    <tr>
+                        <td>Calcium</td>
+                        <td>8.5-10.5</td>
+                        <td><6.5</td>
+                        <td>>13.0</td>
+                        <td>mg/dL</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Liver Function Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analyte</th>
+                        <th>Reference Range</th>
+                        <th>Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ALT</td>
+                        <td>7-56</td>
+                        <td>U/L</td>
+                    </tr>
+                    <tr>
+                        <td>AST</td>
+                        <td>10-40</td>
+                        <td>U/L</td>
+                    </tr>
+                    <tr>
+                        <td>Alkaline Phosphatase</td>
+                        <td>44-147</td>
+                        <td>U/L</td>
+                    </tr>
+                    <tr>
+                        <td>Total Bilirubin</td>
+                        <td>0.1-1.2</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>Direct Bilirubin</td>
+                        <td>0.0-0.3</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>Total Protein</td>
+                        <td>6.3-8.2</td>
+                        <td>g/dL</td>
+                    </tr>
+                    <tr>
+                        <td>Albumin</td>
+                        <td>3.5-5.0</td>
+                        <td>g/dL</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cardiac Markers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analyte</th>
+                        <th>Reference Range</th>
+                        <th>Critical Level</th>
+                        <th>Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Troponin I</td>
+                        <td><0.04</td>
+                        <td>>0.04</td>
+                        <td>ng/mL</td>
+                    </tr>
+                    <tr>
+                        <td>BNP</td>
+                        <td><100</td>
+                        <td>>400</td>
+                        <td>pg/mL</td>
+                    </tr>
+                    <tr>
+                        <td>CK-MB</td>
+                        <td>0-6.3</td>
+                        <td>>25</td>
+                        <td>ng/mL</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 16: CRITICAL VALUES -->
+        <div class="section" id="critical">
+            <h2>16. CRITICAL VALUES</h2>
+
+            <p>The following values require immediate notification to the ordering provider:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Critical Low</th>
+                        <th>Critical High</th>
+                        <th>Action Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#ffebee">
+                        <td><strong>Glucose</strong></td>
+                        <td>&lt;40 mg/dL</td>
+                        <td>&gt;500 mg/dL</td>
+                        <td>Immediately</td>
+                    </tr>
+                    <tr style="background:#ffebee">
+                        <td><strong>Potassium</strong></td>
+                        <td>&lt;2.5 mEq/L</td>
+                        <td>&gt;6.5 mEq/L</td>
+                        <td>Immediately</td>
+                    </tr>
+                    <tr style="background:#ffebee">
+                        <td><strong>Sodium</strong></td>
+                        <td>&lt;120 mEq/L</td>
+                        <td>&gt;160 mEq/L</td>
+                        <td>Within 30 min</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td><strong>Calcium</strong></td>
+                        <td>&lt;6.5 mg/dL</td>
+                        <td>&gt;13.0 mg/dL</td>
+                        <td>Within 30 min</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td><strong>Troponin I</strong></td>
+                        <td>N/A</td>
+                        <td>&gt;0.04 ng/mL</td>
+                        <td>Immediately</td>
+                    </tr>
+                    <tr style="background:#fff3e0">
+                        <td><strong>Creatinine</strong></td>
+                        <td>N/A</td>
+                        <td>&gt;10 mg/dL</td>
+                        <td>Within 30 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Magnesium</strong></td>
+                        <td>&lt;1.0 mg/dL</td>
+                        <td>&gt;4.5 mg/dL</td>
+                        <td>Within 30 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phosphorus</strong></td>
+                        <td>&lt;1.0 mg/dL</td>
+                        <td>&gt;9.0 mg/dL</td>
+                        <td>Within 30 min</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="critical-box">
+                <h3>Critical Value Notification Protocol</h3>
+                <ol>
+                    <li>Verify result (repeat if questionable)</li>
+                    <li>Call provider within specified timeframe</li>
+                    <li>Provide:
+                        <ul>
+                            <li>Patient name and MRN</li>
+                            <li>Critical test and result</li>
+                            <li>Reference range</li>
+                            <li>Collection time</li>
+                        </ul>
+                    </li>
+                    <li>Obtain read-back confirmation</li>
+                    <li>Document:
+                        <ul>
+                            <li>Date and time of call</li>
+                            <li>Person notified</li>
+                            <li>Read-back confirmation</li>
+                            <li>Your initials</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 17: LIMITATIONS AND INTERFERENCES -->
+        <div class="section" id="limitations">
+            <h2>17. LIMITATIONS AND INTERFERENCES</h2>
+
+            <h3>Analytical Interferences</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Interference</th>
+                        <th>Affected Tests</th>
+                        <th>Effect</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hemolysis</strong></td>
+                        <td>K, LDH, AST, Mg</td>
+                        <td>Falsely elevated</td>
+                        <td>Recollect if H>100</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lipemia</strong></td>
+                        <td>Most tests</td>
+                        <td>Light scattering</td>
+                        <td>Ultracentrifuge or dilute</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Icterus</strong></td>
+                        <td>Creatinine, cholesterol</td>
+                        <td>Spectral overlap</td>
+                        <td>Report with comment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EDTA contamination</strong></td>
+                        <td>Calcium, Mg, Alk Phos</td>
+                        <td>Falsely decreased</td>
+                        <td>Recollect</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Biotin</strong></td>
+                        <td>Immunoassays</td>
+                        <td>False results</td>
+                        <td>Wait 8 hours post-dose</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Physiological Variations</h3>
+            <ul>
+                <li>Diurnal variation: Cortisol, iron, glucose</li>
+                <li>Postural changes: Protein, hematocrit, calcium</li>
+                <li>Exercise: CK, LDH, AST, potassium</li>
+                <li>Diet: Glucose, triglycerides, BUN</li>
+                <li>Medications: Multiple analytes affected</li>
+            </ul>
+
+            <h3>Method Limitations</h3>
+            <div class="warning">
+                <p><strong>Important limitations to consider:</strong></p>
+                <ul>
+                    <li>Troponin: May be elevated in renal failure without MI</li>
+                    <li>Glucose: Ascorbic acid may cause false decrease</li>
+                    <li>Bilirubin: Light sensitive, protect from light</li>
+                    <li>Electrolytes: Pseudohyponatremia in severe lipemia</li>
+                    <li>Proteins: Paraproteins may interfere with some methods</li>
+                    <li>eGFR: Less accurate at extremes of muscle mass</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 18: EMERGENCY PROCEDURES -->
+        <div class="section" id="emergency">
+            <h2>18. EMERGENCY PROCEDURES</h2>
+
+            <div class="critical-box">
+                <h3>Fire Emergency</h3>
+                <ol>
+                    <li>R.A.C.E. Protocol:
+                        <ul>
+                            <li><strong>R</strong>escue anyone in immediate danger</li>
+                            <li><strong>A</strong>larm - Pull nearest fire alarm</li>
+                            <li><strong>C</strong>ontain - Close doors to prevent spread</li>
+                            <li><strong>E</strong>vacuate or Extinguish if safe</li>
+                        </ul>
+                    </li>
+                    <li>Secure patient samples if time permits</li>
+                    <li>Shut down analyzers if safe to do so</li>
+                    <li>Evacuate via nearest exit</li>
+                    <li>Assemble at designated meeting point</li>
+                </ol>
+            </div>
+
+            <div class="critical-box">
+                <h3>Chemical Spill</h3>
+                <ol>
+                    <li>Alert others in area</li>
+                    <li>Assess spill size and hazard</li>
+                    <li>Small spills (<100 mL):
+                        <ul>
+                            <li>Use spill kit</li>
+                            <li>Wear appropriate PPE</li>
+                            <li>Neutralize if required</li>
+                            <li>Clean and dispose properly</li>
+                        </ul>
+                    </li>
+                    <li>Large spills:
+                        <ul>
+                            <li>Evacuate area</li>
+                            <li>Call Environmental Services</li>
+                            <li>Notify supervisor</li>
+                            <li>Complete incident report</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="critical-box">
+                <h3>Power Failure</h3>
+                <ol>
+                    <li>UPS maintains analyzer power for 30 minutes</li>
+                    <li>Complete current tests if possible</li>
+                    <li>Do not start new tests</li>
+                    <li>Store specimens appropriately:
+                        <ul>
+                            <li>Room temp stable: Leave at bench</li>
+                            <li>Refrigerated: Move to backup refrigerator</li>
+                            <li>Frozen: Keep freezer closed</li>
+                        </ul>
+                    </li>
+                    <li>Switch to manual backup procedures</li>
+                    <li>Document all affected specimens</li>
+                </ol>
+            </div>
+
+            <h3>Emergency Contacts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Emergency Type</th>
+                        <th>Contact</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fire/Medical Emergency</td>
+                        <td>Emergency Response</td>
+                        <td>911 or x5555</td>
+                    </tr>
+                    <tr>
+                        <td>Chemical Spill</td>
+                        <td>Environmental Services</td>
+                        <td>x6666</td>
+                    </tr>
+                    <tr>
+                        <td>Security</td>
+                        <td>Security Office</td>
+                        <td>x7777</td>
+                    </tr>
+                    <tr>
+                        <td>Lab Supervisor</td>
+                        <td>On-call Supervisor</td>
+                        <td>Pager: 8888</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 19: TASK REFERENCE GUIDE -->
+        <div class="section" id="task-reference">
+            <h2>19. TASK REFERENCE GUIDE</h2>
+
+            <h3>Quick Reference for Common Tasks</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Frequency</th>
+                        <th>Procedure Summary</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Loading Reagents</strong></td>
+                        <td>As needed</td>
+                        <td>1. Scan barcode<br>2. Check expiration<br>3. Load in designated position<br>4. Prime if new bottle</td>
+                        <td>Section 7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Running QC</strong></td>
+                        <td>Every 8 hours</td>
+                        <td>1. Load controls<br>2. Select QC tests<br>3. Run analysis<br>4. Review results</td>
+                        <td>Section 10</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Calibration</strong></td>
+                        <td>Monthly/New lot</td>
+                        <td>1. Prepare calibrators<br>2. Load in rack<br>3. Run calibration<br>4. Verify with QC</td>
+                        <td>Section 11</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Daily Wash</strong></td>
+                        <td>Daily</td>
+                        <td>1. Load wash rack<br>2. Add cleaning solutions<br>3. Run wash cycle<br>4. Recalibrate ISE</td>
+                        <td>Section 9</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Critical Values</strong></td>
+                        <td>As occurs</td>
+                        <td>1. Verify result<br>2. Call provider<br>3. Document in log<br>4. Confirm read-back</td>
+                        <td>Section 15</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Specimen Processing</strong></td>
+                        <td>Continuous</td>
+                        <td>1. Verify label<br>2. Check integrity<br>3. Centrifuge if needed<br>4. Load on analyzer</td>
+                        <td>Section 6</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Result Review</strong></td>
+                        <td>Continuous</td>
+                        <td>1. Check for flags<br>2. Verify delta checks<br>3. Release results<br>4. Call criticals</td>
+                        <td>Section 13</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Cobas® Pure System Navigation</h3>
+            <div class="info-box">
+                <h4>Main Menu Functions:</h4>
+                <ul>
+                    <li><strong>Workplace:</strong> Sample processing and result review</li>
+                    <li><strong>Reagents:</strong> Inventory management and loading</li>
+                    <li><strong>Calibration:</strong> Calibrator installation and execution</li>
+                    <li><strong>QC:</strong> Control setup and monitoring</li>
+                    <li><strong>Maintenance:</strong> Scheduled and manual tasks</li>
+                    <li><strong>System:</strong> Configuration and diagnostics</li>
+                </ul>
+            </div>
+
+            <h3>Troubleshooting Quick Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Immediate Action</th>
+                        <th>Resolution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>QC Failure</td>
+                        <td>Stop testing</td>
+                        <td>Repeat → Troubleshoot → Recalibrate</td>
+                    </tr>
+                    <tr>
+                        <td>Probe Error</td>
+                        <td>Check for clogs</td>
+                        <td>Clean probe → Run wash cycle</td>
+                    </tr>
+                    <tr>
+                        <td>Reagent Low</td>
+                        <td>Check inventory</td>
+                        <td>Load new bottle → Prime system</td>
+                    </tr>
+                    <tr>
+                        <td>ISE Drift</td>
+                        <td>Check solutions</td>
+                        <td>Replace solutions → Recalibrate</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Clot</td>
+                        <td>Remove sample</td>
+                        <td>Clean probe → Request redraw</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 20: TECHNICAL SUPPORT -->
+        <div class="section" id="technical-support">
+            <h2>20. TECHNICAL SUPPORT</h2>
+
+            <h3>Instrument Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Equipment</th>
+                        <th>Phone</th>
+                        <th>Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Roche Diagnostics</td>
+                        <td>Cobas® Pure</td>
+                        <td>1-800-428-2336</td>
+                        <td>24/7</td>
+                    </tr>
+                    <tr>
+                        <td>Abbott</td>
+                        <td>i-STAT</td>
+                        <td>1-800-433-5215</td>
+                        <td>24/7</td>
+                    </tr>
+                    <tr>
+                        <td>Bio-Rad</td>
+                        <td>QC Materials</td>
+                        <td>1-800-224-6723</td>
+                        <td>M-F 6am-5pm PST</td>
+                    </tr>
+                    <tr>
+                        <td>IT Support</td>
+                        <td>LIS Issues</td>
+                        <td>x5555</td>
+                        <td>24/7</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Internal Support</h3>
+            <div class="info-box">
+                <h4>Laboratory Leadership</h4>
+                <ul>
+                    <li><strong>Laboratory Director:</strong> Dr. Smith - x1111</li>
+                    <li><strong>Chemistry Supervisor:</strong> John Doe - x2222</li>
+                    <li><strong>Lead Technologist:</strong> Jane Smith - x3333</li>
+                    <li><strong>Quality Manager:</strong> Mike Johnson - x4444</li>
+                </ul>
+            </div>
+
+            <h3>When to Escalate</h3>
+            <ul>
+                <li>Instrument down >2 hours</li>
+                <li>Multiple QC failures across analytes</li>
+                <li>LIS communication failure</li>
+                <li>Critical supply shortage</li>
+                <li>Patient result disputes</li>
+                <li>Regulatory inspection issues</li>
+            </ul>
+        </div>
+
+        <!-- Section 21: QUALITY ASSURANCE -->
+        <div class="section" id="quality-assurance">
+            <h2>21. QUALITY ASSURANCE</h2>
+
+            <h3>Quality Indicators</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Goal</th>
+                        <th>Frequency</th>
+                        <th>Action if Not Met</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TAT Compliance</td>
+                        <td>&gt;90% STAT &lt;45 min</td>
+                        <td>Monthly</td>
+                        <td>Process improvement</td>
+                    </tr>
+                    <tr>
+                        <td>QC Pass Rate</td>
+                        <td>&gt;95% first attempt</td>
+                        <td>Monthly</td>
+                        <td>Training/maintenance</td>
+                    </tr>
+                    <tr>
+                        <td>Critical Value Notification</td>
+                        <td>100% within 30 min</td>
+                        <td>Monthly</td>
+                        <td>Immediate correction</td>
+                    </tr>
+                    <tr>
+                        <td>Specimen Rejection Rate</td>
+                        <td>&lt;2%</td>
+                        <td>Monthly</td>
+                        <td>Phlebotomy training</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency Testing</td>
+                        <td>100% acceptable</td>
+                        <td>3x yearly</td>
+                        <td>Root cause analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Delta Check Failures</td>
+                        <td>&lt;5%</td>
+                        <td>Weekly</td>
+                        <td>Review criteria</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Competency Assessment</h3>
+            <div class="procedure-section">
+                <p><strong>Annual competency assessment includes:</strong></p>
+                <ul>
+                    <li>Direct observation of routine testing (minimum 5 patients)</li>
+                    <li>QC and calibration performance</li>
+                    <li>Maintenance procedures</li>
+                    <li>Result reporting and critical values</li>
+                    <li>Problem-solving scenarios</li>
+                    <li>Written examination (80% pass required)</li>
+                    <li>Proficiency testing participation</li>
+                </ul>
+            </div>
+
+            <h3>Method Validation Requirements</h3>
+            <p>For new tests or methods:</p>
+            <ul>
+                <li>Accuracy: Comparison with reference method (n=40)</li>
+                <li>Precision: Within-run and between-run (20x2x2)</li>
+                <li>Linearity: Across analytical measurement range</li>
+                <li>Reference range verification: Minimum 20 healthy subjects</li>
+                <li>Interference studies: HIL, common drugs</li>
+                <li>Carryover: High to low concentration</li>
+            </ul>
+
+            <h3>Document Control</h3>
+            <ul>
+                <li>This SOP is reviewed annually or as needed</li>
+                <li>Changes require Laboratory Director approval</li>
+                <li>Obsolete versions archived for 2 years minimum</li>
+                <li>All staff must read and acknowledge updates within 30 days</li>
+                <li>Training documented in personnel files</li>
+            </ul>
+        </div>
+
+        <!-- Section 22: REGULATORY COMPLIANCE -->
+        <div class="section" id="regulatory">
+            <h2>22. REGULATORY COMPLIANCE</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Regulatory Body</th>
+                        <th>Requirement</th>
+                        <th>Compliance Method</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CLIA</td>
+                        <td>42 CFR 493</td>
+                        <td>High complexity testing standards</td>
+                        <td>Annual certificate</td>
+                    </tr>
+                    <tr>
+                        <td>CAP</td>
+                        <td>Laboratory Accreditation</td>
+                        <td>Biennial inspection</td>
+                        <td>CAP checklist compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Joint Commission</td>
+                        <td>Hospital Accreditation</td>
+                        <td>Triennial survey</td>
+                        <td>Standards compliance</td>
+                    </tr>
+                    <tr>
+                        <td>FDA</td>
+                        <td>Medical Device Regulations</td>
+                        <td>Use FDA-cleared tests</td>
+                        <td>Package inserts</td>
+                    </tr>
+                    <tr>
+                        <td>OSHA</td>
+                        <td>Workplace Safety</td>
+                        <td>Bloodborne pathogen program</td>
+                        <td>Safety training records</td>
+                    </tr>
+                    <tr>
+                        <td>State of Maryland</td>
+                        <td>State License</td>
+                        <td>Meet state requirements</td>
+                        <td>Current license</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Inspection Readiness</h3>
+            <div class="procedure-section">
+                <h4>Required Documentation</h4>
+                <ul>
+                    <li>Current procedures and job aids</li>
+                    <li>QC records (2 years minimum)</li>
+                    <li>Calibration and maintenance logs</li>
+                    <li>Personnel training and competency</li>
+                    <li>Proficiency testing results</li>
+                    <li>Incident and corrective action reports</li>
+                    <li>Temperature logs</li>
+                    <li>Reagent and supply receipts</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 23: DOWNTIME PROCEDURES -->
+        <div class="section" id="downtime">
+            <h2>23. DOWNTIME PROCEDURES</h2>
+
+            <div class="critical-box">
+                <h3>⚠️ Instrument Downtime Protocol</h3>
+                <p>When Cobas® Pure is unavailable, implement backup procedures immediately.</p>
+            </div>
+
+            <h3>Immediate Actions</h3>
+            <ol>
+                <li>Notify:
+                    <ul>
+                        <li>Laboratory supervisor</li>
+                        <li>Emergency Department</li>
+                        <li>ICU and critical care units</li>
+                        <li>Nursing stations</li>
+                    </ul>
+                </li>
+                <li>Post downtime notices in all areas</li>
+                <li>Divert specimens to backup analyzer or reference lab</li>
+                <li>Document downtime start in log</li>
+            </ol>
+
+            <h3>Backup Testing Options</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>Tests</th>
+                        <th>Alternative Method</th>
+                        <th>TAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>STAT</td>
+                        <td>BMP, Troponin</td>
+                        <td>Point-of-care devices</td>
+                        <td>15 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Urgent</td>
+                        <td>CMP, Cardiac markers</td>
+                        <td>Send to main lab</td>
+                        <td>2 hours</td>
+                    </tr>
+                    <tr>
+                        <td>Routine</td>
+                        <td>All chemistry tests</td>
+                        <td>Batch and send out</td>
+                        <td>24 hours</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Point-of-Care Backup</h3>
+            <div class="procedure-section">
+                <p><strong>Available POC devices:</strong></p>
+                <ul>
+                    <li>i-STAT: BMP, lactate, blood gases</li>
+                    <li>Glucometer: Glucose only</li>
+                    <li>POC Troponin: Qualitative result</li>
+                </ul>
+                <p><strong>Note:</strong> POC results may not correlate exactly with main analyzer</p>
+            </div>
+
+            <h3>LIS Downtime</h3>
+            <div class="info-box">
+                <h4>Manual Processing</h4>
+                <ul>
+                    <li>Use paper requisitions</li>
+                    <li>Assign manual accession numbers</li>
+                    <li>Record results on downtime logs</li>
+                    <li>Call all STAT and critical results</li>
+                    <li>Enter results when system restored</li>
+                </ul>
+            </div>
+
+            <h3>Recovery Procedures</h3>
+            <ol>
+                <li>When instrument returns to service:
+                    <ul>
+                        <li>Run all startup procedures</li>
+                        <li>Perform calibration if >4 hours down</li>
+                        <li>Run QC (both levels)</li>
+                        <li>Verify all QC acceptable</li>
+                    </ul>
+                </li>
+                <li>Process backlogged specimens:
+                    <ul>
+                        <li>STAT first</li>
+                        <li>Check stability of stored specimens</li>
+                        <li>Reject any exceeding stability</li>
+                    </ul>
+                </li>
+                <li>Notify all units that testing resumed</li>
+                <li>Document:
+                    <ul>
+                        <li>Downtime duration</li>
+                        <li>Number of specimens affected</li>
+                        <li>Root cause if known</li>
+                        <li>Corrective actions taken</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Section 24: REFERENCES -->
+        <div class="section" id="references">
+            <h2>24. REFERENCES</h2>
+
+            <ol>
+                <li>Roche Cobas® Pure Integrated Solutions Operator Manual, Version 2.0</li>
+                <li>CLSI EP05-A3: Evaluation of Precision of Quantitative Measurement Procedures</li>
+                <li>CLSI EP09-A3: Method Comparison and Bias Estimation Using Patient Samples</li>
+                <li>CLSI EP15-A3: User Verification of Precision and Estimation of Bias</li>
+                <li>CLSI C24-A3: Statistical Quality Control for Quantitative Measurements</li>
+                <li>CLSI C28-A3: Defining, Establishing, and Verifying Reference Intervals</li>
+                <li>CAP Chemistry and Toxicology Checklist, 2024 Edition</li>
+                <li>Kaiser Permanente National Laboratory Standards Manual</li>
+                <li>CMS CLIA Regulations, 42 CFR Part 493</li>
+                <li>OSHA Bloodborne Pathogens Standard, 29 CFR 1910.1030</li>
+                <li>Tietz Textbook of Clinical Chemistry and Molecular Diagnostics, 6th Edition</li>
+                <li>Henry's Clinical Diagnosis and Management by Laboratory Methods, 24th Edition</li>
+                <li>Westgard JO. Basic QC Practices, 5th Edition. Madison, WI: Westgard QC; 2024</li>
+                <li>Kaiser Permanente Laboratory Competency Assessment Requirements, Document 14952_0</li>
+                <li>Kaiser Permanente Technical Competency Standards, Document 13792_0</li>
+            </ol>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #0066cc;">
+            <p style="font-size: 9pt; color: #666;">
+                <strong>Document Control:</strong><br>
+                Document Number: LAB.CHEM.001<br>
+                Version: 3.0<br>
+                Effective Date: January 1, 2025<br>
+                Review Date: January 1, 2026<br>
+                Approved By: [Laboratory Director Name], MD<br>
+                Distribution: Chemistry Department, Point of Care Testing
+            </p>
+        </div>
+    </div>
+</body>
+</html>

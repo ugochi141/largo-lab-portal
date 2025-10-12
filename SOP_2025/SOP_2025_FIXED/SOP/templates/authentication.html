@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 500px; margin: 4rem auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--kp-blue);">
+        🔐 System Authentication
+    </h2>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="employee_id">Employee ID:</label>
+            <input type="text" id="employee_id" name="employee_id" required
+                   placeholder="Enter your Kaiser Permanente Employee ID">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required
+                   placeholder="Enter your password">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn" style="width: 100%;">
+                🚀 Access SOP System
+            </button>
+        </div>
+    </form>
+
+    <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+        <small>
+            <strong>Test Accounts:</strong><br>
+            Admin: ADMIN001 / admin123<br>
+            Supervisor: TECH001 / tech123<br>
+            Staff: TECH002 / tech123
+        </small>
+    </div>
+</div>
+{% endblock %}
