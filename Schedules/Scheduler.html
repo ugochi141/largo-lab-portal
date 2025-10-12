@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Largo Clinical Lab Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: 11in 8.5in landscape;
+            margin: 0.5in;
+        }
+
+        html {
+            font-size: 9pt;
+            background: #f5f5f5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: #333;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #0066cc;
+            font-size: 18pt;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            color: #666;
+            font-size: 11pt;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .date-banner {
+            background: #f0f8ff;
+            padding: 12px;
+            border-left: 4px solid #0066cc;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 12pt;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .controls {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 8pt;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #004499;
+        }
+
+        .btn.danger {
+            background: #f44336;
+        }
+
+        .btn.danger:hover {
+            background: #da190b;
+        }
+
+        .date-input {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 8pt;
+        }
+
+        .schedule-grid {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 8pt;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            margin: 15px 0;
+        }
+
+        .schedule-grid th {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f3 100%);
+            color: #000;
+            padding: 8px 3px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border-right: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .schedule-grid th:last-child {
+            border-right: none;
+        }
+
+        .dept-header {
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 9pt;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            letter-spacing: 1px;
+            color: white;
+            width: 30px;
+            min-width: 30px;
+            max-width: 30px;
+        }
+
+        .dept-header-mla {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        .dept-header-mlt {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .dept-header-mls {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+        }
+
+        .dept-header-phleb {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .staff-name {
+            padding: 4px 6px;
+            font-weight: 600;
+            color: #333;
+            border-right: 3px solid;
+            width: auto;
+            white-space: nowrap;
+            font-size: 7.5pt;
+            background: #fafafa;
+        }
+
+        .staff-nickname {
+            display: block;
+            font-weight: 700;
+            font-size: 8pt;
+            margin-bottom: 1px;
+        }
+
+        .staff-fullname {
+            font-size: 6.5pt;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .time-cell {
+            width: 28px;
+            height: 35px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-cell:hover {
+            background: #e3f2fd;
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,102,204,0.3);
+        }
+
+        .scheduled {
+            background: #10b981;
+            position: relative;
+        }
+
+        .scheduled::before {
+            content: '●';
+            color: white;
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .called-out {
+            background: #ff5252 !important;
+            position: relative;
+        }
+
+        .called-out::before {
+            content: '🚫' !important;
+            font-size: 10px;
+        }
+
+        .floater {
+            background: #FFD700 !important;
+            position: relative;
+        }
+
+        .floater::before {
+            content: '★' !important;
+            color: black;
+            font-size: 12px;
+        }
+
+        .on-break {
+            background: #f59e0b !important;
+            position: relative;
+        }
+
+        .on-break::before {
+            content: '▪' !important;
+            color: white;
+            font-size: 14px;
+        }
+
+        .on-lunch {
+            background: #ef4444 !important;
+            position: relative;
+        }
+
+        .on-lunch::before {
+            content: '■' !important;
+            color: white;
+            font-size: 14px;
+        }
+
+        .mla .staff-name {
+            border-right-color: #8b5cf6;
+        }
+
+        .mlt .staff-name {
+            border-right-color: #10b981;
+        }
+
+        .mls .staff-name {
+            border-right-color: #0066cc;
+        }
+
+        .phleb .staff-name {
+            border-right-color: #f59e0b;
+        }
+
+        .staff-row {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .staff-row:hover {
+            background: #f8f9fa;
+        }
+
+        .legend {
+            background: #f0f8ff;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .legend h3 {
+            color: #0066cc;
+            font-size: 11pt;
+            margin-bottom: 10px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 8pt;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .notes-section {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .note-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid;
+            background: #f9f9f9;
+            font-size: 8pt;
+        }
+
+        .note-callout {
+            border-left-color: #ff5252;
+        }
+
+        .note-floater {
+            border-left-color: #FFD700;
+        }
+
+        @media print {
+            @page {
+                size: 11in 8.5in landscape;
+                margin: 0.5in;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body {
+                background: #fff;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .controls {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Largo Clinical Lab Schedule</h1>
+            <h2>Visual Coverage Schedule</h2>
+        </div>
+
+        <div class="date-banner" id="date-banner">
+            Thursday, October 2, 2025
+        </div>
+
+        <div class="controls">
+            <div>
+                <button class="btn" onclick="changeDate(-1)">← Previous</button>
+                <input type="date" id="date-picker" class="date-input" value="2025-10-02" onchange="setDate()">
+                <button class="btn" onclick="changeDate(1)">Next →</button>
+            </div>
+            <div>
+                <button class="btn" onclick="window.print()">Print</button>
+                <button class="btn" onclick="showCallOutModal()">Add Call Out</button>
+                <button class="btn" onclick="showFloaterModal()">Add Floater</button>
+                <button class="btn danger" onclick="clearAllModifications()">Clear All</button>
+            </div>
+        </div>
+
+        <table class="schedule-grid" id="scheduleTable">
+            <!-- Content populated by JavaScript -->
+        </table>
+
+        <div class="legend">
+            <h3>Schedule Key</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div>
+                    <span><strong>● Working</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <span><strong>▪ Break</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ef4444;"></div>
+                    <span><strong>■ Lunch</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff5252;"></div>
+                    <span><strong>🚫 Called Out</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FFD700;"></div>
+                    <span><strong>★ Floater</strong></span>
+                </div>
+                <div class="legend-item">
+                    <span style="color: #666;">Empty = Off</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8b5cf6;"></div>
+                    <span><strong>MLA</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div>
+                    <span><strong>MLT</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0066cc;"></div>
+                    <span><strong>MLS</strong></span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <span><strong>PHLEB</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-section" id="notesSection" style="display: none;">
+            <h3>Call-Outs & Floaters</h3>
+            <div id="notesList"></div>
+        </div>
+    </div>
+
+    <script>
+        // October 2025 schedule data
+        const scheduleData = {
+            '2025-10-01': [
+                {name: 'BLACKWELL, LORRAINE', role: 'MLA', shifts: '8a-4:30p', nickname: 'LORRAINE', fullname: 'Blackwell'},
+                {name: 'ESHOFA, OGHENEOCHUKO (TRACY)', role: 'MLT', shifts: '9:30p-12a', nickname: 'TRACY', fullname: 'Eshofa'},
+                {name: 'LEJANO, EMMANUEL (BOYET)', role: 'MLT', shifts: '9:30p-6a', nickname: 'BOYET', fullname: 'Lejano'},
+                {name: 'AZIH NGENE, FRANCIS', role: 'MLS', shifts: '7:30a-4p', nickname: 'FRANCIS', fullname: 'Azih Ngene'},
+                {name: 'BENITEZ-RUIZ, INGRID', role: 'MLS', shifts: '7:30a-4p', nickname: 'INGRID', fullname: 'Benitez-Ruiz'},
+                {name: 'CHE, ALBERT', role: 'MLS', shifts: '3:30p-5a', nickname: 'ALBERT', fullname: 'Che'},
+                {name: 'ETAPE, GEORGE', role: 'MLS', shifts: '11:30p-8a', nickname: 'GEORGE', fullname: 'Etape'},
+                {name: 'LAWSON, SAMUEL', role: 'MLS', shifts: '3:30p-12a', nickname: 'SAMUEL', fullname: 'Lawson'},
+                {name: 'BOLDEN-DAVIS, CHRISTINA', role: 'PHLEB', shifts: '6a-2:30p', nickname: 'CHRISTINA', fullname: 'Bolden Davis'},
+                {name: 'BROOKS, JOHNETTE', role: 'PHLEB', shifts: '7a-3:30p', nickname: 'JOHNETTE', fullname: 'Brooks'},
+                {name: 'DODSON, STEPHANIE', role: 'PHLEB', shifts: '2-10:30p', nickname: 'STEPHANIE', fullname: 'Dodson'},
+                {name: 'FAUNTLEROY, NICHOLE', role: 'PHLEB', shifts: '2-10:30p', nickname: 'NICHOLE', fullname: 'Fauntleroy'},
+                {name: 'GRAYSON, RAQUEL', role: 'PHLEB', shifts: '9a-5:30p', nickname: 'RAQUEL', fullname: 'Grayson'},
+                {name: 'HAYES, DANALISA', role: 'PHLEB', shifts: '2-10:30p', nickname: 'DANALISA', fullname: 'Hayes'},
+                {name: 'MERRIMAN, LONDON', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'LONDON', fullname: 'Merriman'},
+                {name: 'MIAH, YOULANA', role: 'PHLEB', shifts: '6a-2:30p', nickname: 'YOULANA', fullname: 'Miah'},
+                {name: 'ONUMA, MANOUCHECA', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'MANOUCHECA', fullname: 'Onuma'},
+                {name: 'SAINT PHIRIN, ANNE', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'ANNE', fullname: 'Saint Phirin'},
+                {name: 'SCARBOROUGH, MICAELA', role: 'PHLEB', shifts: '8a-12p', nickname: 'MICAELA', fullname: 'Scarborough'},
+                {name: 'WHITE, TARIC', role: 'PHLEB', shifts: '5-9p', nickname: 'TARIC', fullname: 'White'}
+            ],
+            '2025-10-02': [
+                {name: 'BLACKWELL, LORRAINE', role: 'MLA', shifts: '9a-4:30p', nickname: 'LORRAINE', fullname: 'Blackwell', breaks: [{start: 11, end: 11.25, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}, {start: 15, end: 15.25, type: 'break'}]},
+                {name: 'BOOKER, MAXWELL', role: 'MLT', shifts: '7:30a-4p', nickname: 'MAXWELL', fullname: 'Booker', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}, {start: 14.5, end: 14.75, type: 'break'}]},
+                {name: 'CREEKMORE, EMILY', role: 'MLT', shifts: '3:30p-4p', nickname: 'EMILY', fullname: 'Creekmore', breaks: []},
+                {name: 'ESHOFA, OGHENEOCHUKO (TRACY)', role: 'MLT', shifts: '3:30p-12a', nickname: 'TRACY', fullname: 'Eshofa', breaks: [{start: 17.5, end: 17.75, type: 'break'}, {start: 20, end: 20.5, type: 'lunch'}, {start: 22.5, end: 22.75, type: 'break'}]},
+                {name: 'LEJANO, EMMANUEL (BOYET)', role: 'MLT', shifts: '9:30p-6a', nickname: 'BOYET', fullname: 'Lejano', breaks: [{start: 23.5, end: 23.75, type: 'break'}, {start: 2, end: 2.5, type: 'lunch'}, {start: 4.5, end: 4.75, type: 'break'}]},
+                {name: 'AZIH NGENE, FRANCIS', role: 'MLS', shifts: '7:30a-4p', nickname: 'FRANCIS', fullname: 'Azih Ngene', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}, {start: 14.5, end: 14.75, type: 'break'}]},
+                {name: 'CHE, ALBERT', role: 'MLS', shifts: '3:30p-12a', nickname: 'ALBERT', fullname: 'Che', breaks: [{start: 17.75, end: 18, type: 'break'}, {start: 20.5, end: 21, type: 'lunch'}, {start: 22.75, end: 23, type: 'break'}]},
+                {name: 'ETAPE, GEORGE', role: 'MLS', shifts: '11:30p-8a', nickname: 'GEORGE', fullname: 'Etape', breaks: [{start: 1.5, end: 1.75, type: 'break'}, {start: 4, end: 4.5, type: 'lunch'}, {start: 6, end: 6.25, type: 'break'}]},
+                {name: 'LAWSON, SAMUEL', role: 'MLS', shifts: '3:30p-12a', nickname: 'SAMUEL', fullname: 'Lawson', breaks: [{start: 18, end: 18.25, type: 'break'}, {start: 20.5, end: 21, type: 'lunch'}, {start: 22.5, end: 22.75, type: 'break'}]},
+                {name: 'BROOKS, JOHNETTE', role: 'PHLEB', shifts: '7a-3:30p', nickname: 'JOHNETTE', fullname: 'Brooks', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}, {start: 14, end: 14.25, type: 'break'}]},
+                {name: 'CHIEDO, SAVONA', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'SAVONA', fullname: 'Chiedo', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13, end: 13.5, type: 'lunch'}, {start: 15.25, end: 15.5, type: 'break'}]},
+                {name: 'DODSON, STEPHANIE', role: 'PHLEB', shifts: '9a-10:30a', nickname: 'STEPHANIE', fullname: 'Dodson', breaks: []},
+                {name: 'FRAZIER, LARRY', role: 'PHLEB', shifts: '7a-3:30p', nickname: 'LARRY', fullname: 'Frazier', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}, {start: 14, end: 14.25, type: 'break'}]},
+                {name: 'GRAYSON, RAQUEL (RACHEL)', role: 'PHLEB', shifts: '8a-5:30p', nickname: 'RACHEL', fullname: 'Grayson', breaks: [{start: 10, end: 10.25, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}, {start: 16, end: 16.25, type: 'break'}]},
+                {name: 'HAYES, JANALISA', role: 'PHLEB', shifts: '9a-10:30p', nickname: 'JANALISA', fullname: 'Hayes', breaks: [{start: 11, end: 11.25, type: 'break'}, {start: 16, end: 16.5, type: 'lunch'}, {start: 19, end: 19.25, type: 'break'}]},
+                {name: 'MOISE, FARAH', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'FARAH', fullname: 'Moise', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}, {start: 16, end: 16.25, type: 'break'}]},
+                {name: 'ONUMA, MANOUCHECA (MIMI)', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'MIMI', fullname: 'Onuma', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13, end: 13.5, type: 'lunch'}, {start: 15.25, end: 15.5, type: 'break'}]},
+                {name: 'PILKINGTON, SHANNON', role: 'PHLEB', shifts: '12p-10:30p', nickname: 'SHANNON', fullname: 'Pilkington', breaks: [{start: 14, end: 14.25, type: 'break'}, {start: 18.5, end: 19, type: 'lunch'}, {start: 20.5, end: 20.75, type: 'break'}]},
+                {name: 'SAINT PHIRIN, ANNE', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'ANNE', fullname: 'Saint Phirin', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13, end: 13.5, type: 'lunch'}, {start: 15.25, end: 15.5, type: 'break'}]},
+                {name: 'SCARBOROUGH, MICAELA', role: 'PHLEB', shifts: '8a-12p', nickname: 'MICAELA', fullname: 'Scarborough', breaks: [{start: 10, end: 10.25, type: 'break'}]},
+                {name: 'WHITE, TARIC', role: 'PHLEB', shifts: '5-9p', nickname: 'TARIC', fullname: 'White', breaks: [{start: 19, end: 19.25, type: 'break'}]}
+            ],
+            '2025-10-03': [
+                {name: 'BLACKWELL, LORRAINE', role: 'MLA', shifts: '8a-4:30p', nickname: 'LORRAINE', fullname: 'Blackwell'},
+                {name: 'CREEKMORE, EMILY', role: 'MLT', shifts: '7:30a-4p', nickname: 'EMILY', fullname: 'Creekmore'},
+                {name: 'ESHOFA, OGHENEOCHUKO (TRACY)', role: 'MLT', shifts: '3:30p-12a', nickname: 'TRACY', fullname: 'Eshofa'},
+                {name: 'LEJANO, EMMANUEL (BOYET)', role: 'MLT', shifts: '9:30p-6a', nickname: 'BOYET', fullname: 'Lejano'},
+                {name: 'AZIH NGENE, FRANCIS', role: 'MLS', shifts: '7:30a-4p', nickname: 'FRANCIS', fullname: 'Azih Ngene'},
+                {name: 'BENITEZ-RUIZ, INGRID', role: 'MLS', shifts: '7:30a-4p', nickname: 'INGRID', fullname: 'Benitez-Ruiz'},
+                {name: 'ETAPE, GEORGE', role: 'MLS', shifts: '11:30p-8a', nickname: 'GEORGE', fullname: 'Etape'},
+                {name: 'LAWSON, SAMUEL', role: 'MLS', shifts: '3:30p-12a', nickname: 'SAMUEL', fullname: 'Lawson'},
+                {name: 'LIBURD, JACQUELINE', role: 'MLS', shifts: '11:30p-8a', nickname: 'JACQUELINE', fullname: 'Liburd'},
+                {name: 'BOLDEN-DAVIS, CHRISTINA', role: 'PHLEB', shifts: '6a-2:30p', nickname: 'CHRISTINA', fullname: 'Bolden Davis'},
+                {name: 'DODSON, STEPHANIE', role: 'PHLEB', shifts: '2-10:30p', nickname: 'STEPHANIE', fullname: 'Dodson'},
+                {name: 'FAUNTLEROY, NICHOLE', role: 'PHLEB', shifts: '2-10:30p', nickname: 'NICHOLE', fullname: 'Fauntleroy'},
+                {name: 'FRAZIER, LARRY', role: 'PHLEB', shifts: '7a-3:30p', nickname: 'LARRY', fullname: 'Frazier'},
+                {name: 'HAYES, DANALISA', role: 'PHLEB', shifts: '2-10:30p', nickname: 'DANALISA', fullname: 'Hayes'},
+                {name: 'MIAH, YOULANA', role: 'PHLEB', shifts: '6a-2:30p', nickname: 'YOULANA', fullname: 'Miah'},
+                {name: 'MOISE, FARAH', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'FARAH', fullname: 'Moise'},
+                {name: 'ONUMA, MANOUCHECA', role: 'PHLEB', shifts: '8a-4:30p', nickname: 'MANOUCHECA', fullname: 'Onuma'},
+                {name: 'PILKINGTON, SHANNON', role: 'PHLEB', shifts: '2-10:30p', nickname: 'SHANNON', fullname: 'Pilkington'},
+                {name: 'SCARBOROUGH, MICAELA', role: 'PHLEB', shifts: '8a-12p', nickname: 'MICAELA', fullname: 'Scarborough'},
+                {name: 'THEODORE, EMMANUELLA', role: 'PHLEB', shifts: '9a-5:30p', nickname: 'EMMANUELLA', fullname: 'Theodore'}
+            ]
+        };
+
+        let callOuts = JSON.parse(localStorage.getItem('callOuts') || '{}');
+        let floaters = JSON.parse(localStorage.getItem('floaters') || '{}');
+        let currentDate = new Date('2025-10-02');
+
+        // Load uploaded schedule data from Schedule Manager
+        const uploadedScheduleData = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+
+        // Merge uploaded data with existing scheduleData
+        Object.keys(uploadedScheduleData).forEach(date => {
+            scheduleData[date] = uploadedScheduleData[date];
+        });
+
+        function renderScheduleGrid() {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const data = scheduleData[dateStr];
+
+            if (!data) {
+                document.getElementById('scheduleTable').innerHTML = '<tbody><tr><td colspan="26" style="text-align:center;padding:20px;">No schedule data for this date</td></tr></tbody>';
+                return;
+            }
+
+            const roles = ['MLA', 'MLT', 'MLS', 'PHLEB'];
+            let html = '<thead><tr><th style="width: 30px; min-width: 30px; max-width: 30px;">DEPT</th><th style="width: 1%; white-space: nowrap;">STAFF</th>';
+
+            // Hour headers starting from 6a
+            const hours = ['6a','7a','8a','9a','10a','11a','12p','1p','2p','3p','4p','5p','6p','7p','8p','9p','10p','11p','12a','1a','2a','3a','4a','5a'];
+            hours.forEach(h => html += `<th>${h}</th>`);
+            html += '</tr></thead><tbody>';
+
+            roles.forEach(role => {
+                const staffInRole = data.filter(s => s.role === role);
+                const floatersForRole = Object.entries(floaters)
+                    .filter(([key]) => key.startsWith(`${dateStr}-${role}`))
+                    .map(([_, data]) => data);
+
+                const totalRows = staffInRole.length + floatersForRole.length;
+
+                staffInRole.forEach((staff, idx) => {
+                    html += `<tr class="staff-row ${role.toLowerCase()}">`;
+
+                    if (idx === 0) {
+                        html += `<td rowspan="${totalRows}" class="dept-header dept-header-${role.toLowerCase()}">${role}</td>`;
+                    }
+
+                    html += `<td class="staff-name">
+                        <span class="staff-nickname">${staff.nickname}</span>
+                        <span class="staff-fullname">${staff.fullname}</span>
+                    </td>`;
+
+                    const callOutKey = `${dateStr}-${staff.name}`;
+                    const isCalledOut = !!callOuts[callOutKey];
+
+                    // Hours starting from 6 (6am)
+                    for (let i = 0; i < 24; i++) {
+                        const hour = (i + 6) % 24;
+                        let className = 'time-cell';
+
+                        if (isCalledOut) {
+                            if (isScheduled(staff.shifts, hour)) {
+                                className += ' called-out';
+                            }
+                        } else if (isScheduled(staff.shifts, hour)) {
+                            const breakStatus = getBreakStatus(staff.breaks, hour);
+                            if (breakStatus === 'lunch') {
+                                className += ' on-lunch';
+                            } else if (breakStatus === 'break') {
+                                className += ' on-break';
+                            } else {
+                                className += ' scheduled';
+                            }
+                        }
+
+                        html += `<td class="${className}"></td>`;
+                    }
+
+                    html += '</tr>';
+                });
+
+                // Add floaters
+                floatersForRole.forEach(floater => {
+                    html += `<tr class="staff-row ${role.toLowerCase()}">`;
+                    html += `<td class="staff-name">
+                        <span class="staff-nickname">${floater.name}</span>
+                        <span class="staff-fullname">(FLOATER)</span>
+                    </td>`;
+
+                    for (let i = 0; i < 24; i++) {
+                        const hour = (i + 6) % 24;
+                        let className = 'time-cell';
+
+                        if (isScheduled(floater.shifts, hour)) {
+                            className += ' floater';
+                        }
+
+                        html += `<td class="${className}"></td>`;
+                    }
+
+                    html += '</tr>';
+                });
+            });
+
+            html += '</tbody>';
+            document.getElementById('scheduleTable').innerHTML = html;
+            updateNotes();
+        }
+
+        function getBreakStatus(breaks, hour) {
+            if (!breaks) return null;
+            for (let brk of breaks) {
+                let start = brk.start;
+                let end = brk.end;
+
+                // Handle breaks that cross midnight
+                if (end < start) {
+                    if (hour >= start || hour < end) {
+                        return brk.type;
+                    }
+                } else {
+                    if (hour >= start && hour < end) {
+                        return brk.type;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function isScheduled(shiftStr, hour) {
+            if (!shiftStr) return false;
+
+            const match = shiftStr.match(/(\d+):?(\d+)?([ap])-(\d+):?(\d+)?([ap])/);
+            if (!match) return false;
+
+            let startHour = parseInt(match[1]);
+            const startPeriod = match[3];
+            let endHour = parseInt(match[4]);
+            const endPeriod = match[6];
+
+            if (startPeriod === 'p' && startHour !== 12) startHour += 12;
+            if (startPeriod === 'a' && startHour === 12) startHour = 0;
+            if (endPeriod === 'p' && endHour !== 12) endHour += 12;
+            if (endPeriod === 'a' && endHour === 12) endHour = 0;
+
+            if (endHour < startHour) {
+                return hour >= startHour || hour < endHour;
+            }
+
+            return hour >= startHour && hour < endHour;
+        }
+
+        function updateNotes() {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const notesList = document.getElementById('notesList');
+            const notesSection = document.getElementById('notesSection');
+
+            notesList.innerHTML = '';
+            let hasNotes = false;
+
+            Object.entries(callOuts).forEach(([key, data]) => {
+                if (data.date === dateStr) {
+                    hasNotes = true;
+                    const div = document.createElement('div');
+                    div.className = 'note-item note-callout';
+                    div.innerHTML = `<strong>CALL-OUT:</strong> ${data.staff} ${data.reason ? `- ${data.reason}` : ''}`;
+                    notesList.appendChild(div);
+                }
+            });
+
+            Object.entries(floaters).forEach(([key, data]) => {
+                if (data.date === dateStr) {
+                    hasNotes = true;
+                    const div = document.createElement('div');
+                    div.className = 'note-item note-floater';
+                    div.innerHTML = `<strong>FLOATER:</strong> ${data.name} (${data.role}) - ${data.shifts}`;
+                    notesList.appendChild(div);
+                }
+            });
+
+            notesSection.style.display = hasNotes ? 'block' : 'none';
+        }
+
+        function updateDisplay() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date-banner').textContent = currentDate.toLocaleDateString('en-US', options);
+            document.getElementById('date-picker').value = currentDate.toISOString().split('T')[0];
+            renderScheduleGrid();
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDisplay();
+        }
+
+        function setDate() {
+            const dateInput = document.getElementById('date-picker').value;
+            if (dateInput) {
+                currentDate = new Date(dateInput);
+                updateDisplay();
+            }
+        }
+
+        function showCallOutModal() {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const data = scheduleData[dateStr];
+
+            if (!data) {
+                alert('No schedule data for this date');
+                return;
+            }
+
+            const staff = prompt('Enter staff member name (or part of name):');
+            if (!staff) return;
+
+            const matches = data.filter(s => s.name.toLowerCase().includes(staff.toLowerCase()));
+
+            if (matches.length === 0) {
+                alert('No staff member found with that name');
+                return;
+            }
+
+            let selectedStaff;
+            if (matches.length === 1) {
+                selectedStaff = matches[0];
+            } else {
+                const names = matches.map((s, i) => `${i+1}. ${s.name}`).join('\n');
+                const choice = prompt(`Multiple matches found:\n${names}\n\nEnter number:`);
+                selectedStaff = matches[parseInt(choice) - 1];
+            }
+
+            if (!selectedStaff) return;
+
+            const reason = prompt('Reason for call-out (optional):');
+
+            const key = `${dateStr}-${selectedStaff.name}`;
+            callOuts[key] = { staff: selectedStaff.name, reason, date: dateStr };
+            localStorage.setItem('callOuts', JSON.stringify(callOuts));
+
+            renderScheduleGrid();
+        }
+
+        function showFloaterModal() {
+            const name = prompt('Enter floater name:');
+            if (!name) return;
+
+            const role = prompt('Enter role (MLA/MLT/MLS/PHLEB):');
+            if (!role || !['MLA', 'MLT', 'MLS', 'PHLEB'].includes(role.toUpperCase())) {
+                alert('Invalid role');
+                return;
+            }
+
+            const shifts = prompt('Enter shift time (e.g., 9:30p-6a):');
+            if (!shifts) return;
+
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const key = `${dateStr}-${role.toUpperCase()}-${name}-${Date.now()}`;
+            floaters[key] = { name, role: role.toUpperCase(), shifts, date: dateStr };
+            localStorage.setItem('floaters', JSON.stringify(floaters));
+
+            renderScheduleGrid();
+        }
+
+        function clearAllModifications() {
+            if (confirm('Clear ALL call-outs and floaters? This cannot be undone.')) {
+                callOuts = {};
+                floaters = {};
+                localStorage.removeItem('callOuts');
+                localStorage.removeItem('floaters');
+                renderScheduleGrid();
+            }
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>

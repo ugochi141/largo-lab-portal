@@ -1,0 +1,3588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Largo Lab Schedule Manager - Production</title>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="console.error('Failed to load PDF.js library')"></script>
+
+    <!-- Tesseract.js for OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js" onerror="console.error('Failed to load Tesseract.js library')"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28pt;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 12pt;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .upload-section {
+            background: #eef4ff;
+            border: 2px dashed #4f46e5;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+            position: relative;
+        }
+
+        .upload-section::before {
+            content: 'Upload';
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            background: #4f46e5;
+            color: #ffffff;
+            font-size: 9pt;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .upload-section h2 {
+            color: #312e81;
+            font-size: 18pt;
+            margin-bottom: 8px;
+        }
+
+        .upload-section p {
+            color: #374151;
+            font-size: 10pt;
+            margin-bottom: 12px;
+        }
+
+        .upload-section.drag-over {
+            border-style: solid;
+            border-color: rgba(0, 102, 204, 0.7);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .upload-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .upload-controls .btn {
+            flex: 0 0 auto;
+        }
+
+        .upload-status {
+            margin-top: 12px;
+            font-size: 10pt;
+            color: #334155;
+        }
+
+        .upload-status[data-state="idle"] {
+            color: #475569;
+        }
+
+        .upload-status[data-state="info"] {
+            color: #2563eb;
+        }
+
+        .upload-status[data-state="success"] {
+            color: #15803d;
+        }
+
+        .upload-status[data-state="error"] {
+            color: #b91c1c;
+        }
+
+        .upload-hint {
+            font-size: 9pt;
+            color: #4b5563;
+            margin-top: 4px;
+        }
+
+        .builder-section {
+            background: #f8f9fa;
+            border: 2px solid #0066cc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.12);
+        }
+        
+        .builder-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .builder-header h2 {
+            color: #0066cc;
+            font-size: 18pt;
+            margin-bottom: 6px;
+        }
+        
+        .builder-header p {
+            color: #555;
+            font-size: 10pt;
+        }
+        
+        .builder-date label {
+            font-weight: 600;
+            color: #0c4a6e;
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        .builder-date input[type="date"] {
+            padding: 10px 14px;
+            border: 1px solid #cbd5f5;
+            border-radius: 8px;
+            font-size: 10pt;
+            min-width: 190px;
+        }
+        
+        .builder-form {
+            background: #ffffff;
+            border: 1px solid #d1e7f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(13, 71, 161, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.small {
+            max-width: 140px;
+        }
+        
+        .form-group.flex {
+            flex: 2;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 6px;
+            font-size: 10pt;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1px solid #cbd5f5;
+            border-radius: 6px;
+            font-size: 10pt;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-hint {
+            display: block;
+            margin-top: 4px;
+            font-size: 8pt;
+            color: #64748b;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #0066cc;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+        
+        .custom-shift-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .custom-shift-field {
+            display: flex;
+            flex-direction: column;
+            min-width: 140px;
+        }
+        
+        .custom-shift-fields.disabled .custom-shift-field {
+            opacity: 0.5;
+        }
+        
+        .custom-shift-fields.disabled .custom-shift-field input {
+            background: #f1f5f9;
+            cursor: not-allowed;
+        }
+        
+        .form-group.button-group {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        
+        .form-group.button-group button {
+            flex: 1 1 auto;
+        }
+        
+        .builder-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .info-box {
+            background: #eef2ff;
+            border-left: 4px solid #4f46e5;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #312e81;
+        }
+        
+        .preview-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .preview-section.show {
+            display: block;
+        }
+        
+        .preview-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 16pt;
+        }
+        
+        .schedule-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .schedule-table th {
+            background: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .schedule-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .export-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-radius: 10px;
+            border-left: 4px solid #0066cc;
+        }
+        
+        .export-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 10pt;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #004499;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-outline {
+            background: #ffffff;
+            color: #0066cc;
+            border: 1px solid #0066cc;
+        }
+        
+        .btn-outline:hover {
+            background: #e6f0ff;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid;
+            font-size: 10pt;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .action-button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 9pt;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .action-button:hover {
+            background: #b02a37;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Largo Lab Schedule Manager</h1>
+            <p>Direct Integration with Existing Scheduler Files</p>
+            <div id="systemStatus" style="margin-top: 10px; font-size: 9pt; padding: 8px; background: rgba(255,255,255,0.2); border-radius: 4px;">
+                🔄 Loading system components...
+            </div>
+        </div>
+
+        <div class="main-content">
+            <section class="upload-section" id="uploadSection">
+                <h2>Upload Existing Schedule</h2>
+                <p>Use a published schedule file to auto-fill the roster builder. Upload HTML, PDF, or image exports from the current scheduler.</p>
+                <div class="upload-controls">
+                    <button type="button" class="btn btn-outline" id="uploadButton">📤 Upload Schedule</button>
+                    <button type="button" class="btn btn-secondary" id="clearUploadButton">♻️ Reset Upload</button>
+                    <p class="upload-hint">Tip: Clear upload keeps roster entries so you can compare manual vs. imported data.</p>
+                </div>
+                <p class="upload-status" id="uploadStatus" data-state="idle">No file selected yet.</p>
+                <input type="file" id="scheduleFileInput" accept=".html,.htm,.pdf,.jpg,.jpeg,.png,.gif" style="display:none">
+            </section>
+
+            <section class="builder-section" id="builderSection">
+                <div class="builder-header">
+                    <div>
+                        <h2>Schedule Builder</h2>
+                        <p>Create the daily coverage by selecting staff from the roster or adding custom names with specific shifts.</p>
+                    </div>
+                    <div class="builder-date">
+                        <label for="scheduleDateInput">📅 Schedule Date</label>
+                        <input type="date" id="scheduleDateInput">
+                    </div>
+                </div>
+
+                <div class="builder-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teamSelect">Team</label>
+                            <select id="teamSelect">
+                                <option value="phleb">Phlebotomy</option>
+                                <option value="lab">Laboratory</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="staffSelect">Staff Member</label>
+                            <select id="staffSelect"></select>
+                            <small id="staffMetaHint" class="form-hint"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="shiftPresetSelect">Shift Preset</label>
+                            <select id="shiftPresetSelect"></select>
+                            <small id="shiftPresetHint" class="form-hint">Choose a preset or select Custom to edit times.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" id="customNameGroup" style="display: none;">
+                            <label for="customNameInput">Custom Name</label>
+                            <input type="text" id="customNameInput" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group custom-shift-fields" id="customShiftFields">
+                            <div class="custom-shift-field">
+                                <label for="shiftStartInput">Shift Start</label>
+                                <input type="time" id="shiftStartInput">
+                            </div>
+                            <div class="custom-shift-field">
+                                <label for="shiftEndInput">Shift End</label>
+                                <input type="time" id="shiftEndInput">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" id="deptGroup">
+                            <label for="deptInput">Department</label>
+                            <input type="text" id="deptInput" placeholder="e.g., MLS">
+                        </div>
+                        <div class="form-group flex">
+                            <label for="assignmentInput" id="assignmentLabel">Role / Assignment</label>
+                            <input type="text" id="assignmentInput" placeholder="e.g., Opener">
+                        </div>
+                        <div class="form-group flex">
+                            <label for="breaksInput">Break Notes (optional)</label>
+                            <input type="text" id="breaksInput" placeholder="10:00 AM; 1:00 PM">
+                        </div>
+                        <div class="form-group button-group">
+                            <button type="button" class="btn btn-primary" id="addStaffButton">➕ Add to Schedule</button>
+                            <button type="button" class="btn btn-secondary" id="clearFormButton">Reset Form</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-actions">
+                    <button type="button" class="btn btn-outline" id="clearScheduleButton">🗑️ Clear All Entries</button>
+                </div>
+            </section>
+
+            <div id="alertContainer"></div>
+
+            <div class="preview-section" id="previewSection">
+                <h3>📋 Extracted Schedule Data</h3>
+                <div class="schedule-preview" id="schedulePreview"></div>
+            </div>
+
+            <div class="export-section">
+                <h3>💾 Update Scheduler Files</h3>
+                <p style="font-size: 9pt; color: #666; margin-bottom: 15px;">
+                    Click a button below to update the corresponding scheduler. Then refresh that scheduler page to see the changes.
+                </p>
+                <div class="export-buttons">
+                    <button class="btn btn-primary" onclick="updateDailySchedule()" id="btnDaily">
+                        📅 Update Daily Schedule.html
+                    </button>
+                    <button class="btn btn-primary" onclick="updateVisualSchedule()" id="btnVisual">
+                        📊 Update Scheduler.html (Visual)
+                    </button>
+                    <button class="btn btn-primary" onclick="updateGridSchedule()" id="btnGrid">
+                        🚨 Update Call Out Tracker
+                    </button>
+                    <button class="btn btn-success" onclick="updateAllSchedulers()" id="btnAll">
+                        💫 Update All Schedulers
+                    </button>
+                    <button class="btn" onclick="debugLocalStorage()" style="background: #6c757d;">
+                        🔍 Debug Storage
+                    </button>
+                    <button class="btn" onclick="testWithSampleData()" style="background: #17a2b8;">
+                        🧪 Test with Sample Data
+                    </button>
+                    <button class="btn" onclick="testParsingWithSampleText()" style="background: #28a745;">
+                        🧪 Test Text Parsing
+                    </button>
+                    <button class="btn" onclick="exportSystemState()" style="background: #6f42c1; color: white;">
+                        📁 Export Debug Data
+                    </button>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px; font-size: 8pt; color: #666;">
+                    <strong>⌨️ Keyboard Shortcuts:</strong> Alt+D (Debug) | Alt+E (Export) | Alt+U (Update All)
+                </div>
+                <div id="updateInstructions" style="display: none; margin-top: 20px; padding: 15px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
+                    <h4 style="color: #155724; margin-bottom: 10px;">✅ Update Complete!</h4>
+                    <ol style="font-size: 9pt; color: #155724; margin-left: 20px;">
+                        <li>Open the target scheduler file(s)</li>
+                        <li><strong>Navigate to the correct date</strong> using the date picker or navigation buttons</li>
+                        <li>The schedule data will load automatically when you navigate to the scheduled date</li>
+                        <li>If no data appears, check the browser console (F12) for debugging info</li>
+                    </ol>
+                    <div style="background: #bee5eb; padding: 10px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #0c5460;">
+                        <strong>💡 Tip:</strong> The files default to October 2, 2025. Use the date navigation to go to your scheduled date.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let extractedData = null;
+        let scheduleDate = null;
+        let lastOcrText = '';
+        let lastParsedLines = [];
+        let lastUploadedFileName = '';
+        let lastUploadSource = '';
+        let uploadStatusEl = null;
+
+        function getUploadStatusElement() {
+            if (!uploadStatusEl) {
+                uploadStatusEl = document.getElementById('uploadStatus');
+            }
+            return uploadStatusEl;
+        }
+
+        function updateUploadStatus(message, state = 'info') {
+            const el = getUploadStatusElement();
+            if (el) {
+                el.textContent = message;
+                el.setAttribute('data-state', state);
+            }
+        }
+
+        function resetUploadStatus(message = 'No file selected yet.') {
+            lastUploadedFileName = '';
+            lastUploadSource = '';
+            updateUploadStatus(message, 'idle');
+        }
+
+        function getUploadContextLabel() {
+            if (lastUploadedFileName) {
+                return lastUploadedFileName;
+            }
+            if (lastUploadSource) {
+                return `the ${lastUploadSource}`;
+            }
+            return 'the uploaded file';
+        }
+
+        function markUploadSuccess(phlebCount, labCount) {
+            const label = getUploadContextLabel();
+            updateUploadStatus(`Extracted ${phlebCount} phlebotomy and ${labCount} laboratory entries from ${label}.`, 'success');
+        }
+
+        function markUploadFailure(message) {
+            updateUploadStatus(message, 'error');
+        }
+
+        function processUploadedFile(file, sourceLabel = '') {
+            if (!file) {
+                resetUploadStatus('No file selected.');
+                return;
+            }
+
+            const fileType = (file.name.split('.').pop() || '').toLowerCase();
+
+            lastUploadedFileName = file.name;
+            lastUploadSource = sourceLabel || fileType || 'uploaded file';
+
+            showAlert(`📁 Processing ${file.name}...`, 'info');
+            updateUploadStatus(`Processing ${file.name}...`, 'info');
+
+            // Try to extract date from filename first
+            extractDateFromText(file.name);
+
+            if (fileType === 'html' || fileType === 'htm') {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const htmlContent = event.target.result;
+                    parseScheduleHTML(htmlContent);
+                };
+                reader.readAsText(file);
+            } else if (fileType === 'pdf') {
+                parsePDFFile(file);
+            } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileType)) {
+                parseImageFile(file);
+            } else {
+                showAlert('❌ Unsupported file type. Please upload HTML, PDF, or image files.', 'info');
+                markUploadFailure(`Unsupported file type: ${fileType.toUpperCase()}.`);
+                const fileInput = document.getElementById('scheduleFileInput');
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+            }
+        }
+
+        function setupUploadControls() {
+            const uploadButton = document.getElementById('uploadButton');
+            const clearUploadButton = document.getElementById('clearUploadButton');
+            const fileInput = document.getElementById('scheduleFileInput');
+            const uploadSection = document.getElementById('uploadSection');
+
+            if (fileInput) {
+                fileInput.addEventListener('change', (event) => {
+                    const input = event.target;
+                    const file = input.files && input.files[0];
+                    const origin = (input.dataset && input.dataset.uploadOrigin) || 'file picker';
+                    if (file) {
+                        processUploadedFile(file, origin);
+                    } else {
+                        resetUploadStatus('No file selected.');
+                    }
+                    if (input.dataset) {
+                        input.dataset.uploadOrigin = '';
+                    }
+                });
+            }
+
+            if (uploadButton && fileInput) {
+                uploadButton.addEventListener('click', () => {
+                    if (fileInput.dataset) {
+                        fileInput.dataset.uploadOrigin = 'upload button';
+                    }
+                    fileInput.click();
+                });
+            }
+
+            if (clearUploadButton) {
+                clearUploadButton.addEventListener('click', () => {
+                    if (fileInput) {
+                        fileInput.value = '';
+                        if (fileInput.dataset) {
+                            fileInput.dataset.uploadOrigin = '';
+                        }
+                    }
+                    lastUploadedFileName = '';
+                    lastUploadSource = 'reset control';
+                    if (hasScheduleEntries()) {
+                        updateUploadStatus('Upload cleared. Existing roster entries preserved.', 'info');
+                    } else {
+                        resetUploadStatus('Upload cleared. Ready for a new file.');
+                    }
+                    showAlert('♻️ Upload context reset. You can upload a new file anytime.', 'info');
+                });
+            }
+
+            if (uploadSection) {
+                const preventDefaults = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                };
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadSection.addEventListener(eventName, (event) => {
+                        preventDefaults(event);
+                        uploadSection.classList.add('drag-over');
+                    });
+                });
+
+                ['dragleave', 'dragend', 'drop'].forEach(eventName => {
+                    uploadSection.addEventListener(eventName, (event) => {
+                        preventDefaults(event);
+                        uploadSection.classList.remove('drag-over');
+                    });
+                });
+
+                uploadSection.addEventListener('drop', (event) => {
+                    const files = event.dataTransfer?.files;
+                    if (files && files.length > 0) {
+                        processUploadedFile(files[0], 'drag-and-drop upload');
+                    } else {
+                        updateUploadStatus('Drag-and-drop did not include a file.', 'error');
+                    }
+                });
+            }
+
+            resetUploadStatus();
+        }
+
+        // ===== PRODUCTION LOGGING & ERROR RECOVERY =====
+        const Logger = {
+            logs: [],
+            maxLogs: 100,
+
+            log: function(level, message, data = null) {
+                const timestamp = new Date().toISOString();
+                const logEntry = {
+                    timestamp,
+                    level,
+                    message,
+                    data: data ? JSON.stringify(data) : null,
+                    userAgent: navigator.userAgent,
+                    url: window.location.href
+                };
+
+                this.logs.unshift(logEntry);
+                if (this.logs.length > this.maxLogs) {
+                    this.logs.pop();
+                }
+
+                // Console output with proper formatting
+                const consoleMethod = level === 'ERROR' ? 'error' : level === 'WARN' ? 'warn' : 'log';
+                console[consoleMethod](`[${timestamp}] [${level}] ${message}`, data || '');
+
+                // Store in localStorage for debugging
+                try {
+                    localStorage.setItem('schedule_manager_logs', JSON.stringify(this.logs.slice(0, 50)));
+                } catch (e) {
+                    // Ignore storage errors
+                }
+            },
+
+            info: function(message, data) {
+                this.log('INFO', message, data);
+            },
+            warn: function(message, data) {
+                this.log('WARN', message, data);
+            },
+            error: function(message, data) {
+                this.log('ERROR', message, data);
+            },
+
+            getLogs: function() {
+                return this.logs;
+            },
+
+            exportLogs: function() {
+                const logData = {
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    url: window.location.href,
+                    logs: this.logs
+                };
+
+                const blob = new Blob([JSON.stringify(logData, null, 2)], {
+                    type: 'application/json'
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `schedule_manager_logs_${new Date().getTime()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        // Global error handler
+        window.addEventListener('error', function(event) {
+            Logger.error('Global Error', {
+                message: event.message,
+                filename: event.filename,
+                lineno: event.lineno,
+                colno: event.colno,
+                stack: event.error?.stack
+            });
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(event) {
+            Logger.error('Unhandled Promise Rejection', {
+                reason: event.reason,
+                stack: event.reason?.stack
+            });
+        });
+
+        // Recovery system
+        const Recovery = {
+            saveState: function() {
+                try {
+                    const state = {
+                        extractedData,
+                        scheduleDate,
+                        timestamp: new Date().toISOString()
+                    };
+                    localStorage.setItem('schedule_manager_recovery', JSON.stringify(state));
+                    Logger.info('State saved for recovery');
+                } catch (e) {
+                    Logger.error('Failed to save recovery state', e);
+                }
+            },
+
+            loadState: function() {
+                try {
+                    const saved = localStorage.getItem('schedule_manager_recovery');
+                    if (saved) {
+                        const state = JSON.parse(saved);
+                        const age = Date.now() - new Date(state.timestamp).getTime();
+
+                        // Only restore if less than 24 hours old
+                        if (age < 24 * 60 * 60 * 1000) {
+                            extractedData = state.extractedData;
+                            scheduleDate = state.scheduleDate;
+                            Logger.info('Recovery state loaded', {
+                                age: Math.round(age / 60000) + ' minutes ago'
+                            });
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    Logger.error('Failed to load recovery state', e);
+                }
+                return false;
+            },
+
+            clearState: function() {
+                localStorage.removeItem('schedule_manager_recovery');
+                Logger.info('Recovery state cleared');
+            }
+        };
+
+        // Initialize logging
+        Logger.info('Schedule Manager Enhanced - Production Version Initialized');
+
+        // Auto-save state when data changes
+        function saveState() {
+            Recovery.saveState();
+        }
+
+        // ===== STAFF ROSTER =====
+        // Complete staff list with their typical shifts
+        const staffRoster = {
+            phlebotomy: [{
+                name: 'Anne Saint Phirin',
+                nickname: 'Anne',
+                employeeId: 'G191226',
+                email: 'Anne.T.Saint-Phirin@kp.org',
+                phone: '(227) 213-8358',
+                hireDate: '2016-10-30',
+                role: 'Phlebotomist',
+                shift: '8:00a - 4:30p'
+            }, {
+                name: 'Christina Bolden-Davis',
+                nickname: 'Christina',
+                employeeId: 'B469877',
+                email: 'Christina.N.Bolden-Davis@kp.org',
+                phone: '(202) 375-8459',
+                hireDate: '2016-11-27',
+                role: 'Phlebotomist',
+                shift: '6:00a - 2:30p'
+            }, {
+                name: 'Danalisa Hayes',
+                nickname: 'Danalisa/Janalisa',
+                employeeId: 'H418243',
+                email: 'Danalisa.E.Hayes@kp.org',
+                phone: '(301) 568-1829',
+                hireDate: '2008-05-04',
+                role: 'Evening Phlebotomist',
+                shift: '2:00p - 10:30p'
+            }, {
+                name: 'Emmanuella Theodore',
+                nickname: 'Emmanuella/Emma/Shannon',
+                employeeId: 'E100889',
+                email: 'Emmanuella.Theodore@kp.org',
+                phone: '(202) 716-1499',
+                hireDate: '2016-08-07',
+                role: 'Phlebotomist',
+                shift: 'TBD'
+            }, {
+                name: 'Farah Moise',
+                nickname: 'Farah',
+                employeeId: 'I308821',
+                email: 'Farah.F.Moise@kp.org',
+                phone: '(240) 355-6515',
+                hireDate: '2022-02-13',
+                role: 'Phlebotomist',
+                shift: '8:00a - 4:30p'
+            }, {
+                name: 'Johnette Brooks',
+                nickname: 'Johnette/Netta',
+                employeeId: 'M391610',
+                email: 'Johnette.L.Brooks@kp.org',
+                phone: '(301) 275-9567',
+                hireDate: '2017-05-14',
+                role: 'Phlebotomist',
+                shift: '7:00a - 3:30p'
+            }, {
+                name: 'Lakeshia Battle',
+                nickname: 'Lakeshia/Keshia/Larry',
+                employeeId: 'L296279',
+                email: 'Keshia.A.Battle@kp.org',
+                phone: '(301) 828-6336',
+                hireDate: '2023-07-16',
+                role: 'Phlebotomist',
+                shift: 'TBD'
+            }, {
+                name: 'Micaela Scarborough',
+                nickname: 'Micaela',
+                employeeId: 'I441746',
+                email: 'Micaela.X.Scarborough@kp.org',
+                phone: '(443) 991-0888',
+                hireDate: '2022-07-03',
+                role: 'Runner / Phlebotomist',
+                shift: '8:00a - 12:00p'
+            }, {
+                name: 'Nichole Fauntleroy',
+                nickname: 'Nichole',
+                employeeId: 'X044352',
+                email: 'Nichole.X.Fauntleroy@kp.org',
+                phone: '(443) 231-8396',
+                hireDate: '2023-07-02',
+                role: 'Evening Phlebotomist',
+                shift: '2:00p - 10:30p'
+            }, {
+                name: 'Stephanie Dodson',
+                nickname: 'Stephanie',
+                employeeId: 'P838373',
+                email: 'Stephanie.J.Dodson@kp.org',
+                phone: '(202) 568-3007',
+                hireDate: '2014-08-01',
+                role: 'Evening Phlebotomist',
+                shift: '2:00p - 10:30p'
+            }, {
+                name: 'Taric White',
+                nickname: 'Taric',
+                employeeId: 'A298633',
+                email: 'Taric.X.White@kp.org',
+                phone: '(240) 682-4322',
+                hireDate: '2023-07-16',
+                role: 'Evening Support',
+                shift: '5:00p - 9:00p'
+            }, {
+                name: 'Youlana Miah',
+                nickname: 'Youlana/Netta',
+                employeeId: 'P214486',
+                email: 'Youlana.Miah@kp.org',
+                phone: '(301) 404-8949',
+                hireDate: '2016-04-03',
+                role: 'Phlebotomist',
+                shift: '6:00a - 2:30p'
+            }],
+            laboratory: [{
+                name: 'Lorraine Blackwell',
+                nickname: 'Lorraine',
+                employeeId: 'O975731',
+                email: 'Lorraine.M.Blackwell@kp.org',
+                phone: '(240) 841-6490',
+                hireDate: '2000-07-31',
+                dept: 'MLA',
+                assignment: 'MLA - Laboratory Operations',
+                shift: '8:00a - 4:30p'
+            }, {
+                name: 'Francis Azih Ngene',
+                nickname: 'Francis',
+                employeeId: 'K985930',
+                email: 'Francis.Azih-Ngene@kp.org',
+                phone: '(301) 437-3317',
+                hireDate: '2015-11-01',
+                dept: 'MLS',
+                assignment: 'MLS - Core Lab',
+                shift: '7:30a - 4:00p'
+            }, {
+                name: 'Albert Che',
+                nickname: 'Albert',
+                employeeId: 'E715825',
+                email: 'Albert.Che@kp.org',
+                phone: '(240) 441-2206',
+                hireDate: '2015-10-18',
+                dept: 'MLS',
+                assignment: 'MLS - Evening Shift',
+                shift: '3:30p - 12:00a'
+            }, {
+                name: 'George Etape',
+                nickname: 'George',
+                employeeId: 'B799280',
+                email: 'George.T.Etape@kp.org',
+                phone: '(240) 938-3314',
+                hireDate: '2022-08-14',
+                dept: 'MLS',
+                assignment: 'MLS - Night Shift',
+                shift: '11:30p - 8:00a'
+            }, {
+                name: 'Ingrid Benitez-Ruiz',
+                nickname: 'Ingrid',
+                employeeId: 'Z711849',
+                email: 'Ingrid.Z.Benitez-Ruiz@kp.org',
+                phone: '(202) 894-5149',
+                hireDate: '2010-08-15',
+                dept: 'MLS',
+                assignment: 'MLS - Day Shift',
+                shift: '7:30a - 4:00p'
+            }, {
+                name: 'Jacqueline Liburd',
+                nickname: 'Jacqueline/Jackie',
+                employeeId: 'G600902',
+                email: 'Jacqueline.E.Liburd@kp.org',
+                phone: '(202) 297-5269',
+                hireDate: '1994-06-11',
+                dept: 'MLS',
+                assignment: 'MLS - Night Shift',
+                shift: '11:30p - 8:00a'
+            }, {
+                name: 'Samuel Lawson',
+                nickname: 'Samuel',
+                employeeId: 'P171374',
+                email: 'Samuel.D.Lawson@kp.org',
+                phone: '(240) 413-1001',
+                hireDate: '2003-09-04',
+                dept: 'MLS',
+                assignment: 'MLS - Evening Shift',
+                shift: '3:30p - 12:00a'
+            }, {
+                name: 'Emily Creekmore',
+                nickname: 'Emily',
+                employeeId: 'F196088',
+                email: 'Emily.D.Creekmore@kp.org',
+                phone: '(601) 965-2300',
+                hireDate: '2022-09-11',
+                dept: 'MLT',
+                assignment: 'MLT - Day Shift',
+                shift: '7:30a - 4:00p'
+            }, {
+                name: 'Emmanuel Lejano',
+                nickname: 'Emmanuel/Boyet',
+                employeeId: 'S476844',
+                email: 'Emmanuel.M.Lejano@kp.org',
+                phone: '(301) 792-4483',
+                hireDate: '2016-04-17',
+                dept: 'MLT',
+                assignment: 'MLT - Night Coverage',
+                shift: '9:30p - 6:00a'
+            }, {
+                name: 'Maxwell Booker',
+                nickname: 'Maxwell',
+                employeeId: 'C221245',
+                email: 'Maxwell.L.Booker@kp.org',
+                phone: '(301) 499-2712',
+                hireDate: '2016-06-26',
+                dept: 'MLT',
+                assignment: 'MLT - TBD',
+                shift: 'TBD'
+            }, {
+                name: 'Ogheneochuko Eshofa',
+                nickname: 'Ogheneochuko/Tracy',
+                employeeId: 'I909813',
+                email: 'Ogheneochuko.T.Eshofa@kp.org',
+                phone: '(240) 825-8236',
+                hireDate: '2023-09-10',
+                dept: 'MLT',
+                assignment: 'MLT - Night Support',
+                shift: '9:30p - 12:00a / 9:30p - 6:00a'
+            }]
+        };
+
+        // Staff name mapping for corrections
+        const staffNameMap = {
+            'TRACY': 'Ogheneochuko Eshofa',
+            'ESHOFA': 'Ogheneochuko Eshofa',
+            'BOYET': 'Emmanuel Lejano',
+            'LEJANO': 'Emmanuel Lejano',
+            'NETTA': 'Johnette Brooks',
+            'BROOKS': 'Johnette Brooks',
+            'LARRY': 'Lakeshia Battle',
+            'FRAZIER': 'Lakeshia Battle',
+            'LONDON': 'Lakeshia Battle',
+            'MERRIMAN': 'Lakeshia Battle',
+            'SHANNON': 'Emmanuella Theodore',
+            'PILKINGTON': 'Emmanuella Theodore',
+            'EMMA': 'Emmanuella Theodore',
+            'JANALISA': 'Danalisa Hayes',
+            'JACKIE': 'Jacqueline Liburd',
+            'LIBURD': 'Jacqueline Liburd',
+            'RACHEL': 'Raquel Grayson',
+            'RAQUEL': 'Raquel Grayson'
+        };
+
+        const rosterByTeam = {
+            phleb: staffRoster.phlebotomy,
+            lab: staffRoster.laboratory
+        };
+
+        const CATEGORY_PRIORITIES = {
+            'Leadership & Supervisors': 0,
+            'Morning Coverage': 1,
+            'Day Coverage': 2,
+            'Afternoon Coverage': 3,
+            'Evening Coverage': 4,
+            'Overnight Coverage': 5,
+            'Variable / TBD': 6
+        };
+
+        function groupStaffByCategory(team) {
+            const roster = rosterByTeam[team] || [];
+            const grouping = new Map();
+
+            roster.forEach(staff => {
+                const category = team === 'phleb' ?
+                    derivePhlebotomyCategory(staff) :
+                    deriveLaboratoryCategory(staff);
+
+                if (!grouping.has(category)) {
+                    grouping.set(category, []);
+                }
+                grouping.get(category).push(staff);
+            });
+
+            return Array.from(grouping.entries()).map(([label, members]) => ({
+                label,
+                members: members.sort((a, b) => a.name.localeCompare(b.name))
+            })).sort((a, b) => {
+                const aPriority = CATEGORY_PRIORITIES[a.label] ?? 50;
+                const bPriority = CATEGORY_PRIORITIES[b.label] ?? 50;
+                if (aPriority !== bPriority) {
+                    return aPriority - bPriority;
+                }
+                return a.label.localeCompare(b.label);
+            });
+        }
+
+        function derivePhlebotomyCategory(staff) {
+            if (!staff) return 'Variable / TBD';
+            if (staff.role && /lead|supervisor|coordinator/i.test(staff.role)) {
+                return 'Leadership & Supervisors';
+            }
+
+            const parsedShift = parseShiftString(staff.shift || '') || {};
+            const shiftStart = parsedShift.start || '';
+            if (shiftStart) {
+                const [hourPart, minutePart] = shiftStart.split(':');
+                const hours = parseInt(hourPart, 10);
+                const minutes = parseInt(minutePart || '0', 10);
+                const decimal = hours + minutes / 60;
+                if (decimal < 9) return 'Morning Coverage';
+                if (decimal < 13) return 'Day Coverage';
+                if (decimal < 17) return 'Afternoon Coverage';
+                if (decimal < 22) return 'Evening Coverage';
+                return 'Overnight Coverage';
+            }
+
+            if (staff.shift && /night/i.test(staff.shift)) {
+                return 'Overnight Coverage';
+            }
+            if (staff.shift && /evening/i.test(staff.shift)) {
+                return 'Evening Coverage';
+            }
+            return 'Variable / TBD';
+        }
+
+        function deriveLaboratoryCategory(staff) {
+            if (!staff) return 'Laboratory - General';
+            const dept = staff.dept ? staff.dept.toUpperCase() : 'GENERAL';
+            let label = `Laboratory - ${dept}`;
+
+            if (staff.assignment) {
+                if (/night/i.test(staff.assignment)) {
+                    label += ' (Night)';
+                } else if (/evening/i.test(staff.assignment)) {
+                    label += ' (Evening)';
+                } else if (/(day|core|general)/i.test(staff.assignment)) {
+                    label += ' (Day)';
+                }
+            }
+
+            return label;
+        }
+
+        function extractShiftVariants(shiftText) {
+            if (!shiftText) return [];
+            const cleaned = shiftText.replace(/\s+/g, ' ').trim();
+            if (!cleaned) return [];
+
+            const parts = cleaned.split(/[/\\]|\bor\b|\, /i)
+                .map(part => part.trim())
+                .filter(Boolean);
+
+            return parts.length ? parts : [cleaned];
+        }
+
+        function normalizeShiftString(value) {
+            return (value || '')
+                .toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/am/g, 'a')
+                .replace(/pm/g, 'p');
+        }
+
+        function getTeamShiftOptions(team) {
+            const roster = rosterByTeam[team] || [];
+            const optionMap = new Map();
+
+            roster.forEach(staff => {
+                extractShiftVariants(staff.shift).forEach(variant => {
+                    const normalized = normalizeShiftString(variant);
+                    if (!normalized || /tbd|variable|various/i.test(variant)) {
+                        return;
+                    }
+
+                    if (!optionMap.has(normalized)) {
+                        const parsed = parseShiftString(variant);
+                        if (parsed && parsed.start && parsed.end) {
+                            optionMap.set(normalized, {
+                                value: variant,
+                                label: variant,
+                                start: parsed.start,
+                                end: parsed.end,
+                                sortKey: convertTimeToDecimal(parsed.start)
+                            });
+                        }
+                    }
+                });
+            });
+
+            return Array.from(optionMap.values()).sort((a, b) => {
+                const aKey = a.sortKey ?? 999;
+                const bKey = b.sortKey ?? 999;
+                if (aKey !== bKey) {
+                    return aKey - bKey;
+                }
+                return a.label.localeCompare(b.label);
+            });
+        }
+
+        function updateShiftPresetOptions(team, staff) {
+            const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+            if (!shiftPresetSelect) return;
+
+            const previousValue = shiftPresetSelect.value;
+            shiftPresetSelect.innerHTML = '';
+
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = 'Select shift preset…';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            shiftPresetSelect.appendChild(placeholder);
+
+            const options = getTeamShiftOptions(team);
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value;
+                optionElement.textContent = option.label;
+                optionElement.dataset.start = option.start || '';
+                optionElement.dataset.end = option.end || '';
+                shiftPresetSelect.appendChild(optionElement);
+            });
+
+            const customOption = document.createElement('option');
+            customOption.value = 'custom';
+            customOption.textContent = 'Custom (enter start & end)';
+            shiftPresetSelect.appendChild(customOption);
+
+            let targetValue = '';
+            if (staff && staff.shift) {
+                const variants = extractShiftVariants(staff.shift);
+                const matched = variants.find(variant => options.some(opt => normalizeShiftString(opt.value) === normalizeShiftString(variant)));
+                if (matched) {
+                    targetValue = matched;
+                }
+            }
+
+            if (!targetValue && previousValue && previousValue !== 'custom') {
+                const hasPrevious = options.some(opt => opt.value === previousValue);
+                if (hasPrevious) {
+                    targetValue = previousValue;
+                }
+            }
+
+            if (targetValue) {
+                shiftPresetSelect.value = targetValue;
+            } else if (staff) {
+                shiftPresetSelect.value = staff.shift && /tbd|variable|various/i.test(staff.shift) ? 'custom' : '';
+            } else {
+                shiftPresetSelect.value = '';
+            }
+
+            applyShiftSelection(shiftPresetSelect.value);
+        }
+
+        function applyShiftSelection(selectedValue) {
+            const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+            const shiftPresetHint = document.getElementById('shiftPresetHint');
+            const customFields = document.getElementById('customShiftFields');
+            const shiftStartInput = document.getElementById('shiftStartInput');
+            const shiftEndInput = document.getElementById('shiftEndInput');
+
+            if (!shiftPresetSelect || !customFields || !shiftStartInput || !shiftEndInput) return;
+
+            const setHint = (text) => {
+                if (!shiftPresetHint) return;
+                shiftPresetHint.textContent = text || 'Choose a preset or select Custom to edit times.';
+            };
+
+            const findOption = (value) => {
+                const safeValue = (typeof CSS !== 'undefined' && CSS.escape) ? CSS.escape(value) : value.replace(/(["\\\[\]])/g, '\\$1');
+                return shiftPresetSelect.querySelector(`option[value="${safeValue}"]`);
+            };
+
+            if (!selectedValue) {
+                customFields.classList.remove('disabled');
+                shiftStartInput.disabled = false;
+                shiftEndInput.disabled = false;
+                shiftStartInput.value = '';
+                shiftEndInput.value = '';
+                setHint('Choose a preset or select Custom to edit times.');
+                return;
+            }
+
+            if (selectedValue === 'custom') {
+                customFields.classList.remove('disabled');
+                shiftStartInput.disabled = false;
+                shiftEndInput.disabled = false;
+                setHint('Custom times enabled. Enter start and end.');
+                if (!shiftStartInput.value) {
+                    shiftStartInput.focus();
+                }
+                return;
+            }
+
+            const optionElement = findOption(selectedValue);
+            if (optionElement) {
+                const start = optionElement.dataset.start || '';
+                const end = optionElement.dataset.end || '';
+                if (start) shiftStartInput.value = start;
+                if (end) shiftEndInput.value = end;
+            }
+
+            customFields.classList.add('disabled');
+            shiftStartInput.disabled = true;
+            shiftEndInput.disabled = true;
+            setHint('Preset applied. Times locked to roster defaults. Choose Custom to adjust.');
+        }
+
+        function updateStaffMetaHint(team, staff) {
+            const hint = document.getElementById('staffMetaHint');
+            if (!hint) return;
+
+            if (!staff) {
+                hint.textContent = '';
+                hint.style.display = 'none';
+                return;
+            }
+
+            const pieces = [];
+            if (team === 'phleb') {
+                if (staff.role) pieces.push(staff.role);
+            } else {
+                if (staff.dept) pieces.push(staff.dept);
+                if (staff.assignment) pieces.push(staff.assignment);
+            }
+            if (staff.shift) pieces.push(staff.shift);
+
+            hint.textContent = pieces.join(' • ');
+            hint.style.display = pieces.length ? 'block' : 'none';
+        }
+
+        function initializeScheduleBuilder() {
+            if (!extractedData) {
+                extractedData = {
+                    phleb: [],
+                    lab: []
+                };
+            }
+
+            // Initialize upload controls
+            setupUploadControls();
+
+            const dateInput = document.getElementById('scheduleDateInput');
+            if (dateInput) {
+                if (!scheduleDate) {
+                    const today = new Date();
+                    scheduleDate = today.toISOString().split('T')[0];
+                }
+                dateInput.value = scheduleDate;
+                dateInput.addEventListener('change', () => {
+                    scheduleDate = dateInput.value;
+                    saveState();
+                    displayPreview();
+                });
+            }
+
+            const teamSelect = document.getElementById('teamSelect');
+            const staffSelect = document.getElementById('staffSelect');
+            const addStaffButton = document.getElementById('addStaffButton');
+            const clearFormButton = document.getElementById('clearFormButton');
+            const clearScheduleButton = document.getElementById('clearScheduleButton');
+            const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+            const staffHint = document.getElementById('staffMetaHint');
+
+            if (staffHint) {
+                staffHint.style.display = 'none';
+            }
+
+            if (teamSelect && staffSelect) {
+                const initialTeam = teamSelect.value || 'phleb';
+                populateStaffSelect(initialTeam);
+                updateBuilderFieldsForTeam(initialTeam);
+                updateShiftPresetOptions(initialTeam, null);
+                applyShiftSelection('');
+
+                teamSelect.addEventListener('change', () => {
+                    populateStaffSelect(teamSelect.value);
+                    updateBuilderFieldsForTeam(teamSelect.value);
+                    updateShiftPresetOptions(teamSelect.value, null);
+                    handleStaffSelection(teamSelect.value, staffSelect.value);
+                });
+
+                staffSelect.addEventListener('change', () => {
+                    handleStaffSelection(teamSelect.value, staffSelect.value);
+                });
+
+                handleStaffSelection(initialTeam, staffSelect.value);
+            }
+
+            if (addStaffButton) {
+                addStaffButton.addEventListener('click', addStaffEntryFromForm);
+            }
+
+            if (clearFormButton) {
+                clearFormButton.addEventListener('click', clearBuilderForm);
+            }
+
+            if (clearScheduleButton) {
+                clearScheduleButton.addEventListener('click', clearScheduleEntries);
+            }
+
+            if (shiftPresetSelect) {
+                shiftPresetSelect.addEventListener('change', () => {
+                    applyShiftSelection(shiftPresetSelect.value);
+                });
+            }
+
+            displayPreview();
+        }
+
+        function populateStaffSelect(team) {
+            const staffSelect = document.getElementById('staffSelect');
+            if (!staffSelect) return;
+
+            staffSelect.innerHTML = '';
+
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = 'Select staff member…';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            staffSelect.appendChild(placeholder);
+
+            const groupedStaff = groupStaffByCategory(team);
+            groupedStaff.forEach(group => {
+                if (!group.members.length) return;
+                const optGroup = document.createElement('optgroup');
+                optGroup.label = group.label;
+
+                group.members.forEach(staff => {
+                    const option = document.createElement('option');
+                    option.value = staff.name;
+                    option.textContent = staff.name;
+                    option.dataset.staffShift = staff.shift || '';
+                    option.dataset.staffRole = staff.role || staff.assignment || '';
+                    option.dataset.staffDept = staff.dept || (team === 'phleb' ? 'Phlebotomy' : 'Laboratory');
+                    optGroup.appendChild(option);
+                });
+
+                staffSelect.appendChild(optGroup);
+            });
+
+            const customOption = document.createElement('option');
+            customOption.value = 'custom';
+            customOption.textContent = '➕ Add custom name';
+            staffSelect.appendChild(customOption);
+        }
+
+        function updateBuilderFieldsForTeam(team) {
+            const deptGroup = document.getElementById('deptGroup');
+            const assignmentLabel = document.getElementById('assignmentLabel');
+
+            if (team === 'phleb') {
+                if (deptGroup) {
+                    deptGroup.style.display = 'none';
+                    const deptInput = document.getElementById('deptInput');
+                    if (deptInput) {
+                        deptInput.value = 'Phlebotomy';
+                    }
+                }
+                if (assignmentLabel) {
+                    assignmentLabel.textContent = 'Role';
+                }
+            } else {
+                if (deptGroup) {
+                    deptGroup.style.display = '';
+                }
+                if (assignmentLabel) {
+                    assignmentLabel.textContent = 'Assignment';
+                }
+            }
+        }
+
+        function handleStaffSelection(team, value) {
+            const customGroup = document.getElementById('customNameGroup');
+            const customInput = document.getElementById('customNameInput');
+
+            if (value === 'custom') {
+                if (customGroup) customGroup.style.display = '';
+                if (customInput) customInput.value = '';
+                updateStaffMetaHint(team, null);
+                updateShiftPresetOptions(team, null);
+                const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+                if (shiftPresetSelect) {
+                    shiftPresetSelect.value = 'custom';
+                }
+                applyShiftSelection('custom');
+                prefillFieldsFromRoster(team, null);
+                return;
+            }
+
+            if (customGroup) customGroup.style.display = 'none';
+            if (customInput) customInput.value = '';
+
+            if (!value) {
+                updateStaffMetaHint(team, null);
+                updateShiftPresetOptions(team, null);
+                prefillFieldsFromRoster(team, null);
+                return;
+            }
+
+            const roster = rosterByTeam[team] || [];
+            const match = roster.find(staff => staff.name === value) || null;
+            updateStaffMetaHint(team, match);
+            updateShiftPresetOptions(team, match);
+            prefillFieldsFromRoster(team, match);
+        }
+
+        function prefillFieldsFromRoster(team, staff) {
+            const assignmentInput = document.getElementById('assignmentInput');
+            const deptInput = document.getElementById('deptInput');
+            const shiftStartInput = document.getElementById('shiftStartInput');
+            const shiftEndInput = document.getElementById('shiftEndInput');
+
+            if (!staff) {
+                if (assignmentInput) assignmentInput.value = '';
+                if (team === 'lab' && deptInput) {
+                    deptInput.value = '';
+                }
+                if (shiftStartInput) shiftStartInput.value = '';
+                if (shiftEndInput) shiftEndInput.value = '';
+                return;
+            }
+
+            if (assignmentInput) {
+                assignmentInput.value = team === 'phleb' ? (staff.role || '') : (staff.assignment || '');
+            }
+
+            if (deptInput) {
+                deptInput.value = team === 'phleb' ? 'Phlebotomy' : (staff.dept || '');
+            }
+
+            const parsedShift = parseShiftString(staff.shift);
+            if (parsedShift) {
+                if (shiftStartInput && parsedShift.start) {
+                    shiftStartInput.value = parsedShift.start;
+                }
+                if (shiftEndInput && parsedShift.end) {
+                    shiftEndInput.value = parsedShift.end;
+                }
+            } else {
+                if (shiftStartInput) shiftStartInput.value = '';
+                if (shiftEndInput) shiftEndInput.value = '';
+            }
+        }
+
+        function parseShiftString(shiftText) {
+            if (!shiftText) return null;
+            const timePattern = /([0-9]{1,2})(?::([0-9]{2}))?\s*([ap])m?/gi;
+            const matches = [...shiftText.matchAll(timePattern)];
+            if (!matches.length) return null;
+
+            const startMatch = matches[0];
+            const endMatch = matches[1] || null;
+
+            return {
+                start: convertMatchToTime(startMatch),
+                end: endMatch ? convertMatchToTime(endMatch) : ''
+            };
+        }
+
+        function convertMatchToTime(match) {
+            if (!match) return '';
+            let hours = parseInt(match[1], 10);
+            const minutes = match[2] ? parseInt(match[2], 10) : 0;
+            const period = (match[3] || '').toLowerCase();
+
+            if (period === 'p' && hours !== 12) {
+                hours += 12;
+            }
+            if (period === 'a' && hours === 12) {
+                hours = 0;
+            }
+
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
+
+        function addStaffEntryFromForm() {
+            const teamSelect = document.getElementById('teamSelect');
+            const staffSelect = document.getElementById('staffSelect');
+            const dateInput = document.getElementById('scheduleDateInput');
+            const customInput = document.getElementById('customNameInput');
+            const shiftStartInput = document.getElementById('shiftStartInput');
+            const shiftEndInput = document.getElementById('shiftEndInput');
+            const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+            const assignmentInput = document.getElementById('assignmentInput');
+            const deptInput = document.getElementById('deptInput');
+            const breaksInput = document.getElementById('breaksInput');
+
+            if (!teamSelect || !staffSelect || !dateInput || !shiftStartInput || !shiftEndInput) {
+                return;
+            }
+
+            const team = teamSelect.value || 'phleb';
+            const selectedStaff = staffSelect.value;
+            const customName = (customInput ? customInput.value.trim() : '');
+            const shiftStart = shiftStartInput.value;
+            const shiftEnd = shiftEndInput.value;
+            const selectedPreset = shiftPresetSelect ? shiftPresetSelect.value : '';
+
+            if (!dateInput.value) {
+                showAlert('❌ Please select a schedule date before adding staff.', 'error');
+                dateInput.focus();
+                return;
+            }
+
+            scheduleDate = dateInput.value;
+
+            const name = selectedStaff === 'custom' ? customName : selectedStaff;
+            if (!name) {
+                showAlert('❌ Select a staff member or enter a custom name.', 'error');
+                if (selectedStaff === 'custom' && customInput) customInput.focus();
+                return;
+            }
+
+            if (!shiftStart || !shiftEnd) {
+                showAlert('❌ Provide both shift start and end times.', 'error');
+                if (!shiftStart) shiftStartInput.focus();
+                else shiftEndInput.focus();
+                return;
+            }
+
+            const assignment = assignmentInput ? assignmentInput.value.trim() : '';
+            const dept = deptInput ? deptInput.value.trim() : '';
+            const breaks = breaksInput ? breaksInput.value.trim() : '';
+
+            let shiftLabel = formatShiftLabel(shiftStart, shiftEnd);
+            if (shiftPresetSelect && selectedPreset && selectedPreset !== 'custom') {
+                const selectedOption = shiftPresetSelect.options[shiftPresetSelect.selectedIndex];
+                if (selectedOption) {
+                    shiftLabel = selectedOption.textContent || selectedPreset;
+                } else {
+                    shiftLabel = selectedPreset;
+                }
+            }
+            const startTimeValue = convertTimeToDecimal(shiftStart);
+
+            const entry = {
+                name,
+                nickname: name.split(' ')[0],
+                shift: shiftLabel,
+                breaks,
+                startTime: startTimeValue
+            };
+
+            if (team === 'phleb') {
+                entry.role = assignment || 'Phlebotomy';
+                entry.dept = 'Phlebotomy';
+                extractedData.phleb.push(entry);
+            } else {
+                entry.dept = dept || 'Laboratory';
+                entry.assignment = assignment || 'General';
+                extractedData.lab.push(entry);
+            }
+
+            extractedData.phleb.sort((a, b) => a.startTime - b.startTime);
+            extractedData.lab.sort((a, b) => a.startTime - b.startTime);
+
+            Logger.info('Roster entry added', {
+                team,
+                name,
+                shift: shiftLabel,
+                assignment: assignment || null
+            });
+
+            showAlert(`✅ Added ${name} (${shiftLabel}) to ${team === 'phleb' ? 'Phlebotomy' : 'Laboratory'} schedule.`, 'success');
+            clearBuilderForm(false);
+            displayPreview();
+            saveState();
+        }
+
+        function formatShiftLabel(start, end) {
+            return `${formatTimeLabel(start)} - ${formatTimeLabel(end)}`;
+        }
+
+        function formatTimeLabel(time) {
+            if (!time) return '';
+            const [hourPart, minutePart] = time.split(':');
+            let hours = parseInt(hourPart, 10);
+            const minutes = parseInt(minutePart || '0', 10);
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            if (hours === 0) hours = 12;
+            return `${hours}:${String(minutes).padStart(2, '0')} ${period}`;
+        }
+
+        function convertTimeToDecimal(time) {
+            if (!time) return 0;
+            const [hourPart, minutePart] = time.split(':');
+            const hours = parseInt(hourPart, 10);
+            const minutes = parseInt(minutePart || '0', 10);
+            return hours + minutes / 60;
+        }
+
+        function clearBuilderForm(resetTeam = true) {
+            const staffSelect = document.getElementById('staffSelect');
+            const customGroup = document.getElementById('customNameGroup');
+            const customInput = document.getElementById('customNameInput');
+            const shiftStartInput = document.getElementById('shiftStartInput');
+            const shiftEndInput = document.getElementById('shiftEndInput');
+            const shiftPresetSelect = document.getElementById('shiftPresetSelect');
+            const assignmentInput = document.getElementById('assignmentInput');
+            const deptInput = document.getElementById('deptInput');
+            const breaksInput = document.getElementById('breaksInput');
+            const staffHint = document.getElementById('staffMetaHint');
+
+            if (staffSelect) {
+                staffSelect.value = '';
+                staffSelect.selectedIndex = 0;
+            }
+            if (customGroup) customGroup.style.display = 'none';
+            if (customInput) customInput.value = '';
+            if (shiftStartInput) shiftStartInput.value = '';
+            if (shiftEndInput) shiftEndInput.value = '';
+            if (shiftPresetSelect) {
+                shiftPresetSelect.value = '';
+            }
+            if (assignmentInput) assignmentInput.value = '';
+            if (deptInput && deptInput.style.display !== 'none') deptInput.value = '';
+            if (breaksInput) breaksInput.value = '';
+            if (staffHint) {
+                staffHint.textContent = '';
+                staffHint.style.display = 'none';
+            }
+
+            if (resetTeam) {
+                const teamSelect = document.getElementById('teamSelect');
+                if (teamSelect) {
+                    handleStaffSelection(teamSelect.value, '');
+                }
+            } else {
+                const teamSelect = document.getElementById('teamSelect');
+                if (teamSelect) {
+                    handleStaffSelection(teamSelect.value, '');
+                }
+            }
+        }
+
+        function clearScheduleEntries() {
+            extractedData = {
+                phleb: [],
+                lab: []
+            };
+            displayPreview();
+            saveState();
+            showAlert('🗑️ Schedule entries cleared. Add staff to rebuild the schedule.', 'info');
+        }
+
+        function removeStaffEntry(team, index) {
+            if (team === 'phleb') {
+                extractedData.phleb.splice(index, 1);
+            } else {
+                extractedData.lab.splice(index, 1);
+            }
+            displayPreview();
+            saveState();
+        }
+
+        function hasScheduleEntries() {
+            if (!extractedData) return false;
+            const phlebEntries = Array.isArray(extractedData.phleb) ? extractedData.phleb.length : 0;
+            const labEntries = Array.isArray(extractedData.lab) ? extractedData.lab.length : 0;
+            return phlebEntries + labEntries > 0;
+        }
+
+        function ensureScheduleReady(requireEntries = true) {
+            if (!extractedData) {
+                extractedData = {
+                    phleb: [],
+                    lab: []
+                };
+            }
+
+            if (requireEntries && !hasScheduleEntries()) {
+                showAlert('⚠️ Add at least one staff entry before updating the schedulers.', 'error');
+                return false;
+            }
+
+            if (!scheduleDate) {
+                const dateInput = document.getElementById('scheduleDateInput');
+                if (dateInput && dateInput.value) {
+                    scheduleDate = dateInput.value;
+                }
+            }
+
+            if (!scheduleDate) {
+                showAlert('⚠️ Select a schedule date using the roster builder before updating.', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function correctStaffName(name) {
+            if (!name) return name;
+
+            const upperName = name.toUpperCase();
+
+            // Check if any part of the name matches our map
+            for (const [key, value] of Object.entries(staffNameMap)) {
+                if (upperName.includes(key)) {
+                    return value;
+                }
+            }
+
+            return name;
+        }
+
+        // Configure PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        function handleFileUpload(e) {
+            const input = e.target;
+            const file = input.files[0];
+            if (!file) {
+                resetUploadStatus('No file selected.');
+                return;
+            }
+
+            // Validate file size (25MB max)
+            const maxSize = 25 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showAlert('❌ File size exceeds 25MB limit. Please use a smaller file.', 'error');
+                updateUploadStatus('File too large. Max size: 25MB.', 'error');
+                input.value = '';
+                return;
+            }
+
+            const fileType = file.name.split('.').pop().toLowerCase();
+            const validTypes = ['html', 'htm', 'pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+            if (!validTypes.includes(fileType)) {
+                showAlert('❌ Unsupported file type. Please upload HTML, PDF, or Image files.', 'error');
+                updateUploadStatus(`Unsupported file type: ${fileType.toUpperCase()}.`, 'error');
+                input.value = '';
+                return;
+            }
+
+            lastUploadedFileName = file.name;
+            lastUploadSource = fileType;
+
+            showAlert('📁 Processing ' + file.name + '...', 'info');
+            updateUploadStatus(`Processing ${file.name} (${(file.size / 1024).toFixed(1)} KB)...`, 'info');
+
+            // Try to extract date from filename first
+            extractDateFromText(file.name);
+
+            if (fileType === 'html' || fileType === 'htm') {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const htmlContent = event.target.result;
+                    parseScheduleHTML(htmlContent);
+                };
+                reader.readAsText(file);
+            } else if (fileType === 'pdf') {
+                parsePDFFile(file);
+            } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
+                parseImageFile(file);
+            } else {
+                showAlert('❌ Unsupported file type. Please upload HTML, PDF, or Image files.', 'info');
+                markUploadFailure(`Unsupported file type: ${fileType.toUpperCase()}.`);
+                input.value = '';
+            }
+        }
+
+        function parseScheduleHTML(htmlContent) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+
+            extractedData = {
+                phleb: [],
+                lab: []
+            };
+
+            // Try to extract date - multiple patterns
+            const dateBanner = doc.querySelector('.date-banner, h2, [class*="date"], title');
+            if (dateBanner) {
+                const dateText = dateBanner.textContent;
+                extractDateFromText(dateText);
+            }
+
+            // Also check document title
+            if (!scheduleDate && doc.title) {
+                extractDateFromText(doc.title);
+            }
+
+            // Extract from tables
+            const tables = doc.querySelectorAll('table');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 4) {
+                        let name = cells[0]?.textContent?.trim() || '';
+                        const roleOrDept = cells[1]?.textContent?.trim() || '';
+                        const shift = cells[2]?.textContent?.trim() || '';
+                        const assignment = cells[3]?.textContent?.trim() || '';
+                        const breaks = cells[4]?.textContent?.trim() || '';
+
+                        if (name && name.length > 2 && !name.toLowerCase().includes('name')) {
+                            // Correct staff name
+                            name = correctStaffName(name);
+
+                            // Calculate start time
+                            const timeMatch = shift.match(/(\d{1,2}):?(\d{2})?\s*([ap]m?)/i);
+                            let startTime = 0;
+                            if (timeMatch) {
+                                let hours = parseInt(timeMatch[1]);
+                                const minutes = parseInt(timeMatch[2] || '0');
+                                const period = timeMatch[3].toLowerCase();
+
+                                if (period.startsWith('p') && hours !== 12) hours += 12;
+                                if (period.startsWith('a') && hours === 12) hours = 0;
+
+                                startTime = hours + (minutes / 60);
+                            }
+
+                            const staffData = {
+                                name: name,
+                                nickname: name.split(' ')[0], // First name as nickname
+                                shift: shift,
+                                breaks: breaks,
+                                startTime: startTime
+                            };
+
+                            // Determine if phlebotomy or lab
+                            if (roleOrDept.toLowerCase().includes('phleb') ||
+                                roleOrDept.toLowerCase().includes('draw') ||
+                                roleOrDept.toLowerCase().includes('processor') ||
+                                roleOrDept.toLowerCase().includes('opener') ||
+                                roleOrDept.toLowerCase().includes('runner')) {
+                                staffData.role = assignment || roleOrDept;
+                                extractedData.phleb.push(staffData);
+                            } else if (roleOrDept.toLowerCase().includes('mla') ||
+                                roleOrDept.toLowerCase().includes('mlt') ||
+                                roleOrDept.toLowerCase().includes('mls')) {
+                                staffData.dept = roleOrDept;
+                                staffData.assignment = assignment;
+                                extractedData.lab.push(staffData);
+                            }
+                        }
+                    }
+                });
+            });
+
+            if (extractedData.phleb.length === 0 && extractedData.lab.length === 0) {
+                const label = getUploadContextLabel();
+                showAlert('⚠️ No schedule data found in uploaded file. Please check file format.', 'info');
+                markUploadFailure(`No schedule data found in ${label}.`);
+                return;
+            }
+
+            showAlert(`✅ Successfully extracted ${extractedData.phleb.length} phlebotomy staff and ${extractedData.lab.length} lab staff${scheduleDate ? ' for ' + scheduleDate : ''}`, 'success');
+            displayPreview();
+            saveState();
+            markUploadSuccess(extractedData.phleb.length, extractedData.lab.length);
+        }
+
+        async function parsePDFFile(file) {
+            try {
+                // Check if PDF.js is loaded
+                if (typeof pdfjsLib === 'undefined') {
+                    throw new Error('PDF.js library not loaded. Please refresh the page and try again.');
+                }
+
+                showAlert('📑 Extracting text from PDF... This may take a moment.', 'info');
+                updateUploadStatus('Loading PDF document...', 'info');
+
+                const arrayBuffer = await file.arrayBuffer();
+
+                // Configure PDF.js worker
+                if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                }
+
+                const loadingTask = pdfjsLib.getDocument({
+                    data: arrayBuffer,
+                    verbosity: 0
+                });
+
+                const pdf = await loadingTask.promise;
+                const numPages = pdf.numPages;
+
+                updateUploadStatus(`Processing ${numPages} page(s)...`, 'info');
+
+                let fullText = '';
+
+                for (let i = 1; i <= numPages; i++) {
+                    updateUploadStatus(`Extracting text from page ${i} of ${numPages}...`, 'info');
+
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+
+                    // Better text extraction with proper spacing
+                    let lastY = null;
+                    const pageText = textContent.items.map((item, idx) => {
+                        const currentY = item.transform[5];
+                        let text = item.str;
+
+                        // Add newline if Y position changed significantly
+                        if (lastY !== null && Math.abs(currentY - lastY) > 5) {
+                            text = '\n' + text;
+                        }
+                        lastY = currentY;
+
+                        return text;
+                    }).join(' ');
+
+                    fullText += pageText + '\n\n';
+                }
+
+                console.log('Extracted PDF text:', fullText.substring(0, 500) + '...');
+
+                if (!fullText || fullText.trim().length < 20) {
+                    throw new Error('PDF appears to be empty or contains no readable text. The PDF may be image-based - try using an image file instead or enable OCR.');
+                }
+
+                updateUploadStatus('Parsing schedule data from PDF text...', 'info');
+
+                // Parse the extracted text
+                const success = parseScheduleText(fullText);
+
+                if (!success) {
+                    showAlert('⚠️ PDF processed but no schedule data found. Check the file format or try manual entry.', 'info');
+                }
+
+            } catch (error) {
+                console.error('PDF parsing error:', error);
+                let errorMsg = error.message || 'Unknown error occurred';
+
+                // Provide helpful error messages
+                if (errorMsg.includes('Invalid PDF')) {
+                    errorMsg = 'Invalid or corrupted PDF file. Please try a different file.';
+                } else if (errorMsg.includes('password')) {
+                    errorMsg = 'PDF is password protected. Please use an unprotected file.';
+                }
+
+                showAlert('❌ Error parsing PDF: ' + errorMsg, 'error');
+                markUploadFailure(`PDF Error: ${errorMsg}`);
+
+                // Clear the file input
+                const fileInput = document.getElementById('scheduleFileInput');
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+            }
+        }
+
+        async function parseImageFile(file) {
+            let worker = null;
+            try {
+                // Check if Tesseract is available first
+                if (typeof Tesseract === 'undefined') {
+                    throw new Error('Tesseract OCR library not loaded. Please refresh the page and try again.');
+                }
+
+                showAlert('🖼️ Performing OCR on image... This may take 30-60 seconds.', 'info');
+                updateUploadStatus('Initializing OCR...', 'info');
+                console.log('Starting OCR for file:', file.name, 'Size:', file.size);
+
+                // Validate file size (limit to 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    throw new Error('File size too large. Please use files smaller than 10MB.');
+                }
+
+                // Validate file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp'];
+                if (!validTypes.includes(file.type.toLowerCase())) {
+                    throw new Error('Invalid file type. Please use JPEG, PNG, GIF, or BMP images.');
+                }
+
+                updateUploadStatus('Loading image file...', 'info');
+
+                const imageDataURL = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if (e.target && e.target.result) {
+                            resolve(e.target.result);
+                        } else {
+                            reject(new Error('Failed to read image data'));
+                        }
+                    };
+                    reader.onerror = (e) => reject(new Error('Failed to read file: ' + (e.target?.error?.message || 'Unknown error')));
+                    reader.readAsDataURL(file);
+                });
+
+                // Pre-validate image by loading it
+                await new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        console.log(`Image loaded: ${img.width}x${img.height}px`);
+                        if (img.width < 200 || img.height < 200) {
+                            reject(new Error('Image is too small. Please use an image at least 200x200 pixels for better OCR accuracy.'));
+                        }
+                        resolve();
+                    };
+                    img.onerror = () => reject(new Error('Invalid or corrupted image file'));
+                    img.src = imageDataURL;
+                });
+
+                updateUploadStatus('Starting OCR processing...', 'info');
+
+                // Create Tesseract worker with progress tracking
+                worker = await Tesseract.createWorker('eng', 1, {
+                    logger: (m) => {
+                        console.log('OCR:', m);
+                        if (m.status === 'loading tesseract core') {
+                            updateUploadStatus('Loading OCR engine...', 'info');
+                        } else if (m.status === 'initializing tesseract') {
+                            updateUploadStatus('Initializing OCR...', 'info');
+                        } else if (m.status === 'loading language traineddata') {
+                            updateUploadStatus('Loading language data...', 'info');
+                        } else if (m.status === 'recognizing text') {
+                            const progress = Math.round(m.progress * 100);
+                            updateUploadStatus(`Recognizing text: ${progress}%`, 'info');
+                            if (progress % 20 === 0 && progress > 0) {
+                                showAlert(`🔍 OCR Progress: ${progress}%`, 'info');
+                            }
+                        }
+                    }
+                });
+
+                // Perform OCR
+                const {
+                    data: {
+                        text,
+                        confidence
+                    }
+                } = await worker.recognize(imageDataURL);
+
+                await worker.terminate();
+                worker = null;
+
+                console.log(`OCR completed. Confidence: ${confidence}%, Text length: ${text.length}`);
+                console.log('OCR text preview (first 500 chars):', text.substring(0, 500));
+
+                if (!text || text.trim().length < 10) {
+                    throw new Error('OCR extracted very little text. The image may be unclear, too small, or not contain readable text. Please try a clearer, higher-resolution image.');
+                }
+
+                if (confidence < 30) {
+                    showAlert(`⚠️ OCR confidence is low (${Math.round(confidence)}%). Results may be inaccurate.`, 'info');
+                }
+
+                updateUploadStatus('Parsing schedule data from OCR text...', 'info');
+
+                // Parse the extracted text
+                const success = parseScheduleText(text);
+
+                if (!success) {
+                    showAlert('⚠️ OCR completed but no schedule data found. The image may not contain a valid schedule format. Try manual entry or a different file.', 'info');
+                    markUploadFailure(`OCR complete but no schedule data found (Confidence: ${Math.round(confidence)}%)`);
+
+                    // Show manual entry option
+                    setTimeout(() => {
+                        if (confirm('Would you like to enter the schedule manually instead?')) {
+                            showManualEntry();
+                        }
+                    }, 2000);
+                } else {
+                    showAlert(`✅ OCR processing complete! Found schedule data (Confidence: ${Math.round(confidence)}%).`, 'success');
+                }
+
+            } catch (error) {
+                console.error('OCR error:', error);
+
+                // Terminate worker if it exists
+                if (worker) {
+                    try {
+                        await worker.terminate();
+                    } catch (e) {
+                        console.error('Error terminating worker:', e);
+                    }
+                }
+
+                let errorMsg = error.message || 'Unknown error occurred';
+
+                showAlert('❌ OCR Error: ' + errorMsg + '. Try using a clearer, higher-resolution image, a PDF, or an HTML file instead.', 'error');
+                markUploadFailure(`OCR Error: ${errorMsg}`);
+
+                // Clear the file input
+                const fileInput = document.getElementById('scheduleFileInput');
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+
+                // Clear any partial data
+                extractedData = {
+                    phleb: [],
+                    lab: []
+                };
+                scheduleDate = null;
+            }
+        }
+
+        function extractDateFromText(text) {
+            if (!text) return false;
+
+            // Clean the text and normalize it
+            const cleanText = text.replace(/[^\w\s\/\-\.]/g, ' ').replace(/\s+/g, ' ');
+
+            // Try multiple date formats with more flexibility
+            const patterns = [
+                /(?:^|\s)(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2,4})(?:\s|$)/, // 10/3/25 or 10-3-25
+                /(?:^|\s)(\d{6})(?:\s|$)/, // 100325
+                /(October|Nov|December|November|January|February|March|April|May|June|July|August|September)\s+(\d{1,2}),?\s+(\d{2,4})/i, // October 3, 2025
+                /(\d{1,2})[-\/](\d{1,2})[-\/](\d{2}).*Schedule/i, // From filename
+                /Schedule.*?(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/i, // Schedule for 10/3/25
+                /(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/ // General MM/DD/YY pattern
+            ];
+
+            for (const pattern of patterns) {
+                const match = cleanText.match(pattern);
+                if (match) {
+                    let month, day, year;
+
+                    console.log('Date match found:', match);
+
+                    if (match[0].length === 6 && /^\d{6}$/.test(match[0])) {
+                        // Format: MMDDYY (100325)
+                        month = match[0].substring(0, 2);
+                        day = match[0].substring(2, 4);
+                        year = '20' + match[0].substring(4, 6);
+                    } else if (match.length >= 4) {
+                        month = match[1];
+                        day = match[2];
+                        year = match[3];
+
+                        if (isNaN(month)) {
+                            // Month name - convert
+                            const months = {
+                                jan: 1,
+                                january: 1,
+                                feb: 2,
+                                february: 2,
+                                mar: 3,
+                                march: 3,
+                                apr: 4,
+                                april: 4,
+                                may: 5,
+                                jun: 6,
+                                june: 6,
+                                jul: 7,
+                                july: 7,
+                                aug: 8,
+                                august: 8,
+                                sep: 9,
+                                september: 9,
+                                oct: 10,
+                                october: 10,
+                                nov: 11,
+                                november: 11,
+                                dec: 12,
+                                december: 12
+                            };
+                            month = months[month.toLowerCase()] || month;
+                        }
+                    } else {
+                        month = match[1];
+                        day = match[2];
+                        year = match[3];
+                    }
+
+                    // Handle 2-digit years
+                    if (year && year.length === 2) {
+                        const yearNum = parseInt(year);
+                        if (yearNum >= 0 && yearNum <= 30) {
+                            year = '20' + year;
+                        } else {
+                            year = '19' + year;
+                        }
+                    }
+
+                    // Validate the date components
+                    const monthNum = parseInt(month);
+                    const dayNum = parseInt(day);
+                    const yearNum = parseInt(year);
+
+                    if (monthNum >= 1 && monthNum <= 12 && dayNum >= 1 && dayNum <= 31 && yearNum >= 2020 && yearNum <= 2030) {
+                        scheduleDate = `${yearNum}-${String(monthNum).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
+                        console.log('Extracted date:', scheduleDate);
+                        return true;
+                    }
+                }
+            }
+
+            // Try to find tomorrow's date (10/3/25) specifically
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowMonth = tomorrow.getMonth() + 1;
+            const tomorrowDay = tomorrow.getDate();
+            const tomorrowYear = tomorrow.getFullYear();
+
+            if (cleanText.includes('10/3') || cleanText.includes('10-3') || cleanText.includes('103')) {
+                scheduleDate = `${tomorrowYear}-10-03`;
+                console.log('Detected 10/3 date pattern, using:', scheduleDate);
+                return true;
+            }
+
+            return false;
+        }
+
+        function parseScheduleText(text) {
+            extractedData = {
+                phleb: [],
+                lab: []
+            };
+
+            lastOcrText = text || '';
+            window.lastOcrText = lastOcrText;
+
+            // Try to extract date
+            extractDateFromText(text);
+
+            Logger.info('parseScheduleText: Raw OCR snapshot', {
+                textLength: lastOcrText.length,
+                preview: lastOcrText.substring(0, 500)
+            });
+
+            // Clean up the text but preserve line breaks for better parsing
+            text = text.replace(/[^\w\s\n:.-]/g, ' ').replace(/[ \t]+/g, ' ');
+
+            // Split into lines
+            const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 3);
+            if (!Array.isArray(lines) || lines.length === 0) {
+                showAlert('⚠️ No text data extracted from the file.', 'info');
+                markUploadFailure(`No text data extracted from ${getUploadContextLabel()}.`);
+                return false;
+            }
+            lastParsedLines = lines.map((line, index) => ({
+                index,
+                line
+            }));
+            window.lastParsedLines = lastParsedLines;
+
+            console.log('OCR text lines for debugging:', lines);
+            Logger.info('parseScheduleText: Processing lines', {
+                totalLines: lines.length,
+                sampleLines: lines.slice(0, 5)
+            });
+
+            // Enhanced parsing with multiple approaches
+            let staffFound = 0;
+
+            // Approach 1: Look for time patterns with names
+            lines.forEach((line, index) => {
+                // Enhanced time pattern matching
+                const timePatterns = [
+                    // Full time ranges: 7:00 AM - 3:30 PM
+                    /(\d{1,2}):?(\d{2})?\s*([ap]m?)?\s*[-–—]\s*(\d{1,2}):?(\d{2})?\s*([ap]m?)/i,
+                    // Simple time ranges: 7am-3pm
+                    /(\d{1,2})\s*([ap]m?)\s*[-–—]\s*(\d{1,2})\s*([ap]m?)/i,
+                    // Single times: 7:00 AM
+                    /(\d{1,2}):(\d{2})\s*([ap]m?)/i,
+                    // Simple times: 7am
+                    /(\d{1,2})\s*([ap]m)/i
+                ];
+
+                let timeMatch = null;
+                for (const pattern of timePatterns) {
+                    timeMatch = line.match(pattern);
+                    if (timeMatch) break;
+                }
+
+                if (timeMatch) {
+                    console.log('Found time pattern in line:', line, 'Match:', timeMatch);
+
+                    // Extract potential names from the line
+                    const staffName = extractStaffNameFromLine(line, timeMatch);
+
+                    if (staffName) {
+                        const staffData = createStaffData(staffName, timeMatch[0], line);
+                        if (staffData) {
+                            staffFound++;
+                            console.log('Found staff:', staffData);
+                        }
+                    }
+                }
+            });
+
+            // Approach 2: Look for known staff names even without clear time patterns
+            if (staffFound === 0) {
+                console.log('No time patterns found, trying name-based approach...');
+                const allStaffNames = [
+                    ...staffRoster.phlebotomy.map(s => s.name),
+                    ...staffRoster.laboratory.map(s => s.name)
+                ];
+
+                lines.forEach(line => {
+                    allStaffNames.forEach(fullName => {
+                        const firstName = fullName.split(' ')[0];
+                        const lastName = fullName.split(' ').pop();
+
+                        // Check if line contains this staff member's name
+                        if (line.toLowerCase().includes(firstName.toLowerCase()) ||
+                            line.toLowerCase().includes(lastName.toLowerCase()) ||
+                            line.toLowerCase().includes(fullName.toLowerCase())) {
+
+                            console.log('Found known staff name in line:', line, 'Staff:', fullName);
+
+                            // Try to find any time information in the line
+                            const timeInfo = extractTimeFromLine(line);
+                            const staffData = createStaffDataFromRoster(fullName, timeInfo, line);
+
+                            if (staffData) {
+                                staffFound++;
+                                console.log('Added staff from roster:', staffData);
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Approach 3: Simple pattern matching for common schedule formats
+            if (staffFound === 0) {
+                console.log('Trying simple pattern matching...');
+
+                lines.forEach(line => {
+                    // Look for patterns like "Name Department Time" or "Name Time"
+                    const simplePatterns = [
+                        // Pattern: FirstName LastName followed by anything with numbers
+                        /([A-Z][a-z]+)\s+([A-Z][a-z]+).*?(\d+)/i,
+                        // Pattern: Name followed by shift info
+                        /([A-Z][a-z]+\s+[A-Z][a-z]+).*?(morning|afternoon|evening|day|night|\d)/i
+                    ];
+
+                    simplePatterns.forEach(pattern => {
+                        const match = line.match(pattern);
+                        if (match) {
+                            const potentialName = match[1] + (match[2] ? ' ' + match[2] : '');
+                            if (potentialName.split(' ').length >= 2) {
+                                console.log('Found potential staff via simple pattern:', potentialName, 'Line:', line);
+
+                                const staffData = createStaffData(potentialName, 'TBD', line);
+                                if (staffData) {
+                                    staffFound++;
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+
+            Logger.info('parseScheduleText: Parsing complete', {
+                staffFound: staffFound,
+                phlebStaff: extractedData.phleb.length,
+                labStaff: extractedData.lab.length
+            });
+
+            if (extractedData.phleb.length === 0 && extractedData.lab.length === 0) {
+                console.log('No staff found. Sample of processed text:', text.substring(0, 500));
+                displayPreview();
+                showAlert('⚠️ No schedule data found in extracted text. The image may not contain readable schedule information or may be in an unsupported format.', 'info');
+                markUploadFailure(`No schedule data found in ${getUploadContextLabel()}.`);
+                return false; // Return false for no data found
+            }
+
+            showAlert(`✅ Successfully extracted ${extractedData.phleb.length} phlebotomy staff and ${extractedData.lab.length} lab staff from image${scheduleDate ? ' for ' + scheduleDate : ''}`, 'success');
+            displayPreview();
+            saveState();
+            markUploadSuccess(extractedData.phleb.length, extractedData.lab.length);
+            return true; // Return true for successful parsing
+        }
+
+        // Helper function to extract staff name from a line with time information
+        function extractStaffNameFromLine(line, timeMatch) {
+            const cleanLine = line.replace(/[^\w\s:.-]/g, ' ').replace(/\s+/g, ' ').trim();
+            const words = cleanLine.split(/\s+/);
+
+            // Find where the time starts in the line
+            const timeIndex = cleanLine.search(/\d{1,2}[:\s]*\d{0,2}\s*[ap]?m?/i);
+            const beforeTime = timeIndex > 0 ? cleanLine.substring(0, timeIndex).trim() : '';
+
+            if (beforeTime) {
+                const nameWordCandidates = beforeTime.split(/\s+/).filter(word =>
+                    word.length > 1 &&
+                    /^[A-Za-z]/.test(word) &&
+                    !word.toLowerCase().match(/^(mla|mlt|mls|phleb|tech|lab|draw|process|opener|runner|break|lunch|relief|assign|dept|department|shift|schedule)$/)
+                );
+
+                // Take first 2-3 words as name
+                if (nameWordCandidates.length >= 2) {
+                    return nameWordCandidates.slice(0, Math.min(3, nameWordCandidates.length)).join(' ');
+                }
+            }
+
+            // If no name found before time, try looking at the whole line
+            if (words.length >= 3) {
+                const potentialNames = [];
+                for (let i = 0; i < Math.min(4, words.length); i++) {
+                    const word = words[i];
+                    if (word.match(/^[A-Z][a-z]+$/) && word.length > 2) {
+                        potentialNames.push(word);
+                    } else if (word.match(/\d/) || word.toLowerCase().match(/^(am|pm|break|lunch|shift)$/)) {
+                        break;
+                    }
+                }
+                if (potentialNames.length >= 2) {
+                    return potentialNames.slice(0, 2).join(' ');
+                }
+            }
+
+            return null;
+        }
+
+        // Helper function to extract time information from any line
+        function extractTimeFromLine(line) {
+            const timePatterns = [
+                /(\d{1,2}):?(\d{2})?\s*([ap]m?)?\s*[-–—]\s*(\d{1,2}):?(\d{2})?\s*([ap]m?)/i,
+                /(\d{1,2})\s*([ap]m?)\s*[-–—]\s*(\d{1,2})\s*([ap]m?)/i,
+                /(\d{1,2}):(\d{2})\s*([ap]m?)/i,
+                /(\d{1,2})\s*([ap]m)/i
+            ];
+
+            for (const pattern of timePatterns) {
+                const match = line.match(pattern);
+                if (match) {
+                    return match[0];
+                }
+            }
+            return 'TBD';
+        }
+
+        // Helper function to create staff data object
+        function createStaffData(name, timeInfo, originalLine) {
+            if (!name || name.length < 3) return null;
+
+            // Correct staff name using the roster
+            const correctedName = correctStaffName(name);
+            const firstName = correctedName.split(' ')[0];
+
+            // Calculate start time for sorting
+            let startTime = 0;
+            if (timeInfo !== 'TBD') {
+                const timeMatch = timeInfo.match(/(\d{1,2}):?(\d{2})?\s*([ap]m?)/i);
+                if (timeMatch) {
+                    let hours = parseInt(timeMatch[1]);
+                    const minutes = parseInt(timeMatch[2] || '0');
+                    const period = (timeMatch[3] || '').toLowerCase();
+
+                    if (period.includes('p') && hours !== 12) hours += 12;
+                    if (period.includes('a') && hours === 12) hours = 0;
+
+                    startTime = hours + (minutes / 60);
+                }
+            }
+
+            const staffData = {
+                name: correctedName,
+                nickname: firstName,
+                shift: timeInfo,
+                breaks: '',
+                startTime: startTime,
+                originalLine: originalLine // For debugging
+            };
+
+            // Determine department and add to appropriate array
+            const phlebStaff = staffRoster.phlebotomy.find(s => s.name === correctedName);
+            const labStaff = staffRoster.laboratory.find(s => s.name === correctedName);
+
+            if (phlebStaff && !extractedData.phleb.find(s => s.name === correctedName)) {
+                staffData.role = phlebStaff.role;
+                extractedData.phleb.push(staffData);
+                return staffData;
+            } else if (labStaff && !extractedData.lab.find(s => s.name === correctedName)) {
+                staffData.dept = labStaff.dept;
+                staffData.assignment = labStaff.assignment;
+                extractedData.lab.push(staffData);
+                return staffData;
+            } else if (!phlebStaff && !labStaff) {
+                // Unknown staff - add to lab by default
+                staffData.dept = 'Unknown';
+                staffData.assignment = 'General';
+                if (!extractedData.lab.find(s => s.name === correctedName)) {
+                    extractedData.lab.push(staffData);
+                    return staffData;
+                }
+            }
+
+            return null;
+        }
+
+        // Helper function to create staff data from known roster
+        function createStaffDataFromRoster(fullName, timeInfo, originalLine) {
+            const phlebStaff = staffRoster.phlebotomy.find(s => s.name === fullName);
+            const labStaff = staffRoster.laboratory.find(s => s.name === fullName);
+
+            if (!phlebStaff && !labStaff) return null;
+
+            const firstName = fullName.split(' ')[0];
+            const staffData = {
+                name: fullName,
+                nickname: firstName,
+                shift: timeInfo || 'TBD',
+                breaks: '',
+                startTime: 0,
+                originalLine: originalLine
+            };
+
+            if (phlebStaff && !extractedData.phleb.find(s => s.name === fullName)) {
+                staffData.role = phlebStaff.role;
+                extractedData.phleb.push(staffData);
+                return staffData;
+            } else if (labStaff && !extractedData.lab.find(s => s.name === fullName)) {
+                staffData.dept = labStaff.dept;
+                staffData.assignment = labStaff.assignment;
+                extractedData.lab.push(staffData);
+                return staffData;
+            }
+
+            return null;
+        }
+
+        function tryAlternativeTextParsing(text) {
+            // Alternative approach: look for common staff names from our roster
+            const allStaffNames = [
+                ...staffRoster.phlebotomy.map(s => s.name),
+                ...staffRoster.laboratory.map(s => s.name)
+            ];
+
+            lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 5);
+
+            lines.forEach(line => {
+                // Check if line contains any known staff names
+                allStaffNames.forEach(staffName => {
+                    const firstName = staffName.split(' ')[0];
+                    const lastName = staffName.split(' ')[staffName.split(' ').length - 1];
+
+                    // Check for partial name matches
+                    if (line.toLowerCase().includes(firstName.toLowerCase()) &&
+                        line.toLowerCase().includes(lastName.toLowerCase())) {
+
+                        // Try to extract time from this line
+                        const timeMatch = line.match(/(\d{1,2}):?(\d{2})?\s*([ap]m?)/i);
+                        if (timeMatch) {
+                            let hours = parseInt(timeMatch[1]);
+                            const minutes = parseInt(timeMatch[2] || '0');
+                            const period = (timeMatch[3] || '').toLowerCase();
+
+                            if (period.includes('p') && hours !== 12) hours += 12;
+                            if (period.includes('a') && hours === 12) hours = 0;
+
+                            const startTime = hours + (minutes / 60);
+
+                            const staffData = {
+                                name: staffName,
+                                nickname: firstName,
+                                shift: timeMatch[0] + ' - TBD',
+                                breaks: '',
+                                startTime: startTime
+                            };
+
+                            // Find this person in our roster to get their department
+                            const phlebStaff = staffRoster.phlebotomy.find(s => s.name === staffName);
+                            const labStaff = staffRoster.laboratory.find(s => s.name === staffName);
+
+                            if (phlebStaff && !extractedData.phleb.find(s => s.name === staffName)) {
+                                staffData.role = phlebStaff.role;
+                                extractedData.phleb.push(staffData);
+                            } else if (labStaff && !extractedData.lab.find(s => s.name === staffName)) {
+                                staffData.dept = labStaff.dept;
+                                staffData.assignment = labStaff.assignment;
+                                extractedData.lab.push(staffData);
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function escapeHtml(str) {
+            if (str === undefined || str === null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function displayPreview() {
+            const previewSection = document.getElementById('previewSection');
+            const schedulePreview = document.getElementById('schedulePreview');
+
+            previewSection.classList.add('show');
+
+            let html = '';
+
+            if (scheduleDate) {
+                // Format the date nicely
+                const dateObj = new Date(scheduleDate + 'T00:00:00');
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+                html += `<div style="background: #e3f2fd; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #0066cc;">
+                    <strong>📅 Schedule Date:</strong> ${formattedDate}
+                    <div style="font-size: 9pt; color: #666; margin-top: 5px;">Raw date: ${scheduleDate}</div>
+                </div>`;
+            }
+
+            const hasPhlebEntries = extractedData && Array.isArray(extractedData.phleb) && extractedData.phleb.length > 0;
+            const hasLabEntries = extractedData && Array.isArray(extractedData.lab) && extractedData.lab.length > 0;
+
+            if (!hasPhlebEntries && !hasLabEntries) {
+                html += '<div class="info-box" style="margin-top: 10px;">Add staff entries using the roster builder above to see them previewed here.</div>';
+            }
+
+            if (hasPhlebEntries) {
+                html += '<h4 style="color: #0066cc; margin: 15px 0 10px 0;">🩸 Phlebotomy Staff (' + extractedData.phleb.length + ')</h4>';
+                html += '<table class="schedule-table"><tr><th>Name</th><th>Role</th><th>Shift</th><th>Breaks</th><th></th></tr>';
+                extractedData.phleb.forEach((staff, index) => {
+                    html += `<tr><td>${staff.name}</td><td>${staff.role || ''}</td><td>${staff.shift}</td><td>${staff.breaks || ''}</td><td><button type="button" class="action-button" onclick="removeStaffEntry('phleb', ${index})">Remove</button></td></tr>`;
+                });
+                html += '</table>';
+            }
+
+            if (hasLabEntries) {
+                html += '<h4 style="color: #0066cc; margin: 15px 0 10px 0;">🔬 Laboratory Technicians (' + extractedData.lab.length + ')</h4>';
+                html += '<table class="schedule-table"><tr><th>Name</th><th>Department</th><th>Assignment</th><th>Shift</th><th>Breaks</th><th></th></tr>';
+                extractedData.lab.forEach((staff, index) => {
+                    html += `<tr><td>${staff.name}</td><td>${staff.dept || ''}</td><td>${staff.assignment || ''}</td><td>${staff.shift}</td><td>${staff.breaks || ''}</td><td><button type="button" class="action-button" onclick="removeStaffEntry('lab', ${index})">Remove</button></td></tr>`;
+                });
+                html += '</table>';
+            }
+
+            if (lastOcrText) {
+                const maxPreviewLength = 5000;
+                const truncated = lastOcrText.length > maxPreviewLength;
+                const rawPreview = lastOcrText.substring(0, maxPreviewLength);
+                html += `<details style="margin-top: 20px; background: #f1f5f9; padding: 15px; border-radius: 6px;">
+                    <summary style="cursor: pointer; font-weight: 600; color: #0c4a6e;">📝 View Raw OCR Text (${lastOcrText.length} characters)</summary>
+                    <pre style="margin-top: 10px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; font-size: 9pt; background: #fff; padding: 12px; border-radius: 4px; border: 1px solid #cbd5f5;">${escapeHtml(rawPreview)}${truncated ? '\n... (truncated, export system state for full text)' : ''}</pre>
+                </details>`;
+            }
+
+            if (lastParsedLines && lastParsedLines.length > 0) {
+                const sampleLines = lastParsedLines.slice(0, 40)
+                    .map(item => `#${item.index + 1}: ${item.line}`)
+                    .join('\n');
+                html += `<details style="margin-top: 12px; background: #eef2ff; padding: 15px; border-radius: 6px;">
+                    <summary style="cursor: pointer; font-weight: 600; color: #3730a3;">📄 Parsed Line Sample (${lastParsedLines.length} lines)</summary>
+                    <pre style="margin-top: 10px; max-height: 260px; overflow-y: auto; white-space: pre-wrap; font-size: 9pt; background: #fff; padding: 12px; border-radius: 4px; border: 1px solid #cbd5f5;">${escapeHtml(sampleLines)}${lastParsedLines.length > 40 ? '\n... (showing first 40 lines)' : ''}</pre>
+                </details>`;
+            }
+
+            schedulePreview.innerHTML = html;
+        }
+
+        async function updateDailySchedule() {
+            Logger.info('updateDailySchedule called');
+            Performance.start('updateDailySchedule');
+
+            try {
+                if (!ensureScheduleReady(true)) {
+                    Logger.warn('updateDailySchedule: Attempted without roster entries');
+                    Performance.end('updateDailySchedule');
+                    return false;
+                }
+
+                // Store in localStorage for Daily Schedule to read
+                const existingData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+                existingData[scheduleDate] = extractedData;
+                localStorage.setItem('dailyScheduleData', JSON.stringify(existingData));
+
+                const totalStaff = (extractedData.phleb?.length || 0) + (extractedData.lab?.length || 0);
+                Logger.info('updateDailySchedule: Data stored successfully', {
+                    date: scheduleDate,
+                    totalStaff: totalStaff,
+                    phlebStaff: extractedData.phleb?.length || 0,
+                    labStaff: extractedData.lab?.length || 0
+                });
+
+                console.log('✅ [Daily] Stored data for Daily Schedule:', existingData);
+                console.log('📅 [Daily] Date key:', scheduleDate);
+                console.log('👥 [Daily] Staff for this date:', existingData[scheduleDate]);
+                console.log('🔑 [Daily] All dates in storage:', Object.keys(existingData));
+
+                // Verify the data was actually saved
+                const verification = localStorage.getItem('dailyScheduleData');
+                console.log('✔️ [Daily] Verification read:', verification ? 'SUCCESS' : 'FAILED');
+
+                showAlert(`✅ Daily Schedule updated for ${scheduleDate}! Navigate to that date in Daily Schedule.html to see changes.`, 'success');
+
+                Performance.end('updateDailySchedule');
+                saveState(); // Save state after successful update
+                return true;
+
+            } catch (error) {
+                Logger.error('updateDailySchedule failed', error);
+                showAlert('❌ Failed to update Daily Schedule: ' + error.message, 'error');
+                Performance.end('updateDailySchedule');
+                return false;
+            }
+        }
+
+        async function updateVisualSchedule() {
+            if (!ensureScheduleReady(true)) {
+                Logger.warn('updateVisualSchedule: Attempted without roster entries');
+                return false;
+            }
+
+            // Store in localStorage for Visual Scheduler to read
+            const visualData = generateVisualDataObject();
+            const existingData = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+            Object.assign(existingData, visualData);
+            localStorage.setItem('visualScheduleData', JSON.stringify(existingData));
+
+            console.log('Stored data for Visual Scheduler:', existingData);
+            showAlert(`✅ Visual Scheduler updated for ${scheduleDate}! Navigate to that date in Scheduler.html to see changes.`, 'success');
+            showInstructions();
+            return true;
+        }
+
+        async function updateGridSchedule() {
+            if (!ensureScheduleReady(true)) {
+                Logger.warn('updateGridSchedule: Attempted without roster entries');
+                return false;
+            }
+
+            // Store in localStorage for Call Out Tracker to read
+            const gridData = generateVisualDataObject();
+            const existingData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+            Object.assign(existingData, gridData);
+            localStorage.setItem('callOutScheduleData', JSON.stringify(existingData));
+
+            console.log('Stored data for Call Out Tracker:', existingData);
+            showAlert(`✅ Call Out Tracker updated for ${scheduleDate}! Navigate to that date in Scheduler1.html to see changes.`, 'success');
+            showInstructions();
+            return true;
+        }
+
+        function showInstructions() {
+            document.getElementById('updateInstructions').style.display = 'block';
+        }
+
+        async function updateAllSchedulers() {
+            if (!ensureScheduleReady(true)) {
+                Logger.warn('updateAllSchedulers: Attempted without roster entries');
+                return false;
+            }
+
+            const totalStaff = (extractedData.phleb?.length || 0) + (extractedData.lab?.length || 0);
+
+            console.log('✅ [Update All] Validation passed!');
+            console.log('📊 [Update All] extractedData:', extractedData);
+            console.log('📅 [Update All] scheduleDate:', scheduleDate);
+            console.log('👥 [Update All] Total staff:', totalStaff);
+
+            showAlert(`🔄 Updating all schedulers with ${totalStaff} staff members...`, 'info');
+
+            try {
+                // Update Daily Schedule
+                showAlert('📅 Updating Daily Schedule...', 'info');
+                const dailySuccess = await updateDailySchedule();
+
+                if (!dailySuccess) {
+                    throw new Error('Failed to update Daily Schedule');
+                }
+
+                // Small delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Update Visual Schedule
+                showAlert('📊 Updating Visual Schedule...', 'info');
+                const visualSuccess = await updateVisualSchedule();
+
+                if (!visualSuccess) {
+                    throw new Error('Failed to update Visual Schedule');
+                }
+
+                // Small delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Update Grid Schedule
+                showAlert('🚨 Updating Call Out Tracker...', 'info');
+                const gridSuccess = await updateGridSchedule();
+
+                if (!gridSuccess) {
+                    throw new Error('Failed to update Call Out Tracker');
+                }
+
+                // Success message
+                const scheduleInfo = scheduleDate ? ` for ${scheduleDate}` : '';
+                showAlert(`🎉 All schedulers updated successfully${scheduleInfo}! Found ${totalStaff} staff members. Open the target files and navigate to the scheduled date.`, 'success');
+
+                // Show instructions
+                showInstructions();
+
+                return true;
+
+            } catch (error) {
+                console.error('Error updating schedulers:', error);
+                showAlert(`❌ Error updating schedulers: ${error.message}. Please try again.`, 'error');
+                return false;
+            }
+        }
+
+        function generateScheduleDataString() {
+            const data = {
+                [scheduleDate]: extractedData
+            };
+
+            return `const scheduleData = ${JSON.stringify(data, null, 12)};`;
+        }
+
+        function generateVisualDataObject() {
+            // Transform data for visual scheduler format (array format for Call Out Tracker)
+            const allStaff = [];
+
+            // Process phlebotomy staff
+            extractedData.phleb.forEach(staff => {
+                allStaff.push({
+                    name: staff.name,
+                    role: 'PHLEB',
+                    shifts: staff.shift,
+                    breaks: parseBreaksForGrid(staff.breaks),
+                    startTime: staff.startTime
+                });
+            });
+
+            // Process lab staff
+            extractedData.lab.forEach(staff => {
+                allStaff.push({
+                    name: staff.name,
+                    role: staff.dept || 'MLS', // Use department as role (MLA, MLT, MLS)
+                    shifts: staff.shift,
+                    breaks: parseBreaksForGrid(staff.breaks),
+                    startTime: staff.startTime
+                });
+            });
+
+            return {
+                [scheduleDate]: allStaff
+            };
+        }
+
+        function generateScheduleDataForVisual() {
+            const visualData = generateVisualDataObject();
+            return `const scheduleData = ${JSON.stringify(visualData, null, 12)};`;
+        }
+
+        function generateScheduleDataForGrid() {
+            // Similar format to visual
+            return generateScheduleDataForVisual();
+        }
+
+        function calculateEndTime(shift, startTime) {
+            const match = shift.match(/- (\d{1,2}):?(\d{2})?\s*([ap]m?)/i);
+            if (!match) return startTime + 8;
+
+            let hours = parseInt(match[1]);
+            const minutes = parseInt(match[2] || '0');
+            const period = match[3].toLowerCase();
+
+            if (period.startsWith('p') && hours !== 12) hours += 12;
+            if (period.startsWith('a') && hours === 12) hours = 0;
+
+            let endTime = hours + (minutes / 60);
+            if (endTime < startTime) endTime += 24;
+
+            return endTime;
+        }
+
+        function parseBreaks(breakString) {
+            if (!breakString) return [];
+
+            const breaks = [];
+            const breakMatches = breakString.matchAll(/(\d{1,2}):(\d{2})([ap]m?)/gi);
+
+            for (const match of breakMatches) {
+                let hours = parseInt(match[1]);
+                const minutes = parseInt(match[2]);
+                const period = match[3].toLowerCase();
+
+                if (period.startsWith('p') && hours !== 12) hours += 12;
+                if (period.startsWith('a') && hours === 12) hours = 0;
+
+                breaks.push(hours + (minutes / 60));
+            }
+
+            return breaks;
+        }
+
+        function parseBreaksForGrid(breakString) {
+            // Parse breaks into the format expected by Call Out Tracker
+            if (!breakString) return [];
+
+            const breaks = [];
+            const breakPattern = /(\d{1,2}):(\d{2})([ap]m?)/gi;
+            const matches = [...breakString.matchAll(breakPattern)];
+
+            // Assume pattern: break1, lunch, break2
+            for (let i = 0; i < matches.length; i++) {
+                const match = matches[i];
+                let hours = parseInt(match[1]);
+                const minutes = parseInt(match[2]);
+                const period = match[3].toLowerCase();
+
+                if (period.startsWith('p') && hours !== 12) hours += 12;
+                if (period.startsWith('a') && hours === 12) hours = 0;
+
+                const start = hours + (minutes / 60);
+
+                // Determine break type (first and last are breaks, middle is lunch)
+                let type = 'break';
+                if (matches.length === 3 && i === 1) {
+                    type = 'lunch';
+                }
+
+                // Assume 15 min for breaks, 30 min for lunch
+                const duration = type === 'lunch' ? 0.5 : 0.25;
+
+                breaks.push({
+                    start: start,
+                    end: start + duration,
+                    type: type
+                });
+            }
+
+            return breaks;
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], {
+                type: contentType
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-' + type;
+            alertDiv.textContent = message;
+
+            const container = document.getElementById('alertContainer');
+            container.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // ===== MANUAL ENTRY FUNCTIONS =====
+        function showManualEntry() {
+            document.getElementById('manualEntrySection').style.display = 'block';
+            document.getElementById('manualEntrySection').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            Logger.info('Manual entry mode activated');
+        }
+
+        function hideManualEntry() {
+            document.getElementById('manualEntrySection').style.display = 'none';
+            Logger.info('Manual entry mode closed');
+        }
+
+        function loadSampleSchedule106() {
+            const sampleText = `Sarah Martinez, 7:00 AM - 3:30 PM, Phlebotomy
+Michael Chen, 7:30 AM - 4:00 PM, Phlebotomy
+Jessica Williams, 8:00 AM - 4:30 PM, MLS
+David Thompson, 7:00 AM - 3:30 PM, MLT
+Emily Rodriguez, 9:00 AM - 5:30 PM, MLA
+James Anderson, 6:30 AM - 3:00 PM, Phlebotomy
+Lisa Johnson, 8:30 AM - 5:00 PM, MLS
+Robert Garcia, 7:00 AM - 3:30 PM, MLT`;
+
+            document.getElementById('manualScheduleText').value = sampleText;
+            document.getElementById('manualDate').value = '2025-10-06';
+            showAlert('📝 Sample schedule for 10/6/25 loaded! Review and click "Process Manual Entry".', 'success');
+            Logger.info('Sample 10/6/25 schedule loaded');
+        }
+
+        function processManualEntry() {
+            const dateInput = document.getElementById('manualDate').value;
+            const textInput = document.getElementById('manualScheduleText').value.trim();
+
+            if (!dateInput) {
+                showAlert('❌ Please select a schedule date.', 'error');
+                return;
+            }
+
+            if (!textInput) {
+                showAlert('❌ Please enter schedule data.', 'error');
+                return;
+            }
+
+            Logger.info('Processing manual entry', {
+                date: dateInput,
+                lineCount: textInput.split('\n').length
+            });
+
+            scheduleDate = dateInput;
+            extractedData = {
+                phleb: [],
+                lab: []
+            };
+
+            const lines = textInput.split('\n').filter(line => line.trim().length > 0);
+            let processedCount = 0;
+
+            lines.forEach((line, index) => {
+                // Parse format: Name, Time, Dept/Role
+                const parts = line.split(',').map(p => p.trim());
+
+                if (parts.length < 2) {
+                    console.warn('Skipping malformed line:', line);
+                    return;
+                }
+
+                const name = parts[0];
+                const shift = parts[1];
+                const deptRole = parts[2] || 'General';
+
+                // Extract start time for sorting
+                let startTime = 0;
+                const timeMatch = shift.match(/(\d{1,2}):(\d{2})\s*([AP]M)/i);
+                if (timeMatch) {
+                    let hours = parseInt(timeMatch[1]);
+                    const minutes = parseInt(timeMatch[2]);
+                    const period = timeMatch[3].toUpperCase();
+
+                    if (period === 'PM' && hours !== 12) hours += 12;
+                    if (period === 'AM' && hours === 12) hours = 0;
+
+                    startTime = hours + (minutes / 60);
+                }
+
+                const staffData = {
+                    name: name,
+                    nickname: name.split(' ')[0],
+                    shift: shift,
+                    breaks: '',
+                    startTime: startTime
+                };
+
+                // Determine department
+                const deptLower = deptRole.toLowerCase();
+                if (deptLower.includes('phleb')) {
+                    staffData.role = 'Phlebotomist';
+                    extractedData.phleb.push(staffData);
+                    processedCount++;
+                } else {
+                    staffData.dept = deptRole;
+                    staffData.assignment = 'General';
+                    extractedData.lab.push(staffData);
+                    processedCount++;
+                }
+            });
+
+            if (processedCount === 0) {
+                showAlert('⚠️ No valid staff entries found. Check the format.', 'error');
+                return;
+            }
+
+            // Sort by start time
+            extractedData.phleb.sort((a, b) => a.startTime - b.startTime);
+            extractedData.lab.sort((a, b) => a.startTime - b.startTime);
+
+            Logger.info('Manual entry processed', {
+                phlebStaff: extractedData.phleb.length,
+                labStaff: extractedData.lab.length
+            });
+
+            showAlert(`✅ Processed ${processedCount} staff members for ${scheduleDate}!`, 'success');
+            displayPreview();
+            hideManualEntry();
+        }
+
+        // Add a test function for manual testing
+        function testWithSampleData() {
+            console.log('Creating sample data for testing...');
+
+            // Create sample extracted data following production schema
+            extractedData = {
+                phleb: [{
+                    name: 'John Doe',
+                    nickname: 'John',
+                    shift: '7:00 AM - 3:30 PM',
+                    breaks: '10:00 AM; 1:00 PM',
+                    startTime: 7,
+                    role: 'Opener'
+                }, {
+                    name: 'Jane Smith',
+                    nickname: 'Jane',
+                    shift: '8:00 AM - 4:30 PM',
+                    breaks: '11:30 AM; 2:30 PM',
+                    startTime: 8,
+                    role: 'Phlebotomist'
+                }],
+                lab: [{
+                    name: 'Bob Johnson',
+                    nickname: 'Bob',
+                    shift: '6:00 AM - 2:30 PM',
+                    breaks: '10:30 AM',
+                    startTime: 6,
+                    dept: 'MLS',
+                    assignment: 'Core Lab'
+                }, {
+                    name: 'Alice Brown',
+                    nickname: 'Alice',
+                    shift: '7:30 AM - 4:00 PM',
+                    breaks: '10:00 AM; 1:30 PM',
+                    startTime: 7.5,
+                    dept: 'MLT',
+                    assignment: 'Chemistry Bench'
+                }]
+            };
+
+            scheduleDate = '2025-10-03';
+
+            Logger.info('Sample data created for testing', {
+                date: scheduleDate,
+                phlebStaff: extractedData.phleb.length,
+                labStaff: extractedData.lab.length
+            });
+            displayPreview();
+            console.log('Sample data created:', extractedData);
+            showAlert('📊 Sample data created for testing. Click "Update All Schedulers" to test.', 'success');
+            saveState(); // Save the test state
+        }
+
+        // Test parsing with sample text
+        function testParsingWithSampleText() {
+            console.log('Testing parsing with sample schedule text...');
+
+            const sampleText = `
+            October 3, 2025 - Daily Schedule
+            
+            Christina Bolden 6:00 AM - 2:30 PM
+            Youlana Miah 6:00 AM - 2:30 PM  
+            Johnette Brooks 7:00 AM - 3:30 PM
+            Lakeshia Battle 8:00 AM - 4:30 PM
+            
+            Laboratory Staff:
+            John Smith MLS 6:30 AM - 3:00 PM
+            Sarah Johnson MLT 7:00 AM - 3:30 PM
+            Mike Davis MLA 8:00 AM - 4:30 PM
+            `;
+
+            const success = parseScheduleText(sampleText);
+
+            if (success) {
+                showAlert('✅ Sample text parsing successful! Check console for details.', 'success');
+            } else {
+                showAlert('❌ Sample text parsing failed. Check console for debugging info.', 'error');
+            }
+
+            console.log('Parsing result:', success);
+            console.log('Extracted data:', extractedData);
+        }
+
+        // ===== PRODUCTION ENHANCEMENTS =====
+
+        // Enhanced debug function with export capability
+        function debugLocalStorage() {
+            Logger.info('Debug function called by user');
+
+            console.log('=== localStorage Debug Info ===');
+            console.log('All localStorage keys:', Object.keys(localStorage));
+
+            const dailyData = localStorage.getItem('dailyScheduleData');
+            const visualData = localStorage.getItem('visualScheduleData');
+            const callOutData = localStorage.getItem('callOutScheduleData');
+
+            console.log('dailyScheduleData:', dailyData ? JSON.parse(dailyData) : 'Not found');
+            console.log('visualScheduleData:', visualData ? JSON.parse(visualData) : 'Not found');
+            console.log('callOutScheduleData:', callOutData ? JSON.parse(callOutData) : 'Not found');
+
+            if (extractedData) {
+                console.log('Current extractedData:', extractedData);
+                console.log('Current scheduleDate:', scheduleDate);
+                console.log('Last OCR text length:', lastOcrText.length);
+                console.log('Last OCR text preview (first 300 chars):', lastOcrText.substring(0, 300));
+                console.log('Last parsed lines sample:', lastParsedLines.slice(0, 10));
+
+                // Show what the visual data object looks like
+                const testVisualData = generateVisualDataObject();
+                console.log('Generated visual data object:', testVisualData);
+            }
+
+            // Show recent logs
+            console.log('Recent logs:', Logger.getLogs().slice(0, 10));
+
+            showAlert('🔍 Debug info logged to browser console (F12). Check the logged data structures.', 'info');
+        }
+
+        // Export system state for debugging
+        function exportSystemState() {
+            const state = {
+                timestamp: new Date().toISOString(),
+                extractedData,
+                scheduleDate,
+                lastOcrText,
+                lastParsedLines,
+                localStorage: {
+                    dailyScheduleData: localStorage.getItem('dailyScheduleData'),
+                    visualScheduleData: localStorage.getItem('visualScheduleData'),
+                    callOutScheduleData: localStorage.getItem('callOutScheduleData')
+                },
+                logs: Logger.getLogs(),
+                userAgent: navigator.userAgent,
+                url: window.location.href
+            };
+
+            const blob = new Blob([JSON.stringify(state, null, 2)], {
+                type: 'application/json'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `schedule_manager_state_${new Date().getTime()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            Logger.info('System state exported');
+            showAlert('📁 System state exported to JSON file for debugging.', 'success');
+        }
+
+        // Performance monitoring
+        const Performance = {
+            start: function(operation) {
+                this[operation + '_start'] = performance.now();
+            },
+
+            end: function(operation) {
+                const duration = performance.now() - this[operation + '_start'];
+                Logger.info(`Performance: ${operation} took ${duration.toFixed(2)}ms`);
+                return duration;
+            }
+        };
+
+        // Accessibility enhancements
+        function setupAccessibility() {
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.altKey && e.key === 'd') {
+                    debugLocalStorage();
+                }
+                if (e.altKey && e.key === 'e') {
+                    exportSystemState();
+                }
+                if (e.altKey && e.key === 'u') {
+                    updateAllSchedulers();
+                }
+            });
+
+            // Add ARIA labels for roster builder controls
+            const addStaffButton = document.getElementById('addStaffButton');
+            if (addStaffButton) {
+                addStaffButton.setAttribute('aria-label', 'Add selected staff member to the schedule');
+            }
+
+            const clearFormButton = document.getElementById('clearFormButton');
+            if (clearFormButton) {
+                clearFormButton.setAttribute('aria-label', 'Reset the roster form fields');
+            }
+
+            const clearScheduleButton = document.getElementById('clearScheduleButton');
+            if (clearScheduleButton) {
+                clearScheduleButton.setAttribute('aria-label', 'Remove all staff entries from the schedule preview');
+            }
+
+            const scheduleDateInput = document.getElementById('scheduleDateInput');
+            if (scheduleDateInput) {
+                scheduleDateInput.setAttribute('aria-label', 'Select the schedule date');
+            }
+        }
+
+        // Initialize accessibility features
+        setupAccessibility();
+
+        // Health check function
+        function healthCheck() {
+            const checks = {
+                tesseract: typeof Tesseract !== 'undefined',
+                pdfjs: typeof pdfjsLib !== 'undefined',
+                localStorage: (() => {
+                    try {
+                        localStorage.setItem('test', 'test');
+                        localStorage.removeItem('test');
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                })(),
+                fileAPI: typeof FileReader !== 'undefined'
+            };
+
+            const allHealthy = Object.values(checks).every(check => check);
+
+            Logger.info('Health check completed', checks);
+
+            if (!allHealthy) {
+                const failed = Object.entries(checks).filter(([key, value]) => !value).map(([key]) => key);
+                showAlert(`⚠️ System health check failed: ${failed.join(', ')} not available.`, 'error');
+            }
+
+            return checks;
+        }
+
+        // Run health check on load
+        window.addEventListener('load', function() {
+            setTimeout(healthCheck, 1000);
+        });
+
+        // Immediate startup check
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('Schedule Manager Enhanced: DOM loaded');
+
+            const statusDiv = document.getElementById('systemStatus');
+            if (statusDiv) {
+                statusDiv.innerHTML = '🔄 Checking system components...';
+            }
+
+            const recovered = Recovery.loadState();
+            if (recovered) {
+                showAlert('📋 Previous schedule restored. Review entries or continue building the roster.', 'info');
+            }
+
+            initializeScheduleBuilder();
+
+            // Check critical dependencies immediately with shorter timeout
+            setTimeout(function() {
+                const issues = [];
+                const warnings = [];
+
+                if (typeof Tesseract === 'undefined') {
+                    warnings.push('OCR (Tesseract.js)');
+                }
+
+                if (typeof pdfjsLib === 'undefined') {
+                    warnings.push('PDF parsing (PDF.js)');
+                }
+
+                if (statusDiv) {
+                    if (warnings.length > 0) {
+                        statusDiv.innerHTML = '⚠️ Roster builder ready. Optional upload components unavailable: ' + warnings.join(', ');
+                        statusDiv.style.background = 'rgba(255,165,0,0.2)';
+                        console.warn('Optional library loading issues:', warnings);
+                        console.log('💡 Roster builder is unaffected. Upload/OCR components are optional.');
+                    } else {
+                        statusDiv.innerHTML = '✅ Roster Builder Ready - All core components loaded successfully';
+                        statusDiv.style.background = 'rgba(0,255,0,0.2)';
+                        console.log('✅ Core roster builder libraries loaded successfully');
+                    }
+                }
+            }, 1500); // Reduced from 2000ms to 1500ms
+        });
+
+        Logger.info('Production enhancements loaded successfully');
+    </script>
+</body>
+
+</html>

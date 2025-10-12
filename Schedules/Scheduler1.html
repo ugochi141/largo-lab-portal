@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Largo Lab Call Out Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 15px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #ff5252;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #ff5252;
+            font-size: 18pt;
+            margin-bottom: 6px;
+        }
+        
+        .date-banner {
+            background: #fff3f3;
+            padding: 12px;
+            border-left: 4px solid #ff5252;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .upload-area {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .upload-area.dragover {
+            background: #e3f2fd;
+            border-color: #0066cc;
+        }
+        
+        .file-list {
+            margin: 15px 0;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+        
+        .file-item img {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 4px;
+        }
+        
+        .file-item-info {
+            flex: 1;
+        }
+        
+        .btn-remove {
+            background: #ff5252;
+            padding: 4px 12px;
+        }
+        
+        .callout-controls {
+            background: #fff3f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ff5252;
+        }
+        
+        .staff-clickable {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .staff-clickable:hover {
+            background: #ffe0e0 !important;
+        }
+        
+        .callout-badge {
+            display: inline-block;
+            background: #ff5252;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 7pt;
+            margin-left: 8px;
+        }
+        
+        .attachment-icon {
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .modal-close:hover {
+            color: #000;
+        }
+        
+        .callout-form {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 9pt;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .callout-list {
+            margin-top: 15px;
+        }
+        
+        .callout-item {
+            background: #fff;
+            border-left: 4px solid #ff5252;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .callout-item h4 {
+            color: #ff5252;
+            margin-bottom: 5px;
+        }
+        
+        .callout-item-files {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .callout-file-thumb {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid #ddd;
+        }
+        
+        .callout-file-thumb:hover {
+            border-color: #0066cc;
+        }
+        
+        .controls {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #004499;
+        }
+        
+        .schedule-grid {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8pt;
+            margin: 15px 0;
+        }
+        
+        .schedule-grid th {
+            background: #e8f4f8;
+            padding: 8px 3px;
+            border: 1px solid #ddd;
+        }
+        
+        .dept-header {
+            padding: 15px 8px;
+            font-weight: 700;
+            writing-mode: vertical-lr;
+            color: white;
+        }
+        
+        .dept-header-mla {
+            background: #8b5cf6;
+        }
+        
+        .dept-header-mlt {
+            background: #10b981;
+        }
+        
+        .dept-header-mls {
+            background: #0066cc;
+        }
+        
+        .dept-header-phleb {
+            background: #f59e0b;
+        }
+        
+        .staff-name {
+            padding: 8px;
+            font-weight: 600;
+            min-width: 140px;
+            background: #fafafa;
+            border-right: 3px solid;
+        }
+        
+        .mla .staff-name {
+            border-right-color: #8b5cf6;
+        }
+        
+        .mlt .staff-name {
+            border-right-color: #10b981;
+        }
+        
+        .mls .staff-name {
+            border-right-color: #0066cc;
+        }
+        
+        .phleb .staff-name {
+            border-right-color: #f59e0b;
+        }
+        
+        .time-cell {
+            width: 28px;
+            height: 35px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .scheduled {
+            background: #10b981;
+        }
+        
+        .scheduled::before {
+            content: '●';
+            color: white;
+            font-size: 12px;
+        }
+        
+        .called-out {
+            background: #ff5252 !important;
+        }
+        
+        .called-out::before {
+            content: '🚫' !important;
+            font-size: 10px;
+        }
+        
+        .floater {
+            background: #FFD700 !important;
+        }
+        
+        .floater::before {
+            content: '★' !important;
+            color: black;
+        }
+        
+        .legend {
+            background: #f0f8ff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 8pt;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+        
+        .on-break {
+            background: #f59e0b !important;
+        }
+        
+        .on-break::before {
+            content: '▪' !important;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .on-lunch {
+            background: #ef4444 !important;
+        }
+        
+        .on-lunch::before {
+            content: '■' !important;
+            color: white;
+            font-size: 14px;
+        }
+        
+        @media print {
+            .controls {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚨 Call Out Tracker</h1>
+            <h2>Largo Clinical Laboratory</h2>
+        </div>
+        <div class="date-banner" id="dateBanner">Thursday, October 3, 2025</div>
+        <div class="controls">
+            <div>
+                <button class="btn" onclick="changeDate(-1)">← Previous</button>
+                <input type="date" id="datePicker" value="2025-10-03" onchange="setDate()">
+                <button class="btn" onclick="changeDate(1)">Next →</button>
+            </div>
+            <div>
+                <button class="btn" onclick="openCallOutModal()" style="background: #ff5252;">➕ Add Call Out</button>
+                <button class="btn" onclick="toggleCallOutList()">📋 View Call Outs</button>
+                <button class="btn" onclick="window.print()">🖨️ Print</button>
+            </div>
+        </div>
+
+        <div class="callout-controls">
+            <h3 style="margin-bottom: 10px;">📞 Quick Actions</h3>
+            <p style="font-size: 9pt; color: #666; margin-bottom: 10px;">Click on any staff member in the schedule below to mark as called out, or use the "Add Call Out" button above for detailed documentation.</p>
+            <div id="uploadStatus" style="font-size: 8pt; padding: 8px; background: #e3f2fd; border-radius: 4px; margin-bottom: 10px; display: none;">
+                <strong>📤 Uploaded Schedule Data Available</strong> - Schedule updated from Schedule Manager
+            </div>
+            <div id="calloutSummary" style="font-size: 9pt; padding: 10px; background: white; border-radius: 4px;"></div>
+        </div>
+
+        <div id="callOutListContainer" style="display: none; margin: 20px 0; padding: 20px; background: #fff; border-radius: 8px; border: 2px solid #ff5252;">
+            <h3 style="color: #ff5252; margin-bottom: 15px;">📋 Call Out Records for <span id="callOutListDate"></span></h3>
+            <div id="callOutList" class="callout-list"></div>
+        </div>
+        <table class="schedule-grid" id="scheduleTable"></table>
+        <div class="legend">
+            <h3>Schedule Key</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div><span>● Working</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div><span>▪ Break</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ef4444;"></div><span>■ Lunch</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff5252;"></div><span>🚫 Called Out</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8b5cf6;"></div><span>MLA</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div><span>MLT</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0066cc;"></div><span>MLS</span></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div><span>PHLEB</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Out Modal -->
+    <div id="callOutModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCallOutModal()">&times;</span>
+            <h2 style="color: #ff5252; margin-bottom: 20px;">📝 Record Call Out</h2>
+
+            <form class="callout-form" onsubmit="submitCallOut(event)">
+                <div class="form-group">
+                    <label>Staff Member *</label>
+                    <select id="calloutStaffSelect" required>
+                        <option value="">-- Select Staff --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date *</label>
+                    <input type="date" id="calloutDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Time Called</label>
+                    <input type="time" id="calloutTime">
+                </div>
+
+                <div class="form-group">
+                    <label>Reason</label>
+                    <select id="calloutReason">
+                        <option value="Sick">Sick</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Emergency">Emergency</option>
+                        <option value="Bereavement">Bereavement</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="calloutNotes" rows="3" placeholder="Additional details..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Attach Documentation (Images, PDFs, etc.)</label>
+                    <div class="upload-area" id="uploadArea">
+                        <p>📎 Drag & drop files here or click to browse</p>
+                        <input type="file" id="calloutFiles" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
+                        <button type="button" class="btn" onclick="document.getElementById('calloutFiles').click()">Choose Files</button>
+                    </div>
+                    <div id="filePreview" class="file-list"></div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn" style="background: #ff5252; flex: 1;">Save Call Out</button>
+                    <button type="button" class="btn" onclick="closeCallOutModal()" style="background: #666; flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image Viewer Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content" style="max-width: 90%; max-height: 90vh;">
+            <span class="modal-close" onclick="closeImageModal()">&times;</span>
+            <div id="imageModalContent" style="text-align: center; margin-top: 40px;"></div>
+        </div>
+    </div>
+    <script>
+        const scheduleData = {
+            '2025-10-01': [{
+                name: 'Lorraine Blackwell',
+                role: 'MLA',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10,
+                    end: 10.25,
+                    type: 'break'
+                }, {
+                    start: 12.5,
+                    end: 13,
+                    type: 'lunch'
+                }, {
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Ogheneochuko Eshofa',
+                role: 'MLT',
+                shifts: '3:30p-12a',
+                breaks: [{
+                    start: 17.5,
+                    end: 17.75,
+                    type: 'break'
+                }, {
+                    start: 20,
+                    end: 20.5,
+                    type: 'lunch'
+                }, {
+                    start: 22.5,
+                    end: 22.75,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'Emmanuel Lejano',
+                role: 'MLT',
+                shifts: '9:30p-6a',
+                breaks: [{
+                    start: 23.5,
+                    end: 23.75,
+                    type: 'break'
+                }, {
+                    start: 2,
+                    end: 2.5,
+                    type: 'lunch'
+                }, {
+                    start: 4.5,
+                    end: 4.75,
+                    type: 'break'
+                }],
+                startTime: 21.5
+            }, {
+                name: 'Francis Azih Ngene',
+                role: 'MLS',
+                shifts: '7:30a-4p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14.5,
+                    end: 14.75,
+                    type: 'break'
+                }],
+                startTime: 7.5
+            }, {
+                name: 'Ingrid Benitez-Ruiz',
+                role: 'MLS',
+                shifts: '7:30a-4p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14.5,
+                    end: 14.75,
+                    type: 'break'
+                }],
+                startTime: 7.5
+            }, {
+                name: 'Albert Che',
+                role: 'MLS',
+                shifts: '3:30p-5a',
+                breaks: [{
+                    start: 17.75,
+                    end: 18,
+                    type: 'break'
+                }, {
+                    start: 20.5,
+                    end: 21,
+                    type: 'lunch'
+                }, {
+                    start: 22.75,
+                    end: 23,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'Samuel Lawson',
+                role: 'MLS',
+                shifts: '3:30p-12a',
+                breaks: [{
+                    start: 18,
+                    end: 18.25,
+                    type: 'break'
+                }, {
+                    start: 20.5,
+                    end: 21,
+                    type: 'lunch'
+                }, {
+                    start: 22.5,
+                    end: 22.75,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'George Etape',
+                role: 'MLS',
+                shifts: '11:30p-8a',
+                breaks: [{
+                    start: 1.5,
+                    end: 1.75,
+                    type: 'break'
+                }, {
+                    start: 4,
+                    end: 4.5,
+                    type: 'lunch'
+                }, {
+                    start: 6,
+                    end: 6.25,
+                    type: 'break'
+                }],
+                startTime: 23.5
+            }, {
+                name: 'Christina Bolden-Davis',
+                role: 'PHLEB',
+                shifts: '6a-2:30p',
+                breaks: [{
+                    start: 8,
+                    end: 8.25,
+                    type: 'break'
+                }, {
+                    start: 11,
+                    end: 11.5,
+                    type: 'lunch'
+                }, {
+                    start: 13,
+                    end: 13.25,
+                    type: 'break'
+                }],
+                startTime: 6
+            }, {
+                name: 'Youlana Miah',
+                role: 'PHLEB',
+                shifts: '6a-2:30p',
+                breaks: [{
+                    start: 8,
+                    end: 8.25,
+                    type: 'break'
+                }, {
+                    start: 11.5,
+                    end: 12,
+                    type: 'lunch'
+                }, {
+                    start: 13,
+                    end: 13.25,
+                    type: 'break'
+                }],
+                startTime: 6
+            }, {
+                name: 'Johnette Brooks',
+                role: 'PHLEB',
+                shifts: '7a-3:30p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }],
+                startTime: 7
+            }, {
+                name: 'Lakeshia Battle',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10,
+                    end: 10.25,
+                    type: 'break'
+                }, {
+                    start: 12.5,
+                    end: 13,
+                    type: 'lunch'
+                }, {
+                    start: 15,
+                    end: 15.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Lisa Beasley',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13,
+                    end: 13.5,
+                    type: 'lunch'
+                }, {
+                    start: 15.25,
+                    end: 15.5,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Anne Saint Phirin',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13,
+                    end: 13.5,
+                    type: 'lunch'
+                }, {
+                    start: 15.25,
+                    end: 15.5,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Micaela Scarborough',
+                role: 'PHLEB',
+                shifts: '8a-12p',
+                breaks: [{
+                    start: 10,
+                    end: 10.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Raquel Grayson',
+                role: 'PHLEB',
+                shifts: '9a-5:30p',
+                breaks: [{
+                    start: 11,
+                    end: 11.25,
+                    type: 'break'
+                }, {
+                    start: 13.5,
+                    end: 14,
+                    type: 'lunch'
+                }, {
+                    start: 16,
+                    end: 16.25,
+                    type: 'break'
+                }],
+                startTime: 9
+            }, {
+                name: 'Nichole Fauntleroy',
+                role: 'PHLEB',
+                shifts: '2-10:30p',
+                breaks: [{
+                    start: 16,
+                    end: 16.25,
+                    type: 'break'
+                }, {
+                    start: 18.5,
+                    end: 19,
+                    type: 'lunch'
+                }, {
+                    start: 20.5,
+                    end: 20.75,
+                    type: 'break'
+                }],
+                startTime: 14
+            }, {
+                name: 'Stephanie Dodson',
+                role: 'PHLEB',
+                shifts: '2-10:30p',
+                breaks: [{
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }, {
+                    start: 16,
+                    end: 16.5,
+                    type: 'lunch'
+                }, {
+                    start: 18,
+                    end: 18.25,
+                    type: 'break'
+                }],
+                startTime: 14
+            }, {
+                name: 'Danalisa Hayes',
+                role: 'PHLEB',
+                shifts: '2-10:30p',
+                breaks: [{
+                    start: 16.25,
+                    end: 16.5,
+                    type: 'break'
+                }, {
+                    start: 18.5,
+                    end: 19,
+                    type: 'lunch'
+                }, {
+                    start: 20.25,
+                    end: 20.5,
+                    type: 'break'
+                }],
+                startTime: 14
+            }, {
+                name: 'Taric White',
+                role: 'PHLEB',
+                shifts: '5-9p',
+                breaks: [{
+                    start: 19,
+                    end: 19.25,
+                    type: 'break'
+                }],
+                startTime: 17
+            }],
+            '2025-10-02': [{
+                name: 'Lorraine Blackwell',
+                role: 'MLA',
+                shifts: '9a-4:30p',
+                breaks: [{
+                    start: 11,
+                    end: 11.25,
+                    type: 'break'
+                }, {
+                    start: 13.5,
+                    end: 14,
+                    type: 'lunch'
+                }, {
+                    start: 15,
+                    end: 15.25,
+                    type: 'break'
+                }],
+                startTime: 9
+            }, {
+                name: 'Maxwell Booker',
+                role: 'MLT',
+                shifts: '7:30a-4p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14.5,
+                    end: 14.75,
+                    type: 'break'
+                }],
+                startTime: 7.5
+            }, {
+                name: 'Emily Creekmore',
+                role: 'MLT',
+                shifts: '3:30p-4p',
+                breaks: [],
+                startTime: 15.5
+            }, {
+                name: 'Ogheneochuko Eshofa',
+                role: 'MLT',
+                shifts: '3:30p-12a',
+                breaks: [{
+                    start: 17.5,
+                    end: 17.75,
+                    type: 'break'
+                }, {
+                    start: 20,
+                    end: 20.5,
+                    type: 'lunch'
+                }, {
+                    start: 22.5,
+                    end: 22.75,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'Emmanuel Lejano',
+                role: 'MLT',
+                shifts: '9:30p-6a',
+                breaks: [{
+                    start: 23.5,
+                    end: 23.75,
+                    type: 'break'
+                }, {
+                    start: 2,
+                    end: 2.5,
+                    type: 'lunch'
+                }, {
+                    start: 4.5,
+                    end: 4.75,
+                    type: 'break'
+                }],
+                startTime: 21.5
+            }, {
+                name: 'Francis Azih Ngene',
+                role: 'MLS',
+                shifts: '7:30a-4p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14.5,
+                    end: 14.75,
+                    type: 'break'
+                }],
+                startTime: 7.5
+            }, {
+                name: 'Albert Che',
+                role: 'MLS',
+                shifts: '3:30p-12a',
+                breaks: [{
+                    start: 17.75,
+                    end: 18,
+                    type: 'break'
+                }, {
+                    start: 20.5,
+                    end: 21,
+                    type: 'lunch'
+                }, {
+                    start: 22.75,
+                    end: 23,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'Samuel Lawson',
+                role: 'MLS',
+                shifts: '3:30p-12a',
+                breaks: [{
+                    start: 18,
+                    end: 18.25,
+                    type: 'break'
+                }, {
+                    start: 20.5,
+                    end: 21,
+                    type: 'lunch'
+                }, {
+                    start: 22.5,
+                    end: 22.75,
+                    type: 'break'
+                }],
+                startTime: 15.5
+            }, {
+                name: 'George Etape',
+                role: 'MLS',
+                shifts: '11:30p-8a',
+                breaks: [{
+                    start: 1.5,
+                    end: 1.75,
+                    type: 'break'
+                }, {
+                    start: 4,
+                    end: 4.5,
+                    type: 'lunch'
+                }, {
+                    start: 6,
+                    end: 6.25,
+                    type: 'break'
+                }],
+                startTime: 23.5
+            }, {
+                name: 'Johnette Brooks',
+                role: 'PHLEB',
+                shifts: '7a-3:30p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }],
+                startTime: 7
+            }, {
+                name: 'Lakeshia Battle',
+                role: 'PHLEB',
+                shifts: '7a-3:30p',
+                breaks: [{
+                    start: 9.5,
+                    end: 9.75,
+                    type: 'break'
+                }, {
+                    start: 12,
+                    end: 12.5,
+                    type: 'lunch'
+                }, {
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }],
+                startTime: 7
+            }, {
+                name: 'Lisa Beasley',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13,
+                    end: 13.5,
+                    type: 'lunch'
+                }, {
+                    start: 15.25,
+                    end: 15.5,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Farah Moise',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13.5,
+                    end: 14,
+                    type: 'lunch'
+                }, {
+                    start: 16,
+                    end: 16.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Lisa Beasley',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13,
+                    end: 13.5,
+                    type: 'lunch'
+                }, {
+                    start: 15.25,
+                    end: 15.5,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Anne Saint Phirin',
+                role: 'PHLEB',
+                shifts: '8a-4:30p',
+                breaks: [{
+                    start: 10.5,
+                    end: 10.75,
+                    type: 'break'
+                }, {
+                    start: 13,
+                    end: 13.5,
+                    type: 'lunch'
+                }, {
+                    start: 15.25,
+                    end: 15.5,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Micaela Scarborough',
+                role: 'PHLEB',
+                shifts: '8a-12p',
+                breaks: [{
+                    start: 10,
+                    end: 10.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Rachel Grayson',
+                role: 'PHLEB',
+                shifts: '8a-5:30p',
+                breaks: [{
+                    start: 10,
+                    end: 10.25,
+                    type: 'break'
+                }, {
+                    start: 13.5,
+                    end: 14,
+                    type: 'lunch'
+                }, {
+                    start: 16,
+                    end: 16.25,
+                    type: 'break'
+                }],
+                startTime: 8
+            }, {
+                name: 'Stephanie Dodson',
+                role: 'PHLEB',
+                shifts: '9a-10:30a',
+                breaks: [],
+                startTime: 9
+            }, {
+                name: 'Danalisa Hayes',
+                role: 'PHLEB',
+                shifts: '9a-10:30p',
+                breaks: [{
+                    start: 11,
+                    end: 11.25,
+                    type: 'break'
+                }, {
+                    start: 16,
+                    end: 16.5,
+                    type: 'lunch'
+                }, {
+                    start: 19,
+                    end: 19.25,
+                    type: 'break'
+                }],
+                startTime: 9
+            }, {
+                name: 'Emmanuella Theodore',
+                role: 'PHLEB',
+                shifts: '12p-10:30p',
+                breaks: [{
+                    start: 14,
+                    end: 14.25,
+                    type: 'break'
+                }, {
+                    start: 18.5,
+                    end: 19,
+                    type: 'lunch'
+                }, {
+                    start: 20.5,
+                    end: 20.75,
+                    type: 'break'
+                }],
+                startTime: 12
+            }, {
+                name: 'Taric White',
+                role: 'PHLEB',
+                shifts: '5-9p',
+                breaks: [{
+                    start: 19,
+                    end: 19.25,
+                    type: 'break'
+                }],
+                startTime: 17
+            }]
+        };
+
+        let currentDate = new Date('2025-10-03');
+        let callOuts = JSON.parse(localStorage.getItem('labCallOuts') || '{}');
+        let callOutFiles = {}; // Store file attachments separately
+        let selectedFiles = [];
+
+        // Load uploaded schedule data from Schedule Manager
+        const uploadedScheduleData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+
+        // DEBUG: Log what we found
+        console.log('🔍 [Call Out Tracker] Checking localStorage...');
+        console.log('📦 [Call Out Tracker] localStorage keys:', Object.keys(localStorage));
+        console.log('📊 [Call Out Tracker] callOutScheduleData:', uploadedScheduleData);
+        console.log('📅 [Call Out Tracker] Dates found:', Object.keys(uploadedScheduleData));
+
+        // Merge uploaded data with existing scheduleData
+        let mergedCount = 0;
+        Object.keys(uploadedScheduleData).forEach(date => {
+            scheduleData[date] = uploadedScheduleData[date];
+            mergedCount++;
+            console.log(`✅ [Call Out Tracker] Merged data for ${date} (${uploadedScheduleData[date].length} staff)`);
+        });
+
+        if (mergedCount > 0) {
+            console.log(`✅ [Call Out Tracker] Successfully merged ${mergedCount} date(s) from localStorage`);
+        } else {
+            console.log('⚠️ [Call Out Tracker] No uploaded data found in localStorage');
+        }
+
+        // Show upload status if data exists
+        if (Object.keys(uploadedScheduleData).length > 0) {
+            document.addEventListener('DOMContentLoaded', () => {
+                const statusEl = document.getElementById('uploadStatus');
+                if (statusEl) {
+                    statusEl.style.display = 'block';
+                }
+            });
+        }
+
+        function isScheduled(shiftStr, hour) {
+            if (!shiftStr) return false;
+            const match = shiftStr.match(/(\d+):?(\d+)?([ap])-(\d+):?(\d+)?([ap])/);
+            if (!match) return false;
+            let sh = parseInt(match[1]),
+                eh = parseInt(match[4]);
+            if (match[3] === 'p' && sh !== 12) sh += 12;
+            if (match[3] === 'a' && sh === 12) sh = 0;
+            if (match[6] === 'p' && eh !== 12) eh += 12;
+            if (match[6] === 'a' && eh === 12) eh = 0;
+            if (eh < sh) return hour >= sh || hour < eh;
+            return hour >= sh && hour < eh;
+        }
+
+        function getBreakStatus(breaks, hour) {
+            if (!breaks) return null;
+            for (let brk of breaks) {
+                let start = brk.start;
+                let end = brk.end;
+
+                // Handle breaks that cross midnight
+                if (end < start) {
+                    if (hour >= start || hour < end) {
+                        return brk.type;
+                    }
+                } else {
+                    if (hour >= start && hour < end) {
+                        return brk.type;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function renderSchedule() {
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            const data = scheduleData[dateStr] || [];
+
+            console.log(`📆 [Call Out Tracker] Rendering for date: ${dateStr}`);
+            console.log(`📊 [Call Out Tracker] Data found:`, data.length > 0 ? 'YES' : 'NO');
+            console.log(`👥 [Call Out Tracker] Total staff:`, data.length);
+            if (data.length === 0) {
+                console.log(`❌ [Call Out Tracker] No data for ${dateStr}`);
+                console.log(`📅 [Call Out Tracker] Available dates:`, Object.keys(scheduleData));
+            }
+
+            const roles = ['MLA', 'MLT', 'MLS', 'PHLEB'];
+            const hours = ['6a', '7a', '8a', '9a', '10a', '11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p', '11p', '12a', '1a', '2a', '3a', '4a', '5a'];
+
+            let html = '<thead><tr><th>DEPT</th><th>STAFF</th>';
+            hours.forEach(h => html += `<th>${h}</th>`);
+            html += '</tr></thead><tbody>';
+
+            let callOutCount = 0;
+            const callOutNames = [];
+
+            roles.forEach(role => {
+                const staff = data.filter(s => s.role === role).sort((a, b) => a.startTime - b.startTime);
+                staff.forEach((s, i) => {
+                    html += `<tr class="${role.toLowerCase()}">`;
+                    if (i === 0) html += `<td rowspan="${staff.length}" class="dept-header dept-header-${role.toLowerCase()}">${role}</td>`;
+
+                    const callOutKey = `${dateStr}-${s.name}`;
+                    const isCalledOut = !!callOuts[callOutKey];
+
+                    if (isCalledOut) {
+                        callOutCount++;
+                        callOutNames.push(s.name);
+                    }
+
+                    const badge = isCalledOut ? '<span class="callout-badge">CALLED OUT</span>' : '';
+                    const hasAttachment = callOuts[callOutKey] ? .files ? .length > 0 ? '<span class="attachment-icon" title="Has attachments">📎</span>' : '';
+                    html += `<td class="staff-name staff-clickable" onclick="toggleCallOut('${s.name}', '${dateStr}')">${s.name}${badge}${hasAttachment}</td>`;
+
+                    // Hours starting from 6 (6am)
+                    for (let i = 0; i < 24; i++) {
+                        const hour = (i + 6) % 24;
+                        let className = 'time-cell';
+
+                        if (isCalledOut) {
+                            if (isScheduled(s.shifts, hour)) {
+                                className += ' called-out';
+                            }
+                        } else if (isScheduled(s.shifts, hour)) {
+                            const breakStatus = getBreakStatus(s.breaks, hour);
+                            if (breakStatus === 'lunch') {
+                                className += ' on-lunch';
+                            } else if (breakStatus === 'break') {
+                                className += ' on-break';
+                            } else {
+                                className += ' scheduled';
+                            }
+                        }
+
+                        html += `<td class="${className}"></td>`;
+                    }
+                    html += '</tr>';
+                });
+            });
+
+            html += '</tbody>';
+            document.getElementById('scheduleTable').innerHTML = html;
+
+            // Update summary
+            const summaryEl = document.getElementById('calloutSummary');
+            if (callOutCount > 0) {
+                summaryEl.innerHTML = `<strong style="color: #ff5252;">⚠️ ${callOutCount} Call Out(s) Today:</strong> ${callOutNames.join(', ')}`;
+            } else {
+                summaryEl.innerHTML = '<strong style="color: #10b981;">✅ No Call Outs - Full Staff</strong>';
+            }
+        }
+
+        function updateDisplay() {
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById('dateBanner').textContent = currentDate.toLocaleDateString('en-US', options);
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            document.getElementById('datePicker').value = `${year}-${month}-${day}`;
+            renderSchedule();
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDisplay();
+        }
+
+        function setDate() {
+            const val = document.getElementById('datePicker').value;
+            if (val) {
+                const parts = val.split('-');
+                currentDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                updateDisplay();
+            }
+        }
+
+        // Call Out Management Functions
+        function toggleCallOut(staffName, dateStr) {
+            const key = `${dateStr}-${staffName}`;
+            if (callOuts[key]) {
+                if (confirm(`Remove call out for ${staffName}?`)) {
+                    delete callOuts[key];
+                    saveCallOuts();
+                    renderSchedule();
+                }
+            } else {
+                // Quick add without details
+                callOuts[key] = {
+                    staffName,
+                    date: dateStr,
+                    time: new Date().toLocaleTimeString(),
+                    reason: 'Not specified',
+                    notes: '',
+                    files: []
+                };
+                saveCallOuts();
+                renderSchedule();
+            }
+        }
+
+        function openCallOutModal(staffName = null, dateStr = null) {
+            document.getElementById('callOutModal').style.display = 'block';
+
+            // Populate staff dropdown
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const currentDateStr = dateStr || `${year}-${month}-${day}`;
+            const data = scheduleData[currentDateStr] || [];
+
+            const select = document.getElementById('calloutStaffSelect');
+            select.innerHTML = '<option value="">-- Select Staff --</option>';
+            const allStaff = [...new Set(data.map(s => s.name))].sort();
+            allStaff.forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                if (staffName === name) opt.selected = true;
+                select.appendChild(opt);
+            });
+
+            // Set default date
+            document.getElementById('calloutDate').value = currentDateStr;
+
+            // Reset form
+            selectedFiles = [];
+            document.getElementById('filePreview').innerHTML = '';
+        }
+
+        function closeCallOutModal() {
+            document.getElementById('callOutModal').style.display = 'none';
+            document.getElementById('calloutStaffSelect').value = '';
+            document.getElementById('calloutTime').value = '';
+            document.getElementById('calloutReason').value = 'Sick';
+            document.getElementById('calloutNotes').value = '';
+            selectedFiles = [];
+            document.getElementById('filePreview').innerHTML = '';
+        }
+
+        function submitCallOut(e) {
+            e.preventDefault();
+
+            const staffName = document.getElementById('calloutStaffSelect').value;
+            const date = document.getElementById('calloutDate').value;
+            const time = document.getElementById('calloutTime').value;
+            const reason = document.getElementById('calloutReason').value;
+            const notes = document.getElementById('calloutNotes').value;
+
+            const key = `${date}-${staffName}`;
+
+            callOuts[key] = {
+                staffName,
+                date,
+                time: time || new Date().toLocaleTimeString(),
+                reason,
+                notes,
+                files: selectedFiles.map(f => ({
+                    name: f.name,
+                    type: f.type,
+                    data: f.data,
+                    size: f.size
+                }))
+            };
+
+            saveCallOuts();
+            closeCallOutModal();
+            renderSchedule();
+
+            alert(`Call out recorded for ${staffName}`);
+        }
+
+        function saveCallOuts() {
+            localStorage.setItem('labCallOuts', JSON.stringify(callOuts));
+        }
+
+        function toggleCallOutList() {
+            const container = document.getElementById('callOutListContainer');
+            const isVisible = container.style.display !== 'none';
+
+            if (isVisible) {
+                container.style.display = 'none';
+            } else {
+                container.style.display = 'block';
+                renderCallOutList();
+            }
+        }
+
+        function renderCallOutList() {
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+
+            document.getElementById('callOutListDate').textContent = currentDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const todayCallOuts = Object.entries(callOuts)
+                .filter(([key]) => key.startsWith(dateStr))
+                .map(([key, data]) => data);
+
+            const listEl = document.getElementById('callOutList');
+
+            if (todayCallOuts.length === 0) {
+                listEl.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No call outs recorded for this date.</p>';
+                return;
+            }
+
+            let html = '';
+            todayCallOuts.forEach((callOut, idx) => {
+                        const filesHtml = callOut.files ? .length > 0 ? `
+                    <div class="callout-item-files">
+                        ${callOut.files.map((f, i) => {
+                            if (f.type.startsWith('image/')) {
+                                return `<img src="${f.data}" class="callout-file-thumb" onclick="viewImage('${f.data}', '${f.name}')" title="${f.name}">`;
+                            } else {
+                                return `<div style="padding: 8px; background: #f0f0f0; border-radius: 4px; font-size: 8pt;">📄 ${f.name}</div>`;
+                            }
+                        }).join('')}
+                    </div>
+                ` : '';
+
+                html += `
+                    <div class="callout-item">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h4>${callOut.staffName}</h4>
+                                <p style="font-size: 9pt; color: #666; margin: 3px 0;">
+                                    <strong>Time:</strong> ${callOut.time} |
+                                    <strong>Reason:</strong> ${callOut.reason}
+                                </p>
+                                ${callOut.notes ? `<p style="font-size: 9pt; margin-top: 5px;"><strong>Notes:</strong> ${callOut.notes}</p>` : ''}
+                                ${filesHtml}
+                            </div>
+                            <button class="btn btn-remove" onclick="removeCallOut('${dateStr}', '${callOut.staffName}')">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            listEl.innerHTML = html;
+        }
+
+        function removeCallOut(date, staffName) {
+            const key = `${date}-${staffName}`;
+            if (confirm(`Remove call out record for ${staffName}?`)) {
+                delete callOuts[key];
+                saveCallOuts();
+                renderCallOutList();
+                renderSchedule();
+            }
+        }
+
+        // File Upload Handling
+        document.getElementById('calloutFiles').addEventListener('change', handleFileSelect);
+
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            processFiles(files);
+        });
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: e.target.result
+                    });
+                    updateFilePreview();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updateFilePreview() {
+            const previewEl = document.getElementById('filePreview');
+            let html = '';
+
+            selectedFiles.forEach((file, idx) => {
+                const isImage = file.type.startsWith('image/');
+                html += `
+                    <div class="file-item">
+                        ${isImage ? `<img src="${file.data}" alt="${file.name}">` : '<span style="font-size: 24px;">📄</span>'}
+                        <div class="file-item-info">
+                            <strong style="font-size: 9pt;">${file.name}</strong>
+                            <div style="font-size: 8pt; color: #666;">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                        <button type="button" class="btn btn-remove" onclick="removeFile(${idx})">✕</button>
+                    </div>
+                `;
+            });
+
+            previewEl.innerHTML = html;
+        }
+
+        function removeFile(idx) {
+            selectedFiles.splice(idx, 1);
+            updateFilePreview();
+        }
+
+        function viewImage(src, name) {
+            const modal = document.getElementById('imageModal');
+            const content = document.getElementById('imageModalContent');
+            content.innerHTML = `
+                <h3 style="margin-bottom: 15px;">${name}</h3>
+                <img src="${src}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
+            `;
+            modal.style.display = 'block';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const callOutModal = document.getElementById('callOutModal');
+            const imageModal = document.getElementById('imageModal');
+            if (event.target === callOutModal) {
+                closeCallOutModal();
+            }
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+        }
+
+        updateDisplay();
+    </script>
+</body>
+
+</html>

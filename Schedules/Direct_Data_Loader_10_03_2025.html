@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Direct Data Loader - 10/03/2025</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            font-weight: bold;
+        }
+        .btn:hover { background: #004499; }
+        .btn-success { background: #28a745; }
+        .btn-success:hover { background: #218838; }
+        .btn-danger { background: #dc3545; }
+        .btn-danger:hover { background: #c82333; }
+        .log {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .success { color: #28a745; font-weight: bold; }
+        .error { color: #dc3545; font-weight: bold; }
+        .info { color: #0066cc; }
+        .warning { color: #ff9800; font-weight: bold; }
+        .data-preview {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Direct Data Loader</h1>
+            <h2>October 3, 2025 Schedule</h2>
+            <p style="opacity: 0.9; font-size: 14px;">Load schedule data directly into all schedulers</p>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn btn-success" onclick="loadScheduleData()">⚡ Load 10/03/2025 Schedule</button>
+            <button class="btn" onclick="verifyStorage()">🔍 Verify Storage</button>
+            <button class="btn btn-danger" onclick="clearStorage()">🗑️ Clear All Data</button>
+        </div>
+
+        <div id="log" class="log"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `<span style="color: #666;">[${timestamp}]</span> ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function loadScheduleData() {
+            log('🚀 Loading schedule data for October 3, 2025...', 'info');
+
+            // Schedule data for 10/03/2025 based on the uploaded image
+            const scheduleDate = '2025-10-03';
+
+            // Data in Daily Schedule format (object with phleb/lab arrays)
+            const dailyScheduleData = {
+                phleb: [
+                    {name: 'Christina Bolden-Davis', nickname: 'Christina', role: 'Opener', shift: '6:00a - 2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p', startTime: 6},
+                    {name: 'Youlana Miah', nickname: 'Youlana', role: 'Opener', shift: '6:00a - 2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p', startTime: 6},
+                    {name: 'Johnette Brooks', nickname: 'Johnette', role: 'Draw Patients', shift: '7:00a - 3:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p', startTime: 7},
+                    {name: 'Lakeshia Battle', nickname: 'Lakeshia', role: 'Draw Patients', shift: '7:00a - 3:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p', startTime: 7},
+                    {name: 'Farah Moise', nickname: 'Farah', role: 'Draw Patients/Processor 2', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 8},
+                    {name: 'Anne Saint Phirin', nickname: 'Anne', role: 'Processor', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p', startTime: 8},
+                    {name: 'Micaela Scarborough', nickname: 'Micaela', role: 'Runner', shift: '8:00a - 12:00p', breaks: 'Break: 10:00a-10:15a', startTime: 8},
+                    {name: 'Raquel Grayson', nickname: 'Raquel', role: 'Draw Patients', shift: '8:00a - 5:30p', breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 8},
+                    {name: 'Danalisa Hayes', nickname: 'Danalisa', role: 'Processor', shift: '9:00a - 10:30p', breaks: 'Break 1: 11:00a-11:15a | Lunch: 4:00p-4:30p | Break 2: 7:00p-7:15p', startTime: 9},
+                    {name: 'Stephanie Dodson', nickname: 'Stephanie', role: 'Closer', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p', startTime: 14},
+                    {name: 'Emmanuella Theodore', nickname: 'Emmanuella', role: 'Hot Seat/Draw Patients', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p', startTime: 14},
+                    {name: 'Taric White', nickname: 'Taric', role: 'Draw Patients', shift: '5:00p - 9:00p', breaks: 'Break: 7:00p-7:15p', startTime: 17}
+                ],
+                lab: [
+                    {name: 'Francis Azih Ngene', nickname: 'Francis', dept: 'MLS', assignment: 'AUC Front/Processing', shift: '7:30a - 4:00p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid', dept: 'MLS', assignment: 'AUC Back', shift: '7:30a - 4:00p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Emily Creekmore', nickname: 'Emily', dept: 'MLT', assignment: 'AUC/Inventory', shift: '7:30a - 3:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Lorraine Blackwell', nickname: 'Lorraine', dept: 'MLA', assignment: 'MOB', shift: '9:00a - 4:30p', breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 3:00p-3:15p', startTime: 9},
+                    {name: 'Ogheneochuko Eshofa', nickname: 'Ogheneochuko', dept: 'MLT', assignment: 'AUC Urines/Front', shift: '3:30p - 12:00a', breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p', startTime: 15.5},
+                    {name: 'Samuel Lawson', nickname: 'Samuel', dept: 'MLS', assignment: 'AUC Back', shift: '3:30p - 12:00a', breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p', startTime: 15.5},
+                    {name: 'Emmanuel Lejano', nickname: 'Emmanuel', dept: 'MLT', assignment: 'Night Coverage', shift: '9:30p - 6:00a', breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a', startTime: 21.5},
+                    {name: 'George Etape', nickname: 'George', dept: 'MLS', assignment: 'Pure 2 @ 3am AUC', shift: '11:30p - 8:00a', breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a', startTime: 23.5}
+                ]
+            };
+
+            log(`👥 Phlebotomy Staff: ${dailyScheduleData.phleb.length}`, 'info');
+            log(`🔬 Laboratory Staff: ${dailyScheduleData.lab.length}`, 'info');
+
+            // Store for Daily Schedule (object format)
+            try {
+                const existingDaily = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+                existingDaily[scheduleDate] = dailyScheduleData;
+                localStorage.setItem('dailyScheduleData', JSON.stringify(existingDaily));
+                log('✅ Stored dailyScheduleData', 'success');
+            } catch (e) {
+                log('❌ Error storing dailyScheduleData: ' + e.message, 'error');
+            }
+
+            // Convert to array format for Call Out Tracker and Visual Scheduler
+            const arrayData = [
+                ...dailyScheduleData.phleb.map(s => ({
+                    name: s.name,
+                    role: 'PHLEB',
+                    shifts: s.shift,
+                    breaks: parseBreaks(s.breaks),
+                    startTime: s.startTime
+                })),
+                ...dailyScheduleData.lab.map(s => ({
+                    name: s.name,
+                    role: s.dept || 'MLS',
+                    shifts: s.shift,
+                    breaks: parseBreaks(s.breaks),
+                    startTime: s.startTime
+                }))
+            ];
+
+            // Store for Call Out Tracker
+            try {
+                const existingCallOut = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+                existingCallOut[scheduleDate] = arrayData;
+                localStorage.setItem('callOutScheduleData', JSON.stringify(existingCallOut));
+                log('✅ Stored callOutScheduleData', 'success');
+            } catch (e) {
+                log('❌ Error storing callOutScheduleData: ' + e.message, 'error');
+            }
+
+            // Store for Visual Scheduler
+            try {
+                const existingVisual = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+                existingVisual[scheduleDate] = arrayData;
+                localStorage.setItem('visualScheduleData', JSON.stringify(existingVisual));
+                log('✅ Stored visualScheduleData', 'success');
+            } catch (e) {
+                log('❌ Error storing visualScheduleData: ' + e.message, 'error');
+            }
+
+            log('', 'info');
+            log('🎉 SUCCESS! Schedule data loaded for October 3, 2025', 'success');
+            log('📋 Total staff loaded: ' + (dailyScheduleData.phleb.length + dailyScheduleData.lab.length), 'success');
+            log('', 'info');
+            log('📌 NEXT STEPS:', 'warning');
+            log('1. Open Daily Schedule.html', 'info');
+            log('2. Navigate to October 3, 2025 using the date picker', 'info');
+            log('3. The schedule will automatically load!', 'info');
+            log('', 'info');
+            log('Same for Scheduler1.html and Scheduler.html', 'info');
+        }
+
+        function parseBreaks(breakStr) {
+            if (!breakStr) return [];
+            const breaks = [];
+            const breakParts = breakStr.split('|');
+            breakParts.forEach(part => {
+                const match = part.match(/(\d+):(\d+)([ap])-(\d+):(\d+)([ap])/);
+                if (match) {
+                    let startHr = parseInt(match[1]);
+                    const startMin = parseInt(match[2]);
+                    const startPeriod = match[3];
+                    let endHr = parseInt(match[4]);
+                    const endMin = parseInt(match[5]);
+                    const endPeriod = match[6];
+
+                    if (startPeriod === 'p' && startHr !== 12) startHr += 12;
+                    if (startPeriod === 'a' && startHr === 12) startHr = 0;
+                    if (endPeriod === 'p' && endHr !== 12) endHr += 12;
+                    if (endPeriod === 'a' && endHr === 12) endHr = 0;
+
+                    const type = part.toLowerCase().includes('lunch') ? 'lunch' : 'break';
+                    breaks.push({
+                        start: startHr + (startMin / 60),
+                        end: endHr + (endMin / 60),
+                        type: type
+                    });
+                }
+            });
+            return breaks;
+        }
+
+        function verifyStorage() {
+            log('', 'info');
+            log('🔍 Verifying localStorage...', 'warning');
+            log('', 'info');
+
+            const keys = ['dailyScheduleData', 'callOutScheduleData', 'visualScheduleData'];
+            let totalDates = 0;
+
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const dates = Object.keys(parsed);
+                        totalDates += dates.length;
+                        log(`✅ ${key}:`, 'success');
+                        dates.forEach(date => {
+                            const entry = parsed[date];
+                            if (Array.isArray(entry)) {
+                                log(`   📅 ${date}: ${entry.length} staff (array format)`, 'info');
+                            } else if (entry.phleb && entry.lab) {
+                                log(`   📅 ${date}: ${entry.phleb.length} phleb + ${entry.lab.length} lab (object format)`, 'info');
+                            }
+                        });
+                    } catch (e) {
+                        log(`❌ ${key}: Parse error - ${e.message}`, 'error');
+                    }
+                } else {
+                    log(`⚠️ ${key}: Not found`, 'warning');
+                }
+            });
+
+            log('', 'info');
+            if (totalDates > 0) {
+                log(`✅ Total dates in storage: ${totalDates}`, 'success');
+            } else {
+                log('❌ No schedule data found in localStorage', 'error');
+            }
+        }
+
+        function clearStorage() {
+            if (confirm('⚠️ Clear ALL schedule data from localStorage?\n\nThis will remove data for all dates from all schedulers.')) {
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                log('🗑️ All schedule data cleared from localStorage', 'warning');
+                log('You can reload the data by clicking "Load 10/03/2025 Schedule"', 'info');
+            }
+        }
+
+        // Auto-run on load
+        log('📝 Direct Data Loader Ready', 'success');
+        log('Click "⚡ Load 10/03/2025 Schedule" to populate all schedulers', 'info');
+    </script>
+</body>
+</html>

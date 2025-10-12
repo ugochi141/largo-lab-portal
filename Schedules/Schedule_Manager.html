@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Largo Lab Schedule Manager - Production</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 12pt;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .upload-section {
+            background: #f8f9fa;
+            border: 2px dashed #0066cc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section.dragover {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .upload-section h2 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18pt;
+        }
+
+        .upload-section p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 11pt;
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .file-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .file-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .file-meta {
+            font-size: 9pt;
+            color: #666;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 9pt;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #004499;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .processing-status {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .processing-status.show {
+            display: block;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .preview-section.show {
+            display: block;
+        }
+
+        .preview-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 16pt;
+        }
+
+        .schedule-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .schedule-table th {
+            background: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .export-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4f8;
+            border-radius: 10px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .export-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .format-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #e3f2fd;
+            color: #0066cc;
+            border-radius: 4px;
+            font-size: 8pt;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .supported-formats {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .supported-formats h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .format-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .format-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-left: 3px solid #0066cc;
+            border-radius: 4px;
+        }
+
+        .format-item strong {
+            color: #0066cc;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .upload-section,
+            .export-section,
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Largo Lab Schedule Manager</h1>
+            <p>Production-Ready Schedule Upload & Management System</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-icon">📁</div>
+                <h2>Upload Schedule Files</h2>
+                <p>Drag and drop files here or click to browse</p>
+
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" accept=".html,.pdf,.jpg,.jpeg,.png,.gif" multiple>
+                    <label for="fileInput" class="file-input-label">
+                        📂 Choose Files
+                    </label>
+                </div>
+
+                <div class="supported-formats">
+                    <h4>✅ Supported File Formats:</h4>
+                    <div class="format-list">
+                        <div class="format-item">
+                            <strong>📄 HTML</strong><br>
+                            Schedule files, exported tables
+                        </div>
+                        <div class="format-item">
+                            <strong>📑 PDF</strong><br>
+                            Printed schedules, reports
+                        </div>
+                        <div class="format-item">
+                            <strong>🖼️ Images</strong><br>
+                            JPG, PNG - Screenshots, photos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Status -->
+            <div class="processing-status" id="processingStatus">
+                <strong>⏳ Processing files...</strong>
+                <p id="statusMessage">Analyzing uploaded files</p>
+            </div>
+
+            <!-- File List -->
+            <div id="fileListContainer"></div>
+
+            <!-- Preview Section -->
+            <div class="preview-section" id="previewSection">
+                <h3>📋 Schedule Preview</h3>
+                <div class="schedule-preview" id="schedulePreview">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Export Section -->
+            <div class="export-section">
+                <h3>💾 Export Options</h3>
+                <div class="export-buttons">
+                    <button class="btn btn-primary" onclick="exportToVisualSchedule()">
+                        📊 Export to Visual Schedule (Scheduler.html)
+                    </button>
+                    <button class="btn btn-primary" onclick="exportToDailySchedule()">
+                        📅 Export to Daily Schedule
+                    </button>
+                    <button class="btn btn-primary" onclick="exportToGridSchedule()">
+                        🗓️ Export to Grid Schedule (Scheduler1.html)
+                    </button>
+                    <button class="btn btn-success" onclick="exportAllFormats()">
+                        💫 Export to All Formats
+                    </button>
+                    <button class="btn btn-warning" onclick="saveAsJSON()">
+                        📦 Save as JSON Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let uploadedFiles = [];
+        let parsedScheduleData = {
+            date: null,
+            phlebotomy: [],
+            laboratory: []
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDragAndDrop();
+            setupFileInput();
+        });
+
+        // Setup drag and drop
+        function setupDragAndDrop() {
+            const uploadSection = document.getElementById('uploadSection');
+
+            uploadSection.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadSection.classList.add('dragover');
+            });
+
+            uploadSection.addEventListener('dragleave', () => {
+                uploadSection.classList.remove('dragover');
+            });
+
+            uploadSection.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadSection.classList.remove('dragover');
+                const files = Array.from(e.dataTransfer.files);
+                handleFiles(files);
+            });
+        }
+
+        // Setup file input
+        function setupFileInput() {
+            const fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files);
+                handleFiles(files);
+            });
+        }
+
+        // Handle uploaded files
+        function handleFiles(files) {
+            showProcessingStatus('Processing ' + files.length + ' file(s)...');
+
+            files.forEach(file => {
+                const fileObj = {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    file: file,
+                    status: 'pending',
+                    data: null
+                };
+
+                uploadedFiles.push(fileObj);
+                processFile(fileObj);
+            });
+
+            updateFileList();
+        }
+
+        // Process individual file
+        async function processFile(fileObj) {
+            const fileExtension = fileObj.name.split('.').pop().toLowerCase();
+
+            try {
+                if (fileExtension === 'html' || fileExtension === 'htm') {
+                    await parseHTML(fileObj);
+                } else if (fileExtension === 'pdf') {
+                    await parsePDF(fileObj);
+                } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+                    await parseImage(fileObj);
+                }
+
+                fileObj.status = 'success';
+                showAlert('✅ Successfully processed: ' + fileObj.name, 'success');
+            } catch (error) {
+                fileObj.status = 'error';
+                fileObj.error = error.message;
+                showAlert('❌ Error processing ' + fileObj.name + ': ' + error.message, 'error');
+            }
+
+            updateFileList();
+            hideProcessingStatus();
+        }
+
+        // Parse HTML file
+        async function parseHTML(fileObj) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const htmlContent = e.target.result;
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlContent, 'text/html');
+
+                    // Extract schedule data from HTML
+                    const scheduleData = extractScheduleFromHTML(doc);
+                    fileObj.data = scheduleData;
+
+                    // Merge with global schedule data
+                    mergeScheduleData(scheduleData);
+                    updatePreview();
+
+                    resolve(scheduleData);
+                };
+
+                reader.onerror = function() {
+                    reject(new Error('Failed to read HTML file'));
+                };
+
+                reader.readAsText(fileObj.file);
+            });
+        }
+
+        // Extract schedule data from HTML document
+        function extractScheduleFromHTML(doc) {
+            const data = {
+                date: null,
+                phlebotomy: [],
+                laboratory: [],
+                shifts: {}
+            };
+
+            // Try to extract date
+            const dateBanner = doc.querySelector('.date-banner, h2, [class*="date"]');
+            if (dateBanner) {
+                const dateText = dateBanner.textContent;
+                const dateMatch = dateText.match(/(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/);
+                if (dateMatch) {
+                    data.date = dateMatch[1];
+                }
+            }
+
+            // Extract staff from tables
+            const tables = doc.querySelectorAll('table');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td, th');
+                    if (cells.length >= 3) {
+                        const staffData = {
+                            name: cells[0]?.textContent.trim() || '',
+                            role: cells[1]?.textContent.trim() || '',
+                            shift: cells[2]?.textContent.trim() || '',
+                            assignment: cells[3]?.textContent.trim() || '',
+                            breaks: cells[4]?.textContent.trim() || ''
+                        };
+
+                        if (staffData.name && staffData.name.length > 2) {
+                            // Determine if phlebotomy or lab based on role
+                            if (staffData.role.toLowerCase().includes('phleb') ||
+                                staffData.role.toLowerCase().includes('draw')) {
+                                data.phlebotomy.push(staffData);
+                            } else if (staffData.role.toLowerCase().includes('mla') ||
+                                       staffData.role.toLowerCase().includes('mlt') ||
+                                       staffData.role.toLowerCase().includes('mls')) {
+                                data.laboratory.push(staffData);
+                            }
+                        }
+                    }
+                });
+            });
+
+            return data;
+        }
+
+        // Parse PDF file (placeholder - requires PDF.js library)
+        async function parsePDF(fileObj) {
+            showAlert('📑 PDF parsing requires PDF.js library. Displaying file info only.', 'info');
+
+            fileObj.data = {
+                note: 'PDF file uploaded. Manual data entry or PDF.js integration needed.',
+                fileName: fileObj.name,
+                size: (fileObj.size / 1024).toFixed(2) + ' KB'
+            };
+
+            return Promise.resolve(fileObj.data);
+        }
+
+        // Parse Image file (placeholder - requires Tesseract.js for OCR)
+        async function parseImage(fileObj) {
+            showAlert('🖼️ Image OCR requires Tesseract.js library. Displaying preview only.', 'info');
+
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    fileObj.data = {
+                        note: 'Image file uploaded. OCR integration needed for text extraction.',
+                        fileName: fileObj.name,
+                        preview: e.target.result
+                    };
+                    resolve(fileObj.data);
+                };
+
+                reader.readAsDataURL(fileObj.file);
+            });
+        }
+
+        // Merge schedule data
+        function mergeScheduleData(newData) {
+            if (newData.date) {
+                parsedScheduleData.date = newData.date;
+            }
+
+            if (newData.phlebotomy && newData.phlebotomy.length > 0) {
+                parsedScheduleData.phlebotomy = parsedScheduleData.phlebotomy.concat(newData.phlebotomy);
+            }
+
+            if (newData.laboratory && newData.laboratory.length > 0) {
+                parsedScheduleData.laboratory = parsedScheduleData.laboratory.concat(newData.laboratory);
+            }
+        }
+
+        // Update file list display
+        function updateFileList() {
+            const container = document.getElementById('fileListContainer');
+
+            if (uploadedFiles.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '<div class="file-list">';
+
+            uploadedFiles.forEach((file, index) => {
+                const statusIcon = file.status === 'success' ? '✅' :
+                                 file.status === 'error' ? '❌' : '⏳';
+                const statusColor = file.status === 'success' ? '#28a745' :
+                                  file.status === 'error' ? '#dc3545' : '#ffc107';
+
+                html += `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-name">${statusIcon} ${file.name}</div>
+                            <div class="file-meta">
+                                Size: ${(file.size / 1024).toFixed(2)} KB |
+                                Type: ${file.type || 'Unknown'} |
+                                <span style="color: ${statusColor}; font-weight: 600;">
+                                    ${file.status.toUpperCase()}
+                                </span>
+                            </div>
+                            ${file.error ? `<div style="color: #dc3545; font-size: 9pt; margin-top: 5px;">Error: ${file.error}</div>` : ''}
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn btn-primary" onclick="viewFileData(${index})">👁️ View</button>
+                            <button class="btn btn-danger" onclick="removeFile(${index})">🗑️ Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Update preview
+        function updatePreview() {
+            const previewSection = document.getElementById('previewSection');
+            const schedulePreview = document.getElementById('schedulePreview');
+
+            if (parsedScheduleData.phlebotomy.length === 0 && parsedScheduleData.laboratory.length === 0) {
+                previewSection.classList.remove('show');
+                return;
+            }
+
+            previewSection.classList.add('show');
+
+            let html = '';
+
+            if (parsedScheduleData.date) {
+                html += `<div style="background: #e3f2fd; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+                    <strong>📅 Schedule Date:</strong> ${parsedScheduleData.date}
+                </div>`;
+            }
+
+            // Phlebotomy staff
+            if (parsedScheduleData.phlebotomy.length > 0) {
+                html += '<h4 style="color: #0066cc; margin: 15px 0 10px 0;">Phlebotomy Staff (' + parsedScheduleData.phlebotomy.length + ')</h4>';
+                html += '<table class="schedule-table">';
+                html += '<tr><th>Name</th><th>Role</th><th>Shift</th><th>Assignment</th><th>Breaks</th></tr>';
+
+                parsedScheduleData.phlebotomy.forEach(staff => {
+                    html += `<tr>
+                        <td>${staff.name}</td>
+                        <td>${staff.role}</td>
+                        <td>${staff.shift}</td>
+                        <td>${staff.assignment}</td>
+                        <td>${staff.breaks}</td>
+                    </tr>`;
+                });
+
+                html += '</table>';
+            }
+
+            // Laboratory staff
+            if (parsedScheduleData.laboratory.length > 0) {
+                html += '<h4 style="color: #0066cc; margin: 15px 0 10px 0;">Laboratory Technicians (' + parsedScheduleData.laboratory.length + ')</h4>';
+                html += '<table class="schedule-table">';
+                html += '<tr><th>Name</th><th>Department</th><th>Shift</th><th>Assignment</th><th>Breaks</th></tr>';
+
+                parsedScheduleData.laboratory.forEach(staff => {
+                    html += `<tr>
+                        <td>${staff.name}</td>
+                        <td>${staff.role}</td>
+                        <td>${staff.shift}</td>
+                        <td>${staff.assignment}</td>
+                        <td>${staff.breaks}</td>
+                    </tr>`;
+                });
+
+                html += '</table>';
+            }
+
+            schedulePreview.innerHTML = html;
+        }
+
+        // View file data
+        function viewFileData(index) {
+            const file = uploadedFiles[index];
+
+            if (!file.data) {
+                showAlert('No data extracted from this file yet.', 'info');
+                return;
+            }
+
+            const dataStr = JSON.stringify(file.data, null, 2);
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>File Data: ${file.name}</title>
+                    <style>
+                        body { font-family: monospace; padding: 20px; background: #f5f5f5; }
+                        pre { background: white; padding: 20px; border-radius: 8px; overflow-x: auto; }
+                    </style>
+                </head>
+                <body>
+                    <h2>File Data: ${file.name}</h2>
+                    <pre>${dataStr}</pre>
+                </body>
+                </html>
+            `);
+        }
+
+        // Remove file
+        function removeFile(index) {
+            if (confirm('Remove this file from the list?')) {
+                uploadedFiles.splice(index, 1);
+                updateFileList();
+
+                // Rebuild schedule data
+                parsedScheduleData = { date: null, phlebotomy: [], laboratory: [] };
+                uploadedFiles.forEach(file => {
+                    if (file.data) {
+                        mergeScheduleData(file.data);
+                    }
+                });
+                updatePreview();
+            }
+        }
+
+        // Export functions
+        function exportToVisualSchedule() {
+            showAlert('📊 Exporting to Visual Schedule (Scheduler.html)...', 'info');
+            generateVisualScheduleFile();
+        }
+
+        function exportToDailySchedule() {
+            showAlert('📅 Exporting to Daily Schedule...', 'info');
+            generateDailyScheduleFile();
+        }
+
+        function exportToGridSchedule() {
+            showAlert('🗓️ Exporting to Grid Schedule (Scheduler1.html)...', 'info');
+            generateGridScheduleFile();
+        }
+
+        function exportAllFormats() {
+            showAlert('💫 Exporting to all formats...', 'info');
+            generateVisualScheduleFile();
+            setTimeout(() => generateDailyScheduleFile(), 500);
+            setTimeout(() => generateGridScheduleFile(), 1000);
+        }
+
+        function saveAsJSON() {
+            const jsonStr = JSON.stringify(parsedScheduleData, null, 2);
+            downloadFile(jsonStr, 'schedule_data_' + getDateString() + '.json', 'application/json');
+            showAlert('💾 Schedule data saved as JSON', 'success');
+        }
+
+        // Generate files (placeholder functions)
+        function generateVisualScheduleFile() {
+            const content = generateScheduleHTML('visual');
+            downloadFile(content, 'Scheduler_' + getDateString() + '.html', 'text/html');
+            showAlert('✅ Visual Schedule exported successfully!', 'success');
+        }
+
+        function generateDailyScheduleFile() {
+            const content = generateScheduleHTML('daily');
+            downloadFile(content, 'Daily_Schedule_' + getDateString() + '.html', 'text/html');
+            showAlert('✅ Daily Schedule exported successfully!', 'success');
+        }
+
+        function generateGridScheduleFile() {
+            const content = generateScheduleHTML('grid');
+            downloadFile(content, 'Scheduler1_' + getDateString() + '.html', 'text/html');
+            showAlert('✅ Grid Schedule exported successfully!', 'success');
+        }
+
+        // Generate schedule HTML (simplified version)
+        function generateScheduleHTML(type) {
+            let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Largo Lab Schedule - ${type.toUpperCase()} - ${parsedScheduleData.date || 'Generated'}</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #0066cc; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #0066cc; color: white; }
+        tr:nth-child(even) { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <h1>Largo Clinical Laboratory - ${type.toUpperCase()} Schedule</h1>
+    <p><strong>Date:</strong> ${parsedScheduleData.date || 'Not specified'}</p>
+`;
+
+            if (parsedScheduleData.phlebotomy.length > 0) {
+                html += '<h2>Phlebotomy Staff</h2><table><tr><th>Name</th><th>Role</th><th>Shift</th><th>Assignment</th><th>Breaks</th></tr>';
+                parsedScheduleData.phlebotomy.forEach(staff => {
+                    html += `<tr><td>${staff.name}</td><td>${staff.role}</td><td>${staff.shift}</td><td>${staff.assignment}</td><td>${staff.breaks}</td></tr>`;
+                });
+                html += '</table>';
+            }
+
+            if (parsedScheduleData.laboratory.length > 0) {
+                html += '<h2>Laboratory Technicians</h2><table><tr><th>Name</th><th>Department</th><th>Shift</th><th>Assignment</th><th>Breaks</th></tr>';
+                parsedScheduleData.laboratory.forEach(staff => {
+                    html += `<tr><td>${staff.name}</td><td>${staff.role}</td><td>${staff.shift}</td><td>${staff.assignment}</td><td>${staff.breaks}</td></tr>`;
+                });
+                html += '</table>';
+            }
+
+            html += `
+    <p style="margin-top: 40px; color: #666; font-size: 9pt;">
+        Generated by Largo Lab Schedule Manager on ${new Date().toLocaleString()}
+    </p>
+</body>
+</html>`;
+
+            return html;
+        }
+
+        // Utility functions
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function getDateString() {
+            const now = new Date();
+            return now.getFullYear() + '-' +
+                   String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                   String(now.getDate()).padStart(2, '0');
+        }
+
+        function showProcessingStatus(message) {
+            const status = document.getElementById('processingStatus');
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            status.classList.add('show');
+        }
+
+        function hideProcessingStatus() {
+            setTimeout(() => {
+                const status = document.getElementById('processingStatus');
+                status.classList.remove('show');
+            }, 1000);
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-' + type;
+            alertDiv.textContent = message;
+            alertDiv.style.animation = 'slideIn 0.3s ease';
+
+            const mainContent = document.querySelector('.main-content');
+            mainContent.insertBefore(alertDiv, mainContent.firstChild);
+
+            setTimeout(() => {
+                alertDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 4000);
+        }
+    </script>
+
+    <style>
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-20px); opacity: 0; }
+        }
+    </style>
+</body>
+</html>
