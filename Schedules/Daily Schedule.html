@@ -1507,12 +1507,8 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
             };
             const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
-            // Check if this is uploaded data
-            const isUploadedData = uploadedScheduleData[dateStr] ? true : false;
-            const dataSource = isUploadedData ? ' - 📤 Uploaded Data' : '';
-
-            document.getElementById('phlebSection').innerHTML = `<h2>Phlebotomy Staff - ${formattedDate}${dataSource}</h2>`;
-            document.getElementById('labSection').innerHTML = `<h2>Laboratory Technicians - ${formattedDate}${dataSource}</h2><p style="font-size: 9pt; color: #666; margin-top: 5px; font-style: italic;">Both = MOB/AUC</p>`;
+            document.getElementById('phlebSection').innerHTML = `<h2>Phlebotomy Staff - ${formattedDate}</h2>`;
+            document.getElementById('labSection').innerHTML = `<h2>Laboratory Technicians - ${formattedDate}</h2><p style="font-size: 9pt; color: #666; margin-top: 5px; font-style: italic;">Both = MOB/AUC</p>`;
 
             if (!data) {
                 console.log(`❌ [Daily Schedule] No data for ${dateStr}`);
