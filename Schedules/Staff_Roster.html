@@ -360,221 +360,244 @@
     </div>
 
     <script>
-        // Staff roster data
+        // Staff roster data - Updated with complete employee information
         const staffRoster = [
-            // Phlebotomists
+            // Lab Assistant - MLA (1 staff)
             {
-                name: 'Youlana Miah',
-                nickname: 'Youlana',
-                role: 'PHLEB',
-                nuid: 'NUID001',
-                shift: 'Day (6:00a-2:30p)',
-                email: 'youlana.miah@kp.org',
-                phone: '(555) 101-0001'
-            },
-            {
-                name: 'Johnette Brooks',
-                nickname: 'Netta',
-                role: 'PHLEB',
-                nuid: 'NUID002',
-                shift: 'Day (7:00a-3:30p)',
-                email: 'johnette.brooks@kp.org',
-                phone: '(555) 101-0002'
-            },
-            {
-                name: 'Farah Moise',
-                nickname: 'Farah',
-                role: 'PHLEB',
-                nuid: 'NUID003',
+                name: 'Lorraine Blackwell',
+                nickname: 'Lorraine',
+                role: 'MLA',
+                nuid: 'O975731',
+                hireDate: '07/31/2000',
                 shift: 'Day (8:00a-4:30p)',
-                email: 'farah.moise@kp.org',
-                phone: '(555) 101-0003'
-            },
-            {
-                name: 'Manoucheca Onuma',
-                nickname: 'Mimi',
-                role: 'PHLEB',
-                nuid: 'NUID004',
-                shift: 'Day (8:00a-4:30p)',
-                email: 'manoucheca.onuma@kp.org',
-                phone: '(555) 101-0004'
-            },
-            {
-                name: 'Micaela Scarborough',
-                nickname: 'Micaela',
-                role: 'PHLEB',
-                nuid: 'NUID005',
-                shift: 'Day (8:00a-12:00p)',
-                email: 'micaela.scarborough@kp.org',
-                phone: '(555) 101-0005'
-            },
-            {
-                name: 'Anitra Baylor',
-                nickname: 'Anitra',
-                role: 'PHLEB',
-                nuid: 'NUID006',
-                shift: 'Day (9:00a-5:30p)',
-                email: 'anitra.baylor@kp.org',
-                phone: '(555) 101-0006'
-            },
-            {
-                name: 'Emmanuella Theodore',
-                nickname: 'Emma',
-                role: 'PHLEB',
-                nuid: 'NUID007',
-                shift: 'Day (9:00a-5:30p)',
-                email: 'emmanuella.theodore@kp.org',
-                phone: '(555) 101-0007'
-            },
-            {
-                name: 'Tamika Nettles',
-                nickname: 'Tamika',
-                role: 'PHLEB',
-                nuid: 'NUID008',
-                shift: 'Day (9:00a-5:30p)',
-                email: 'tamika.nettles@kp.org',
-                phone: '(555) 101-0008'
-            },
-            {
-                name: 'Stephanie Dodson',
-                nickname: 'Stephanie',
-                role: 'PHLEB',
-                nuid: 'NUID009',
-                shift: 'Evening (2:00p-10:30p)',
-                email: 'stephanie.dodson@kp.org',
-                phone: '(555) 101-0009'
-            },
-            {
-                name: 'Danalisa Hayes',
-                nickname: 'Danalisa',
-                role: 'PHLEB',
-                nuid: 'NUID010',
-                shift: 'Evening (2:00p-10:30p)',
-                email: 'danalisa.hayes@kp.org',
-                phone: '(555) 101-0010'
-            },
-            {
-                name: 'Shannon Pilkington',
-                nickname: 'Shannon',
-                role: 'PHLEB',
-                nuid: 'NUID011',
-                shift: 'Evening (2:00p-10:30p)',
-                email: 'shannon.pilkington@kp.org',
-                phone: '(555) 101-0011'
-            },
-            {
-                name: 'Temica Watson',
-                nickname: 'Temica',
-                role: 'PHLEB',
-                nuid: 'NUID012',
-                shift: 'Evening (2:00p-10:30p)',
-                email: 'temica.watson@kp.org',
-                phone: '(555) 101-0012'
-            },
-            {
-                name: 'Taric White',
-                nickname: 'Taric',
-                role: 'PHLEB',
-                nuid: 'NUID013',
-                shift: 'Split (9:00a-1:00p / 5:00p-9:00p)',
-                email: 'taric.white@kp.org',
-                phone: '(555) 101-0013'
+                email: 'Lorraine.M.Blackwell@kp.org',
+                phone: '(240) 841-6490'
             },
 
-            // Lab Technicians - MLT
-            {
-                name: 'Maxwell Booker',
-                nickname: 'Booker',
-                role: 'MLT',
-                nuid: 'NUID014',
-                shift: 'Day (7:30a-4:00p)',
-                email: 'maxwell.booker@kp.org',
-                phone: '(555) 201-0014'
-            },
-            {
-                name: 'Emily Creekmore',
-                nickname: 'Emily',
-                role: 'MLT',
-                nuid: 'NUID015',
-                shift: 'Day (7:30a-4:00p)',
-                email: 'emily.creekmore@kp.org',
-                phone: '(555) 201-0015'
-            },
-            {
-                name: 'Ogheneochuko Eshofa',
-                nickname: 'Tracy',
-                role: 'MLT',
-                nuid: 'NUID016',
-                shift: 'Evening (3:30p-12:00a)',
-                email: 'ogheneochuko.eshofa@kp.org',
-                phone: '(555) 201-0016'
-            },
-            {
-                name: 'Emmanuel Lejano',
-                nickname: 'Boyet',
-                role: 'MLT',
-                nuid: 'NUID017',
-                shift: 'Night (9:30p-6:00a)',
-                email: 'emmanuel.lejano@kp.org',
-                phone: '(555) 201-0017'
-            },
-
-            // Lab Scientists - MLS
-            {
-                name: 'Francis Azih Ngene',
-                nickname: 'Francis',
-                role: 'MLS',
-                nuid: 'NUID018',
-                shift: 'Day (7:30a-4:00p)',
-                email: 'francis.azihngene@kp.org',
-                phone: '(555) 301-0018'
-            },
+            // Lab Scientists - MLS (6 staff)
             {
                 name: 'Albert Che',
                 nickname: 'Albert',
                 role: 'MLS',
-                nuid: 'NUID019',
+                nuid: 'E715825',
+                hireDate: '10/18/2015',
                 shift: 'Evening (3:30p-12:00a)',
-                email: 'albert.che@kp.org',
-                phone: '(555) 301-0019'
+                email: 'Albert.Che@kp.org',
+                phone: '(240) 441-2206'
             },
             {
-                name: 'Samuel Lawson',
-                nickname: 'Samuel',
+                name: 'Francis Azih Ngene',
+                nickname: 'Francis',
                 role: 'MLS',
-                nuid: 'NUID020',
-                shift: 'Evening (3:30p-12:00a)',
-                email: 'samuel.lawson@kp.org',
-                phone: '(555) 301-0020'
+                nuid: 'K985930',
+                hireDate: '11/01/2015',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Francis.Azih-Ngene@kp.org',
+                phone: '(301) 437-3317'
             },
             {
                 name: 'George Etape',
                 nickname: 'George',
                 role: 'MLS',
-                nuid: 'NUID021',
+                nuid: 'B799280',
+                hireDate: '08/14/2022',
                 shift: 'Night (11:30p-8:00a)',
-                email: 'george.etape@kp.org',
-                phone: '(555) 301-0021'
+                email: 'George.T.Etape@kp.org',
+                phone: '(240) 938-3314'
+            },
+            {
+                name: 'Ingrid Benitez-Ruiz',
+                nickname: 'Ingrid',
+                role: 'MLS',
+                nuid: 'Z711849',
+                hireDate: '08/15/2010',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Ingrid.Z.Benitez-Ruiz@kp.org',
+                phone: '(202) 894-5149'
             },
             {
                 name: 'Jacqueline Liburd',
                 nickname: 'Jackie',
                 role: 'MLS',
-                nuid: 'NUID022',
+                nuid: 'G600902',
+                hireDate: '06/11/1994',
                 shift: 'Night (12:00a-6:30a)',
-                email: 'jacqueline.liburd@kp.org',
-                phone: '(555) 301-0022'
+                email: 'Jacqueline.E.Liburd@kp.org',
+                phone: '(202) 297-5269'
+            },
+            {
+                name: 'Samuel Lawson',
+                nickname: 'Samuel',
+                role: 'MLS',
+                nuid: 'P171374',
+                hireDate: '09/04/2003',
+                shift: 'Evening (3:30p-12:00a)',
+                email: 'Samuel.D.Lawson@kp.org',
+                phone: '(240) 413-1001'
             },
 
-            // Lab Assistant - MLA
+            // Lab Technicians - MLT (4 staff)
             {
-                name: 'Lorraine Blackwell',
-                nickname: 'Lorraine',
-                role: 'MLA',
-                nuid: 'NUID023',
+                name: 'Emily Creekmore',
+                nickname: 'Emily',
+                role: 'MLT',
+                nuid: 'F196088',
+                hireDate: '09/11/2022',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Emily.D.Creekmore@kp.org',
+                phone: '(601) 965-2300'
+            },
+            {
+                name: 'Emmanuel Lejano',
+                nickname: 'Boyet',
+                role: 'MLT',
+                nuid: 'S476844',
+                hireDate: '04/17/2016',
+                shift: 'Variable',
+                email: 'Emmanuel.M.Lejano@kp.org',
+                phone: '(301) 792-4483'
+            },
+            {
+                name: 'Maxwell Booker',
+                nickname: 'Booker',
+                role: 'MLT',
+                nuid: 'C221245',
+                hireDate: '06/26/2016',
+                shift: 'Variable',
+                email: 'Maxwell.L.Booker@kp.org',
+                phone: '(301) 499-2712'
+            },
+            {
+                name: 'Ogheneochuko Eshofa',
+                nickname: 'Tracy',
+                role: 'MLT',
+                nuid: 'I909813',
+                hireDate: '09/10/2023',
+                shift: 'Variable',
+                email: 'Ogheneochuko.T.Eshofa@kp.org',
+                phone: '(240) 825-8236'
+            },
+
+            // Phlebotomists - PHLEB (12 staff)
+            {
+                name: 'Anne Saint Phirin',
+                nickname: 'Anne',
+                role: 'PHLEB',
+                nuid: 'G191226',
+                hireDate: '10/30/2016',
                 shift: 'Day (8:00a-4:30p)',
-                email: 'lorraine.blackwell@kp.org',
-                phone: '(555) 401-0023'
+                email: 'Anne.T.Saint-Phirin@kp.org',
+                phone: '(227) 213-8358'
+            },
+            {
+                name: 'Christina Bolden-Davis',
+                nickname: 'Christina',
+                role: 'PHLEB',
+                nuid: 'B469877',
+                hireDate: '11/27/2016',
+                shift: 'Day (6:00a-2:30p)',
+                email: 'Christina.N.Bolden-Davis@kp.org',
+                phone: '(202) 375-8459'
+            },
+            {
+                name: 'Danalisa Hayes',
+                nickname: 'Danalisa',
+                role: 'PHLEB',
+                nuid: 'H418243',
+                hireDate: '05/04/2008',
+                shift: 'Variable',
+                email: 'Danalisa.E.Hayes@kp.org',
+                phone: '(301) 568-1829'
+            },
+            {
+                name: 'Emmanuella Theodore',
+                nickname: 'Emma',
+                role: 'PHLEB',
+                nuid: 'E100889',
+                hireDate: '08/07/2016',
+                shift: 'Variable',
+                email: 'Emmanuella.Theodore@kp.org',
+                phone: '(202) 716-1499'
+            },
+            {
+                name: 'Farah Moise',
+                nickname: 'Farah',
+                role: 'PHLEB',
+                nuid: 'I308821',
+                hireDate: '02/13/2022',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Farah.F.Moise@kp.org',
+                phone: '(240) 355-6515'
+            },
+            {
+                name: 'Johnette Brooks',
+                nickname: 'Netta',
+                role: 'PHLEB',
+                nuid: 'M391610',
+                hireDate: '05/14/2017',
+                shift: 'Day (7:00a-3:30p)',
+                email: 'Johnette.L.Brooks@kp.org',
+                phone: '(301) 275-9567'
+            },
+            {
+                name: 'Lakeshia Battle',
+                nickname: 'Keshia',
+                role: 'PHLEB',
+                nuid: 'L296279',
+                hireDate: '07/16/2023',
+                shift: 'Variable',
+                email: 'Keshia.A.Battle@kp.org',
+                phone: '(301) 828-6336'
+            },
+            {
+                name: 'Micaela Scarborough',
+                nickname: 'Micaela',
+                role: 'PHLEB',
+                nuid: 'I441746',
+                hireDate: '07/03/2022',
+                shift: 'Day (8:00a-12:00p)',
+                email: 'Micaela.X.Scarborough@kp.org',
+                phone: '(443) 991-0888'
+            },
+            {
+                name: 'Nichole Fauntleroy',
+                nickname: 'Nichole',
+                role: 'PHLEB',
+                nuid: 'X044352',
+                hireDate: '07/02/2023',
+                shift: 'Evening (2:00p-10:30p)',
+                email: 'Nichole.X.Fauntleroy@kp.org',
+                phone: '(443) 231-8396'
+            },
+            {
+                name: 'Stephanie Dodson',
+                nickname: 'Stephanie',
+                role: 'PHLEB',
+                nuid: 'P838373',
+                hireDate: '08/01/2014',
+                shift: 'Evening (2:00p-10:30p)',
+                email: 'Stephanie.J.Dodson@kp.org',
+                phone: '(202) 568-3007'
+            },
+            {
+                name: 'Taric White',
+                nickname: 'Taric',
+                role: 'PHLEB',
+                nuid: 'A298633',
+                hireDate: '07/16/2023',
+                shift: 'Split (9:00a-1:00p / 5:00p-9:00p)',
+                email: 'Taric.X.White@kp.org',
+                phone: '(240) 682-4322'
+            },
+            {
+                name: 'Youlana Miah',
+                nickname: 'Youlana',
+                role: 'PHLEB',
+                nuid: 'P214486',
+                hireDate: '04/03/2016',
+                shift: 'Day (6:00a-2:30p)',
+                email: 'Youlana.Miah@kp.org',
+                phone: '(301) 404-8949'
             }
         ];
 
