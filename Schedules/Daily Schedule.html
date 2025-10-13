@@ -1543,9 +1543,9 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
             sortedLab.forEach(s => {
                 const key = `${dateStr}-${s.name}`;
                 const status = callOuts[key] ? '🚫 CALLED OUT' : '✓ Scheduled';
-                labHtml += `<tr class="dept-${s.role.toLowerCase()}">
+                labHtml += `<tr class="dept-${s.dept.toLowerCase()}">
                     <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
-                    <td><strong>${s.role}</strong></td>
+                    <td><strong>${s.dept}</strong></td>
                     <td>${s.assignment}</td>
                     <td>${s.shift}</td>
                     <td style="font-size:9pt;">${s.breaks}</td>
