@@ -1484,7 +1484,7 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
 
         let callOuts = JSON.parse(localStorage.getItem('labCallOuts') || '{}');
         let floaters = JSON.parse(localStorage.getItem('labFloaters') || '{}');
-        let currentDate = new Date('2025-10-13');
+        let currentDate = new Date();
 
         // Load uploaded schedule data from Schedule Manager
         const uploadedScheduleData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
