@@ -1,0 +1,133 @@
+<style>
+    .schedule-nav {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 15px 20px;
+        margin: -30px -30px 30px -30px;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .schedule-nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .nav-home-btn:hover {
+        background: rgba(255,255,255,0.3);
+        border-color: rgba(255,255,255,0.5);
+        transform: translateY(-2px);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .nav-link:hover {
+        background: rgba(255,255,255,0.25);
+        transform: scale(1.05);
+    }
+
+    .nav-link.active {
+        background: rgba(255,255,255,0.9);
+        color: #667eea;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .schedule-nav-content {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .nav-links {
+            flex-direction: column;
+        }
+
+        .nav-link {
+            justify-content: center;
+        }
+    }
+</style>
+
+<nav class="schedule-nav">
+    <div class="schedule-nav-content">
+        <a href="../index.html" class="nav-home-btn">
+            <span>🏥</span>
+            <span>Portal Home</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="Daily Schedule.html" class="nav-link" id="nav-daily">
+                <span>📋</span>
+                <span>Daily Schedule</span>
+            </a>
+            <a href="Maintenance Schedule.html" class="nav-link" id="nav-maintenance">
+                <span>🔧</span>
+                <span>Maintenance</span>
+            </a>
+            <a href="Scheduler.html" class="nav-link" id="nav-visual">
+                <span>📊</span>
+                <span>Visual Coverage</span>
+            </a>
+            <a href="Scheduler1.html" class="nav-link" id="nav-callout">
+                <span>📞</span>
+                <span>Call Out Tracker</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Highlight active page
+    (function() {
+        const currentPage = window.location.pathname.split('/').pop();
+        const navMap = {
+            'Daily Schedule.html': 'nav-daily',
+            'Maintenance Schedule.html': 'nav-maintenance',
+            'Scheduler.html': 'nav-visual',
+            'Scheduler1.html': 'nav-callout'
+        };
+
+        const activeId = navMap[currentPage];
+        if (activeId) {
+            const activeLink = document.getElementById(activeId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    })();
+</script>
