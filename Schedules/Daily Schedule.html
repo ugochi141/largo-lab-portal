@@ -253,6 +253,7 @@
                     <button class="btn" onclick="window.print()" aria-label="Print schedule">📄 Print</button>
                     <button class="btn" onclick="showCallOutModal()" aria-label="Add call out">Add Call Out</button>
                     <button class="btn" onclick="showFloaterModal()" aria-label="Add floater">Add Floater</button>
+                    <button class="btn" style="background: #ff9800;" onclick="clearLocalStorage()" aria-label="Clear cached schedule data">🔄 Clear Cache</button>
                     <button class="btn danger" onclick="clearAll()" aria-label="Clear all notes">Clear All</button>
                 </div>
             </div>
@@ -1678,6 +1679,19 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
                 localStorage.removeItem('labCallOuts');
                 localStorage.removeItem('labFloaters');
                 renderTables();
+            }
+        }
+
+        function clearLocalStorage() {
+            if (confirm('Clear cached schedule data? This will remove any uploaded schedules from Schedule Manager and show the default schedule data.\n\nThis action will reload the page.')) {
+                console.log('🗑️ Clearing localStorage schedule data...');
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                localStorage.removeItem('lastScheduleSync');
+                console.log('✅ Cache cleared successfully');
+                alert('Cache cleared! The page will now reload to show the default schedule.');
+                location.reload();
             }
         }
 
