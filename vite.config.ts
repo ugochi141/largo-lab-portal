@@ -79,6 +79,9 @@ export default defineConfig({
           'dnd-vendor': ['@dnd-kit/core', '@dnd-kit/sortable', '@dnd-kit/utilities'],
           'export-vendor': ['jspdf', 'jspdf-autotable', 'xlsx']
         }
+      },
+      input: {
+        main: './index.html',
       }
     }
   },
