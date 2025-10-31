@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Assignment Schedule</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #4a5568;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background-color: #f7fafc;
+            transition: background-color 0.3s ease;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .location-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .mob {
+            background-color: #48bb78;
+            color: white;
+        }
+
+        .auc {
+            background-color: #4299e1;
+            color: white;
+        }
+
+        .both {
+            background-color: #9f7aea;
+            color: white;
+        }
+
+        .daily-section {
+            background: linear-gradient(135deg, #f6f9fc 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .daily-section h3 {
+            color: #2d3748;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shift-icon {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .note {
+            background-color: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-style: italic;
+            color: #7d4e00;
+        }
+
+        .time-highlight {
+            background-color: #fed7d7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #742a2a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <iframe src="schedule-nav.html" style="width: 100%; height: 80px; border: none; margin: -30px -30px 20px -30px; display: block;" title="Schedule Navigation"></iframe>
+
+        <h1>🔬 Laboratory Maintenance Schedule</h1>
+
+        <h2>📅 Weekly Tasks</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Location</th>
+                    <th>Schedule</th>
+                    <th>Time/Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hematek</td>
+                    <td><span class="location-badge both">Both</span></td>
+                    <td>Weekly</td>
+                    <td>Regular weekly maintenance</td>
+                </tr>
+                <tr>
+                    <td>Sysmex XN Shutdown</td>
+                    <td><span class="location-badge both">Both</span></td>
+                    <td>Saturday Evening</td>
+                    <td><span class="time-highlight">9pm AUC</span>, <span class="time-highlight">10pm MOB</span></td>
+                </tr>
+                <tr>
+                    <td>Previ Gram Stain</td>
+                    <td><span class="location-badge mob">MOB</span></td>
+                    <td>Every Tuesday</td>
+                    <td>Regular maintenance</td>
+                </tr>
+                <tr>
+                    <td>Novus</td>
+                    <td><span class="location-badge auc">AUC</span></td>
+                    <td>Every Tuesday Night</td>
+                    <td>After <span class="time-highlight">3am</span></td>
+                </tr>
+                <tr>
+                    <td>Novus</td>
+                    <td><span class="location-badge mob">MOB</span></td>
+                    <td>Every Wednesday</td>
+                    <td>Day shift</td>
+                </tr>
+                <tr>
+                    <td>GeneXpert</td>
+                    <td><span class="location-badge both">Both</span></td>
+                    <td>Every Thursday Night</td>
+                    <td>Night shift maintenance</td>
+                </tr>
+                <tr>
+                    <td>Stago</td>
+                    <td><span class="location-badge both">Both</span></td>
+                    <td>Every Wednesday Evening</td>
+                    <td>Evening shift maintenance</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📅 Biweekly Tasks</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Location</th>
+                    <th>Schedule</th>
+                    <th>Next Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pure Analyzer 2</td>
+                    <td><span class="location-badge auc">AUC</span></td>
+                    <td>Every other Saturday, Night shift</td>
+                    <td><span class="time-highlight">3am</span> - Next: 10/11/25</td>
+                </tr>
+                <tr>
+                    <td>Pure Analyzer 1</td>
+                    <td><span class="location-badge mob">MOB</span></td>
+                    <td>Every other Friday, Evening shift</td>
+                    <td><span class="time-highlight">10pm</span> - Started: 10/4/25</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📅 Monthly Tasks</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Schedule</th>
+                    <th>Shift</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hematek</td>
+                    <td>2nd Wednesday</td>
+                    <td>Day shift</td>
+                    <td>Regular hours</td>
+                </tr>
+                <tr>
+                    <td>Medtox</td>
+                    <td>3rd Wednesday</td>
+                    <td>Day shift</td>
+                    <td>Regular hours</td>
+                </tr>
+                <tr>
+                    <td>Previ Gram Stain</td>
+                    <td>3rd Tuesday</td>
+                    <td>Day shift</td>
+                    <td>Regular hours</td>
+                </tr>
+                <tr>
+                    <td>Novus</td>
+                    <td>3rd Thursday</td>
+                    <td>Day shift</td>
+                    <td>Regular hours</td>
+                </tr>
+                <tr>
+                    <td>GeneXpert</td>
+                    <td>2nd Wednesday</td>
+                    <td>Night shift</td>
+                    <td>Night hours</td>
+                </tr>
+                <tr>
+                    <td>Stago</td>
+                    <td>2nd Thursday</td>
+                    <td>Evening shift</td>
+                    <td><span class="time-highlight">9pm</span></td>
+                </tr>
+                <tr>
+                    <td>Pure Analyzers</td>
+                    <td>3rd Saturday</td>
+                    <td>Night shift</td>
+                    <td><span class="time-highlight">3am</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔄 Daily QC and Maintenance Assignments</h2>
+
+        <div class="daily-section">
+            <h3><span class="shift-icon">☀️</span> MOB Day Shift (Morning)</h3>
+            <ul>
+                <li>Wipe Down Benches</li>
+                <li>Pure 1 - Daily QC @ <span class="time-highlight">7:30AM</span> (if QC or Validation Fails before 11am redirect Chem Testing to AUC)</li>
+                <li>Kits – Daily QC</li>
+                <li>SQA - Daily QC</li>
+                <li>Sysmex XN – Startup checks & daily QC (if QC or Validation Fails before 11am redirect Chem Testing to AUC)</li>
+                <li>Hematek – Startup checks & daily QC</li>
+                <li>Previ Gram Stain – Daily</li>
+                <li>Novus – Daily</li>
+                <li>Microscopes – Clean</li>
+                <li>Stago – Maintenance</li>
+                <li>Beads – Maintenance</li>
+                <li>Check and log in all QC in Cerner and the log sheets</li>
+            </ul>
+            <div class="note">
+                <strong>Important:</strong> While QC and Maintenance is done in MOB, please direct specimens to AUC for patient testing. Mark in the QC log sheet by placing a * next to the date and comment below then initial and date. For chemistry QC failure give reason in Unity before verification.
+            </div>
+        </div>
+
+        <div class="daily-section">
+            <h3><span class="shift-icon">☀️</span> AUC Day Shift (Morning)</h3>
+            <ul>
+                <li>Wipe Down Bench</li>
+                <li>Kits – Daily QC</li>
+                <li>MedTox – Daily QC</li>
+                <li>Sysmex XN – Startup checks & daily QC</li>
+                <li>Hematek – Startup checks & daily QC</li>
+                <li>Microscopes – Clean</li>
+                <li>Stago – Maintenance</li>
+                <li>Check and log in all QC in Cerner and the log sheets</li>
+            </ul>
+        </div>
+
+        <div class="daily-section">
+            <h3><span class="shift-icon">🌆</span> AUC Evening Shift</h3>
+            <ul>
+                <li>Wipe Down Bench</li>
+                <li>Stago – Maintenance</li>
+                <li>ESR 10% check – QC</li>
+                <li>Check and log in all QC in Cerner and the log sheets</li>
+            </ul>
+        </div>
+
+        <div class="daily-section">
+            <h3><span class="shift-icon">🌙</span> Night Shift</h3>
+            <ul>
+                <li>Wipe Down Bench</li>
+                <li>Pure 2 at <span class="time-highlight">3am</span> – QC</li>
+                <li>MiniSed – QC</li>
+                <li>Stago – Maintenance</li>
+                <li>GeneXpert – QC</li>
+                <li>Check and log in all QC in Cerner and the log sheets</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

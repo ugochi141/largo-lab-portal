@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<title>Kaiser Permanente Largo Lab - Coagulation Testing Standard Operating Procedure</title>
+<style>
+/* Optimized Kaiser Permanente Laboratory SOP Template */
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:8.5in 11in;margin:0.75in}
+html{font-size:10pt;width:100%;overflow-x:hidden}
+body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:8.5in;margin:0 auto;padding:0.5in;background:#f5f5f5;word-wrap:break-word;overflow-wrap:break-word}
+.container{background:#fff;padding:30px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0;word-wrap:break-word;overflow-wrap:break-word}
+
+/* Header Styling */
+.header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+.header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+.header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+
+/* Table of Contents - Two Column Layout */
+.toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+.toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+.toc-columns{display:flex;gap:30px}
+.toc-column{flex:1}
+.toc ul{list-style:none;padding:0}
+.toc li{margin:6px 0;padding-left:15px}
+.toc a{color:#0066cc;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+
+/* Section Styling */
+.section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+.section:last-child{border-bottom:none}
+
+/* Headings - Compact Styling */
+h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+/* Text Elements */
+p{margin:8px 0;text-align:left;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+ul,ol{margin:8px 0 8px 25px;padding:0;word-wrap:break-word;overflow-wrap:break-word}
+li{margin:4px 0;line-height:1.5;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+
+/* Special Sections */
+.key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+.procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+.warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+.critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+
+/* Table Styling */
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+table tbody tr{border-bottom:1px solid #e0e0e0}
+table td{padding:8px;border-right:1px solid #e0e0e0}
+table tbody tr:nth-child(even){background:#f8f9fa}
+
+/* Print Optimizations */
+@media print{
+    @page{size:8.5in 11in;margin:0.75in}
+    body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+    .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+    h1,h2,h3,h4{page-break-after:avoid}
+    .toc{page-break-after:always}
+}
+
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>COAGULATION TESTING</h1>
+<h2>Standard Operating Procedure - Hemostasis Laboratory</h2>
+<p><strong>Document ID:</strong> LAB-COAG-001 | <strong>Version:</strong> 7.0 | <strong>Effective Date:</strong> January 2025</p>
+<p><strong>Location:</strong> Largo Laboratory | <strong>Department:</strong> Coagulation/Hemostasis</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>TABLE OF CONTENTS</h3>
+<div class="toc-columns">
+<div class="toc-column">
+<ul>
+<li><a href="#purpose">1. PURPOSE</a></li>
+<li><a href="#clinical">2. CLINICAL SIGNIFICANCE</a></li>
+<li><a href="#scope">3. SCOPE</a></li>
+<li><a href="#responsibilities">4. RESPONSIBILITIES</a></li>
+<li><a href="#safety">5. SAFETY REQUIREMENTS</a></li>
+<li><a href="#specimen">6. SPECIMEN REQUIREMENTS</a></li>
+<li><a href="#reagents">7. REAGENTS AND SUPPLIES</a></li>
+<li><a href="#equipment">8. EQUIPMENT</a></li>
+<li><a href="#maintenance">9. MAINTENANCE</a></li>
+<li><a href="#qc">10. QUALITY CONTROL REQUIREMENTS</a></li>
+<li><a href="#calibration">11. CALIBRATION</a></li>
+<li><a href="#troubleshooting">12. TROUBLESHOOTING</a></li>
+</ul>
+</div>
+<div class="toc-column">
+<ul>
+<li><a href="#procedures">13. TEST PROCEDURE</a></li>
+<li><a href="#results">14. CALCULATIONS AND RESULT REPORTING</a></li>
+<li><a href="#reference">15. REFERENCE RANGES</a></li>
+<li><a href="#critical">16. CRITICAL VALUES</a></li>
+<li><a href="#limitations">17. LIMITATIONS AND INTERFERENCES</a></li>
+<li><a href="#emergency">18. EMERGENCY PROCEDURES</a></li>
+<li><a href="#task-reference">19. TASK REFERENCE GUIDE</a></li>
+<li><a href="#technical-support">20. TECHNICAL SUPPORT</a></li>
+<li><a href="#quality-assurance">21. QUALITY ASSURANCE</a></li>
+<li><a href="#regulatory">22. REGULATORY COMPLIANCE</a></li>
+<li><a href="#downtime">23. DOWNTIME PROCEDURES</a></li>
+<li><a href="#references">24. REFERENCES</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- SECTION 1: PURPOSE -->
+<div class="section" id="purpose">
+<h2>1. PURPOSE</h2>
+<p>This procedure describes standardized methodologies for performing coagulation testing at Kaiser Permanente Largo Laboratory. It encompasses routine coagulation assays including Prothrombin Time (PT/INR), Activated Partial Thromboplastin Time (aPTT), Fibrinogen, D-Dimer, and specialized coagulation studies to support diagnosis and monitoring of bleeding and thrombotic disorders.</p>
+
+<div class="key-concept">
+<h4>Key Objectives</h4>
+<ul>
+<li>Ensure accurate and timely coagulation test results for patient care</li>
+<li>Standardize testing procedures across all shifts</li>
+<li>Maintain compliance with CLIA, CAP, and Joint Commission standards</li>
+<li>Support anticoagulation therapy monitoring</li>
+<li>Provide critical results for surgical and emergency care</li>
+<li>Minimize pre-analytical variables affecting coagulation testing</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 2: SCOPE -->
+<div class="section" id="scope">
+<h2>2. SCOPE</h2>
+<p>This procedure applies to all laboratory personnel performing coagulation testing:</p>
+<ul>
+<li>Medical Laboratory Scientists (MLS)</li>
+<li>Medical Laboratory Technicians (MLT)</li>
+<li>Phlebotomists (specimen collection only)</li>
+<li>Laboratory Assistants (specimen processing only)</li>
+<li>Lead Technologists and Supervisors</li>
+<li>Pathology residents and fellows</li>
+</ul>
+
+<div class="info-box">
+<strong>Testing Locations:</strong> Main Laboratory Coagulation Section<br/>
+<strong>Backup Location:</strong> MOB Laboratory - 301-555-2000<br/>
+<strong>Operating Hours:</strong> 24/7 with STAT capability
+</div>
+</div>
+
+<!-- SECTION 3: REGULATORY REQUIREMENTS -->
+<div class="section" id="regulatory">
+<h2>3. REGULATORY REQUIREMENTS</h2>
+<table>
+<thead>
+<tr>
+<th>Regulatory Body</th>
+<th>Requirement</th>
+<th>Compliance Method</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLIA</td>
+<td>High Complexity Testing</td>
+<td>Qualified personnel only</td>
+<td>Competency records</td>
+</tr>
+<tr>
+<td>CAP</td>
+<td>HEM.35000-35900</td>
+<td>Daily QC, calibration</td>
+<td>QC logs, PT results</td>
+</tr>
+<tr>
+<td>Joint Commission</td>
+<td>Laboratory Standards</td>
+<td>Standardized procedures</td>
+<td>Policy compliance</td>
+</tr>
+<tr>
+<td>FDA</td>
+<td>510(k) cleared tests</td>
+<td>Follow manufacturer IFU</td>
+<td>Package inserts</td>
+</tr>
+<tr>
+<td>Kaiser Permanente</td>
+<td>Documents 14952_0, 13792_0</td>
+<td>Competency requirements</td>
+<td>Training records</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 4: TEST PRINCIPLES -->
+<div class="section" id="principle">
+<h2>4. TEST PRINCIPLES</h2>
+
+<div class="procedure-section">
+<h3>Prothrombin Time (PT/INR)</h3>
+<p><strong>Principle:</strong> Measures extrinsic and common pathway function</p>
+<ul>
+<li>Thromboplastin reagent initiates clotting via Factor VII</li>
+<li>Optical detection of fibrin clot formation</li>
+<li>Results reported in seconds and INR</li>
+<li>Primary test for warfarin monitoring</li>
+</ul>
+
+<h3>Activated Partial Thromboplastin Time (aPTT)</h3>
+<p><strong>Principle:</strong> Measures intrinsic and common pathway function</p>
+<ul>
+<li>Contact activator and phospholipid initiate clotting</li>
+<li>Sensitive to factors VIII, IX, XI, XII</li>
+<li>Used for heparin monitoring and factor deficiencies</li>
+</ul>
+
+<h3>Fibrinogen</h3>
+<p><strong>Principle:</strong> Clauss method - thrombin clotting time</p>
+<ul>
+<li>Excess thrombin converts fibrinogen to fibrin</li>
+<li>Clotting time inversely proportional to fibrinogen level</li>
+<li>Critical for bleeding risk assessment</li>
+</ul>
+
+<h3>D-Dimer</h3>
+<p><strong>Principle:</strong> Immunoturbidimetric assay</p>
+<ul>
+<li>Monoclonal antibodies detect fibrin degradation products</li>
+<li>Marker of fibrinolysis and thrombosis</li>
+<li>Used for VTE exclusion</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 5: CLINICAL SIGNIFICANCE -->
+<div class="section" id="clinical">
+<h2>5. CLINICAL SIGNIFICANCE</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Clinical Use</th>
+<th>Common Abnormalities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT/INR</td>
+<td>Warfarin monitoring, liver disease, DIC screen</td>
+<td>Prolonged in vitamin K deficiency, liver failure</td>
+</tr>
+<tr>
+<td>aPTT</td>
+<td>Heparin monitoring, hemophilia screening</td>
+<td>Prolonged in factor deficiencies, lupus anticoagulant</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td>Bleeding evaluation, DIC diagnosis</td>
+<td>Low in DIC, liver disease; High in inflammation</td>
+</tr>
+<tr>
+<td>D-Dimer</td>
+<td>DVT/PE exclusion, DIC monitoring</td>
+<td>Elevated in thrombosis, pregnancy, malignancy</td>
+</tr>
+<tr>
+<td>Factor Assays</td>
+<td>Bleeding disorder diagnosis</td>
+<td>Decreased in hemophilia, inhibitors</td>
+</tr>
+<tr>
+<td>Mixing Studies</td>
+<td>Differentiate factor deficiency vs inhibitor</td>
+<td>Correction = deficiency; No correction = inhibitor</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+<div class="section" id="specimen">
+<h2>6. SPECIMEN REQUIREMENTS</h2>
+
+<div class="critical-box">
+<h3>Critical Specimen Requirements</h3>
+<ul>
+<li><strong>Anticoagulant:</strong> 3.2% sodium citrate (light blue top) ONLY</li>
+<li><strong>Fill Volume:</strong> MUST fill to line (9:1 blood to citrate ratio)</li>
+<li><strong>Mixing:</strong> Gentle inversion 3-4 times immediately</li>
+<li><strong>Transport:</strong> Room temperature, upright position</li>
+<li><strong>Processing:</strong> Centrifuge within 1 hour of collection</li>
+</ul>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Requirement</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tube Type</td>
+<td>3.2% sodium citrate (blue)</td>
+<td>3.8% citrate NOT acceptable</td>
+</tr>
+<tr>
+<td>Minimum Volume</td>
+<td>90% of tube fill</td>
+<td>Underfilled tubes alter ratio</td>
+</tr>
+<tr>
+<td>Stability - Whole Blood</td>
+<td>4 hours at room temp</td>
+<td>For PT/INR and aPTT</td>
+</tr>
+<tr>
+<td>Stability - Plasma</td>
+<td>4 hours at room temp</td>
+<td>24 hours at 2-8°C if frozen</td>
+</tr>
+<tr>
+<td>Hematocrit Adjustment</td>
+<td>Required if Hct <25% or >55%</td>
+<td>Adjust citrate volume</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<h3>Specimen Rejection Criteria</h3>
+<ul>
+<li>Clotted specimens (check with applicator sticks)</li>
+<li>Hemolyzed samples (may affect optical endpoint)</li>
+<li>Underfilled tubes (<90% of required volume)</li>
+<li>Wrong anticoagulant (EDTA, heparin tubes)</li>
+<li>Specimens >4 hours old at room temperature</li>
+<li>Visible lipemia or icterus (may interfere)</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 7: EQUIPMENT -->
+<div class="section" id="equipment">
+<h2>7. EQUIPMENT</h2>
+<table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Model/Details</th>
+<th>Maintenance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary Analyzer</td>
+<td>Sysmex CS-5100</td>
+<td>Daily, weekly, monthly</td>
+</tr>
+<tr>
+<td>Backup Analyzer</td>
+<td>Sysmex CS-2500</td>
+<td>Same as primary</td>
+</tr>
+<tr>
+<td>Centrifuge</td>
+<td>3500 rpm, 15 minutes</td>
+<td>Daily balance check</td>
+</tr>
+<tr>
+<td>Refrigerator</td>
+<td>2-8°C for reagents</td>
+<td>Temperature monitoring</td>
+</tr>
+<tr>
+<td>Freezer</td>
+<td>-20°C or -70°C</td>
+<td>For specimen storage</td>
+</tr>
+<tr>
+<td>Water Bath</td>
+<td>37°C ± 0.5°C</td>
+<td>Daily temperature check</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 8: REAGENTS -->
+<div class="section" id="reagents">
+<h2>8. REAGENTS AND SUPPLIES</h2>
+<table>
+<thead>
+<tr>
+<th>Reagent</th>
+<th>Storage</th>
+<th>Stability</th>
+<th>Preparation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT Reagent (Dade Innovin)</td>
+<td>2-8°C</td>
+<td>5 days onboard</td>
+<td>Reconstitute per IFU</td>
+</tr>
+<tr>
+<td>aPTT Reagent (Actin FSL)</td>
+<td>2-8°C</td>
+<td>7 days onboard</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td>Calcium Chloride</td>
+<td>Room temp</td>
+<td>30 days open</td>
+<td>0.025 mol/L</td>
+</tr>
+<tr>
+<td>Fibrinogen Reagent</td>
+<td>2-8°C</td>
+<td>7 days reconstituted</td>
+<td>Thrombin solution</td>
+</tr>
+<tr>
+<td>D-Dimer Reagent</td>
+<td>2-8°C</td>
+<td>Kit expiration</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td>Controls (N, Abn 1, Abn 2)</td>
+<td>2-8°C</td>
+<td>8 hours reconstituted</td>
+<td>Reconstitute daily</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 9: QUALITY CONTROL -->
+<div class="section" id="qc">
+<h2>9. QUALITY CONTROL</h2>
+
+<div class="critical-box">
+<h3>Critical QC Rules - NOTIFICATION REQUIRED</h3>
+<ul>
+<li><strong>1-3s Rule:</strong> One control exceeds ±3 SD - STOP testing</li>
+<li><strong>2-2s Rule:</strong> Two consecutive controls exceed ±2 SD same direction</li>
+<li><strong>R-4s Rule:</strong> Range between controls exceeds 4 SD</li>
+<li><strong>4-1s Rule:</strong> Four consecutive controls exceed ±1 SD same side</li>
+<li><strong>10x Rule:</strong> Ten consecutive points on same side of mean</li>
+</ul>
+<p><strong>Action Required:</strong> Notify Lead Tech immediately, troubleshoot, do not report results</p>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Control Levels</th>
+<th>Frequency</th>
+<th>Acceptable Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT/INR</td>
+<td>Normal, Abnormal</td>
+<td>Every 8 hours</td>
+<td>±2 SD or ±15%</td>
+</tr>
+<tr>
+<td>aPTT</td>
+<td>Normal, Abnormal, Heparin</td>
+<td>Every 8 hours</td>
+<td>±2 SD or ±15%</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td>Normal, Abnormal</td>
+<td>With each run</td>
+<td>±2 SD or ±20%</td>
+</tr>
+<tr>
+<td>D-Dimer</td>
+<td>Negative, Positive</td>
+<td>Daily</td>
+<td>Per package insert</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 10: CALIBRATION -->
+<div class="section" id="calibration">
+<h2>10. CALIBRATION</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Calibration Type</th>
+<th>Frequency</th>
+<th>Acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT/INR</td>
+<td>ISI verification</td>
+<td>New lot, monthly</td>
+<td>ISI ± 0.1</td>
+</tr>
+<tr>
+<td>aPTT</td>
+<td>Heparin curve</td>
+<td>New lot</td>
+<td>R² > 0.98</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td>Multi-point calibration</td>
+<td>New lot</td>
+<td>Recovery 90-110%</td>
+</tr>
+<tr>
+<td>D-Dimer</td>
+<td>Factory calibration</td>
+<td>Verify new lot</td>
+<td>Control recovery</td>
+</tr>
+<tr>
+<td>Factor Assays</td>
+<td>Standard curve</td>
+<td>Each run</td>
+<td>R² > 0.99</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 11: PROCEDURES -->
+<div class="section" id="procedures">
+<h2>11. TEST PROCEDURES</h2>
+
+<div class="procedure-section">
+<h3>PT/INR Procedure</h3>
+<ol>
+<li><strong>Specimen Preparation:</strong>
+    <ul>
+    <li>Verify proper specimen (blue top, filled)</li>
+    <li>Check for clots with applicator sticks</li>
+    <li>Centrifuge 3500 rpm × 15 minutes</li>
+    <li>Obtain platelet-poor plasma (<10,000/µL)</li>
+    </ul>
+</li>
+<li><strong>Analysis:</strong>
+    <ul>
+    <li>Load specimen on analyzer</li>
+    <li>Verify patient demographics</li>
+    <li>Select PT/INR test profile</li>
+    <li>Analyzer adds thromboplastin and calcium</li>
+    <li>Optical detection of clot formation</li>
+    </ul>
+</li>
+<li><strong>Result Review:</strong>
+    <ul>
+    <li>Check for analyzer flags</li>
+    <li>Verify result is within linearity</li>
+    <li>Compare with previous results (delta check)</li>
+    <li>Calculate INR = (PT patient/PT normal)^ISI</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>aPTT Procedure</h3>
+<ol>
+<li><strong>Pre-analytical:</strong>
+    <ul>
+    <li>Note if patient on heparin therapy</li>
+    <li>Process within 4 hours of collection</li>
+    <li>Centrifuge immediately if on heparin</li>
+    </ul>
+</li>
+<li><strong>Testing:</strong>
+    <ul>
+    <li>Incubate plasma at 37°C</li>
+    <li>Add aPTT reagent (activator + phospholipid)</li>
+    <li>Incubate 3-5 minutes</li>
+    <li>Add calcium chloride</li>
+    <li>Measure time to clot formation</li>
+    </ul>
+</li>
+<li><strong>Heparin Specimens:</strong>
+    <ul>
+    <li>If >100 seconds, perform 1:1 dilution</li>
+    <li>Report anti-Xa if available</li>
+    <li>Note heparin therapy on report</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="procedure-section">
+<h3>Critical Specimen: Mixing Study</h3>
+<ol>
+<li>Mix patient plasma 1:1 with normal pooled plasma</li>
+<li>Perform aPTT immediately and after 2-hour incubation</li>
+<li><strong>Interpretation:</strong>
+    <ul>
+    <li>Correction to normal = factor deficiency</li>
+    <li>No correction = inhibitor present</li>
+    <li>Time-dependent inhibitor = Factor VIII inhibitor</li>
+    </ul>
+</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 12: RESULTS -->
+<div class="section" id="results">
+<h2>12. RESULTS AND INTERPRETATION</h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>PT/INR</th>
+<th>aPTT</th>
+<th>Possible Causes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isolated PT prolongation</td>
+<td>↑</td>
+<td>Normal</td>
+<td>Factor VII deficiency, early warfarin, mild liver disease</td>
+</tr>
+<tr>
+<td>Isolated aPTT prolongation</td>
+<td>Normal</td>
+<td>↑</td>
+<td>Heparin, hemophilia A/B, lupus anticoagulant</td>
+</tr>
+<tr>
+<td>Both prolonged</td>
+<td>↑</td>
+<td>↑</td>
+<td>Common pathway defects, DIC, severe liver disease</td>
+</tr>
+<tr>
+<td>All tests prolonged</td>
+<td>↑</td>
+<td>↑</td>
+<td>Multiple factor deficiencies, anticoagulation</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h4>Therapeutic Ranges</h4>
+<ul>
+<li><strong>Warfarin (most indications):</strong> INR 2.0-3.0</li>
+<li><strong>Warfarin (mechanical valves):</strong> INR 2.5-3.5</li>
+<li><strong>Heparin (therapeutic):</strong> aPTT 60-80 seconds (1.5-2.5× baseline)</li>
+<li><strong>Direct oral anticoagulants:</strong> Variable effects on routine tests</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 13: REFERENCE RANGES -->
+<div class="section" id="reference">
+<h2>13. REFERENCE RANGES</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Reference Range</th>
+<th>Units</th>
+<th>Critical Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT</td>
+<td>11.0-13.5</td>
+<td>seconds</td>
+<td>>30 seconds</td>
+</tr>
+<tr>
+<td>INR (not on warfarin)</td>
+<td>0.8-1.2</td>
+<td>ratio</td>
+<td>>5.0</td>
+</tr>
+<tr>
+<td>aPTT</td>
+<td>25-35</td>
+<td>seconds</td>
+<td>>100 seconds</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td>200-400</td>
+<td>mg/dL</td>
+<td><100 mg/dL</td>
+</tr>
+<tr>
+<td>D-Dimer</td>
+<td><500</td>
+<td>ng/mL FEU</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Thrombin Time</td>
+<td>14-19</td>
+<td>seconds</td>
+<td>>30 seconds</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 14: LIMITATIONS -->
+<div class="section" id="limitations">
+<h2>14. LIMITATIONS</h2>
+<ul>
+<li><strong>Pre-analytical Variables:</strong>
+    <ul>
+    <li>Difficult venipuncture may activate coagulation</li>
+    <li>Heparin contamination from lines causes false prolongation</li>
+    <li>High hematocrit (>55%) causes false prolongation</li>
+    <li>Low hematocrit (<25%) causes false shortening</li>
+    </ul>
+</li>
+<li><strong>Interfering Substances:</strong>
+    <ul>
+    <li>Direct thrombin inhibitors affect all clot-based tests</li>
+    <li>Factor Xa inhibitors variably affect PT and aPTT</li>
+    <li>Lupus anticoagulants cause aPTT prolongation without bleeding risk</li>
+    <li>High-dose vitamin C may interfere with some methods</li>
+    </ul>
+</li>
+<li><strong>Clinical Limitations:</strong>
+    <ul>
+    <li>Normal results don't exclude all bleeding disorders</li>
+    <li>Platelet function defects not detected</li>
+    <li>Von Willebrand disease may have normal screening tests</li>
+    </ul>
+</li>
+</ul>
+</div>
+
+<!-- SECTION 15: CRITICAL VALUES -->
+<div class="section" id="critical">
+<h2>15. CRITICAL VALUES</h2>
+
+<div class="critical-values">
+<h3>Critical Value Protocol</h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Critical Value</th>
+<th>Action Required</th>
+<th>Timeframe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INR</td>
+<td>>5.0</td>
+<td>Call provider immediately</td>
+<td>Within 30 minutes</td>
+</tr>
+<tr>
+<td>PT</td>
+<td>>30 seconds</td>
+<td>Verify and call</td>
+<td>Within 30 minutes</td>
+</tr>
+<tr>
+<td>aPTT (not on heparin)</td>
+<td>>100 seconds</td>
+<td>Check for heparin, call</td>
+<td>Within 30 minutes</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td><100 mg/dL</td>
+<td>Verify and call</td>
+<td>Within 30 minutes</td>
+</tr>
+<tr>
+<td>New diagnosis hemophilia</td>
+<td>Factor <1%</td>
+<td>Call hematology</td>
+<td>Within 1 hour</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Critical Value Notification Procedure:</strong></p>
+<ol>
+<li>Verify result (repeat if necessary)</li>
+<li>Check for pre-analytical issues</li>
+<li>Call ordering provider or on-call physician</li>
+<li>Document: Time, person notified, read-back confirmation</li>
+<li>Enter in critical value log</li>
+</ol>
+</div>
+</div>
+
+<!-- SECTION 16: TAT -->
+<div class="section" id="turnaround">
+<h2>16. TURNAROUND TIME</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Priority</th>
+<th>Target TAT</th>
+<th>From Receipt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PT/INR</td>
+<td>STAT</td>
+<td>45 minutes</td>
+<td>For surgery, bleeding</td>
+</tr>
+<tr>
+<td>aPTT</td>
+<td>STAT</td>
+<td>45 minutes</td>
+<td>Heparin monitoring</td>
+</tr>
+<tr>
+<td>PT/INR + aPTT</td>
+<td>Routine</td>
+<td>2 hours</td>
+<td>Outpatient monitoring</td>
+</tr>
+<tr>
+<td>Fibrinogen</td>
+<td>STAT</td>
+<td>1 hour</td>
+<td>Bleeding evaluation</td>
+</tr>
+<tr>
+<td>D-Dimer</td>
+<td>STAT</td>
+<td>1 hour</td>
+<td>DVT/PE evaluation</td>
+</tr>
+<tr>
+<td>Factor Assays</td>
+<td>Routine</td>
+<td>24-48 hours</td>
+<td>May batch</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTION 17: MAINTENANCE -->
+<div class="section" id="maintenance">
+<h2>17. MAINTENANCE</h2>
+
+<div class="procedure-section">
+<h3>Daily Maintenance</h3>
+<ul>
+<li>Clean sample probes with distilled water</li>
+<li>Check reagent levels and expiration dates</li>
+<li>Verify temperature (analyzer 18-25°C)</li>
+<li>Run startup diagnostics</li>
+<li>Perform QC before patient testing</li>
+<li>Clean work surfaces with 10% bleach</li>
+</ul>
+
+<h3>Weekly Maintenance</h3>
+<ul>
+<li>Thorough probe cleaning with enzymatic cleaner</li>
+<li>Clean cuvette area</li>
+<li>Check and clean barcode reader</li>
+<li>Review QC trends and Levey-Jennings charts</li>
+<li>Verify reagent lot numbers in LIS</li>
+</ul>
+
+<h3>Monthly Maintenance</h3>
+<ul>
+<li>Replace tubing as needed</li>
+<li>Clean and calibrate pipettes</li>
+<li>Temperature verification with certified thermometer</li>
+<li>Review error logs and troubleshooting history</li>
+<li>Update software if applicable</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 18: TROUBLESHOOTING -->
+<div class="section" id="troubleshooting">
+<h2>18. TROUBLESHOOTING</h2>
+
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QC out of range</td>
+<td>Reagent deterioration, wrong reconstitution</td>
+<td>Check reagents, reconstitute fresh QC</td>
+</tr>
+<tr>
+<td>No clot detected</td>
+<td>Severe deficiency, anticoagulant</td>
+<td>Dilute sample, manual method</td>
+</tr>
+<tr>
+<td>Erratic results</td>
+<td>Fibrin in sample, probe dirty</td>
+<td>Re-centrifuge, clean probes</td>
+</tr>
+<tr>
+<td>All tests prolonged</td>
+<td>Citrate excess, clotted specimen</td>
+<td>Check fill volume, recollect</td>
+</tr>
+<tr>
+<td>Short clotting times</td>
+<td>Activated specimen, delay in testing</td>
+<td>Recollect, process immediately</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<strong>Technical Support:</strong><br/>
+Sysmex: 1-800-800-4566<br/>
+Kaiser IT: Extension 5555<br/>
+Coagulation Specialist: Pager 1234
+</div>
+</div>
+
+<!-- SECTION 19: COMPETENCY -->
+<div class="section" id="competency">
+<h2>19. COMPETENCY ASSESSMENT</h2>
+
+<div class="key-concept">
+<h4>Kaiser Permanente Competency Requirements (Documents 14952_0, 13792_0)</h4>
+<table>
+<thead>
+<tr>
+<th>Competency Element</th>
+<th>Initial</th>
+<th>Annual</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test Performance</td>
+<td>10 samples each test</td>
+<td>5 samples</td>
+<td>Direct observation</td>
+</tr>
+<tr>
+<td>QC Performance</td>
+<td>All levels</td>
+<td>All levels</td>
+<td>Documentation review</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>All procedures</td>
+<td>Key procedures</td>
+<td>Checklist</td>
+</tr>
+<tr>
+<td>Result Interpretation</td>
+<td>20 cases</td>
+<td>10 cases</td>
+<td>Case studies</td>
+</tr>
+<tr>
+<td>Critical Values</td>
+<td>Simulation</td>
+<td>Documentation</td>
+<td>Scenario testing</td>
+</tr>
+<tr>
+<td>Troubleshooting</td>
+<td>Common problems</td>
+<td>New issues</td>
+<td>Problem solving</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTION 20: SAFETY -->
+<div class="section" id="safety">
+<h2>20. SAFETY</h2>
+
+<div class="warning-box">
+<h3>Safety Requirements</h3>
+<ul>
+<li>Treat all specimens as potentially infectious</li>
+<li>Wear gloves, lab coat, and face shield for uncapping</li>
+<li>Use splash shields when processing specimens</li>
+<li>No mouth pipetting ever</li>
+<li>Dispose of sharps in appropriate containers</li>
+<li>Clean spills with 10% bleach solution</li>
+<li>Report all exposures immediately</li>
+</ul>
+</div>
+
+<div class="procedure-section">
+<h3>Chemical Safety</h3>
+<ul>
+<li>Review SDS for all reagents</li>
+<li>Store reagents at proper temperature</li>
+<li>Use fume hood for volatile substances</li>
+<li>Calcium chloride: Irritant, avoid skin contact</li>
+<li>Thromboplastin: Biological material, handle with care</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 21: TRAINING -->
+<div class="section" id="training">
+<h2>21. TRAINING</h2>
+
+<table>
+<thead>
+<tr>
+<th>Training Phase</th>
+<th>Duration</th>
+<th>Content</th>
+<th>Evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Orientation</td>
+<td>1 week</td>
+<td>Theory, observation</td>
+<td>Written exam</td>
+</tr>
+<tr>
+<td>Hands-on Training</td>
+<td>2 weeks</td>
+<td>Supervised practice</td>
+<td>Skills checklist</td>
+</tr>
+<tr>
+<td>Independent Practice</td>
+<td>1 week</td>
+<td>Solo with review</td>
+<td>Competency assessment</td>
+</tr>
+<tr>
+<td>Advanced Training</td>
+<td>Ongoing</td>
+<td>Special coagulation</td>
+<td>Case reviews</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<h4>Required Reading</h4>
+<ul>
+<li>Manufacturer package inserts</li>
+<li>CAP Coagulation checklist</li>
+<li>Anticoagulation guidelines</li>
+<li>Factor assay procedures</li>
+</ul>
+</div>
+</div>
+
+<!-- SECTION 22: DOWNTIME -->
+<div class="section" id="downtime">
+<h2>22. DOWNTIME PROCEDURES</h2>
+
+<div class="critical-box">
+<h3>Analyzer Failure Protocol</h3>
+<ol>
+<li><strong>Immediate Actions:</strong>
+    <ul>
+    <li>Switch to backup analyzer if available</li>
+    <li>Notify supervisor and clinicians</li>
+    <li>Triage STAT specimens</li>
+    </ul>
+</li>
+<li><strong>Backup Testing:</strong>
+    <ul>
+    <li>Send STAT PT/INR to MOB Lab: 301-555-2000</li>
+    <li>Use manual tilt-tube method for emergency</li>
+    <li>POCT INR for critical patients</li>
+    </ul>
+</li>
+<li><strong>Extended Downtime (>4 hours):</strong>
+    <ul>
+    <li>Route all specimens to MOB Laboratory</li>
+    <li>Consider reference lab for specialized tests</li>
+    <li>Maintain specimen log for reconciliation</li>
+    </ul>
+</li>
+<li><strong>Recovery:</strong>
+    <ul>
+    <li>Run QC before resuming testing</li>
+    <li>Process backlog by priority</li>
+    <li>Verify all results entered correctly</li>
+    </ul>
+</li>
+</ol>
+</div>
+
+<div class="info-box">
+<strong>Manual PT Method (Emergency Only):</strong><br/>
+1. Water bath at 37°C<br/>
+2. Add 0.1 mL plasma + 0.1 mL thromboplastin<br/>
+3. Incubate 3 minutes<br/>
+4. Add 0.1 mL calcium chloride<br/>
+5. Tilt tube, record time to clot
+</div>
+</div>
+
+<!-- SECTION 23: REFERENCES -->
+<div class="section" id="references">
+<h2>23. REFERENCES</h2>
+<ol>
+<li>Clinical and Laboratory Standards Institute (CLSI). Collection, Transport, and Processing of Blood Specimens for Testing Plasma-Based Coagulation Assays. H21-A5. Wayne, PA: CLSI; 2024.</li>
+<li>Clinical and Laboratory Standards Institute (CLSI). One-Stage Prothrombin Time (PT) Test and Activated Partial Thromboplastin Time (APTT) Test. H47-A2. Wayne, PA: CLSI; 2024.</li>
+<li>College of American Pathologists (CAP). Hematology and Coagulation Checklist. CAP Accreditation Program. Northfield, IL: CAP; 2024.</li>
+<li>Kaiser Permanente. Laboratory Competency Assessment Requirements. Document 14952_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Kaiser Permanente. Technical Competency Standards. Document 13792_0. Oakland, CA: Kaiser Foundation; 2024.</li>
+<li>Sysmex CS-5100 Operator Manual, Version 3.0. Sysmex Corporation; 2024.</li>
+<li>The Joint Commission. National Patient Safety Goals - Anticoagulation Therapy. Oak Brook, IL: Joint Commission Resources; 2024.</li>
+<li>Favaloro EJ, Lippi G. Laboratory Testing in the Era of Direct Oral Anticoagulants. Semin Thromb Hemost. 2024;50(1):15-27.</li>
+<li>Kitchen S, et al. International Council for Standardization in Haematology (ICSH) recommendations for laboratory testing of direct oral anticoagulants. Int J Lab Hematol. 2024;46(1):1-9.</li>
+<li>Kaiser Permanente Northern California Regional Laboratory Manual. Coagulation Section. 2025 Edition.</li>
+</ol>
+
+<div class="info-box">
+<h4>Document Control</h4>
+<p><strong>Review Frequency:</strong> Annual or with significant changes</p>
+<p><strong>Next Review Date:</strong> January 2026</p>
+<p><strong>Document Owner:</strong> Coagulation Department Lead</p>
+<p><strong>Approved By:</strong> Laboratory Director</p>
+<p><strong>Distribution:</strong> All coagulation staff via LIS document portal</p>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:20px;border-top:2px solid #0066cc;text-align:center;color:#666;">
+<p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+<p>Excellence in Coagulation Testing</p>
+<p>© 2025 Kaiser Foundation Health Plan, Inc. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>

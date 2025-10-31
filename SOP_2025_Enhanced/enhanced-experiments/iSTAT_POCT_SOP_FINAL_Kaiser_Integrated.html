@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>KAISER PERMANENTE MID-ATLANTIC STATES</h1>
+            <h2>Laboratory Services</h2>
+            <h3>Point-of-Care Testing - Abbott i-STAT System</h3>
+        </div>
+
+        <div class="metadata-grid">
+            <div class="metadata-item">
+                <strong>Document Code:</strong> KPMAS.LAB.POCT.ISTAT.001_2
+            </div>
+            <div class="metadata-item">
+                <strong>Effective Date:</strong> January 2025
+            </div>
+            <div class="metadata-item">
+                <strong>Review Date:</strong> January 2026
+            </div>
+            <div class="metadata-item">
+                <strong>Department:</strong> POCT
+            </div>
+            <div class="metadata-item">
+                <strong>Author:</strong> Technical Quality Specialist
+            </div>
+            <div class="metadata-item">
+                <strong>Approvals:</strong> Technical Quality Specialist, Laboratory Director
+            </div>
+            <div class="metadata-item">
+                <strong>Prepared For:</strong> Kaiser Permanente Largo Laboratory
+            </div>
+        </div>
+        .header { text-align: center; border-bottom: 3px solid #0066cc; padding-bottom: 15px; margin-bottom: 25px; } .header h1 { color: #0066cc; font-size: 20pt; margin-bottom: 8px; font-weight: bold; } .header h2 { color: #666666; font-size: 12pt; margin: 0;
+        font-weight: normal; } .header h3 { color: #004499; font-size: 11pt; margin-top: 12px; font-weight: 500; } .metadata-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; background: #f0f8ff; border: 1px
+        solid #0066cc; padding: 18px; border-radius: 6px; margin-bottom: 30px; } .metadata-item { font-size: 10pt; color: #333333; } .metadata-item strong { color: #0066cc; display: block; margin-bottom: 3px; } /* Table of Contents */ .toc { background:
+        #f0f8ff; padding: 20px; border-left: 4px solid #0066cc; margin-bottom: 30px; page-break-after: always; } .toc h2 { color: #0066cc; margin-bottom: 15px; font-size: 18pt; } .toc ol { list-style: none; counter-reset: toc-counter; } .toc li { counter-increment:
+        toc-counter; margin: 8px 0; padding-left: 30px; position: relative; } .toc li:before { content: counter(toc-counter) "."; position: absolute; left: 0; font-weight: bold; color: #0066cc; } .toc a { color: #0066cc; text-decoration: none; } .toc
+        a:hover { text-decoration: underline; } /* Section Styling */ .section { margin: 30px 0; page-break-inside: avoid; } .section h2 { color: #0066cc; font-size: 16pt; border-bottom: 3px solid #0066cc; padding-bottom: 8px; margin-bottom: 20px; } .section
+        h3 { color: #004499; font-size: 13pt; margin: 20px 0 12px 0; padding-left: 10px; border-left: 3px solid #0066cc; } .section h4 { color: #333; font-size: 11pt; margin: 15px 0 10px 0; font-weight: bold; } /* Subsection styling */ .subsection { background:
+        #f8f9fa; padding: 15px; margin: 20px 0; border-left: 3px solid #28a745; border-radius: 4px; } /* Critical Elements */ .critical-box { background: #fff3cd; border: 2px solid #ffc107; border-radius: 6px; padding: 15px; margin: 20px 0; } .critical-box
+        h4 { color: #856404; margin-top: 0; } .critical-qc-rule { background: #f8d7da; border: 2px solid #dc3545; border-radius: 6px; padding: 15px; margin: 20px 0; } .critical-qc-rule h4 { color: #721c24; margin-top: 0; } /* Tables */ table { width:
+        100%; border-collapse: collapse; margin: 20px 0; font-size: 10pt; } th { background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f3 100%); color: #000; padding: 10px; text-align: left; font-weight: bold; border: 1px solid #0066cc; } td { padding:
+        8px; border: 1px solid #ddd; } tr:nth-child(even) { background: #f8f9fa; } /* Warning and Info Boxes */ .warning-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 15px 0; } .info-box { background: #d1ecf1; border-left:
+        4px solid #17a2b8; padding: 12px; margin: 15px 0; } .success-box { background: #d4edda; border-left: 4px solid #28a745; padding: 12px; margin: 15px 0; } /* Kaiser Huddle Box */ .kaiser-huddle { background: linear-gradient(135deg, #e7f3ff 0%, #d1e7f3
+        100%); border: 2px solid #0066cc; border-radius: 8px; padding: 15px; margin: 20px 0; } .kaiser-huddle h4 { color: #0066cc; margin-top: 0; } /* Competency Box */ .competency-box { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 6px;
+        padding: 15px; margin: 20px 0; } .competency-box h4 { color: #2e7d32; margin-top: 0; } /* Print Styles */ @media print { body { font-size: 10pt; line-height: 1.4; } .section { page-break-inside: avoid; } .kp-header { background: #0066cc !important;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact; } } /* Checkbox Lists */ .checklist { list-style: none; padding-left: 0; } .checklist li { margin: 8px 0; padding-left: 25px; position: relative; } .checklist li:before { content: "☐";
+        position: absolute; left: 0; font-size: 14pt; } /* Step Lists */ .step-list { counter-reset: step-counter; list-style: none; padding-left: 0; } .step-list li { counter-increment: step-counter; margin: 15px 0; padding-left: 40px; position: relative;
+        } .step-list li:before { content: counter(step-counter); position: absolute; left: 0; background: #0066cc; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+        font-size: 10pt; } /* Kaiser Palette Harmonization */ html, body { background-color: #f5f5f5; color: #333333; } body { min-height: 100vh; margin: 0 auto; } .container, .main-container, .kp-container, .content-wrapper { background-color: #ffffff;
+        border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding: 25px; } .header, .kp-header, header { border-bottom: 3px solid #0066cc; padding-bottom: 15px; margin-bottom: 20px; } .header h1, .kp-header h1, h1 { color: #0066cc !important;
+        } h2 { color: #0066cc !important; border-bottom: 2px solid #0066cc; padding-bottom: 6px; } h3 { color: #004499 !important; } table { background-color: #ffffff !important; border-collapse: collapse; } th { background-color: #f0f8ff !important;
+        color: #0066cc !important; } .toc { background-color: #f0f8ff; border-left: 4px solid #0066cc; } @media print { html, body { background-color: #ffffff !important; } .container, .main-container, .kp-container, .content-wrapper { box-shadow: none
+        !important; border-radius: 0 !important; background-color: #ffffff !important; } }
+        </style>
+        </head>
+
+        <body>
+            <!-- KP HEADER SECTION -->
+            <div class="kp-header">
+                <h1>KAISER PERMANENTE MID-ATLANTIC STATES</h1>
+                <h2>Laboratory Services</h2>
+                <h3>Point-of-Care Testing - iSTAT System</h3>
+            </div>
+
+            <div class="kp-header-info">
+                <div>
+                    <strong>Document Code:</strong> KPMAS.LAB.POCT.ISTAT.001_2
+                </div>
+                <div>
+                    <strong>Effective Date:</strong> January 2025
+                </div>
+                <div>
+                    <strong>Review Date:</strong> January 2026
+                </div>
+                <div>
+                    <strong>Department:</strong> Point-of-Care Testing
+                </div>
+                <div>
+                    <strong>Author:</strong> Technical Quality Specialist
+                </div>
+                <div>
+                    <strong>Approved By:</strong> Laboratory Director
+                </div>
+            </div>
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="toc">
+                <h2>TABLE OF CONTENTS</h2>
+                <ol>
+                    <li><a href="#purpose">PURPOSE</a></li>
+                    <li><a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                    <li><a href="#scope">SCOPE</a></li>
+                    <li><a href="#responsibilities">RESPONSIBILITIES</a></li>
+                    <li><a href="#safety">SAFETY REQUIREMENTS</a></li>
+                    <li><a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                    <li><a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                    <li><a href="#equipment">EQUIPMENT</a></li>
+                    <li><a href="#maintenance">MAINTENANCE</a></li>
+                    <li><a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                    <li><a href="#calibration">CALIBRATION</a></li>
+                    <li><a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    <li><a href="#procedure">TEST PROCEDURE</a></li>
+                    <li><a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                    <li><a href="#reference">REFERENCE RANGES</a></li>
+                    <li><a href="#critical">CRITICAL VALUES</a></li>
+                    <li><a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                    <li><a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                    <li><a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                    <li><a href="#support">TECHNICAL SUPPORT</a></li>
+                    <li><a href="#qa">QUALITY ASSURANCE</a></li>
+                    <li><a href="#compliance">REGULATORY COMPLIANCE</a></li>
+                    <li><a href="#references">REFERENCES</a></li>
+                </ol>
+            </div>
+
+            <!-- SECTION 1: PURPOSE -->
+            <div class="section" id="purpose">
+                <h2>1. PURPOSE</h2>
+                <p>This Standard Operating Procedure (SOP) provides comprehensive instructions for the operation, maintenance, and quality control of the Abbott iSTAT Point-of-Care Testing System in accordance with Kaiser Permanente Mid-Atlantic States Laboratory
+                    standards, ensuring compliance with CLIA, CAP, and Joint Commission requirements.</p>
+
+                <div class="info-box">
+                    <strong>Key Objectives:</strong>
+                    <ul>
+                        <li>Standardize iSTAT testing across all point-of-care locations</li>
+                        <li>Ensure accurate and timely critical care testing results</li>
+                        <li>Maintain compliance with POCT regulatory requirements</li>
+                        <li>Support rapid clinical decision-making at the bedside</li>
+                        <li>Minimize turnaround time for critical results</li>
+                        <li>Integrate Kaiser Huddle recommendations for quality improvement</li>
+                    </ul>
+                </div>
+
+                <div class="kaiser-huddle">
+                    <h4>📋 Kaiser Huddle Focus</h4>
+                    <ul>
+                        <li>iSTAT provides critical results in 2-10 minutes at the point of care</li>
+                        <li>Essential for emergency department, ICU, and operating room decisions</li>
+                        <li>Reduces need for arterial punctures with capillary blood gas capability</li>
+                        <li>Supports sepsis protocols with rapid lactate measurements</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 2: CLINICAL SIGNIFICANCE -->
+            <div class="section" id="clinical-significance">
+                <h2>2. CLINICAL SIGNIFICANCE</h2>
+                <p>The iSTAT System provides rapid, accurate point-of-care testing for critical analytes, enabling immediate clinical interventions in emergency, critical care, and perioperative settings.</p>
+
+                <h3>Clinical Applications</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Clinical Scenario</th>
+                            <th>Key Tests</th>
+                            <th>Clinical Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cardiac Events</strong></td>
+                            <td>Troponin, BNP, CK-MB</td>
+                            <td>Rapid diagnosis of MI, heart failure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Respiratory Distress</strong></td>
+                            <td>Blood gases, lactate</td>
+                            <td>Ventilator management, acid-base status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sepsis/Shock</strong></td>
+                            <td>Lactate, pH, electrolytes</td>
+                            <td>Early sepsis identification, fluid management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Renal Function</strong></td>
+                            <td>Creatinine, BUN, electrolytes</td>
+                            <td>Dialysis decisions, drug dosing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Diabetic Emergencies</strong></td>
+                            <td>Glucose, ketones, pH</td>
+                            <td>DKA management, insulin therapy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Surgical/Trauma</strong></td>
+                            <td>Hemoglobin, hematocrit, PT/INR</td>
+                            <td>Transfusion decisions, coagulopathy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Electrolyte Imbalance</strong></td>
+                            <td>Na, K, Cl, iCa</td>
+                            <td>Immediate correction strategies</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Available Cartridge Panels</h3>
+                <ul>
+                    <li><strong>CG8+:</strong> pH, PCO2, PO2, Na, K, iCa, Glucose, Hct, Lactate</li>
+                    <li><strong>CHEM8+:</strong> Na, K, Cl, TCO2, iCa, Glucose, BUN, Creatinine, Anion Gap, Hct, Hgb</li>
+                    <li><strong>EC8+:</strong> Na, K, Cl, TCO2, Anion Gap, Glucose, BUN, Creatinine, Hct, Hgb</li>
+                    <li><strong>Cardiac:</strong> Troponin I, CK-MB, BNP</li>
+                    <li><strong>PT/INR:</strong> Prothrombin Time, INR</li>
+                    <li><strong>ACT:</strong> Activated Clotting Time</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 3: SCOPE -->
+            <div class="section" id="scope">
+                <h2>3. SCOPE</h2>
+                <p>This procedure applies to all Kaiser Permanente Mid-Atlantic States personnel performing point-of-care testing with the iSTAT System, including:</p>
+                <ul>
+                    <li>Medical Laboratory Scientists (MLS/CLS) - POCT coordinators</li>
+                    <li>Medical Technologists (MT) - Primary operators</li>
+                    <li>Registered Nurses (RN) - With POCT certification</li>
+                    <li>Respiratory Therapists (RT) - For blood gas testing</li>
+                    <li>Emergency Department Technicians - Under supervision</li>
+                    <li>Operating Room Personnel - With certification</li>
+                    <li>ICU Staff - With POCT competency</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Testing Locations:</strong>
+                    <ul>
+                        <li>Emergency Department</li>
+                        <li>Intensive Care Units (Medical, Surgical, Cardiac)</li>
+                        <li>Operating Rooms</li>
+                        <li>Labor and Delivery</li>
+                        <li>Cardiac Catheterization Lab</li>
+                        <li>Rapid Response Team (mobile units)</li>
+                        <li>Outpatient Surgery Centers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 4: RESPONSIBILITIES -->
+            <div class="section" id="responsibilities">
+                <h2>4. RESPONSIBILITIES</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Primary Responsibilities</th>
+                            <th>Additional Responsibilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Laboratory Director</strong></td>
+                            <td>Overall POCT program oversight<br>CLIA compliance</td>
+                            <td>Annual review of POCT policies<br>Operator certification approval</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POCT Coordinator</strong></td>
+                            <td>Program management<br>Training and competency<br>QC oversight</td>
+                            <td>Troubleshooting support<br>Regulatory compliance<br>Inventory management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Quality Specialist</strong></td>
+                            <td>SOP maintenance<br>Method validation<br>Quality metrics</td>
+                            <td>Proficiency testing<br>Incident investigation<br>Process improvement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Department Supervisors</strong></td>
+                            <td>Ensure staff compliance<br>Schedule competency assessments</td>
+                            <td>Monitor TAT and quality<br>Address operator issues</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POCT Operators</strong></td>
+                            <td>Perform testing per SOP<br>Daily QC<br>Result documentation</td>
+                            <td>Basic maintenance<br>Report issues<br>Maintain certification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Laboratory Staff</strong></td>
+                            <td>24/7 POCT support<br>Backup testing<br>QC preparation</td>
+                            <td>Operator training<br>Troubleshooting<br>Supply distribution</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="competency-box">
+                    <h4>📋 Kaiser Permanente Competency Requirements</h4>
+                    <ul>
+                        <li><strong>Document 14952_0:</strong> Personnel and Competency Binder for Medical Laboratory Assistant - MOB</li>
+                        <li><strong>Document 13792_0:</strong> Personnel and Competency Binder for MT and MLT - MOB</li>
+                        <li><strong>Additional POCT Requirements:</strong>
+                            <ul>
+                                <li>Initial certification before performing testing</li>
+                                <li>Annual recertification with observed testing</li>
+                                <li>Minimum 10 tests per year to maintain competency</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><em>All POCT operators must complete competency assessments before performing patient testing. Non-laboratory personnel require additional POCT-specific training.</em></p>
+                </div>
+            </div>
+
+            <!-- SECTION 5: SAFETY REQUIREMENTS -->
+            <div class="section" id="safety">
+                <h2>5. SAFETY REQUIREMENTS</h2>
+
+                <div class="warning-box">
+                    <strong>⚠️ BLOODBORNE PATHOGEN WARNING:</strong>
+                    <p>All blood specimens must be handled as potentially infectious. Follow standard precautions and OSHA Bloodborne Pathogen standards at all times.</p>
+                </div>
+
+                <h3>Personal Protective Equipment (PPE)</h3>
+                <ul>
+                    <li><strong>Gloves:</strong> Required for all testing, change between patients</li>
+                    <li><strong>Lab coat or gown:</strong> Required in patient care areas</li>
+                    <li><strong>Face protection:</strong> When splash risk exists</li>
+                    <li><strong>Safety glasses:</strong> For arterial blood collection</li>
+                </ul>
+
+                <h3>Sharps Safety</h3>
+                <ul>
+                    <li>Use safety-engineered devices for all capillary punctures</li>
+                    <li>Activate safety features immediately after use</li>
+                    <li>Dispose in approved sharps containers immediately</li>
+                    <li>Never recap, bend, or break used lancets</li>
+                    <li>Sharps containers must not exceed 3/4 full</li>
+                </ul>
+
+                <h3>Chemical Safety</h3>
+                <ul>
+                    <li>Cartridges contain lithium heparin (anticoagulant)</li>
+                    <li>QC materials contain preserved human blood products</li>
+                    <li>Calibration verification materials contain synthetic analytes</li>
+                    <li>SDS available in POCT areas and online</li>
+                </ul>
+
+                <h3>Electrical Safety</h3>
+                <ul>
+                    <li>Keep analyzers away from fluid sources</li>
+                    <li>Use only approved power adapters</li>
+                    <li>Report any electrical issues immediately</li>
+                    <li>Do not attempt repairs - contact Biomedical Engineering</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 6: SPECIMEN REQUIREMENTS -->
+            <div class="section" id="specimen">
+                <h2>6. SPECIMEN REQUIREMENTS</h2>
+
+                <h3>Acceptable Specimen Types</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Specimen Type</th>
+                            <th>Collection Method</th>
+                            <th>Volume Required</th>
+                            <th>Cartridge Compatibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Arterial Blood</strong></td>
+                            <td>Arterial puncture or line</td>
+                            <td>95 µL minimum</td>
+                            <td>All cartridges</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Venous Blood</strong></td>
+                            <td>Venipuncture or line</td>
+                            <td>95 µL minimum</td>
+                            <td>All except blood gas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Capillary Blood</strong></td>
+                            <td>Fingerstick/heelstick</td>
+                            <td>95 µL minimum</td>
+                            <td>Limited blood gas accuracy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mixed Venous</strong></td>
+                            <td>Central line</td>
+                            <td>95 µL minimum</td>
+                            <td>Special interpretation needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Collection Requirements</h3>
+                <ul>
+                    <li><strong>Anticoagulant:</strong> Use balanced lithium heparin only (no sodium heparin)</li>
+                    <li><strong>Air bubbles:</strong> Must be expelled immediately for blood gas testing</li>
+                    <li><strong>Mixing:</strong> Roll syringe between palms 5-10 times</li>
+                    <li><strong>Testing timeframe:</strong> Within 10 minutes of collection for blood gases</li>
+                    <li><strong>Temperature:</strong> Do not refrigerate or heat specimens</li>
+                </ul>
+
+                <h3>Specimen Rejection Criteria</h3>
+                <ul>
+                    <li>Clotted specimens (visible clots or fibrin)</li>
+                    <li>Hemolyzed specimens (may affect K+, AST, LDH)</li>
+                    <li>Air bubbles in blood gas specimens</li>
+                    <li>Wrong anticoagulant (EDTA, citrate, sodium heparin)</li>
+                    <li>Insufficient volume (&lt;95 µL)</li>
+                    <li>Specimen age &gt;10 minutes for blood gases</li>
+                    <li>Specimen age &gt;30 minutes for other tests</li>
+                </ul>
+
+                <div class="critical-box">
+                    <h4>⚠️ Line Draw Precautions</h4>
+                    <ul>
+                        <li>Discard 5-10 mL before collecting specimen</li>
+                        <li>Turn off IV fluids for 2 minutes before collection</li>
+                        <li>Do not collect above IV sites</li>
+                        <li>Note any medications that may interfere</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 7: REAGENTS AND SUPPLIES -->
+            <div class="section" id="reagents">
+                <h2>7. REAGENTS AND SUPPLIES</h2>
+
+                <h3>iSTAT Cartridges</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cartridge Type</th>
+                            <th>Catalog Number</th>
+                            <th>Storage</th>
+                            <th>Stability</th>
+                            <th>Par Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CG8+</td>
+                            <td>03P85-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>50 cartridges</td>
+                        </tr>
+                        <tr>
+                            <td>CHEM8+</td>
+                            <td>03P88-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>75 cartridges</td>
+                        </tr>
+                        <tr>
+                            <td>EC8+</td>
+                            <td>03P77-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>50 cartridges</td>
+                        </tr>
+                        <tr>
+                            <td>Troponin I</td>
+                            <td>03P87-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>40 cartridges</td>
+                        </tr>
+                        <tr>
+                            <td>PT/INR</td>
+                            <td>03P89-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>30 cartridges</td>
+                        </tr>
+                        <tr>
+                            <td>ACT</td>
+                            <td>03P74-25</td>
+                            <td>2-8°C</td>
+                            <td>14 days at room temp</td>
+                            <td>20 cartridges</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Quality Control Materials</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Control Type</th>
+                            <th>Catalog Number</th>
+                            <th>Storage</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Electronic Simulator</td>
+                            <td>03P53-01</td>
+                            <td>Room temp</td>
+                            <td>Daily per analyzer</td>
+                        </tr>
+                        <tr>
+                            <td>Level 1 Control</td>
+                            <td>09P51-03</td>
+                            <td>2-8°C</td>
+                            <td>Monthly per cartridge lot</td>
+                        </tr>
+                        <tr>
+                            <td>Level 3 Control</td>
+                            <td>09P52-03</td>
+                            <td>2-8°C</td>
+                            <td>Monthly per cartridge lot</td>
+                        </tr>
+                        <tr>
+                            <td>Cal Ver Solution</td>
+                            <td>03P70-01</td>
+                            <td>2-8°C</td>
+                            <td>Quarterly</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Supplies Management</h3>
+                <ul>
+                    <li>Cartridges stored in main laboratory refrigerator with continuous monitoring</li>
+                    <li>Par levels maintained at each testing location</li>
+                    <li>Daily temperature checks documented</li>
+                    <li>FIFO rotation strictly enforced</li>
+                    <li>Automatic reorder when 50% of par level reached</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 8: EQUIPMENT -->
+            <div class="section" id="equipment">
+                <h2>8. EQUIPMENT</h2>
+
+                <h3>iSTAT Analyzer Inventory</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Analyzer ID</th>
+                            <th>Model</th>
+                            <th>Asset Number</th>
+                            <th>PM Schedule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Emergency Dept #1</td>
+                            <td>ED-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-001</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Emergency Dept #2</td>
+                            <td>ED-002</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-002</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Medical ICU</td>
+                            <td>MICU-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-003</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Surgical ICU</td>
+                            <td>SICU-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-004</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Operating Room</td>
+                            <td>OR-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-005</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Cardiac Cath Lab</td>
+                            <td>CATH-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-006</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Labor & Delivery</td>
+                            <td>LD-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-007</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Laboratory (Backup)</td>
+                            <td>LAB-001</td>
+                            <td>iSTAT Alinity</td>
+                            <td>KP-POCT-008</td>
+                            <td>Annual</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Central Data Station</h3>
+                <ul>
+                    <li>Location: Main Laboratory POCT Office</li>
+                    <li>Function: Data management, QC review, operator management</li>
+                    <li>Connectivity: Interfaces with LIS and EMR</li>
+                    <li>Backup: Daily automated backup to hospital server</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 9: MAINTENANCE -->
+            <div class="section" id="maintenance">
+                <h2>9. MAINTENANCE</h2>
+
+                <h3>Daily Maintenance (Per Shift)</h3>
+                <ul class="checklist">
+                    <li>Run electronic simulator QC</li>
+                    <li>Clean analyzer exterior with approved disinfectant</li>
+                    <li>Check cartridge expiration dates</li>
+                    <li>Verify analyzer date/time</li>
+                    <li>Ensure adequate battery charge</li>
+                    <li>Document in maintenance log</li>
+                </ul>
+
+                <h3>Weekly Maintenance</h3>
+                <ul class="checklist">
+                    <li>Clean cartridge port with alcohol swab</li>
+                    <li>Check and clean electrical contacts</li>
+                    <li>Review QC trends</li>
+                    <li>Verify operator list is current</li>
+                    <li>Check supply inventory</li>
+                    <li>Backup analyzer data</li>
+                </ul>
+
+                <h3>Monthly Maintenance</h3>
+                <ul class="checklist">
+                    <li>Run liquid QC (Levels 1 and 3)</li>
+                    <li>Download and review error logs</li>
+                    <li>Check software version</li>
+                    <li>Clean battery contacts</li>
+                    <li>Verify network connectivity</li>
+                    <li>Review TAT compliance</li>
+                </ul>
+
+                <h3>Quarterly Maintenance</h3>
+                <ul class="checklist">
+                    <li>Run calibration verification</li>
+                    <li>Update operator certifications</li>
+                    <li>Review proficiency testing results</li>
+                    <li>Audit operator compliance</li>
+                    <li>Update training materials</li>
+                </ul>
+
+                <h3>Annual Maintenance</h3>
+                <p>Performed by Abbott Field Service or Biomedical Engineering:</p>
+                <ul>
+                    <li>Complete system diagnostic</li>
+                    <li>Replace internal battery if needed</li>
+                    <li>Software updates</li>
+                    <li>Electrical safety testing</li>
+                    <li>Calibration verification</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Maintenance Documentation:</strong>
+                    <p>All maintenance must be documented in the POCT Maintenance Log. Electronic records maintained in Central Data Station. Retain for instrument lifetime.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 10: QUALITY CONTROL -->
+            <div class="section" id="qc">
+                <h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+
+                <h3>QC Frequency Requirements</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>QC Type</th>
+                            <th>Frequency</th>
+                            <th>Acceptance Criteria</th>
+                            <th>Action if Fail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Electronic Simulator</strong></td>
+                            <td>Daily per analyzer</td>
+                            <td>"PASS" message</td>
+                            <td>Do not use analyzer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Internal QC</strong></td>
+                            <td>Every cartridge</td>
+                            <td>Automatic pass/fail</td>
+                            <td>Repeat with new cartridge</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liquid QC</strong></td>
+                            <td>Monthly per lot/shipment</td>
+                            <td>Within defined ranges</td>
+                            <td>Troubleshoot, contact POCT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Calibration Verification</strong></td>
+                            <td>Quarterly</td>
+                            <td>Within ±10% of target</td>
+                            <td>Service required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proficiency Testing</strong></td>
+                            <td>3 times per year</td>
+                            <td>≥80% consensus</td>
+                            <td>Root cause analysis</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="critical-qc-rule">
+                    <h4>⚠️ CRITICAL QC RULE</h4>
+                    <p>NEVER report patient results if QC is not acceptable. Patient safety depends on accurate POCT results.</p>
+
+                    <strong>If QC fails:</strong>
+                    <ol>
+                        <li>DO NOT report any patient results from that analyzer</li>
+                        <li>Remove analyzer from service immediately</li>
+                        <li>Use backup analyzer or send to main laboratory</li>
+                        <li>Document failure in QC log</li>
+                    </ol>
+
+                    <strong>Follow-up Notification Requirements:</strong>
+                    <ol>
+                        <li>Immediately notify POCT Coordinator (Pager: 1234)</li>
+                        <li>Document all troubleshooting attempts</li>
+                        <li>If unresolved, contact Abbott Technical Support: 1-877-441-7440</li>
+                        <li>Notify Technical Quality Specialist with:
+                            <ul>
+                                <li>Analyzer ID and location</li>
+                                <li>QC failure details</li>
+                                <li>Patient specimens affected</li>
+                            </ul>
+                        </li>
+                        <li>Notify Laboratory Manager if extended downtime</li>
+                    </ol>
+                </div>
+
+                <h3>Internal Quality Control</h3>
+                <p>Each cartridge contains internal controls that verify:</p>
+                <ul>
+                    <li>Electrical continuity</li>
+                    <li>Reagent activity</li>
+                    <li>Sample detection</li>
+                    <li>Calibration stability</li>
+                    <li>Temperature control</li>
+                </ul>
+
+                <h3>External Quality Control</h3>
+                <p>Liquid controls verify entire testing system:</p>
+                <ul>
+                    <li>Run two levels monthly</li>
+                    <li>Document all results in QC log</li>
+                    <li>Review for trends and shifts</li>
+                    <li>Investigate any out-of-range results</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 11: CALIBRATION -->
+            <div class="section" id="calibration">
+                <h2>11. CALIBRATION</h2>
+                <p>The iSTAT System is factory-calibrated with calibration information stored in each cartridge barcode.</p>
+
+                <h3>Calibration Verification</h3>
+                <ul>
+                    <li><strong>Frequency:</strong> Quarterly and after service</li>
+                    <li><strong>Method:</strong> Run Cal Ver solutions A, B, and C</li>
+                    <li><strong>Acceptance:</strong> All analytes within ±10% of assigned values</li>
+                    <li><strong>Documentation:</strong> File in QC binder and Central Data Station</li>
+                </ul>
+
+                <h3>Automatic Calibration Features</h3>
+                <ul>
+                    <li>Each cartridge lot is factory calibrated</li>
+                    <li>Calibration data downloaded from barcode</li>
+                    <li>No user calibration required or possible</li>
+                    <li>Calibration verified through QC program</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 12: TROUBLESHOOTING -->
+            <div class="section" id="troubleshooting">
+                <h2>12. TROUBLESHOOTING</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Error Message</th>
+                            <th>Possible Cause</th>
+                            <th>Corrective Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>"Cartridge Error"</strong></td>
+                            <td>• Expired cartridge<br> • Not at room temperature<br> • Damaged cartridge</td>
+                            <td>• Check expiration date<br> • Allow to reach room temp (5 min)<br> • Use new cartridge</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"Sample Error"</strong></td>
+                            <td>• Air bubble<br> • Clot present<br> • Insufficient sample</td>
+                            <td>• Remove air bubbles<br> • Check for clots<br> • Ensure 95 µL minimum</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"QC Lockout"</strong></td>
+                            <td>• QC not performed<br> • QC expired</td>
+                            <td>• Run electronic simulator<br> • Perform required QC</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"Communication Error"</strong></td>
+                            <td>• Network issue<br> • Central station offline</td>
+                            <td>• Check network connection<br> • Contact IT support<br> • Use standalone mode</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"Temperature Error"</strong></td>
+                            <td>• Analyzer too hot/cold<br> • Cartridge temperature</td>
+                            <td>• Move to appropriate environment<br> • Allow temperature equilibration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"*** Result"</strong></td>
+                            <td>• Out of reportable range<br> • Interference present</td>
+                            <td>• Dilute if too high<br> • Send to main lab<br> • Check for hemolysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"Operator Lockout"</strong></td>
+                            <td>• Certification expired<br> • Not in operator list</td>
+                            <td>• Contact POCT Coordinator<br> • Complete recertification</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>⚠️ If Unable to Resolve:</strong>
+                    <ol>
+                        <li>Remove analyzer from service</li>
+                        <li>Use backup analyzer or send to laboratory</li>
+                        <li>Contact POCT Coordinator: Pager 1234</li>
+                        <li>If after hours, contact laboratory: Ext 3456</li>
+                        <li>For technical issues: Abbott Support 1-877-441-7440</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- SECTION 13: TEST PROCEDURE -->
+            <div class="section" id="procedure">
+                <h2>13. TEST PROCEDURE</h2>
+
+                <h3>Turnaround Time Requirements</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test Type</th>
+                            <th>Analysis Time</th>
+                            <th>Total TAT Goal</th>
+                            <th>Critical TAT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Blood Gases</td>
+                            <td>2 minutes</td>
+                            <td>&lt;15 minutes</td>
+                            <td>&lt;10 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Metabolic</td>
+                            <td>2 minutes</td>
+                            <td>&lt;15 minutes</td>
+                            <td>&lt;10 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Troponin</td>
+                            <td>10 minutes</td>
+                            <td>&lt;20 minutes</td>
+                            <td>&lt;15 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>PT/INR</td>
+                            <td>2 minutes</td>
+                            <td>&lt;15 minutes</td>
+                            <td>&lt;10 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>ACT</td>
+                            <td>6 minutes</td>
+                            <td>&lt;10 minutes</td>
+                            <td>Immediate</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Pre-Analytical Steps</h3>
+                <ol class="step-list">
+                    <li>Verify patient identification with two identifiers</li>
+                    <li>Check physician order or protocol</li>
+                    <li>Ensure QC is current (check analyzer screen)</li>
+                    <li>Select appropriate cartridge for ordered tests</li>
+                    <li>Allow cartridge to reach room temperature (minimum 5 minutes)</li>
+                    <li>Check cartridge expiration date</li>
+                </ol>
+
+                <h3>Specimen Collection</h3>
+                <ol class="step-list">
+                    <li>Follow standard phlebotomy procedures</li>
+                    <li>Use appropriate collection device:
+                        <ul>
+                            <li>Arterial: ABG syringe with balanced lithium heparin</li>
+                            <li>Venous: Lithium heparin tube or syringe</li>
+                            <li>Capillary: Heparinized capillary tube</li>
+                        </ul>
+                    </li>
+                    <li>Mix specimen thoroughly (roll between palms)</li>
+                    <li>Expel all air bubbles immediately</li>
+                    <li>Test within time limits (10 min for gases, 30 min for chemistry)</li>
+                </ol>
+
+                <h3>Testing Procedure</h3>
+                <ol class="step-list">
+                    <li>Power on analyzer if needed</li>
+                    <li>Enter or scan operator ID</li>
+                    <li>Enter or scan patient ID</li>
+                    <li>Remove cartridge from pouch</li>
+                    <li>Fold down sample well tab</li>
+                    <li>Dispense sample:
+                        <ul>
+                            <li>Fill to fill mark (approximately 95 µL)</li>
+                            <li>Avoid air bubbles</li>
+                            <li>Do not overfill</li>
+                        </ul>
+                    </li>
+                    <li>Close cartridge immediately</li>
+                    <li>Insert cartridge into analyzer within 5 seconds</li>
+                    <li>Analyzer automatically processes sample</li>
+                    <li>Results display when complete</li>
+                    <li>Review results for critical values</li>
+                    <li>Accept or reject results</li>
+                    <li>Results transmit to LIS automatically</li>
+                    <li>Dispose of cartridge in biohazard waste</li>
+                </ol>
+
+                <h3>Post-Analytical Steps</h3>
+                <ol class="step-list">
+                    <li>Review results for critical values</li>
+                    <li>Compare to previous results if available</li>
+                    <li>Document in patient record if at bedside</li>
+                    <li>Notify provider of critical values immediately</li>
+                    <li>Clean analyzer if contaminated</li>
+                    <li>Return analyzer to charging dock</li>
+                </ol>
+
+                <div class="critical-box">
+                    <h4>⚠️ Critical Testing Notes</h4>
+                    <ul>
+                        <li>Never use expired cartridges</li>
+                        <li>Do not test clotted specimens</li>
+                        <li>Ensure proper patient ID before testing</li>
+                        <li>Document any pre-analytical variables</li>
+                        <li>Note if patient on oxygen for blood gases</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION 14: CALCULATIONS AND RESULT REPORTING -->
+            <div class="section" id="calculations">
+                <h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+
+                <h3>Calculated Parameters</h3>
+                <p>The iSTAT System automatically calculates the following:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Formula/Method</th>
+                            <th>Clinical Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anion Gap</strong></td>
+                            <td>Na - (Cl + HCO3)</td>
+                            <td>Metabolic acidosis evaluation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base Excess</strong></td>
+                            <td>Modified Van Slyke equation</td>
+                            <td>Acid-base status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HCO3</strong></td>
+                            <td>Henderson-Hasselbalch equation</td>
+                            <td>Metabolic assessment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TCO2</strong></td>
+                            <td>HCO3 + (0.03 × PCO2)</td>
+                            <td>Total CO2 content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>sO2</strong></td>
+                            <td>Oxygen dissociation curve</td>
+                            <td>Oxygen saturation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hemoglobin</strong></td>
+                            <td>Hct/3</td>
+                            <td>Estimated from hematocrit</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Result Reporting Format</h3>
+                <ul>
+                    <li>Results display on analyzer screen with units</li>
+                    <li>Flagged results marked with H (high) or L (low)</li>
+                    <li>Critical values highlighted in red</li>
+                    <li>Out-of-range results display as "&gt;" or "&lt;" with limit</li>
+                    <li>Suppressed results show as "***"</li>
+                </ul>
+
+                <h3>Temperature Correction</h3>
+                <p>For blood gas results, temperature correction available:</p>
+                <ul>
+                    <li>Default: Results at 37°C</li>
+                    <li>Patient temperature can be entered</li>
+                    <li>pH, PCO2, PO2 corrected mathematically</li>
+                    <li>Note actual patient temperature in results</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 15: REFERENCE RANGES -->
+            <div class="section" id="reference">
+                <h2>15. REFERENCE RANGES</h2>
+
+                <h3>Blood Gas Parameters (Arterial)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Reference Range</th>
+                            <th>Critical Low</th>
+                            <th>Critical High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pH</td>
+                            <td>7.35-7.45</td>
+                            <td>&lt;7.20</td>
+                            <td>&gt;7.60</td>
+                        </tr>
+                        <tr>
+                            <td>PCO2</td>
+                            <td>35-45 mmHg</td>
+                            <td>&lt;20</td>
+                            <td>&gt;70</td>
+                        </tr>
+                        <tr>
+                            <td>PO2</td>
+                            <td>80-100 mmHg</td>
+                            <td>&lt;50</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td>HCO3</td>
+                            <td>22-28 mmol/L</td>
+                            <td>&lt;10</td>
+                            <td>&gt;40</td>
+                        </tr>
+                        <tr>
+                            <td>Base Excess</td>
+                            <td>-2 to +2 mmol/L</td>
+                            <td>&lt;-10</td>
+                            <td>&gt;+10</td>
+                        </tr>
+                        <tr>
+                            <td>Lactate</td>
+                            <td>0.5-2.2 mmol/L</td>
+                            <td>--</td>
+                            <td>&gt;4.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Chemistry Parameters</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Reference Range</th>
+                            <th>Critical Low</th>
+                            <th>Critical High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sodium</td>
+                            <td>136-145 mmol/L</td>
+                            <td>&lt;120</td>
+                            <td>&gt;160</td>
+                        </tr>
+                        <tr>
+                            <td>Potassium</td>
+                            <td>3.5-5.1 mmol/L</td>
+                            <td>&lt;2.5</td>
+                            <td>&gt;6.5</td>
+                        </tr>
+                        <tr>
+                            <td>Chloride</td>
+                            <td>98-107 mmol/L</td>
+                            <td>&lt;80</td>
+                            <td>&gt;120</td>
+                        </tr>
+                        <tr>
+                            <td>Ionized Calcium</td>
+                            <td>1.12-1.32 mmol/L</td>
+                            <td>&lt;0.80</td>
+                            <td>&gt;1.60</td>
+                        </tr>
+                        <tr>
+                            <td>Glucose</td>
+                            <td>70-110 mg/dL</td>
+                            <td>&lt;40</td>
+                            <td>&gt;500</td>
+                        </tr>
+                        <tr>
+                            <td>BUN</td>
+                            <td>7-18 mg/dL</td>
+                            <td>--</td>
+                            <td>&gt;100</td>
+                        </tr>
+                        <tr>
+                            <td>Creatinine</td>
+                            <td>0.6-1.2 mg/dL</td>
+                            <td>--</td>
+                            <td>&gt;10</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Cardiac Markers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analyte</th>
+                            <th>Reference Range</th>
+                            <th>MI Cutoff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Troponin I</td>
+                            <td>&lt;0.08 ng/mL</td>
+                            <td>&gt;0.08 ng/mL</td>
+                        </tr>
+                        <tr>
+                            <td>BNP</td>
+                            <td>&lt;100 pg/mL</td>
+                            <td>&gt;400 pg/mL (CHF)</td>
+                        </tr>
+                        <tr>
+                            <td>CK-MB</td>
+                            <td>&lt;7.7 ng/mL</td>
+                            <td>&gt;7.7 ng/mL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 16: CRITICAL VALUES -->
+            <div class="section" id="critical">
+                <h2>16. CRITICAL VALUES</h2>
+
+                <div class="critical-box">
+                    <h4>⚠️ IMMEDIATE NOTIFICATION REQUIRED</h4>
+                    <p>The following results require immediate notification to the healthcare provider:</p>
+                </div>
+
+                <h3>Critical Value List</h3>
+                <table style="background-color: #ffebee;">
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Critical Low</th>
+                            <th>Critical High</th>
+                            <th>Action Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>pH</strong></td>
+                            <td>&lt;7.20</td>
+                            <td>&gt;7.60</td>
+                            <td>Immediate provider notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Potassium</strong></td>
+                            <td>&lt;2.5 mmol/L</td>
+                            <td>&gt;6.5 mmol/L</td>
+                            <td>Immediate notification, repeat</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sodium</strong></td>
+                            <td>&lt;120 mmol/L</td>
+                            <td>&gt;160 mmol/L</td>
+                            <td>Immediate notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glucose</strong></td>
+                            <td>&lt;40 mg/dL</td>
+                            <td>&gt;500 mg/dL</td>
+                            <td>Immediate notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ionized Calcium</strong></td>
+                            <td>&lt;0.80 mmol/L</td>
+                            <td>&gt;1.60 mmol/L</td>
+                            <td>Immediate notification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lactate</strong></td>
+                            <td>--</td>
+                            <td>&gt;4.0 mmol/L</td>
+                            <td>Sepsis protocol activation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Troponin I</strong></td>
+                            <td>--</td>
+                            <td>&gt;0.08 ng/mL</td>
+                            <td>Cardiac protocol activation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hemoglobin</strong></td>
+                            <td>&lt;7.0 g/dL</td>
+                            <td>&gt;20 g/dL</td>
+                            <td>Transfusion consideration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INR</strong></td>
+                            <td>--</td>
+                            <td>&gt;5.0</td>
+                            <td>Reversal consideration</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Critical Value Notification Process</h3>
+                <ol>
+                    <li>Verify result (repeat if questionable)</li>
+                    <li>Call provider immediately</li>
+                    <li>Provide:
+                        <ul>
+                            <li>Patient name and location</li>
+                            <li>Critical result with units</li>
+                            <li>Time of collection</li>
+                            <li>Your name and callback number</li>
+                        </ul>
+                    </li>
+                    <li>Document:
+                        <ul>
+                            <li>Date and time of notification</li>
+                            <li>Person notified (full name)</li>
+                            <li>Read-back verification</li>
+                            <li>Action taken by provider</li>
+                        </ul>
+                    </li>
+                    <li>Enter in critical value log</li>
+                </ol>
+            </div>
+
+            <!-- SECTION 17: LIMITATIONS AND INTERFERENCES -->
+            <div class="section" id="limitations">
+                <h2>17. LIMITATIONS AND INTERFERENCES</h2>
+
+                <h3>General Limitations</h3>
+                <ul>
+                    <li>Not for use with neonates &lt;48 hours old (bilirubin interference)</li>
+                    <li>Capillary blood gas results may differ from arterial</li>
+                    <li>Some medications may interfere with specific tests</li>
+                    <li>Extreme hematocrit values affect some results</li>
+                    <li>Not validated for dialysis patients (some tests)</li>
+                </ul>
+
+                <h3>Known Interferences</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Interfering Substance</th>
+                            <th>Affected Tests</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hemolysis</td>
+                            <td>K+, AST, LDH</td>
+                            <td>Falsely elevated</td>
+                        </tr>
+                        <tr>
+                            <td>Lipemia</td>
+                            <td>Na+, Hgb</td>
+                            <td>May be suppressed</td>
+                        </tr>
+                        <tr>
+                            <td>High Bilirubin</td>
+                            <td>Creatinine</td>
+                            <td>Falsely decreased</td>
+                        </tr>
+                        <tr>
+                            <td>EDTA contamination</td>
+                            <td>iCa, K+</td>
+                            <td>iCa decreased, K+ increased</td>
+                        </tr>
+                        <tr>
+                            <td>Sodium heparin</td>
+                            <td>Na+, iCa</td>
+                            <td>Na+ increased, iCa decreased</td>
+                        </tr>
+                        <tr>
+                            <td>Acetaminophen</td>
+                            <td>Glucose, Creatinine</td>
+                            <td>May interfere at toxic levels</td>
+                        </tr>
+                        <tr>
+                            <td>Ascorbic acid</td>
+                            <td>Glucose</td>
+                            <td>Falsely decreased at high levels</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Hematocrit Effects</h3>
+                <ul>
+                    <li>Hct &lt;20%: May affect electrolyte measurements</li>
+                    <li>Hct &gt;65%: May cause incomplete filling, affect results</li>
+                    <li>Correction factors applied automatically for some tests</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 18: EMERGENCY PROCEDURES -->
+            <div class="section" id="emergency">
+                <h2>18. EMERGENCY PROCEDURES</h2>
+
+                <h3>Scenario 1: All iSTAT Analyzers Down</h3>
+                <div class="subsection">
+                    <h4>Immediate Actions:</h4>
+                    <ol>
+                        <li>Notify all clinical areas of iSTAT unavailability</li>
+                        <li>Route all specimens to main laboratory</li>
+                        <li>Activate STAT courier service for remote areas</li>
+                        <li>Contact Abbott Technical Support: 1-877-441-7440</li>
+                    </ol>
+
+                    <h4>Backup Testing Options:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Alternative Method</th>
+                                <th>Location</th>
+                                <th>TAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Blood Gases</td>
+                                <td>Main lab ABG analyzer</td>
+                                <td>Core Laboratory</td>
+                                <td>30 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Basic Metabolic</td>
+                                <td>Chemistry analyzer</td>
+                                <td>Core Laboratory</td>
+                                <td>45 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Troponin</td>
+                                <td>Chemistry analyzer</td>
+                                <td>Core Laboratory</td>
+                                <td>60 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>PT/INR</td>
+                                <td>Coagulation analyzer</td>
+                                <td>Core Laboratory</td>
+                                <td>45 minutes</td>
+                            </tr>
+                            <tr>
+                                <td>Lactate</td>
+                                <td>Chemistry analyzer</td>
+                                <td>Core Laboratory</td>
+                                <td>30 minutes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Scenario 2: Network/LIS Failure</h3>
+                <div class="subsection">
+                    <ol>
+                        <li>Continue testing - analyzers store results</li>
+                        <li>Use manual result recording sheets</li>
+                        <li>Assign sequential downtime numbers</li>
+                        <li>Call critical values directly</li>
+                        <li>When connectivity restored:
+                            <ul>
+                                <li>Upload all stored results</li>
+                                <li>Match to patient records</li>
+                                <li>Verify all critical values reported</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>Scenario 3: Mass Casualty Event</h3>
+                <div class="subsection">
+                    <ol>
+                        <li>Activate emergency response protocol</li>
+                        <li>Deploy all available analyzers to ED/Triage</li>
+                        <li>Prioritize:
+                            <ul>
+                                <li>Blood gases for respiratory distress</li>
+                                <li>Hemoglobin for trauma/bleeding</li>
+                                <li>Basic metabolic for shock</li>
+                            </ul>
+                        </li>
+                        <li>Use abbreviated patient identifiers per disaster protocol</li>
+                        <li>Laboratory provides additional operators</li>
+                        <li>Suspend non-critical testing</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- SECTION 19: DOWNTIME PROCEDURES -->
+            <div class="section" id="downtime">
+                <h2>19. DOWNTIME PROCEDURES</h2>
+
+                <h3>Analyzer Downtime</h3>
+                <ol>
+                    <li><strong>Single Analyzer Down:</strong>
+                        <ul>
+                            <li>Use alternate analyzer in same area</li>
+                            <li>If none available, use nearest department</li>
+                            <li>Transport specimens with ice if needed</li>
+                        </ul>
+                    </li>
+
+                    <li><strong>Department Analyzers Down:</strong>
+                        <ul>
+                            <li>Route to nearest functional analyzer</li>
+                            <li>Prioritize by clinical urgency</li>
+                            <li>Consider main laboratory testing</li>
+                        </ul>
+                    </li>
+
+                    <li><strong>System-wide Failure:</strong>
+                        <ul>
+                            <li>Activate contingency plan</li>
+                            <li>All POCT to main laboratory</li>
+                            <li>Notify medical staff of delays</li>
+                            <li>Consider reference laboratory for non-urgent</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>LIS/EMR Downtime</h3>
+                <div class="subsection">
+                    <h4>Manual Process:</h4>
+                    <ol>
+                        <li>Use paper requisitions (downtime forms)</li>
+                        <li>Continue testing - results stored in analyzer</li>
+                        <li>Record results on downtime log sheets</li>
+                        <li>Use downtime patient labels</li>
+                        <li>Call all results to clinical areas</li>
+                        <li>Fax result sheets to units</li>
+                    </ol>
+
+                    <h4>Recovery Process:</h4>
+                    <ol>
+                        <li>Upload all stored results from analyzers</li>
+                        <li>Enter manual results into LIS</li>
+                        <li>Verify all critical values were reported</li>
+                        <li>Match downtime numbers to patient records</li>
+                        <li>File downtime logs per policy</li>
+                        <li>Review for any missed results</li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <strong>Downtime Contacts:</strong><br> POCT Coordinator: Pager 1234<br> Laboratory Supervisor: Extension 3456<br> IT Help Desk: Extension 4357<br> Abbott Technical Support: 1-877-441-7440
+                </div>
+            </div>
+
+            <!-- SECTION 20: TECHNICAL SUPPORT -->
+            <div class="section" id="support">
+                <h2>20. TECHNICAL SUPPORT</h2>
+
+                <h3>Contact Directory</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Issue Type</th>
+                            <th>Primary Contact</th>
+                            <th>When to Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Operator Questions</strong></td>
+                            <td>POCT Coordinator<br>Pager: 1234</td>
+                            <td>Training, certification, procedures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QC Issues</strong></td>
+                            <td>POCT Coordinator<br>Laboratory: Ext 3456</td>
+                            <td>QC failures, trends</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Problems</strong></td>
+                            <td>Abbott Support<br>1-877-441-7440</td>
+                            <td>Analyzer errors, hardware issues</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supply Orders</strong></td>
+                            <td>Laboratory Manager<br>Ext: 3000</td>
+                            <td>Cartridge orders, supplies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IT/Network Issues</strong></td>
+                            <td>IT Help Desk<br>Ext: 4357</td>
+                            <td>Connectivity, data transmission</td>
+                        </tr>
+                        <tr>
+                            <td><strong>After Hours</strong></td>
+                            <td>Laboratory Supervisor<br>Ext: 3456</td>
+                            <td>Urgent issues off-hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Biomedical</strong></td>
+                            <td>Biomed Engineering<br>Ext: 4567</td>
+                            <td>Electrical issues, safety</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quality Issues</strong></td>
+                            <td>Technical Quality Specialist<br>Ext: 3789</td>
+                            <td>Result discrepancies, complaints</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 21: QUALITY ASSURANCE -->
+            <div class="section" id="qa">
+                <h2>21. QUALITY ASSURANCE</h2>
+
+                <h3>Documentation Requirements</h3>
+
+                <div class="warning-box">
+                    <strong>⚠️ ONE STRIKE POLICY FOR DOCUMENTATION</strong>
+                    <p>Kaiser Permanente maintains strict documentation standards for POCT. Failure to properly document QC, maintenance, or patient results may result in immediate suspension of testing privileges.</p>
+                </div>
+
+                <h3>Quality Metrics (Monthly Review)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                            <th>Action if Not Met</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>QC Compliance</td>
+                            <td>100%</td>
+                            <td>Immediate retraining</td>
+                        </tr>
+                        <tr>
+                            <td>TAT &lt;15 minutes</td>
+                            <td>≥90%</td>
+                            <td>Process review</td>
+                        </tr>
+                        <tr>
+                            <td>Critical Value Notification</td>
+                            <td>100%</td>
+                            <td>Root cause analysis</td>
+                        </tr>
+                        <tr>
+                            <td>Operator Certification</td>
+                            <td>100%</td>
+                            <td>Testing suspension</td>
+                        </tr>
+                        <tr>
+                            <td>PT Performance</td>
+                            <td>≥80%</td>
+                            <td>Corrective action plan</td>
+                        </tr>
+                        <tr>
+                            <td>Error Rate</td>
+                            <td>&lt;2%</td>
+                            <td>Investigation required</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Proficiency Testing</h3>
+                <ul>
+                    <li>Frequency: 3 times per year (CAP surveys)</li>
+                    <li>All operators must participate annually</li>
+                    <li>Treat as patient specimen</li>
+                    <li>No discussion of results before submission</li>
+                    <li>Failure requires immediate corrective action</li>
+                </ul>
+
+                <h3>Competency Assessment Requirements</h3>
+                <div class="competency-box">
+                    <h4>Annual POCT Competency (per Documents 14952_0 and 13792_0)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Method</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Direct Observation</td>
+                                <td>Watch complete testing process</td>
+                                <td>Initial and Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Written Test</td>
+                                <td>10 questions minimum</td>
+                                <td>Initial and Annual</td>
+                            </tr>
+                            <tr>
+                                <td>QC Performance</td>
+                                <td>Review QC records</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>PT Participation</td>
+                                <td>Successful PT result</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Maintenance Skills</td>
+                                <td>Demonstrate cleaning</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Problem Solving</td>
+                                <td>Troubleshooting scenarios</td>
+                                <td>Annual</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 22: REGULATORY COMPLIANCE -->
+            <div class="section" id="compliance">
+                <h2>22. REGULATORY COMPLIANCE</h2>
+
+                <h3>CLIA Requirements</h3>
+                <ul>
+                    <li>Certificate Type: CLIA Waiver for some tests, Moderate Complexity for others</li>
+                    <li>CLIA Number: 21D0123456</li>
+                    <li>Personnel requirements per 42 CFR 493.1423 (moderate complexity)</li>
+                    <li>QC frequency: Per manufacturer or more stringent</li>
+                    <li>Proficiency testing enrollment required</li>
+                    <li>Biennial inspections</li>
+                </ul>
+
+                <h3>CAP Standards (POCT Specific)</h3>
+                <ul>
+                    <li>POC.07100: Director responsibilities defined</li>
+                    <li>POC.07350: Operator training documented</li>
+                    <li>POC.07575: Quality control performed</li>
+                    <li>POC.07650: Maintenance documented</li>
+                    <li>POC.08000: PT participation required</li>
+                    <li>POC.08500: Result reporting defined</li>
+                </ul>
+
+                <h3>Joint Commission Requirements</h3>
+                <ul>
+                    <li>Waived and non-waived testing compliance</li>
+                    <li>Annual competency assessment</li>
+                    <li>Quality control per manufacturer</li>
+                    <li>Critical value reporting</li>
+                    <li>Integration with hospital quality program</li>
+                </ul>
+
+                <h3>Documentation Retention</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Document Type</th>
+                            <th>Retention Period</th>
+                            <th>Storage Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Patient Results</td>
+                            <td>7 years</td>
+                            <td>LIS/Central Data Station</td>
+                        </tr>
+                        <tr>
+                            <td>QC Records</td>
+                            <td>2 years</td>
+                            <td>Central Data Station</td>
+                        </tr>
+                        <tr>
+                            <td>Operator Records</td>
+                            <td>2 years post-employment</td>
+                            <td>POCT Office</td>
+                        </tr>
+                        <tr>
+                            <td>Maintenance Logs</td>
+                            <td>Life of instrument</td>
+                            <td>POCT Office</td>
+                        </tr>
+                        <tr>
+                            <td>PT Records</td>
+                            <td>2 years</td>
+                            <td>POCT Office</td>
+                        </tr>
+                        <tr>
+                            <td>Validation Studies</td>
+                            <td>Life of method</td>
+                            <td>POCT Office</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 23: REFERENCES -->
+            <div class="section" id="references">
+                <h2>23. REFERENCES</h2>
+
+                <h3>Primary Kaiser Permanente References</h3>
+                <ol>
+                    <li>Document 14952_0: Personnel and Competency Binder for Medical Laboratory Assistant - MOB</li>
+                    <li>Document 13792_0: Personnel and Competency Binder for MT and MLT - MOB</li>
+                    <li>Document 14016_0: Quality Control Evaluation and Action Plan Job Aid</li>
+                    <li>KPMAS.LAB.POCT.001: Point-of-Care Testing Policies and Procedures</li>
+                    <li>Kaiser Permanente POCT Management Plan</li>
+                    <li>Kaiser Permanente Critical Value Policy</li>
+                </ol>
+
+                <h3>Manufacturer Documentation</h3>
+                <ol>
+                    <li>Abbott Point of Care iSTAT System Manual</li>
+                    <li>iSTAT Alinity Operations Manual</li>
+                    <li>Abbott Cartridge Package Inserts (all types)</li>
+                    <li>Abbott QC and Calibration Verification Instructions</li>
+                </ol>
+
+                <h3>Regulatory and Standards</h3>
+                <ol>
+                    <li>CLSI POCT04-A: Point-of-Care Blood Gas Testing</li>
+                    <li>CLSI POCT07: Quality Management for POCT</li>
+                    <li>CLSI EP23: Laboratory Quality Control</li>
+                    <li>CAP Point-of-Care Testing Checklist</li>
+                    <li>CLIA Regulations 42 CFR Part 493</li>
+                    <li>Joint Commission Laboratory Standards</li>
+                </ol>
+
+                <h3>Clinical Guidelines</h3>
+                <ol>
+                    <li>Surviving Sepsis Campaign Guidelines</li>
+                    <li>AHA/ACC Guidelines for Acute Coronary Syndromes</li>
+                    <li>KDIGO Guidelines for Acute Kidney Injury</li>
+                    <li>American Diabetes Association Standards</li>
+                </ol>
+
+                <h3>Online Resources</h3>
+                <ol>
+                    <li>Abbott Point of Care: www.pointofcare.abbott</li>
+                    <li>CAP e-LAB Solutions: https://elss.cap.org</li>
+                    <li>CDC Laboratory Medicine: www.cdc.gov/labmedicine</li>
+                    <li>Kaiser Permanente Laboratory Intranet (VPN required)</li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>Note:</strong> All online resources should be accessed through secure connections. For Kaiser Permanente internal resources, use VPN when accessing from outside the facility network.
+                </div>
+            </div>
+
+            <!-- APPROVAL SIGNATURES -->
+            <div class="section">
+                <h2>DOCUMENT APPROVAL</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Name</th>
+                            <th>Signature</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Author</td>
+                            <td>POCT Coordinator</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Reviewer</td>
+                            <td>Technical Quality Specialist</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Reviewer</td>
+                            <td>Laboratory Manager</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                        <tr>
+                            <td>Approver</td>
+                            <td>Laboratory Director</td>
+                            <td>_______________________</td>
+                            <td>_______________________</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- REVISION HISTORY -->
+            <div class="section">
+                <h2>REVISION HISTORY</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Description of Changes</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.0</td>
+                            <td>01/2024</td>
+                            <td>Initial release</td>
+                            <td>POCT Coordinator</td>
+                        </tr>
+                        <tr>
+                            <td>2.0</td>
+                            <td>01/2025</td>
+                            <td>Updated for Kaiser Permanente standards, added competency requirements, enhanced QC procedures</td>
+                            <td>Technical Quality Specialist</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </body>
+
+        </html>

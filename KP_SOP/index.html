@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente Laboratory SOPs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .sop-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid #0066cc;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .sop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .sop-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .sop-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .sop-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Main Portal</a>
+        <h1>🔬 Kaiser Permanente Laboratory SOPs</h1>
+
+        <div class="sop-grid">
+            <div class="sop-card" onclick="location.href='hematology.html'">
+                <div class="sop-icon">🩸</div>
+                <h2>Hematology</h2>
+                <p>Complete blood count, coagulation studies, ESR, and specialized hematology procedures.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='chemistry.html'">
+                <div class="sop-icon">⚗️</div>
+                <h2>Chemistry</h2>
+                <p>Comprehensive metabolic panels, lipid profiles, cardiac markers, and therapeutic drug monitoring.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='microbiology.html'">
+                <div class="sop-icon">🦠</div>
+                <h2>Microbiology</h2>
+                <p>Culture procedures, identification methods, antimicrobial susceptibility testing.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='blood-bank.html'">
+                <div class="sop-icon">🩸</div>
+                <h2>Blood Bank</h2>
+                <p>Blood typing, crossmatching, transfusion protocols, and blood product management.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='specimen-processing.html'">
+                <div class="sop-icon">🧪</div>
+                <h2>Specimen Processing</h2>
+                <p>Sample collection, handling, processing, and storage procedures.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='point-of-care.html'">
+                <div class="sop-icon">📱</div>
+                <h2>Point of Care Testing</h2>
+                <p>Glucose monitoring, rapid tests, and bedside testing procedures.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='quality-control.html'">
+                <div class="sop-icon">✅</div>
+                <h2>Quality Control</h2>
+                <p>QC procedures, calibration protocols, and proficiency testing.</p>
+            </div>
+
+            <div class="sop-card" onclick="location.href='safety.html'">
+                <div class="sop-icon">⚠️</div>
+                <h2>Safety Protocols</h2>
+                <p>Biosafety procedures, chemical safety, and emergency response protocols.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

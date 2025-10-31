@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente - HCG Testing Standard Operating Procedure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #004d99;
+            text-align: center;
+            border-bottom: 3px solid #004d99;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #006633;
+            border-bottom: 2px solid #006633;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #cc6600;
+        }
+        .header {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .critical {
+            background-color: #ffe6e6;
+            border-left: 5px solid #ff4444;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .info {
+            background-color: #e7f3ff;
+            border-left: 5px solid #007bff;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .signature-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .qc-table {
+            background-color: #f8f9fa;
+        }
+        .competency-req {
+            background-color: #e8f5e8;
+            border: 1px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Optimized Kaiser Permanente Laboratory SOP Template</h1>
+    <h1>Human Chorionic Gonadotropin (HCG) Testing</h1>
+    <p><strong>Document ID:</strong> LAB-SOP-HCG-2025</p>
+    <p><strong>Version:</strong> 1.0</p>
+    <p><strong>Effective Date:</strong> January 1, 2025</p>
+    <p><strong>Review Date:</strong> January 1, 2026</p>
+    <p><strong>Department:</strong> Clinical Laboratory - Chemistry/Immunoassay</p>
+</div>
+
+<h2>1. PURPOSE AND SCOPE</h2>
+<p>This Standard Operating Procedure (SOP) provides comprehensive guidelines for the performance of Human Chorionic Gonadotropin (HCG) testing in serum and urine specimens. This procedure is used for pregnancy confirmation, monitoring pregnancy progression, detecting ectopic pregnancy, and monitoring treatment of HCG-producing tumors.</p>
+
+<div class="info">
+    <strong>Scope:</strong> This SOP applies to all laboratory personnel performing HCG testing using automated immunoassay platforms and point-of-care testing devices within Kaiser Permanente laboratory facilities.
+</div>
+
+<h2>2. REGULATORY REQUIREMENTS AND COMPLIANCE</h2>
+<div class="critical">
+    <h3>Regulatory Standards:</h3>
+    <ul>
+        <li><strong>CLIA '88:</strong> High complexity testing requirements</li>
+        <li><strong>CAP:</strong> Laboratory Accreditation Program standards</li>
+        <li><strong>FDA:</strong> Device regulations and cleared assays only</li>
+        <li><strong>Joint Commission:</strong> Patient safety standards</li>
+        <li><strong>OSHA:</strong> Bloodborne pathogen and laboratory safety</li>
+        <li><strong>Kaiser Permanente:</strong> Quality management system requirements</li>
+    </ul>
+</div>
+
+<h2>3. PERSONNEL QUALIFICATIONS AND COMPETENCY</h2>
+<div class="competency-req">
+    <h3>Required Qualifications:</h3>
+    <ul>
+        <li>Medical Technologist (MT) or Medical Laboratory Scientist (MLS)</li>
+        <li>Bachelor's degree in Clinical Laboratory Science or related field</li>
+        <li>ASCP certification (MT, MLS) or equivalent</li>
+        <li>Completion of Documents 14952_0 and 13792_0 competency assessments</li>
+    </ul>
+
+    <h3>Competency Requirements:</h3>
+    <ul>
+        <li>Initial competency assessment before independent testing</li>
+        <li>Annual competency verification</li>
+        <li>Proficiency testing participation</li>
+        <li>Equipment-specific training certification</li>
+        <li>Understanding of HCG physiology and clinical significance</li>
+    </ul>
+</div>
+
+<h2>4. SAFETY PRECAUTIONS AND HAZARD COMMUNICATION</h2>
+<div class="warning">
+    <h3>Biological Safety:</h3>
+    <ul>
+        <li>Treat all specimens as potentially infectious</li>
+        <li>Use standard precautions for blood and body fluids</li>
+        <li>Wear appropriate PPE: gloves, lab coat, safety glasses</li>
+        <li>Work in biological safety cabinet when required</li>
+        <li>Proper disposal of biohazardous waste</li>
+    </ul>
+
+    <h3>Chemical Safety:</h3>
+    <ul>
+        <li>Review SDS for all reagents before use</li>
+        <li>Store reagents according to manufacturer specifications</li>
+        <li>Use fume hood for volatile substances</li>
+        <li>Emergency procedures readily available</li>
+    </ul>
+</div>
+
+<h2>5. INSTRUMENTATION AND EQUIPMENT</h2>
+<h3>Primary Instruments:</h3>
+<table>
+    <tr>
+        <th>Instrument</th>
+        <th>Manufacturer</th>
+        <th>Test Method</th>
+        <th>Location</th>
+    </tr>
+    <tr>
+        <td>Architect i2000SR</td>
+        <td>Abbott</td>
+        <td>CMIA</td>
+        <td>Main Chemistry Lab</td>
+    </tr>
+    <tr>
+        <td>Cobas e411</td>
+        <td>Roche</td>
+        <td>ECLIA</td>
+        <td>Stat Lab</td>
+    </tr>
+    <tr>
+        <td>Access 2</td>
+        <td>Beckman Coulter</td>
+        <td>Chemiluminescent</td>
+        <td>Backup Station</td>
+    </tr>
+</table>
+
+<h3>Point-of-Care Devices:</h3>
+<ul>
+    <li>Pregnancy test cassettes (FDA cleared)</li>
+    <li>Digital pregnancy tests</li>
+    <li>Quantitative HCG analyzers</li>
+</ul>
+
+<h2>6. REAGENTS AND SUPPLIES</h2>
+<h3>Reagents:</h3>
+<ul>
+    <li>HCG calibrators (WHO International Standard)</li>
+    <li>HCG controls (normal and elevated levels)</li>
+    <li>Assay reagents (antibodies, substrates, buffers)</li>
+    <li>Quality control materials</li>
+</ul>
+
+<h3>Storage Requirements:</h3>
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Storage Temperature</th>
+        <th>Stability</th>
+        <th>Special Conditions</th>
+    </tr>
+    <tr>
+        <td>Reagent Packs</td>
+        <td>2-8°C</td>
+        <td>Until expiration</td>
+        <td>Protected from light</td>
+    </tr>
+    <tr>
+        <td>Calibrators</td>
+        <td>2-8°C</td>
+        <td>Until expiration</td>
+        <td>Single use</td>
+    </tr>
+    <tr>
+        <td>Controls</td>
+        <td>2-8°C</td>
+        <td>Until expiration</td>
+        <td>Reconstitute per instructions</td>
+    </tr>
+</table>
+
+<h2>7. SPECIMEN COLLECTION AND HANDLING</h2>
+<h3>Acceptable Specimens:</h3>
+<ul>
+    <li><strong>Serum:</strong> Red top or gold top (SST) tubes</li>
+    <li><strong>Plasma:</strong> Lithium heparin or EDTA</li>
+    <li><strong>Urine:</strong> Random or first morning void (preferred)</li>
+</ul>
+
+<h3>Collection Requirements:</h3>
+<div class="info">
+    <ul>
+        <li>Proper patient identification</li>
+        <li>Appropriate tube selection</li>
+        <li>Adequate sample volume (minimum 0.5 mL serum)</li>
+        <li>Room temperature transport acceptable</li>
+        <li>Refrigerate if testing delayed >4 hours</li>
+    </ul>
+</div>
+
+<h3>Rejection Criteria:</h3>
+<ul>
+    <li>Unlabeled or mislabeled specimens</li>
+    <li>Hemolyzed samples (severe)</li>
+    <li>Insufficient volume</li>
+    <li>Improper storage conditions</li>
+    <li>Expired specimens (>7 days)</li>
+</ul>
+
+<h2>8. ANALYTICAL PROCEDURE</h2>
+<h3>Pre-Analytical Steps:</h3>
+<ol>
+    <li>Verify instrument calibration and QC results</li>
+    <li>Check reagent levels and expiration dates</li>
+    <li>Review specimen adequacy</li>
+    <li>Load patient samples and controls</li>
+</ol>
+
+<h3>Testing Protocol:</h3>
+<table>
+    <tr>
+        <th>Step</th>
+        <th>Action</th>
+        <th>Time</th>
+        <th>Notes</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Sample preparation</td>
+        <td>5 min</td>
+        <td>Centrifuge if needed</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Load instrument</td>
+        <td>10 min</td>
+        <td>Follow loading sequence</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Start analysis</td>
+        <td>18-30 min</td>
+        <td>Automated process</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Result review</td>
+        <td>5 min</td>
+        <td>Check for flags/errors</td>
+    </tr>
+</table>
+
+<h2>9. QUALITY CONTROL</h2>
+<div class="qc-table">
+    <h3>QC Requirements:</h3>
+    <table>
+        <tr>
+            <th>QC Level</th>
+            <th>Frequency</th>
+            <th>Acceptable Range</th>
+            <th>Action if Out of Range</th>
+        </tr>
+        <tr>
+            <td>Level 1 (Negative)</td>
+            <td>Each run</td>
+            <td>&lt;5 mIU/mL</td>
+            <td>Repeat QC and investigate</td>
+        </tr>
+        <tr>
+            <td>Level 2 (Positive)</td>
+            <td>Each run</td>
+            <td>±2 SD from mean</td>
+            <td>Repeat QC and recalibrate</td>
+        </tr>
+        <tr>
+            <td>Level 3 (High)</td>
+            <td>Each run</td>
+            <td>±3 SD from mean</td>
+            <td>Check linearity</td>
+        </tr>
+    </table>
+</div>
+
+<h3>Westgard Rules Application:</h3>
+<ul>
+    <li>1:2s - Warning rule</li>
+    <li>1:3s - Reject run</li>
+    <li>2:2s - Reject run</li>
+    <li>R:4s - Reject run</li>
+    <li>4:1s - Reject run</li>
+    <li>10:x - Reject run</li>
+</ul>
+
+<h2>10. REFERENCE RANGES AND CRITICAL VALUES</h2>
+<table>
+    <tr>
+        <th>Population</th>
+        <th>Reference Range</th>
+        <th>Units</th>
+        <th>Clinical Significance</th>
+    </tr>
+    <tr>
+        <td>Non-pregnant females</td>
+        <td>&lt;5</td>
+        <td>mIU/mL</td>
+        <td>Negative for pregnancy</td>
+    </tr>
+    <tr>
+        <td>Males</td>
+        <td>&lt;2</td>
+        <td>mIU/mL</td>
+        <td>Normal level</td>
+    </tr>
+    <tr>
+        <td>Pregnant (varies by week)</td>
+        <td>25-288,000</td>
+        <td>mIU/mL</td>
+        <td>Gestational age dependent</td>
+    </tr>
+</table>
+
+<div class="critical">
+    <h3>Critical Values:</h3>
+    <ul>
+        <li><strong>Unexpectedly high HCG in males:</strong> >10 mIU/mL (possible tumor)</li>
+        <li><strong>Low HCG in known pregnancy:</strong> May indicate ectopic pregnancy or miscarriage</li>
+        <li><strong>Notification:</strong> Contact ordering physician within 1 hour</li>
+    </ul>
+</div>
+
+<h2>11. RESULT INTERPRETATION AND REPORTING</h2>
+<h3>Interpretation Guidelines:</h3>
+<ul>
+    <li><strong>&lt;5 mIU/mL:</strong> Negative for pregnancy</li>
+    <li><strong>5-25 mIU/mL:</strong> Equivocal, repeat in 48-72 hours</li>
+    <li><strong>&gt;25 mIU/mL:</strong> Positive for pregnancy</li>
+    <li><strong>Serial monitoring:</strong> Should double every 48-72 hours in normal pregnancy</li>
+</ul>
+
+<h3>Reporting Format:</h3>
+<ul>
+    <li>Quantitative results in mIU/mL</li>
+    <li>Qualitative interpretation when appropriate</li>
+    <li>Reference ranges included</li>
+    <li>Delta checks for serial results</li>
+</ul>
+
+<h2>12. TURNAROUND TIME (TAT) REQUIREMENTS</h2>
+<table>
+    <tr>
+        <th>Priority</th>
+        <th>Collection to Result</th>
+        <th>Verification to Report</th>
+        <th>Notification Requirements</th>
+    </tr>
+    <tr>
+        <td>STAT</td>
+        <td>60 minutes</td>
+        <td>15 minutes</td>
+        <td>Immediate for critical values</td>
+    </tr>
+    <tr>
+        <td>Routine</td>
+        <td>4 hours</td>
+        <td>30 minutes</td>
+        <td>Next business day</td>
+    </tr>
+    <tr>
+        <td>Prenatal</td>
+        <td>2 hours</td>
+        <td>20 minutes</td>
+        <td>Same day</td>
+    </tr>
+</table>
+
+<h2>13. TROUBLESHOOTING</h2>
+<h3>Common Issues and Solutions:</h3>
+<table>
+    <tr>
+        <th>Problem</th>
+        <th>Possible Cause</th>
+        <th>Solution</th>
+        <th>Prevention</th>
+    </tr>
+    <tr>
+        <td>High background</td>
+        <td>Contamination</td>
+        <td>Clean probe, replace reagents</td>
+        <td>Regular maintenance</td>
+    </tr>
+    <tr>
+        <td>QC failure</td>
+        <td>Reagent deterioration</td>
+        <td>Replace reagents, recalibrate</td>
+        <td>Proper storage</td>
+    </tr>
+    <tr>
+        <td>Instrument error</td>
+        <td>Mechanical issue</td>
+        <td>Contact service, use backup</td>
+        <td>Preventive maintenance</td>
+    </tr>
+    <tr>
+        <td>Unexpected results</td>
+        <td>Hook effect</td>
+        <td>Dilute sample, rerun</td>
+        <td>Check for extremely high levels</td>
+    </tr>
+</table>
+
+<h2>14. MAINTENANCE AND CALIBRATION</h2>
+<h3>Daily Maintenance:</h3>
+<ul>
+    <li>System startup verification</li>
+    <li>QC review and documentation</li>
+    <li>Reagent level monitoring</li>
+    <li>Waste container levels</li>
+</ul>
+
+<h3>Weekly Maintenance:</h3>
+<ul>
+    <li>Probe cleaning and inspection</li>
+    <li>Temperature verification</li>
+    <li>Precision studies</li>
+    <li>Backup system testing</li>
+</ul>
+
+<h3>Calibration Schedule:</h3>
+<ul>
+    <li><strong>Full calibration:</strong> Every 28 days or per manufacturer</li>
+    <li><strong>Single point calibration:</strong> With each reagent lot</li>
+    <li><strong>Verification:</strong> After maintenance or repair</li>
+</ul>
+
+<h2>15. DOCUMENTATION AND RECORD KEEPING</h2>
+<h3>Required Documentation:</h3>
+<ul>
+    <li>QC logs and Levey-Jennings charts</li>
+    <li>Calibration records and certificates</li>
+    <li>Maintenance logs and service records</li>
+    <li>Proficiency testing results</li>
+    <li>Temperature monitoring logs</li>
+    <li>Critical value notification logs</li>
+</ul>
+
+<h3>Retention Periods:</h3>
+<ul>
+    <li><strong>Patient results:</strong> 7 years</li>
+    <li><strong>QC records:</strong> 2 years</li>
+    <li><strong>Calibration data:</strong> 2 years</li>
+    <li><strong>Maintenance logs:</strong> Life of instrument</li>
+</ul>
+
+<h2>16. TRAINING AND COMPETENCY ASSESSMENT</h2>
+<div class="competency-req">
+    <h3>Training Components:</h3>
+    <ul>
+        <li>HCG physiology and clinical significance</li>
+        <li>Instrument operation and maintenance</li>
+        <li>Quality control procedures</li>
+        <li>Result interpretation and reporting</li>
+        <li>Troubleshooting and problem resolution</li>
+        <li>Safety procedures and emergency protocols</li>
+    </ul>
+
+    <h3>Competency Methods:</h3>
+    <ul>
+        <li>Direct observation of routine work</li>
+        <li>Review of worksheets and QC</li>
+        <li>Assessment of problem-solving skills</li>
+        <li>Written examination</li>
+        <li>Blind proficiency testing</li>
+    </ul>
+</div>
+
+<h2>17. BACKUP PROCEDURES AND CONTINGENCY PLANS</h2>
+<div class="warning">
+    <h3>Primary Backup Laboratory:</h3>
+    <p><strong>MOB Laboratory</strong><br>
+    Phone: 301-555-2000<br>
+    Contact: Laboratory Director<br>
+    Expected TAT: Add 2-4 hours for transport and processing</p>
+
+    <h3>Downtime Procedures:</h3>
+    <ul>
+        <li>Use backup instrumentation when available</li>
+        <li>Implement manual/POCT testing for STAT requests</li>
+        <li>Contact MOB Laboratory for send-out testing</li>
+        <li>Document all downtime events and patient impact</li>
+        <li>Notify nursing units and physicians of delays</li>
+    </ul>
+</div>
+
+<h2>18. PROFICIENCY TESTING</h2>
+<h3>PT Program Requirements:</h3>
+<ul>
+    <li><strong>Provider:</strong> CAP or approved PT provider</li>
+    <li><strong>Frequency:</strong> 3 times per year minimum</li>
+    <li><strong>Analytes:</strong> Total HCG</li>
+    <li><strong>Acceptable Performance:</strong> ±3 SD or ±20% (whichever is greater)</li>
+</ul>
+
+<h3>PT Failure Response:</h3>
+<ol>
+    <li>Immediate investigation of root cause</li>
+    <li>Review of patient results since last successful PT</li>
+    <li>Corrective action implementation</li>
+    <li>Retesting if required by PT provider</li>
+    <li>Documentation of all actions taken</li>
+</ol>
+
+<h2>19. PROCEDURE UPDATES AND REVISIONS</h2>
+<h3>Review Schedule:</h3>
+<ul>
+    <li><strong>Annual review:</strong> January of each year</li>
+    <li><strong>Triggered reviews:</strong> Method changes, regulation updates</li>
+    <li><strong>Version control:</strong> All changes documented with approval</li>
+</ul>
+
+<h3>Change Control Process:</h3>
+<ol>
+    <li>Proposed changes submitted to Laboratory Director</li>
+    <li>Technical review by qualified personnel</li>
+    <li>Validation studies if required</li>
+    <li>Training on new procedures</li>
+    <li>Implementation with effective date</li>
+</ol>
+
+<h2>20. REGULATORY COMPLIANCE MONITORING</h2>
+<h3>Compliance Activities:</h3>
+<ul>
+    <li>Monthly quality indicator reviews</li>
+    <li>Quarterly regulation updates assessment</li>
+    <li>Annual compliance audit</li>
+    <li>Corrective action tracking</li>
+</ul>
+
+<h3>Key Performance Indicators:</h3>
+<table>
+    <tr>
+        <th>Indicator</th>
+        <th>Target</th>
+        <th>Monitoring Frequency</th>
+        <th>Responsible Party</th>
+    </tr>
+    <tr>
+        <td>TAT Compliance</td>
+        <td>&gt;95%</td>
+        <td>Daily</td>
+        <td>Shift Supervisor</td>
+    </tr>
+    <tr>
+        <td>QC Success Rate</td>
+        <td>&gt;98%</td>
+        <td>Weekly</td>
+        <td>Technical Supervisor</td>
+    </tr>
+    <tr>
+        <td>Proficiency Testing</td>
+        <td>100% acceptable</td>
+        <td>Per event</td>
+        <td>Laboratory Director</td>
+    </tr>
+</table>
+
+<h2>21. WASTE MANAGEMENT AND ENVIRONMENTAL CONSIDERATIONS</h2>
+<h3>Waste Categories:</h3>
+<ul>
+    <li><strong>Biohazardous waste:</strong> Red bag disposal</li>
+    <li><strong>Sharps:</strong> Sharps containers</li>
+    <li><strong>Chemical waste:</strong> Hazardous waste pickup</li>
+    <li><strong>Radioactive waste:</strong> Not applicable for this procedure</li>
+</ul>
+
+<h3>Environmental Monitoring:</h3>
+<ul>
+    <li>Chemical fume hood certification</li>
+    <li>Air quality monitoring</li>
+    <li>Waste minimization practices</li>
+    <li>Spill prevention and response</li>
+</ul>
+
+<h2>22. CONTINUOUS IMPROVEMENT</h2>
+<h3>Quality Improvement Activities:</h3>
+<ul>
+    <li>Monthly performance metric reviews</li>
+    <li>Process improvement initiatives</li>
+    <li>Staff feedback incorporation</li>
+    <li>Technology assessment and updates</li>
+</ul>
+
+<h3>Improvement Metrics:</h3>
+<ul>
+    <li>Reduced turnaround times</li>
+    <li>Decreased error rates</li>
+    <li>Enhanced staff competency</li>
+    <li>Improved patient satisfaction</li>
+</ul>
+
+<h2>23. CONTACT INFORMATION AND REFERENCES</h2>
+<h3>Key Contacts:</h3>
+<table>
+    <tr>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+    <tr>
+        <td>Laboratory Director</td>
+        <td>Dr. [Name]</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+    <tr>
+        <td>Technical Supervisor</td>
+        <td>[Name], MT(ASCP)</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+    <tr>
+        <td>Safety Officer</td>
+        <td>[Name]</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+</table>
+
+<h3>References:</h3>
+<ul>
+    <li>CLSI EP17-A2: Protocols for Determination of Limits of Detection and Limits of Quantitation</li>
+    <li>CLSI EP06-A: Evaluation of the Linearity of Quantitative Measurement Procedures</li>
+    <li>CLSI EP15-A3: User Verification of Precision and Estimation of Bias</li>
+    <li>CAP Chemistry and Toxicology Checklist</li>
+    <li>Manufacturer's package inserts and operator manuals</li>
+    <li>Kaiser Permanente Laboratory Policy Manual</li>
+</ul>
+
+<div class="signature-section">
+    <h3>APPROVAL SIGNATURES</h3>
+    <table>
+        <tr>
+            <th>Role</th>
+            <th>Signature</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>Laboratory Director</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+        <tr>
+            <td>Technical Supervisor</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+        <tr>
+            <td>Quality Assurance Manager</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+    </table>
+</div>
+
+<div class="footer">
+    <p><strong>Kaiser Permanente Laboratory Services</strong><br>
+    This document is controlled and subject to change. Verify current version before use.<br>
+    Document ID: LAB-SOP-HCG-2025 | Version 1.0 | Page 1 of 1</p>
+</div>
+
+</body>
+</html>

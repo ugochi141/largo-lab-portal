@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updated Calibration Solution Positioning Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .rack-diagram {
+            margin: 30px 0;
+            text-align: center;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 30px;
+        }
+        
+        .rack-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        
+        .horizontal-rack {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            background: #ffffff;
+            border: 3px solid #6c757d;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            margin: 20px 0;
+        }
+        
+        .tube-position {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 8px;
+        }
+        
+        .tube {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .tube-volume {
+            background: #e9ecef;
+            color: #495057;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #ced4da;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .tube-body {
+            width: 30px;
+            height: 100px;
+            background: linear-gradient(to bottom, #e3f2fd 0%, #bbdefb 30%, #90caf9 70%, #64b5f6 100%);
+            border: 3px solid #1976d2;
+            border-radius: 0 0 15px 15px;
+            position: relative;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .tube-body::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -3px;
+            right: -3px;
+            height: 10px;
+            background: #1976d2;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .tube-body::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 3px;
+            right: 3px;
+            height: 2px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 1px;
+        }
+        
+        .reagent-name {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid #ffeaa7;
+            min-width: 70px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .position-number {
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid #0056b3;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+        
+        .instructions {
+            background: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            color: #0c5460;
+            margin-top: 0;
+        }
+        
+        .instructions ul {
+            color: #0c5460;
+            margin: 10px 0;
+        }
+        
+        .instructions li {
+            margin: 5px 0;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #856404;
+        }
+        
+        .note strong {
+            color: #533f03;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calibration Solution Positioning Guide</h1>
+        
+        <div class="rack-diagram">
+            <div class="rack-title">Horizontal Reagent Rack Layout</div>
+            <div class="horizontal-rack">
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">5.0 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Negative Control</div>
+                    <div class="position-number">1</div>
+                </div>
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">5.0 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Positive Control</div>
+                    <div class="position-number">2</div>
+                </div>
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">10 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Calibrator Low</div>
+                    <div class="position-number">3</div>
+                </div>
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">10 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Calibrator High</div>
+                    <div class="position-number">4</div>
+                </div>
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">15 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Wash Solution</div>
+                    <div class="position-number">5</div>
+                </div>
+                <div class="tube-position">
+                    <div class="tube">
+                        <div class="tube-volume">20 mL</div>
+                        <div class="tube-body"></div>
+                    </div>
+                    <div class="reagent-name">Diluent</div>
+                    <div class="position-number">6</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>Setup Instructions:</h3>
+            <ul>
+                <li>Position tubes in the horizontal rack from left to right, starting with position 1</li>
+                <li>Ensure all tubes are properly seated and secure in their positions</li>
+                <li>Verify reagent volumes match the specified amounts shown above each tube</li>
+                <li>Check expiration dates on all reagents before use</li>
+                <li>Maintain proper storage temperatures for all solutions</li>
+            </ul>
+        </div>
+        
+        <div class="note">
+            <strong>Note:</strong> This horizontal rack design matches the automated urine analyzer control panel layout. 
+            The rack positioning starts with tube #1 on the left and progresses sequentially to the right. 
+            Each tube shows the appropriate volume and reagent type for proper analyzer operation.
+        </div>
+        
+        <div class="instructions">
+            <h3>Quality Control:</h3>
+            <ul>
+                <li>Run negative control (Position 1) before each batch</li>
+                <li>Run positive control (Position 2) to verify system functionality</li>
+                <li>Use calibrators (Positions 3-4) for instrument calibration as needed</li>
+                <li>Ensure wash solution (Position 5) is fresh and uncontaminated</li>
+                <li>Replace diluent (Position 6) according to manufacturer recommendations</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

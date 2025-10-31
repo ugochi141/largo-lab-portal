@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Laboratory - PREVI Color Gram Stainer Procedure</title>
+    <style>
+        /* Optimized Kaiser Permanente Laboratory SOP Template - Compressed */
+        *{margin:0;padding:0;box-sizing:border-box}
+        @page{size:8.5in 11in;margin:0.75in}
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+        body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:8.5in;margin:0 auto;padding:0.5in;background:#f5f5f5;word-wrap:break-word;overflow-wrap:break-word}
+        .container{background:#fff;padding:30px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0;word-wrap:break-word;overflow-wrap:break-word}
+        .header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+        .header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+        .header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+        .toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+        .toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+        .toc-columns{display:flex;gap:30px}
+        .toc-column{flex:1}
+        .toc ul{list-style:none;padding:0}
+        .toc li{margin:6px 0;padding-left:15px}
+        .toc a{color:#0066cc;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+        .section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+        .section:last-child{border-bottom:none}
+        h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+        h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+        h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        h5{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        p{margin:8px 0;text-align:left;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+        ul,ol{margin:8px 0 8px 25px;padding:0;word-wrap:break-word;overflow-wrap:break-word}
+        li{margin:4px 0;line-height:1.5;word-wrap:break-word;overflow-wrap:break-word;hyphens:auto}
+        .key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+        .key-concept h4{color:#1565c0;margin-top:0}
+        .procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+        .warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .warning strong{color:#856404}
+        .info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+        .troubleshooting-section h3,.critical-box h3{color:#cc0000;font-weight:bold;margin-top:0}
+        .critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+        .critical-values h3{color:#721c24;margin-top:0}
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+        table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+        table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+        table th:last-child{border-right:none}
+        table tbody tr{border-bottom:1px solid #e0e0e0}
+        table td{padding:8px;border-right:1px solid #e0e0e0}
+        table td:last-child{border-right:none}
+        table tbody tr:nth-child(even){background:#f8f9fa}
+        table tbody tr:last-child{border-bottom:none}
+        .critical-values table thead{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%)}
+        .procedure-section table thead{background:linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%)}
+        .warning table thead{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%)}
+        .info-box table thead{background:linear-gradient(135deg,#d1ecf1 0%,#bee5eb 100%)}
+        img{max-width:100%!important;height:auto!important;display:block;margin:15px auto;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.1);page-break-inside:avoid}
+        .image-container{text-align:center;margin:15px 0;page-break-inside:avoid}
+        .image-caption{font-size:9pt;font-style:italic;color:#666;margin-top:6px;text-align:center}
+        .qc-failure-section{background:linear-gradient(135deg,#f8fbff 0%,#f0f7ff 100%);padding:25px;border-radius:10px;margin:25px 0;border-left:5px solid #2196F3;box-shadow:0 2px 8px rgba(33,150,243,0.1)}
+        .qc-failure-section h3{color:#1565C0;font-size:16pt;border-bottom:3px solid #2196F3;padding-bottom:10px;margin-bottom:20px}
+        @media print{
+            @page{size:8.5in 11in;margin:0.75in}
+            *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+            .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+            h1,h2,h3,h4{page-break-after:avoid}
+            .toc{page-break-after:always}
+            .toc-columns{display:block}
+            .toc-column{display:block;margin-bottom:15px}
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory - PREVI Color Gram Stainer Procedure</h1>
+            <h2>Clinical Microbiology Automated Staining Standard Operating Procedure</h2>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column">
+                    <ul>
+                        <li>1. <a href="#purpose">PURPOSE</a></li>
+                        <li>2. <a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                        <li>3. <a href="#scope">SCOPE</a></li>
+                        <li>4. <a href="#responsibilities">RESPONSIBILITIES</a></li>
+                        <li>5. <a href="#safety">SAFETY REQUIREMENTS</a></li>
+                        <li>6. <a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                        <li>7. <a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                        <li>8. <a href="#equipment">EQUIPMENT</a></li>
+                        <li>9. <a href="#maintenance">MAINTENANCE</a></li>
+                        <li>10. <a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                        <li>11. <a href="#calibration">CALIBRATION</a></li>
+                        <li>12. <a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul>
+                        <li>13. <a href="#procedure">TEST PROCEDURE</a></li>
+                        <li>14. <a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                        <li>15. <a href="#reference">REFERENCE RANGES</a></li>
+                        <li>16. <a href="#critical">CRITICAL VALUES</a></li>
+                        <li>17. <a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                        <li>18. <a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                        <li>19. <a href="#task-reference">TASK REFERENCE GUIDE</a></li>
+                        <li>20. <a href="#technical-support">TECHNICAL SUPPORT</a></li>
+                        <li>21. <a href="#quality-assurance">QUALITY ASSURANCE</a></li>
+                        <li>22. <a href="#regulatory">REGULATORY COMPLIANCE</a></li>
+                        <li>23. <a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                        <li>24. <a href="#references">REFERENCES</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: PURPOSE -->
+        <div class="section" id="purpose">
+            <h2>1. PURPOSE</h2>
+            <p>This procedure describes the operation and maintenance of the bioMérieux PREVI® Color Gram automated staining system at Kaiser Permanente Largo Laboratory. This includes proper specimen preparation, slide staining procedures, quality control, and result interpretation for bacterial identification.</p>
+
+            <div class="key-concept">
+                <h4>Why Gram Staining Is Important:</h4>
+                <p>Gram staining is the most important and commonly performed microbiological staining technique. It provides critical information for:</p>
+                <ul>
+                    <li>Rapid preliminary identification of bacteria</li>
+                    <li>Guiding empiric antibiotic therapy</li>
+                    <li>Detection of polymicrobial infections</li>
+                    <li>Assessment of specimen quality</li>
+                    <li>Direct detection from clinical specimens</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 2: CLINICAL SIGNIFICANCE -->
+        <div class="section" id="clinical-significance">
+            <h2>2. CLINICAL SIGNIFICANCE</h2>
+            <p>The Gram stain is a critical diagnostic tool that provides rapid, clinically actionable information about bacterial infections within minutes to hours, compared to 24-48 hours for culture results.</p>
+
+            <h3>Clinical Applications</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Clinical Condition</th>
+                        <th>Gram Stain Finding</th>
+                        <th>Clinical Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bacterial Meningitis</strong></td>
+                        <td>Gram-positive diplococci (S. pneumoniae)<br>Gram-negative diplococci (N. meningitidis)</td>
+                        <td>Immediate targeted antibiotic therapy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pneumonia</strong></td>
+                        <td>Gram-positive cocci in chains (S. pneumoniae)<br>Gram-negative rods (H. influenzae)</td>
+                        <td>Empiric therapy adjustment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Urinary Tract Infection</strong></td>
+                        <td>Gram-negative rods (E. coli, Klebsiella)</td>
+                        <td>Appropriate antibiotic selection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Septicemia</strong></td>
+                        <td>Any bacteria in blood culture</td>
+                        <td>Critical value - immediate notification</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wound Infections</strong></td>
+                        <td>Mixed flora or specific pathogens</td>
+                        <td>Surgical intervention decision</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Impact on Patient Care</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Rapid Results:</strong> 30-60 minutes vs 24-48 hours for culture</li>
+                    <li><strong>Mortality Reduction:</strong> Early appropriate therapy reduces mortality by up to 50% in sepsis</li>
+                    <li><strong>Cost Savings:</strong> Reduces unnecessary broad-spectrum antibiotic use</li>
+                    <li><strong>Antibiotic Stewardship:</strong> Promotes targeted therapy and reduces resistance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: SCOPE -->
+        <div class="section" id="scope">
+            <h2>3. SCOPE</h2>
+            <p>This procedure applies to Medical Laboratory Scientists (MLS), Medical Laboratory Technicians (MLT), and qualified laboratory personnel performing Gram stains using the PREVI® Color Gram system at Kaiser Permanente Largo Laboratory.</p>
+
+            <h3>Specimen Types Processed</h3>
+            <ul>
+                <li>Blood cultures (positive bottles)</li>
+                <li>Body fluids (CSF, pleural, peritoneal, synovial)</li>
+                <li>Respiratory specimens (sputum, BAL, tracheal aspirates)</li>
+                <li>Wound and tissue specimens</li>
+                <li>Urine specimens</li>
+                <li>Genital specimens</li>
+                <li>Stool specimens (selected cases)</li>
+            </ul>
+
+            <h3>Personnel Requirements</h3>
+            <div class="procedure-section">
+                <p>Only trained and competency-assessed personnel may operate the PREVI® Color Gram system. Training includes:</p>
+                <ol>
+                    <li>Initial training by qualified trainer (minimum 16 hours)</li>
+                    <li>Supervised practice (minimum 25 slides)</li>
+                    <li>Written competency assessment</li>
+                    <li>Practical competency demonstration</li>
+                    <li>Annual competency reassessment</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 4: RESPONSIBILITIES -->
+        <div class="section" id="responsibilities">
+            <h2>4. RESPONSIBILITIES</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Primary Responsibilities</th>
+                        <th>Additional Responsibilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lead Microbiologist</strong></td>
+                        <td>• Provide technical expertise<br>• Train new personnel<br>• Perform competency assessments<br>• Troubleshoot staining issues<br>• Maintain procedure manuals</td>
+                        <td>• Coordinate proficiency testing<br>• Evaluate new methods<br>• Monitor quality indicators<br>• Lead quality improvement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medical Laboratory Scientist</strong></td>
+                        <td>• Perform Gram stains<br>• Interpret staining results<br>• Perform daily QC<br>• Report critical values<br>• Troubleshoot problems</td>
+                        <td>• Train MLT staff<br>• Maintain reagent inventory<br>• Participate in proficiency testing<br>• Document corrective actions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medical Laboratory Technician</strong></td>
+                        <td>• Prepare slides<br>• Load PREVI system<br>• Run daily maintenance<br>• Perform basic staining<br>• Document results</td>
+                        <td>• Maintain supplies<br>• Assist with QC<br>• Clean equipment<br>• Support specimen processing</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 5: DEFINITIONS -->
+        <div class="section" id="definitions">
+            <h2>5. DEFINITIONS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gram Stain</strong></td>
+                        <td>Differential staining technique that categorizes bacteria based on cell wall composition</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gram-Positive</strong></td>
+                        <td>Bacteria that retain crystal violet-iodine complex and appear purple/blue</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gram-Negative</strong></td>
+                        <td>Bacteria that lose crystal violet and take up safranin counterstain, appearing pink/red</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Morphology</strong></td>
+                        <td>Shape and arrangement of bacterial cells (cocci, bacilli, spirals)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PREVI® Color Gram</strong></td>
+                        <td>Automated slide staining system by bioMérieux</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cytocentrifuge</strong></td>
+                        <td>Device that concentrates cells from fluid specimens onto slides</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PMN</strong></td>
+                        <td>Polymorphonuclear leukocyte (neutrophil)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WBC</strong></td>
+                        <td>White blood cell</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RBC</strong></td>
+                        <td>Red blood cell</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HPF</strong></td>
+                        <td>High power field (400x magnification)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OIF</strong></td>
+                        <td>Oil immersion field (1000x magnification)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 6: SAFETY REQUIREMENTS -->
+        <div class="section" id="safety">
+            <h2>6. SAFETY REQUIREMENTS</h2>
+
+            <div class="warning">
+                <h3>⚠️ Biosafety Level 2 Precautions</h3>
+                <p>All specimens must be handled as potentially infectious. Follow BSL-2 practices and universal precautions at all times.</p>
+            </div>
+
+            <h3>Personal Protective Equipment (PPE)</h3>
+            <ul>
+                <li>Laboratory coat (buttoned, long-sleeved)</li>
+                <li>Disposable gloves (double glove for high-risk specimens)</li>
+                <li>Safety glasses or face shield</li>
+                <li>N95 respirator when processing TB suspects</li>
+                <li>Closed-toe shoes</li>
+            </ul>
+
+            <h3>Biological Safety</h3>
+            <div class="procedure-section">
+                <p><strong>Specimen Handling:</strong></p>
+                <ul>
+                    <li>Process all aerosol-generating procedures in biosafety cabinet</li>
+                    <li>Use sealed centrifuge cups for cytocentrifugation</li>
+                    <li>Flame-fix slides away from drafts</li>
+                    <li>Allow slides to completely dry before staining</li>
+                    <li>Decontaminate work surfaces with 10% bleach</li>
+                </ul>
+            </div>
+
+            <h3>Chemical Safety</h3>
+            <ul>
+                <li>Crystal violet - potential carcinogen, avoid skin contact</li>
+                <li>Iodine - corrosive, store in dark container</li>
+                <li>Alcohol-acetone - flammable, use in well-ventilated area</li>
+                <li>Safranin - potential mutagen, handle with care</li>
+                <li>All reagents require SDS review before use</li>
+            </ul>
+
+            <div class="critical-box">
+                <h3>Exposure Response</h3>
+                <ol>
+                    <li>Needle stick/sharps injury - wash with soap and water</li>
+                    <li>Mucous membrane exposure - flush with water 15 minutes</li>
+                    <li>Report immediately to supervisor</li>
+                    <li>Complete incident report</li>
+                    <li>Follow post-exposure protocol</li>
+                    <li>Seek medical evaluation within 2 hours</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 7: SPECIMEN REQUIREMENTS -->
+        <div class="section" id="specimen">
+            <h2>7. SPECIMEN REQUIREMENTS</h2>
+
+            <h3>Specimen Acceptability Criteria</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Specimen Type</th>
+                        <th>Container</th>
+                        <th>Volume Required</th>
+                        <th>Rejection Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Blood Culture</strong></td>
+                        <td>Blood culture bottle</td>
+                        <td>8-10 mL adult, 1-3 mL pediatric</td>
+                        <td>Unlabeled, wrong bottle type</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSF</strong></td>
+                        <td>Sterile tube</td>
+                        <td>1-2 mL minimum</td>
+                        <td>Non-sterile container, >2 hours old unrefrigerated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body Fluids</strong></td>
+                        <td>Sterile container</td>
+                        <td>1-5 mL</td>
+                        <td>Leaking, contaminated exterior</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Respiratory</strong></td>
+                        <td>Sterile container</td>
+                        <td>2-5 mL</td>
+                        <td>Saliva only, >2 hours old</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wound/Tissue</strong></td>
+                        <td>Sterile container/swab</td>
+                        <td>Adequate sample</td>
+                        <td>Dry swab, non-sterile container</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Urine</strong></td>
+                        <td>Sterile container</td>
+                        <td>5-10 mL</td>
+                        <td>>2 hours unrefrigerated, contaminated</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Specimen Priority</h3>
+            <div class="critical-values">
+                <h3>STAT Priority Specimens</h3>
+                <ul>
+                    <li>Positive blood cultures</li>
+                    <li>CSF (all)</li>
+                    <li>Operating room specimens</li>
+                    <li>Body fluids from critical care units</li>
+                    <li>Physician-designated STAT</li>
+                </ul>
+            </div>
+
+            <h3>Specimen Rejection</h3>
+            <div class="warning-box">
+                <p><strong>Reject and request new specimen for:</strong></p>
+                <ul>
+                    <li>Unlabeled or mislabeled specimens</li>
+                    <li>Specimen-label mismatch</li>
+                    <li>Leaking or broken containers</li>
+                    <li>Specimens in formalin</li>
+                    <li>Expired transport media</li>
+                    <li>Obvious contamination</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 8: REAGENTS AND SUPPLIES -->
+        <div class="section" id="reagents">
+            <h2>8. REAGENTS AND SUPPLIES</h2>
+
+            <h3>PREVI® Color Gram Reagents</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reagent</th>
+                        <th>Catalog #</th>
+                        <th>Storage</th>
+                        <th>Stability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Crystal Violet Solution</td>
+                        <td>410851</td>
+                        <td>Room temperature</td>
+                        <td>Expiration date on bottle</td>
+                    </tr>
+                    <tr>
+                        <td>Iodine Solution</td>
+                        <td>410852</td>
+                        <td>Room temperature, dark</td>
+                        <td>Expiration date on bottle</td>
+                    </tr>
+                    <tr>
+                        <td>Decolorizer Solution</td>
+                        <td>410853</td>
+                        <td>Room temperature</td>
+                        <td>Expiration date on bottle</td>
+                    </tr>
+                    <tr>
+                        <td>Safranin Solution</td>
+                        <td>410854</td>
+                        <td>Room temperature</td>
+                        <td>Expiration date on bottle</td>
+                    </tr>
+                    <tr>
+                        <td>Rinse Solution</td>
+                        <td>410855</td>
+                        <td>Room temperature</td>
+                        <td>Expiration date on bottle</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Supplies</h3>
+            <ul>
+                <li>Glass microscope slides (25 x 75 mm)</li>
+                <li>Slide racks compatible with PREVI® system</li>
+                <li>Sterile swabs</li>
+                <li>Sterile loops (1 µL and 10 µL)</li>
+                <li>Bunsen burner or slide warmer</li>
+                <li>Immersion oil</li>
+                <li>Lens paper and cleaning solution</li>
+                <li>Slide storage boxes</li>
+            </ul>
+
+            <h3>Quality Control Materials</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Control Organism</th>
+                        <th>ATCC #</th>
+                        <th>Expected Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Staphylococcus aureus</td>
+                        <td>25923</td>
+                        <td>Gram-positive cocci in clusters</td>
+                    </tr>
+                    <tr>
+                        <td>Escherichia coli</td>
+                        <td>25922</td>
+                        <td>Gram-negative rods</td>
+                    </tr>
+                    <tr>
+                        <td>Streptococcus pneumoniae</td>
+                        <td>49619</td>
+                        <td>Gram-positive diplococci</td>
+                    </tr>
+                    <tr>
+                        <td>Neisseria gonorrhoeae</td>
+                        <td>43069</td>
+                        <td>Gram-negative diplococci</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 9: EQUIPMENT AND MATERIALS -->
+        <div class="section" id="equipment">
+            <h2>9. EQUIPMENT AND MATERIALS</h2>
+
+            <h3>Primary Equipment</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Equipment</th>
+                        <th>Model</th>
+                        <th>Function</th>
+                        <th>Maintenance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PREVI® Color Gram</td>
+                        <td>bioMérieux</td>
+                        <td>Automated slide staining</td>
+                        <td>Daily, weekly, monthly</td>
+                    </tr>
+                    <tr>
+                        <td>Cytocentrifuge</td>
+                        <td>Cytospin 4</td>
+                        <td>Concentrate fluid specimens</td>
+                        <td>After each use, weekly</td>
+                    </tr>
+                    <tr>
+                        <td>Microscope</td>
+                        <td>Olympus BX43</td>
+                        <td>Slide examination</td>
+                        <td>Daily cleaning, annual service</td>
+                    </tr>
+                    <tr>
+                        <td>Biosafety Cabinet</td>
+                        <td>Class II Type A2</td>
+                        <td>Specimen processing</td>
+                        <td>Annual certification</td>
+                    </tr>
+                    <tr>
+                        <td>Incubator</td>
+                        <td>35°C ± 2°C</td>
+                        <td>Slide drying</td>
+                        <td>Daily temperature check</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>PREVI® Color Gram Specifications</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Capacity:</strong> 30 slides per run</li>
+                    <li><strong>Staining Time:</strong> 3.5 minutes per slide</li>
+                    <li><strong>Throughput:</strong> Up to 500 slides per day</li>
+                    <li><strong>Reagent Volume:</strong> 2L bottles, approximately 500 slides per bottle set</li>
+                    <li><strong>Barcode Reader:</strong> Integrated for slide tracking</li>
+                    <li><strong>Interface:</strong> Bidirectional LIS connectivity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 10: MAINTENANCE -->
+        <div class="section" id="maintenance">
+            <h2>10. MAINTENANCE</h2>
+
+            <h3>Daily Maintenance - PREVI® Color Gram</h3>
+            <div class="procedure-section">
+                <h4>Start of Day Procedures:</h4>
+                <ol>
+                    <li><strong>System Check:</strong>
+                        <ul>
+                            <li>Turn on PREVI® system</li>
+                            <li>Check reagent levels (must be >10%)</li>
+                            <li>Check waste container (<80% full)</li>
+                            <li>Verify spray nozzles are clean</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prime System:</strong>
+                        <ul>
+                            <li>Run prime cycle if idle >8 hours</li>
+                            <li>Process takes 5 minutes</li>
+                            <li>Ensures reagent lines are filled</li>
+                        </ul>
+                    </li>
+                    <li><strong>Quality Control:</strong>
+                        <ul>
+                            <li>Run QC slides before patient samples</li>
+                            <li>Document results in QC log</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Weekly Maintenance</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Procedure</th>
+                        <th>Time Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Clean Spray Nozzles</td>
+                        <td>Remove and soak in cleaning solution</td>
+                        <td>30 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Clean Slide Carriers</td>
+                        <td>Wash with mild detergent, air dry</td>
+                        <td>20 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Check Tubing</td>
+                        <td>Inspect for cracks or buildup</td>
+                        <td>10 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Clean External Surfaces</td>
+                        <td>Wipe with 70% alcohol</td>
+                        <td>10 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Monthly Maintenance</h3>
+            <ul>
+                <li>Replace reagent filters</li>
+                <li>Calibrate reagent pumps</li>
+                <li>Deep clean staining chamber</li>
+                <li>Update software if available</li>
+                <li>Review maintenance logs</li>
+                <li>Check spare parts inventory</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>⚠️ Important Maintenance Notes:</h4>
+                <ul>
+                    <li>Never use bleach on metal components</li>
+                    <li>Allow system to dry completely after cleaning</li>
+                    <li>Document all maintenance in logbook</li>
+                    <li>Report persistent issues to bioMérieux service</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 11: CALIBRATION -->
+        <div class="section" id="calibration">
+            <h2>11. CALIBRATION</h2>
+
+            <h3>PREVI® Color Gram Calibration</h3>
+            <p>The PREVI® Color Gram system is factory-calibrated and does not require routine user calibration. However, verification procedures must be performed:</p>
+
+            <h3>Verification Schedule</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Frequency</th>
+                        <th>Procedure</th>
+                        <th>Acceptance Criteria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Reagent Delivery</td>
+                        <td>Monthly</td>
+                        <td>Measure dispensed volume</td>
+                        <td>2.0 mL ± 0.1 mL</td>
+                    </tr>
+                    <tr>
+                        <td>Staining Times</td>
+                        <td>Quarterly</td>
+                        <td>Verify cycle timing</td>
+                        <td>Within ± 5 seconds</td>
+                    </tr>
+                    <tr>
+                        <td>Temperature</td>
+                        <td>Daily</td>
+                        <td>Check ambient temperature</td>
+                        <td>20-25°C</td>
+                    </tr>
+                    <tr>
+                        <td>Barcode Scanner</td>
+                        <td>Weekly</td>
+                        <td>Test scan function</td>
+                        <td>100% read rate</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Microscope Calibration</h3>
+            <div class="procedure-section">
+                <h4>Ocular Micrometer Calibration:</h4>
+                <ol>
+                    <li>Use stage micrometer with known measurements</li>
+                    <li>Calibrate at each magnification (10x, 40x, 100x)</li>
+                    <li>Document calibration factors</li>
+                    <li>Verify monthly with QC slides</li>
+                    <li>Recalibrate after service or bulb change</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 12: QUALITY CONTROL REQUIREMENTS -->
+        <div class="section" id="qc">
+            <h2>12. QUALITY CONTROL REQUIREMENTS</h2>
+
+            <div class="critical-box">
+                <h3>⚠️ CRITICAL QC RULE</h3>
+                <p><strong>NEVER report patient results if QC is not acceptable.</strong> Patient safety depends on accurate staining and interpretation.</p>
+            </div>
+
+            <h3>QC Schedule</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Frequency</th>
+                        <th>QC Required</th>
+                        <th>Action if Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Daily (each shift)</strong></td>
+                        <td>• S. aureus (Gram-positive)<br>• E. coli (Gram-negative)</td>
+                        <td>Troubleshoot, repeat, do not report patients</td>
+                    </tr>
+                    <tr>
+                        <td><strong>New Reagent Lot</strong></td>
+                        <td>All 4 QC organisms</td>
+                        <td>Verify with old lot before use</td>
+                    </tr>
+                    <tr>
+                        <td><strong>After Maintenance</strong></td>
+                        <td>Both daily controls</td>
+                        <td>Repeat maintenance if needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Weekly</strong></td>
+                        <td>Additional organisms (S. pneumoniae, N. gonorrhoeae)</td>
+                        <td>Investigate trends</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Acceptable QC Results</h3>
+            <div class="info-box">
+                <h4>Evaluation Criteria:</h4>
+                <ul>
+                    <li><strong>Staining Quality:</strong> Clear differentiation between Gram-positive (purple) and Gram-negative (pink)</li>
+                    <li><strong>Background:</strong> Clean, no precipitate or debris</li>
+                    <li><strong>Cell Morphology:</strong> Intact cells with expected shape</li>
+                    <li><strong>Color Intensity:</strong> Appropriate contrast for interpretation</li>
+                </ul>
+            </div>
+
+            <h3>QC Failure Response</h3>
+            <div class="qc-failure-section">
+                <h3>Immediate Actions for QC Failures</h3>
+                <ol>
+                    <li><strong>STOP - Do not process patient specimens</strong></li>
+                    <li><strong>Investigate cause:</strong>
+                        <ul>
+                            <li>Check reagent expiration dates</li>
+                            <li>Verify reagent levels adequate</li>
+                            <li>Inspect spray nozzles for clogs</li>
+                            <li>Review recent maintenance</li>
+                        </ul>
+                    </li>
+                    <li><strong>Corrective Actions:</strong>
+                        <ul>
+                            <li>Replace expired reagents</li>
+                            <li>Clean spray nozzles</li>
+                            <li>Run cleaning cycle</li>
+                            <li>Prepare fresh QC slides</li>
+                        </ul>
+                    </li>
+                    <li><strong>Repeat QC after each action</strong></li>
+                    <li><strong>If still failing:</strong>
+                        <ul>
+                            <li>Use manual staining method</li>
+                            <li>Contact bioMérieux service</li>
+                            <li>Document in equipment log</li>
+                        </ul>
+                    </li>
+                    <li><strong>Documentation required:</strong>
+                        <ul>
+                            <li>QC failure details</li>
+                            <li>Investigation findings</li>
+                            <li>Corrective actions taken</li>
+                            <li>Resolution time</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 13: TEST PROCEDURES -->
+        <div class="section" id="procedure">
+            <h2>13. TEST PROCEDURES</h2>
+
+            <h3>Slide Preparation</h3>
+            <div class="procedure-section">
+                <h4>Direct Smear Preparation:</h4>
+                <ol>
+                    <li><strong>Label slide:</strong> Patient name, MRN, date, specimen source</li>
+                    <li><strong>Prepare smear:</strong>
+                        <ul>
+                            <li>Liquid specimens: 1 drop, spread to dime-size</li>
+                            <li>Swabs: Roll across slide, not rub</li>
+                            <li>Tissue: Touch prep or crush prep</li>
+                            <li>Colonies: Emulsify in saline drop</li>
+                        </ul>
+                    </li>
+                    <li><strong>Air dry completely:</strong> 5-10 minutes or use slide warmer</li>
+                    <li><strong>Heat fix:</strong> Pass through flame 3-4 times or 1 minute on 60°C warmer</li>
+                    <li><strong>Cool before staining:</strong> 2 minutes minimum</li>
+                </ol>
+            </div>
+
+            <h3>Cytocentrifuge Preparation (Body Fluids)</h3>
+            <div class="procedure-section">
+                <ol>
+                    <li>Mix specimen gently but thoroughly</li>
+                    <li>Load 0.5-1.0 mL into cytofunnel</li>
+                    <li>Centrifuge at 1000 rpm for 5 minutes</li>
+                    <li>Remove slide carefully to preserve cell button</li>
+                    <li>Air dry completely</li>
+                    <li>Fix with methanol for 1 minute</li>
+                    <li>Air dry before staining</li>
+                </ol>
+            </div>
+
+            <h3>PREVI® Color Gram Operation</h3>
+            <div class="procedure-section">
+                <h4>Loading and Processing:</h4>
+                <ol>
+                    <li><strong>System Preparation:</strong>
+                        <ul>
+                            <li>Verify system ready (green light)</li>
+                            <li>Check reagent levels >10%</li>
+                            <li>Scan operator ID badge</li>
+                        </ul>
+                    </li>
+                    <li><strong>Load Slides:</strong>
+                        <ul>
+                            <li>Place up to 30 slides in carrier</li>
+                            <li>Ensure slides face correct direction</li>
+                            <li>Scan slide barcodes if available</li>
+                        </ul>
+                    </li>
+                    <li><strong>Select Program:</strong>
+                        <ul>
+                            <li>Standard Gram: Most specimens</li>
+                            <li>Enhanced: Thick smears</li>
+                            <li>Gentle: Delicate specimens</li>
+                        </ul>
+                    </li>
+                    <li><strong>Start Cycle:</strong>
+                        <ul>
+                            <li>Press START button</li>
+                            <li>Cycle time: 3.5 minutes per slide</li>
+                            <li>System alerts when complete</li>
+                        </ul>
+                    </li>
+                    <li><strong>Remove Slides:</strong>
+                        <ul>
+                            <li>Allow to air dry (2-3 minutes)</li>
+                            <li>Ready for microscopic examination</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Manual Backup Method</h3>
+            <div class="warning-box">
+                <h4>When PREVI® is unavailable:</h4>
+                <ol>
+                    <li>Crystal violet - 1 minute</li>
+                    <li>Rinse with water</li>
+                    <li>Iodine - 1 minute</li>
+                    <li>Rinse with water</li>
+                    <li>Decolorize - 10-30 seconds (until runoff clear)</li>
+                    <li>Rinse immediately with water</li>
+                    <li>Safranin - 30 seconds</li>
+                    <li>Rinse with water</li>
+                    <li>Air dry or blot gently</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 14: CALCULATIONS AND RESULT REPORTING -->
+        <div class="section" id="calculations">
+            <h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+
+            <h3>Microscopic Examination</h3>
+            <div class="procedure-section">
+                <h4>Systematic Review Process:</h4>
+                <ol>
+                    <li><strong>Low Power (10x):</strong> Assess overall quality, distribution, background</li>
+                    <li><strong>High Dry (40x):</strong> Identify areas of interest, WBCs, epithelial cells</li>
+                    <li><strong>Oil Immersion (100x):</strong> Detailed morphology and arrangement</li>
+                    <li><strong>Examine minimum 20 fields</strong></li>
+                    <li><strong>Report all morphologies seen</strong></li>
+                </ol>
+            </div>
+
+            <h3>Reporting Format</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Reporting Method</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bacteria Quantity</td>
+                        <td>Semi-quantitative per OIF</td>
+                        <td>Rare (1-5), Few (6-15), Moderate (16-30), Many (>30)</td>
+                    </tr>
+                    <tr>
+                        <td>WBC Count</td>
+                        <td>Per HPF (400x)</td>
+                        <td>0-5, 5-10, 10-25, >25/HPF</td>
+                    </tr>
+                    <tr>
+                        <td>Epithelial Cells</td>
+                        <td>Per LPF (100x)</td>
+                        <td>Few, Moderate, Many</td>
+                    </tr>
+                    <tr>
+                        <td>Morphology</td>
+                        <td>Descriptive</td>
+                        <td>Gram-positive cocci in chains</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Standard Reporting Templates</h3>
+            <div class="info-box">
+                <h4>Blood Culture:</h4>
+                <p>"Gram-positive cocci in clusters seen. Many WBCs present. Preliminary: Possible Staphylococcus species."</p>
+
+                <h4>CSF:</h4>
+                <p>"No organisms seen. WBCs: 10-25/HPF, predominantly PMNs. RBCs: 0-5/HPF."</p>
+
+                <h4>Respiratory:</h4>
+                <p>"Mixed gram-positive and gram-negative flora. Many PMNs. Many epithelial cells present - suggest recollection."</p>
+            </div>
+
+            <h3>Turnaround Time Requirements</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>TAT Goal</th>
+                        <th>Measured From</th>
+                        <th>Compliance Target</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>STAT/Blood Culture</td>
+                        <td>30 minutes</td>
+                        <td>Receipt to result</td>
+                        <td>≥95%</td>
+                    </tr>
+                    <tr>
+                        <td>CSF</td>
+                        <td>30 minutes</td>
+                        <td>Receipt to result</td>
+                        <td>≥95%</td>
+                    </tr>
+                    <tr>
+                        <td>Routine</td>
+                        <td>2 hours</td>
+                        <td>Receipt to result</td>
+                        <td>≥90%</td>
+                    </tr>
+                    <tr>
+                        <td>Critical Values</td>
+                        <td>30 minutes</td>
+                        <td>Result to notification</td>
+                        <td>100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 15: REFERENCE RANGES -->
+        <div class="section" id="reference">
+            <h2>15. REFERENCE RANGES</h2>
+
+            <h3>Normal Flora by Site</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Body Site</th>
+                        <th>Expected Flora</th>
+                        <th>Potential Pathogens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Upper Respiratory</strong></td>
+                        <td>Viridans streptococci, Neisseria spp., Diphtheroids</td>
+                        <td>S. pyogenes, S. pneumoniae, H. influenzae</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skin</strong></td>
+                        <td>Coagulase-negative staphylococci, Diphtheroids</td>
+                        <td>S. aureus, S. pyogenes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gastrointestinal</strong></td>
+                        <td>Enterobacteriaceae, Enterococcus, Anaerobes</td>
+                        <td>Salmonella, Shigella, Campylobacter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Genital</strong></td>
+                        <td>Lactobacillus, Diphtheroids</td>
+                        <td>N. gonorrhoeae, T. vaginalis, Yeast</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sterile Site Expectations</h3>
+            <div class="critical-values">
+                <h3>Normally Sterile Sites - Any Organism is Significant</h3>
+                <ul>
+                    <li>Blood</li>
+                    <li>Cerebrospinal fluid (CSF)</li>
+                    <li>Pleural fluid</li>
+                    <li>Peritoneal fluid</li>
+                    <li>Pericardial fluid</li>
+                    <li>Synovial fluid</li>
+                    <li>Bone/bone marrow</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 16: CRITICAL VALUES -->
+        <div class="section" id="critical">
+            <h2>16. CRITICAL VALUES</h2>
+
+            <h3>Critical Value List - Gram Stain</h3>
+            <div class="critical-values">
+                <h3>⚠️ Immediate Physician Notification Required</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Specimen Type</th>
+                            <th>Critical Finding</th>
+                            <th>Notification Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Blood Culture</strong></td>
+                            <td>Any organism seen</td>
+                            <td>Within 30 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CSF</strong></td>
+                            <td>Any organism seen</td>
+                            <td>IMMEDIATELY</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Body Fluids</strong></td>
+                            <td>Any organism seen</td>
+                            <td>Within 30 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Surgical/OR</strong></td>
+                            <td>Unexpected organisms</td>
+                            <td>Within 30 minutes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Any source</strong></td>
+                            <td>Branching gram-positive rods (possible Nocardia/Actinomyces)</td>
+                            <td>Within 30 minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Critical Value Notification Process</h3>
+            <div class="procedure-section">
+                <ol>
+                    <li><strong>Verify finding:</strong> Have second technologist confirm</li>
+                    <li><strong>Document:</strong>
+                        <ul>
+                            <li>Date and time of result</li>
+                            <li>Patient name and MRN</li>
+                            <li>Critical finding details</li>
+                        </ul>
+                    </li>
+                    <li><strong>Contact physician:</strong>
+                        <ul>
+                            <li>Call ordering physician first</li>
+                            <li>If unavailable, call attending</li>
+                            <li>For inpatients, may notify RN</li>
+                        </ul>
+                    </li>
+                    <li><strong>Provide information:</strong>
+                        <ul>
+                            <li>Patient identification</li>
+                            <li>Specimen type and collection time</li>
+                            <li>Gram stain findings</li>
+                            <li>Preliminary organism identification if possible</li>
+                        </ul>
+                    </li>
+                    <li><strong>Document notification:</strong>
+                        <ul>
+                            <li>Person notified (full name)</li>
+                            <li>Time of notification</li>
+                            <li>Read-back confirmation</li>
+                            <li>Your initials</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 17: LIMITATIONS AND INTERFERENCES -->
+        <div class="section" id="limitations">
+            <h2>17. LIMITATIONS AND INTERFERENCES</h2>
+
+            <h3>Method Limitations</h3>
+            <ul>
+                <li><strong>Cannot detect:</strong> Mycoplasma, Chlamydia, Rickettsia, viruses, parasites</li>
+                <li><strong>Poor staining:</strong> Mycobacteria, Legionella, some anaerobes</li>
+                <li><strong>Antibiotic effect:</strong> May alter morphology or prevent detection</li>
+                <li><strong>Dead organisms:</strong> May stain atypically</li>
+                <li><strong>Specimen quality:</strong> Contamination affects interpretation</li>
+            </ul>
+
+            <h3>Technical Interferences</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Cause</th>
+                        <th>Effect</th>
+                        <th>Prevention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Over-decolorization</td>
+                        <td>Excessive alcohol exposure</td>
+                        <td>False gram-negative</td>
+                        <td>Strict timing, thicker smears</td>
+                    </tr>
+                    <tr>
+                        <td>Under-decolorization</td>
+                        <td>Insufficient alcohol</td>
+                        <td>False gram-positive</td>
+                        <td>Ensure complete decolorization</td>
+                    </tr>
+                    <tr>
+                        <td>Crystal violet precipitate</td>
+                        <td>Old reagent, contamination</td>
+                        <td>Artifacts, difficult reading</td>
+                        <td>Filter reagents, replace regularly</td>
+                    </tr>
+                    <tr>
+                        <td>Thick smears</td>
+                        <td>Too much specimen</td>
+                        <td>Retained stain, poor morphology</td>
+                        <td>Proper smear preparation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Clinical Limitations</h3>
+            <div class="warning-box">
+                <h4>Important Considerations:</h4>
+                <ul>
+                    <li>Gram stain is screening only - culture required for identification</li>
+                    <li>Sensitivity varies by organism load (104 CFU/mL detection limit)</li>
+                    <li>Cannot determine antibiotic susceptibility</li>
+                    <li>May not correlate with culture results</li>
+                    <li>Prior antibiotics may cause discordant results</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 18: TROUBLESHOOTING -->
+        <div class="section" id="troubleshooting">
+            <h2>18. TROUBLESHOOTING</h2>
+
+            <h3>PREVI® Color Gram Troubleshooting Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Possible Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>No staining</strong></td>
+                        <td>• Empty reagent bottles<br>• Clogged nozzles<br>• System error</td>
+                        <td>• Replace reagents<br>• Clean nozzles<br>• Restart system</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uneven staining</strong></td>
+                        <td>• Partially clogged nozzles<br>• Slide positioning<br>• Thick smear</td>
+                        <td>• Clean all nozzles<br>• Verify slide placement<br>• Remake thinner smear</td>
+                    </tr>
+                    <tr>
+                        <td><strong>All cells gram-positive</strong></td>
+                        <td>• Under-decolorization<br>• Decolorizer expired<br>• Pump failure</td>
+                        <td>• Check decolorizer flow<br>• Replace decolorizer<br>• Service pump</td>
+                    </tr>
+                    <tr>
+                        <td><strong>All cells gram-negative</strong></td>
+                        <td>• Over-decolorization<br>• Crystal violet failure<br>• Iodine failure</td>
+                        <td>• Adjust timing<br>• Check primary stain<br>• Verify iodine</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High background</strong></td>
+                        <td>• Precipitate<br>• Dirty slides<br>• Contaminated reagents</td>
+                        <td>• Filter reagents<br>• Use clean slides<br>• Replace reagents</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System won't start</strong></td>
+                        <td>• Door open<br>• Error code<br>• Power issue</td>
+                        <td>• Check door sensor<br>• Clear error<br>• Check power supply</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Staining Quality Issues</h3>
+            <div class="troubleshooting-section">
+                <h3>Common Staining Problems</h3>
+                <h4>Crystal Violet Issues:</h4>
+                <ul>
+                    <li>Precipitate formation - Filter or replace reagent</li>
+                    <li>Weak staining - Check concentration and age</li>
+                    <li>Contamination - Look for mold growth</li>
+                </ul>
+
+                <h4>Decolorizer Problems:</h4>
+                <ul>
+                    <li>Too rapid - Dilute with water if needed</li>
+                    <li>Too slow - Check alcohol concentration</li>
+                    <li>Variable results - Ensure consistent timing</li>
+                </ul>
+
+                <h4>Safranin Counterstain:</h4>
+                <ul>
+                    <li>Too light - Increase staining time</li>
+                    <li>Too dark - Decrease time or dilute</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 19: EMERGENCY PROCEDURES -->
+        <div class="section" id="emergency">
+            <h2>19. EMERGENCY PROCEDURES</h2>
+
+            <h3>PREVI® System Failure</h3>
+            <div class="critical-box">
+                <h3>Immediate Response to Complete System Failure</h3>
+                <ol>
+                    <li><strong>Switch to manual staining immediately</strong></li>
+                    <li><strong>Notify:</strong>
+                        <ul>
+                            <li>Laboratory supervisor</li>
+                            <li>All microbiology staff</li>
+                            <li>Critical care units for STAT delays</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prioritize:</strong>
+                        <ul>
+                            <li>Blood cultures</li>
+                            <li>CSF specimens</li>
+                            <li>OR specimens</li>
+                            <li>ICU/ED STAT requests</li>
+                        </ul>
+                    </li>
+                    <li><strong>Contact bioMérieux service: 1-800-682-2666</strong></li>
+                    <li><strong>Document downtime in log</strong></li>
+                </ol>
+            </div>
+
+            <h3>Reagent Shortage</h3>
+            <ol>
+                <li>Check backup reagent inventory</li>
+                <li>Borrow from nearby Kaiser facility</li>
+                <li>Order STAT delivery from bioMérieux</li>
+                <li>Use manual staining reagents if available</li>
+                <li>Consider sending to reference lab</li>
+            </ol>
+
+            <h3>Biosafety Incidents</h3>
+            <div class="warning-box">
+                <h4>Spill Response - Infectious Material:</h4>
+                <ol>
+                    <li>Alert others and evacuate area</li>
+                    <li>Don appropriate PPE</li>
+                    <li>Cover spill with absorbent material</li>
+                    <li>Apply 10% bleach, wait 20 minutes</li>
+                    <li>Clean from outside to center</li>
+                    <li>Dispose in biohazard waste</li>
+                    <li>Decontaminate area again</li>
+                    <li>Complete incident report</li>
+                </ol>
+            </div>
+
+            <h3>Power Failure</h3>
+            <ul>
+                <li>PREVI® has 30-minute UPS backup</li>
+                <li>Complete current run if possible</li>
+                <li>Switch to manual staining</li>
+                <li>Store slides properly for later processing</li>
+                <li>Document affected specimens</li>
+            </ul>
+        </div>
+
+        <!-- Section 20: TASK REFERENCE GUIDE -->
+        <div class="section" id="task-reference">
+            <h2>20. TASK REFERENCE GUIDE</h2>
+
+            <h3>Quick Reference - Daily Tasks</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Time</th>
+                        <th>Procedure</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>System Startup</strong></td>
+                        <td>06:00</td>
+                        <td>Turn on, check reagents, prime</td>
+                        <td>Startup log</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Daily QC</strong></td>
+                        <td>06:30</td>
+                        <td>Run control organisms</td>
+                        <td>QC log</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reagent Check</strong></td>
+                        <td>Each shift</td>
+                        <td>Verify levels >10%</td>
+                        <td>Reagent log</td>
+                    </tr>
+                    <tr>
+                        <td><strong>STAT Processing</strong></td>
+                        <td>Continuous</td>
+                        <td>Priority handling</td>
+                        <td>STAT log</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Shutdown</strong></td>
+                        <td>22:00</td>
+                        <td>Clean, rinse, standby mode</td>
+                        <td>Shutdown log</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Gram Stain Interpretation Quick Guide</h3>
+            <div class="info-box">
+                <h4>Common Organisms by Morphology:</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Morphology</th>
+                            <th>Common Organisms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gram-positive cocci in clusters</td>
+                            <td>Staphylococcus species</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-positive cocci in chains</td>
+                            <td>Streptococcus species</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-positive diplococci</td>
+                            <td>S. pneumoniae, Enterococcus</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-negative diplococci</td>
+                            <td>Neisseria species</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-negative rods</td>
+                            <td>Enterobacteriaceae, Pseudomonas</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-positive rods</td>
+                            <td>Bacillus, Clostridium, Listeria</td>
+                        </tr>
+                        <tr>
+                            <td>Gram-variable</td>
+                            <td>Old cultures, Bacillus, some anaerobes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Priority Processing Guide</h3>
+            <div class="procedure-section">
+                <h4>Specimen Priority Order:</h4>
+                <ol>
+                    <li><strong>IMMEDIATE:</strong> CSF, positive blood cultures</li>
+                    <li><strong>URGENT:</strong> Body fluids, OR specimens</li>
+                    <li><strong>STAT:</strong> ICU/ED specimens</li>
+                    <li><strong>ROUTINE:</strong> All others by received time</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 21: TECHNICAL SUPPORT -->
+        <div class="section" id="technical-support">
+            <h2>21. TECHNICAL SUPPORT</h2>
+
+            <h3>bioMérieux Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Contact</th>
+                        <th>Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Technical Support</strong></td>
+                        <td>1-800-682-2666</td>
+                        <td>24/7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Service</strong></td>
+                        <td>1-800-682-2667</td>
+                        <td>M-F 8AM-5PM EST</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Online Support</strong></td>
+                        <td>www.biomerieux-usa.com</td>
+                        <td>24/7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emergency Parts</strong></td>
+                        <td>1-800-682-2666</td>
+                        <td>24/7</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Internal Support</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue Type</th>
+                        <th>Primary Contact</th>
+                        <th>Backup Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Technical Questions</td>
+                        <td>Lead Microbiologist</td>
+                        <td>Laboratory Manager</td>
+                    </tr>
+                    <tr>
+                        <td>QC Failures</td>
+                        <td>Lead Microbiologist</td>
+                        <td>Technical Specialist</td>
+                    </tr>
+                    <tr>
+                        <td>Critical Values</td>
+                        <td>Ordering Physician</td>
+                        <td>Attending Physician</td>
+                    </tr>
+                    <tr>
+                        <td>Supply Issues</td>
+                        <td>Inventory Coordinator</td>
+                        <td>Laboratory Manager</td>
+                    </tr>
+                    <tr>
+                        <td>After Hours</td>
+                        <td>On-call Supervisor</td>
+                        <td>On-call Director</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <h4>When Contacting Support:</h4>
+                <ul>
+                    <li>Have instrument serial number ready</li>
+                    <li>Document error codes</li>
+                    <li>Note recent maintenance or changes</li>
+                    <li>Describe problem in detail</li>
+                    <li>Get ticket/reference number</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 22: QUALITY ASSURANCE -->
+        <div class="section" id="quality-assurance">
+            <h2>22. QUALITY ASSURANCE</h2>
+
+            <h3>Quality Indicators</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Target</th>
+                        <th>Frequency</th>
+                        <th>Action if Not Met</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TAT Compliance (STAT)</td>
+                        <td>≥95%</td>
+                        <td>Monthly</td>
+                        <td>Process improvement review</td>
+                    </tr>
+                    <tr>
+                        <td>QC Pass Rate</td>
+                        <td>≥98%</td>
+                        <td>Monthly</td>
+                        <td>Training/maintenance review</td>
+                    </tr>
+                    <tr>
+                        <td>Critical Value Notification</td>
+                        <td>100%</td>
+                        <td>Monthly</td>
+                        <td>Immediate investigation</td>
+                    </tr>
+                    <tr>
+                        <td>Specimen Rejection Rate</td>
+                        <td><2%</td>
+                        <td>Monthly</td>
+                        <td>Collection training</td>
+                    </tr>
+                    <tr>
+                        <td>Proficiency Testing</td>
+                        <td>≥80%</td>
+                        <td>Per event</td>
+                        <td>Remedial action plan</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Proficiency Testing</h3>
+            <ul>
+                <li>CAP Bacteriology Surveys - 3 times per year</li>
+                <li>Must achieve ≥80% to maintain certification</li>
+                <li>All technologists participate in rotation</li>
+                <li>Review results at monthly meetings</li>
+                <li>Document corrective actions for errors</li>
+            </ul>
+
+            <h3>Competency Assessment</h3>
+            <div class="procedure-section">
+                <h4>Annual Requirements:</h4>
+                <ol>
+                    <li>Direct observation of staining technique</li>
+                    <li>Microscopy interpretation test (10 unknowns)</li>
+                    <li>Written examination on procedures</li>
+                    <li>QC and maintenance performance</li>
+                    <li>Critical value handling</li>
+                    <li>Safety practices observation</li>
+                </ol>
+            </div>
+
+            <h3>Documentation Requirements</h3>
+            <ul>
+                <li>All results in LIS within 30 minutes</li>
+                <li>QC records retained 2 years</li>
+                <li>Instrument maintenance logs 2 years</li>
+                <li>Temperature logs 2 years</li>
+                <li>Training records indefinitely</li>
+                <li>Incident reports 5 years</li>
+            </ul>
+        </div>
+
+        <!-- Section 23: REGULATORY COMPLIANCE -->
+        <div class="section" id="regulatory">
+            <h2>23. REGULATORY COMPLIANCE</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Agency</th>
+                        <th>Requirement</th>
+                        <th>Compliance Method</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CLIA</td>
+                        <td>High complexity testing</td>
+                        <td>Personnel qualifications, QC, PT</td>
+                        <td>All records per CLIA</td>
+                    </tr>
+                    <tr>
+                        <td>CAP</td>
+                        <td>Laboratory accreditation</td>
+                        <td>Follow CAP checklist</td>
+                        <td>Inspection readiness</td>
+                    </tr>
+                    <tr>
+                        <td>Joint Commission</td>
+                        <td>Hospital accreditation</td>
+                        <td>Patient safety, quality</td>
+                        <td>Quality indicators</td>
+                    </tr>
+                    <tr>
+                        <td>OSHA</td>
+                        <td>Workplace safety</td>
+                        <td>BSL-2 practices, PPE</td>
+                        <td>Safety training</td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>Laboratory license</td>
+                        <td>Meet state requirements</td>
+                        <td>Current license</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Inspection Readiness</h3>
+            <div class="procedure-section">
+                <h4>Required Documentation:</h4>
+                <ul>
+                    <li>Current procedures and job aids</li>
+                    <li>QC records (2 years minimum)</li>
+                    <li>Maintenance and temperature logs</li>
+                    <li>Personnel training and competency</li>
+                    <li>Proficiency testing results</li>
+                    <li>Incident and corrective action reports</li>
+                    <li>Reagent and supply receipts</li>
+                    <li>Validation studies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 24: DOWNTIME PROCEDURES -->
+        <div class="section" id="downtime">
+            <h2>24. DOWNTIME PROCEDURES</h2>
+
+            <div class="critical-box">
+                <h3>⚠️ PREVI® System Downtime Protocol</h3>
+                <p>When automated staining is unavailable, implement manual backup procedures immediately.</p>
+            </div>
+
+            <h3>Immediate Actions</h3>
+            <ol>
+                <li>Switch to manual Gram stain method</li>
+                <li>Notify all microbiology staff</li>
+                <li>Post downtime notices</li>
+                <li>Prioritize STAT and critical specimens</li>
+                <li>Contact bioMérieux service</li>
+                <li>Document downtime start</li>
+            </ol>
+
+            <h3>Manual Staining Capacity</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Staff Available</th>
+                        <th>Slides/Hour</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1 technologist</td>
+                        <td>20-30</td>
+                        <td>Blood cultures, CSF only</td>
+                    </tr>
+                    <tr>
+                        <td>2 technologists</td>
+                        <td>40-60</td>
+                        <td>Add body fluids, OR</td>
+                    </tr>
+                    <tr>
+                        <td>3+ technologists</td>
+                        <td>60+</td>
+                        <td>All specimens</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Recovery Procedures</h3>
+            <ol>
+                <li>When system restored, run QC first</li>
+                <li>Process backlog by priority</li>
+                <li>Verify all reagent levels</li>
+                <li>Document downtime end</li>
+                <li>Calculate and report TAT impact</li>
+                <li>Review incident for improvement</li>
+            </ol>
+        </div>
+
+        <!-- Section 25: REFERENCES -->
+        <div class="section" id="references">
+            <h2>25. REFERENCES</h2>
+
+            <ol>
+                <li>bioMérieux PREVI® Color Gram Package Insert, Version 09/2023</li>
+                <li>Clinical and Laboratory Standards Institute (CLSI). Performance Standards for Antimicrobial Susceptibility Testing, M100-S33</li>
+                <li>Clinical Microbiology Procedures Handbook, 4th Edition, ASM Press</li>
+                <li>Manual of Clinical Microbiology, 12th Edition, ASM Press</li>
+                <li>CAP Microbiology Checklist, Current Edition</li>
+                <li>CDC Biosafety in Microbiological and Biomedical Laboratories, 6th Edition</li>
+                <li>Bailey & Scott's Diagnostic Microbiology, 14th Edition</li>
+                <li>Kaiser Permanente National Laboratory Standards, Current Version</li>
+                <li>OSHA Bloodborne Pathogens Standard, 29 CFR 1910.1030</li>
+                <li>College of American Pathologists Laboratory Accreditation Program</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

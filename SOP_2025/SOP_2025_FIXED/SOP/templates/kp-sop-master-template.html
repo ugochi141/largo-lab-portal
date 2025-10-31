@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Laboratory - Standard Operating Procedure</title>
+    <style>
+        /* Optimized Kaiser Permanente Laboratory SOP Template */
+        *{margin:0;padding:0;box-sizing:border-box}
+        @page{size:8.5in 11in;margin:0.75in}
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+        body{font-family:Arial,sans-serif;font-size:10pt;line-height:1.5;color:#333;max-width:7in;margin:0 auto;padding:15px;background:#f5f5f5}
+        .container{background:#fff;padding:25px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);max-width:100%;margin:0}
+
+        /* Header Styling */
+        .header{text-align:center;border-bottom:3px solid #0066cc;padding-bottom:15px;margin-bottom:25px}
+        .header h1{color:#0066cc;font-size:20pt;margin-bottom:8px;font-weight:bold}
+        .header h2{color:#666;font-size:12pt;margin:0;font-weight:normal}
+        .header h2 span{color:#333;font-weight:bold;background:#f0f8ff;padding:4px 10px;border-radius:4px}
+
+        /* Table of Contents - Two Column Layout */
+        .toc{background:#f0f8ff;padding:15px;border-left:4px solid #0066cc;margin-bottom:25px;border-radius:4px;page-break-after:always}
+        .toc h3{color:#0066cc;margin-top:0;font-size:12pt;margin-bottom:10px}
+        .toc-columns{display:flex;gap:30px}
+        .toc-column{flex:1}
+        .toc ul{list-style:none;padding:0}
+        .toc li{margin:6px 0;padding-left:15px}
+        .toc a{color:#0066cc;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+
+        /* Section Styling */
+        .section{margin:30px 0;border-bottom:1px solid #e0e0e0;padding-bottom:20px}
+        .section:last-child{border-bottom:none}
+
+        /* Headings - Compact Styling */
+        h1,h2{color:#0066cc;font-size:14pt;margin-bottom:15px;border-bottom:2px solid #0066cc;padding-bottom:6px;page-break-after:avoid}
+        h3{color:#004499;font-size:11pt;margin:20px 0 12px 0;page-break-after:avoid}
+        h4{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+        h5{color:#333;font-size:10pt;margin:15px 0 8px 0;font-weight:bold}
+
+        /* Text Elements */
+        p{margin:8px 0;text-align:left}
+        ul,ol{margin:8px 0 8px 25px;padding:0}
+        li{margin:4px 0;line-height:1.5}
+
+        /* Special Sections */
+        .key-concept{background:#e3f2fd;border-left:4px solid #2196f3;padding:15px;margin:15px 0;border-radius:4px}
+        .key-concept h4{color:#1565c0;margin-top:0}
+
+        .procedure-section{background:#f9f9f9;padding:15px;border-radius:6px;margin:15px 0;border-left:3px solid #28a745;page-break-inside:avoid}
+        .warning,.warning-box{background:#fff3cd;border:1px solid #ffeaa7;border-left:3px solid #f39c12;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .warning strong{color:#856404}
+        .info-box{background:#d1ecf1;border:1px solid #bee5eb;border-left:3px solid #17a2b8;padding:12px;margin:12px 0;border-radius:4px;page-break-inside:avoid}
+        .troubleshooting-section,.critical-box{background:#fff5f5;border:2px solid #ff6b6b;border-radius:6px;padding:18px;margin:18px 0;page-break-inside:avoid}
+        .troubleshooting-section h3,.critical-box h3{color:#cc0000;font-weight:bold;margin-top:0}
+        .critical-values{background:#f8d7da;border:2px solid #f5c6cb;border-radius:6px;padding:15px;margin:18px 0;page-break-inside:avoid}
+        .critical-values h3{color:#721c24;margin-top:0}
+
+        /* Table Styling */
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:9pt;box-shadow:0 1px 3px rgba(0,0,0,0.1);border-radius:6px;overflow:hidden;background:#fff}
+        table thead{background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%)}
+        table th{color:#000;padding:10px 8px;text-align:left;font-weight:600;letter-spacing:0.3px;border-right:1px solid rgba(0,0,0,0.1)}
+        table th:last-child{border-right:none}
+        table tbody tr{border-bottom:1px solid #e0e0e0}
+        table td{padding:8px;border-right:1px solid #e0e0e0}
+        table td:last-child{border-right:none}
+        table tbody tr:nth-child(even){background:#f8f9fa}
+        table tbody tr:last-child{border-bottom:none}
+
+        /* Specialized Table Headers */
+        .critical-values table thead{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%)}
+        .procedure-section table thead{background:linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%)}
+        .warning table thead{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%)}
+        .info-box table thead{background:linear-gradient(135deg,#d1ecf1 0%,#bee5eb 100%)}
+
+        /* Images */
+        img{max-width:100%!important;height:auto!important;display:block;margin:15px auto;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.1);page-break-inside:avoid}
+        .image-container{text-align:center;margin:15px 0;page-break-inside:avoid}
+        .image-caption{font-size:9pt;font-style:italic;color:#666;margin-top:6px;text-align:center}
+
+        /* Editable content */
+        .editable{min-height:30px;padding:5px;border:1px dashed #ddd;border-radius:4px;background:#fafafa}
+        .editable:focus{outline:2px solid #0066cc;background:#fff;border-style:solid}
+
+        /* Upload Section */
+        .upload-section{background:#e3f2fd;padding:20px;margin:20px 0;border-radius:8px;border:2px solid #2196f3}
+        .upload-button{background:#0066cc;color:white;padding:10px 20px;border:none;border-radius:4px;cursor:pointer;font-size:11pt;margin:5px}
+        .upload-button:hover{background:#004499}
+
+        /* Print Optimizations */
+        @media print{
+            @page{size:8.5in 11in;margin:0.75in}
+            *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+            body{background:#fff;margin:0;padding:0;max-width:100%;font-size:9pt}
+            .container{box-shadow:none;border-radius:0;padding:0;max-width:100%;margin:0}
+            h1,h2,h3,h4{page-break-after:avoid}
+            .toc{page-break-after:always}
+            .toc-columns{display:block}
+            .toc-column{display:block;margin-bottom:15px}
+            .upload-section{display:none}
+            .editable{border:none!important;background:transparent!important}
+        }
+
+        /* Control Buttons */
+        .controls{position:fixed;top:20px;right:20px;z-index:1000;background:white;padding:10px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+        .controls button{margin:5px;padding:8px 15px;background:#0066cc;color:white;border:none;border-radius:4px;cursor:pointer}
+        .controls button:hover{background:#004499}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <h2><span contenteditable="true" class="editable">[PROCEDURE NAME]</span> Standard Operating Procedure</h2>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <h3 style="color:#0066cc;margin-bottom:15px">📥 Quick Start: Import Content from Existing Document</h3>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <input type="file" id="doc-upload" accept=".pdf,.html,.htm,.txt" onchange="handleFileUpload(this)" style="display:none">
+                <button class="upload-button" onclick="document.getElementById('doc-upload').click()">
+                    📂 Upload PDF/HTML
+                </button>
+                <button class="upload-button" style="background:#28a745" onclick="importFromFolder()">
+                    📁 Import from Kaiser Folders
+                </button>
+                <span style="color:#666;font-size:9pt">Upload documents to auto-populate sections</span>
+            </div>
+            <div id="upload-status" style="margin-top:10px;display:none">
+                <div style="background:white;border:1px solid #ddd;border-radius:4px;height:20px;overflow:hidden">
+                    <div id="progress-bar" style="background:#0066cc;height:100%;width:0%;transition:width 0.3s"></div>
+                </div>
+                <p id="status-text" style="color:#666;font-size:9pt;margin-top:5px">Processing...</p>
+            </div>
+        </div>
+
+        <!-- Table of Contents - Two Columns -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column">
+                    <ul>
+                        <li>1. <a href="#purpose">PURPOSE</a></li>
+                        <li>2. <a href="#clinical-significance">CLINICAL SIGNIFICANCE</a></li>
+                        <li>3. <a href="#scope">SCOPE</a></li>
+                        <li>4. <a href="#responsibilities">RESPONSIBILITIES</a></li>
+                        <li>5. <a href="#safety">SAFETY REQUIREMENTS</a></li>
+                        <li>6. <a href="#specimen">SPECIMEN REQUIREMENTS</a></li>
+                        <li>7. <a href="#reagents">REAGENTS AND SUPPLIES</a></li>
+                        <li>8. <a href="#equipment">EQUIPMENT</a></li>
+                        <li>9. <a href="#maintenance">MAINTENANCE</a></li>
+                        <li>10. <a href="#qc">QUALITY CONTROL REQUIREMENTS</a></li>
+                        <li>11. <a href="#calibration">CALIBRATION</a></li>
+                        <li>12. <a href="#troubleshooting">TROUBLESHOOTING</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul>
+                        <li>13. <a href="#procedure">TEST PROCEDURE</a></li>
+                        <li>14. <a href="#calculations">CALCULATIONS AND RESULT REPORTING</a></li>
+                        <li>15. <a href="#reference">REFERENCE RANGES</a></li>
+                        <li>16. <a href="#critical">CRITICAL VALUES</a></li>
+                        <li>17. <a href="#limitations">LIMITATIONS AND INTERFERENCES</a></li>
+                        <li>18. <a href="#emergency">EMERGENCY PROCEDURES</a></li>
+                        <li>19. <a href="#support">TECHNICAL SUPPORT</a></li>
+                        <li>20. <a href="#qa">QUALITY ASSURANCE</a></li>
+                        <li>21. <a href="#regulatory">REGULATORY COMPLIANCE</a></li>
+                        <li>22. <a href="#downtime">DOWNTIME PROCEDURES</a></li>
+                        <li>23. <a href="#references">REFERENCES</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Purpose -->
+        <div class="section" id="purpose">
+            <h2>1. PURPOSE</h2>
+            <div contenteditable="true" class="editable">
+                <p>This document describes the standard operating procedures for [specific test/procedure] at Kaiser Permanente Largo Laboratory. This SOP ensures accurate, reliable, and timely test results for patient care.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Clinical Significance -->
+        <div class="section" id="clinical-significance">
+            <h2>2. CLINICAL SIGNIFICANCE</h2>
+            <div contenteditable="true" class="editable">
+                <p>[Describe the clinical importance of this test/procedure and what conditions it helps diagnose or monitor]</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Scope -->
+        <div class="section" id="scope">
+            <h2>3. SCOPE</h2>
+            <div contenteditable="true" class="editable">
+                <p>This procedure applies to Medical Laboratory Technicians (MLTs) and Medical Laboratory Scientists (MLSs) trained and competent in performing this testing at Kaiser Permanente Largo Laboratory.</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Responsibilities -->
+        <div class="section" id="responsibilities">
+            <h2>4. RESPONSIBILITIES</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Responsibilities</th>
+                    </tr>
+                </thead>
+                <tbody contenteditable="true">
+                    <tr>
+                        <td>Medical Laboratory Technician</td>
+                        <td>Perform daily QC, process routine specimens, maintain equipment</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Laboratory Scientist</td>
+                        <td>Validate results, perform calibrations, troubleshoot issues</td>
+                    </tr>
+                    <tr>
+                        <td>Lead Technologist</td>
+                        <td>Oversee operations, review QC summaries, maintain records</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 5: Safety Requirements -->
+        <div class="section" id="safety">
+            <h2>5. SAFETY REQUIREMENTS</h2>
+            <div class="warning-box">
+                <strong>⚠️ Universal Precautions:</strong> All specimens must be handled as potentially infectious.
+            </div>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>Wear appropriate PPE: lab coat, gloves, safety glasses</li>
+                    <li>Follow bloodborne pathogen protocols</li>
+                    <li>Know location of safety equipment (eyewash, shower, spill kit)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 6: Specimen Requirements -->
+        <div class="section" id="specimen">
+            <h2>6. SPECIMEN REQUIREMENTS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Specimen Type</th>
+                        <th>Container</th>
+                        <th>Minimum Volume</th>
+                        <th>Stability</th>
+                    </tr>
+                </thead>
+                <tbody contenteditable="true">
+                    <tr>
+                        <td>[Type]</td>
+                        <td>[Container]</td>
+                        <td>[Volume]</td>
+                        <td>[Stability conditions]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 7: Reagents and Supplies -->
+        <div class="section" id="reagents">
+            <h2>7. REAGENTS AND SUPPLIES</h2>
+            <div contenteditable="true" class="editable">
+                <p>[List all reagents, controls, calibrators, and supplies needed]</p>
+            </div>
+        </div>
+
+        <!-- Section 8: Equipment -->
+        <div class="section" id="equipment">
+            <h2>8. EQUIPMENT</h2>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>Primary Analyzer: [Name and model]</li>
+                    <li>Backup Equipment: [Name and location]</li>
+                    <li>Support Equipment: [List centrifuges, refrigerators, etc.]</li>
+                </ul>
+            </div>
+            <div class="image-container">
+                <input type="file" accept="image/*" onchange="loadImage(event, 'equipment-img')" style="margin:10px 0">
+                <img id="equipment-img" style="display:none">
+                <p class="image-caption">Equipment Image</p>
+            </div>
+        </div>
+
+        <!-- Section 9: Maintenance -->
+        <div class="section" id="maintenance">
+            <h2>9. MAINTENANCE</h2>
+            <div class="procedure-section">
+                <h3>Daily Maintenance</h3>
+                <div contenteditable="true" class="editable">
+                    <ul>
+                        <li>Check instrument readiness</li>
+                        <li>Review error logs</li>
+                        <li>Clean sample probe</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 10: Quality Control Requirements -->
+        <div class="section" id="qc">
+            <h2>10. QUALITY CONTROL REQUIREMENTS</h2>
+            <div class="critical-box">
+                <h3>CRITICAL QC RULE</h3>
+                <p><strong>NEVER report patient results if QC is not acceptable.</strong></p>
+            </div>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>Run two levels of control every 8 hours</li>
+                    <li>Document all QC results</li>
+                    <li>Follow Westgard rules for QC evaluation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 11: Calibration -->
+        <div class="section" id="calibration">
+            <h2>11. CALIBRATION</h2>
+            <div contenteditable="true" class="editable">
+                <p>[Describe calibration frequency and procedures]</p>
+            </div>
+        </div>
+
+        <!-- Section 12: Troubleshooting -->
+        <div class="section" id="troubleshooting">
+            <h2>12. TROUBLESHOOTING</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Possible Causes</th>
+                        <th>Solutions</th>
+                    </tr>
+                </thead>
+                <tbody contenteditable="true">
+                    <tr>
+                        <td>[Problem]</td>
+                        <td>[Causes]</td>
+                        <td>[Solutions]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 13: Test Procedure -->
+        <div class="section" id="procedure">
+            <h2>13. TEST PROCEDURE</h2>
+            <div class="procedure-section">
+                <h3>Step-by-Step Procedure</h3>
+                <div contenteditable="true" class="editable">
+                    <ol>
+                        <li>Verify patient identification</li>
+                        <li>Check specimen acceptability</li>
+                        <li>[Add specific procedure steps]</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 14: Calculations and Result Reporting -->
+        <div class="section" id="calculations">
+            <h2>14. CALCULATIONS AND RESULT REPORTING</h2>
+            <div contenteditable="true" class="editable">
+                <p>[Describe any calculations, units, and reporting format]</p>
+            </div>
+        </div>
+
+        <!-- Section 15: Reference Ranges -->
+        <div class="section" id="reference">
+            <h2>15. REFERENCE RANGES</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Population</th>
+                        <th>Reference Range</th>
+                        <th>Units</th>
+                    </tr>
+                </thead>
+                <tbody contenteditable="true">
+                    <tr>
+                        <td>[Test]</td>
+                        <td>[Population]</td>
+                        <td>[Range]</td>
+                        <td>[Units]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 16: Critical Values -->
+        <div class="section" id="critical">
+            <h2>16. CRITICAL VALUES</h2>
+            <div class="critical-values">
+                <h3>Critical Value Notification</h3>
+                <p>Critical values must be called to the healthcare provider within 30 minutes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Critical Low</th>
+                            <th>Critical High</th>
+                        </tr>
+                    </thead>
+                    <tbody contenteditable="true">
+                        <tr>
+                            <td>[Test]</td>
+                            <td>[Low]</td>
+                            <td>[High]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 17: Limitations and Interferences -->
+        <div class="section" id="limitations">
+            <h2>17. LIMITATIONS AND INTERFERENCES</h2>
+            <div contenteditable="true" class="editable">
+                <p>[Describe test limitations, interfering substances, and conditions affecting results]</p>
+            </div>
+        </div>
+
+        <!-- Section 18: Emergency Procedures -->
+        <div class="section" id="emergency">
+            <h2>18. EMERGENCY PROCEDURES</h2>
+            <div class="warning-box">
+                <strong>STAT Testing:</strong> Priority processing for emergency specimens
+            </div>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>STAT TAT: 45 minutes</li>
+                    <li>Emergency contacts: [List contacts]</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 19: Technical Support -->
+        <div class="section" id="support">
+            <h2>19. TECHNICAL SUPPORT</h2>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>Vendor Support: [Contact information]</li>
+                    <li>Lead Technologist: [Contact]</li>
+                    <li>Laboratory Manager: [Contact]</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 20: Quality Assurance -->
+        <div class="section" id="qa">
+            <h2>20. QUALITY ASSURANCE</h2>
+            <div contenteditable="true" class="editable">
+                <ul>
+                    <li>Proficiency Testing: [Program and frequency]</li>
+                    <li>Competency Assessment: Annual</li>
+                    <li>Quality Indicators: [List KPIs]</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 21: Regulatory Compliance -->
+        <div class="section" id="regulatory">
+            <h2>21. REGULATORY COMPLIANCE</h2>
+            <div class="info-box">
+                <p>This procedure complies with CLIA, CAP, and Maryland state regulations.</p>
+            </div>
+            <div contenteditable="true" class="editable">
+                <p>References: Kaiser Permanente Documents 14952_0 (MLA) and 13792_0 (MT/MLT)</p>
+            </div>
+        </div>
+
+        <!-- Section 22: Downtime Procedures -->
+        <div class="section" id="downtime">
+            <h2>22. DOWNTIME PROCEDURES</h2>
+            <div class="warning-box">
+                <strong>Backup Location:</strong> MOB Laboratory (301-555-2000) - Available 24/7
+            </div>
+            <div contenteditable="true" class="editable">
+                <ol>
+                    <li>Contact Lead Technologist immediately</li>
+                    <li>Prioritize STAT and critical specimens</li>
+                    <li>Arrange transport to backup location</li>
+                    <li>Document all affected specimens</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Section 23: References -->
+        <div class="section" id="references">
+            <h2>23. REFERENCES</h2>
+            <div contenteditable="true" class="editable">
+                <ol>
+                    <li>Kaiser Permanente Laboratory Policy Manual</li>
+                    <li>CLSI Guidelines</li>
+                    <li>CAP Checklist</li>
+                    <li>Manufacturer's Instructions</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="controls">
+        <button onclick="saveDocument()">💾 Save</button>
+        <button onclick="window.print()">🖨️ Print</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/document-uploader.js"></script>
+    <script>
+        function handleFileUpload(input) {
+            if (!input.files[0]) return;
+
+            const statusDiv = document.getElementById('upload-status');
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('status-text');
+
+            statusDiv.style.display = 'block';
+
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    statusText.textContent = 'Import complete!';
+                    setTimeout(() => {
+                        statusDiv.style.display = 'none';
+                    }, 2000);
+                }
+            }, 200);
+
+            // Call the actual upload handler if available
+            if (window.handleSOPUpload) {
+                window.handleSOPUpload(input);
+            }
+        }
+
+        function importFromFolder() {
+            const paths = [
+                '/Users/ugochi141/Desktop/Largo Lab SOP 2025 Enhanced/',
+                '/Users/ugochi141/Desktop/SOP 2025/',
+                '/Users/ugochi141/Documents/2025 KP SOP/'
+            ];
+            alert('Import from Kaiser folders:\n' + paths.join('\n'));
+        }
+
+        function loadImage(event, imgId) {
+            const output = document.getElementById(imgId);
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'block';
+            output.onload = () => URL.revokeObjectURL(output.src);
+        }
+
+        function saveDocument() {
+            const content = document.documentElement.outerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Kaiser_SOP_' + new Date().toISOString().split('T')[0] + '.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

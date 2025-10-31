@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Edit SOP - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<h2 style="color: var(--kp-blue); margin-bottom: 2rem;">✏️ Edit SOP: {{ sop.document_identifier }}</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Procedure Title:</label>
+            <input type="text" id="title" name="title" value="{{ sop.procedure_title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" value="{{ sop.laboratory_department }}" required>
+        </div>
+
+        <h3 style="color: var(--kp-blue); margin: 2rem 0 1rem 0;">📋 SOP Sections</h3>
+
+        {% for section_key, section_value in sections.items() %}
+        <div class="form-group">
+            <label for="{{ section_key }}">{{ section_key.replace('_', ' ').title() }}:</label>
+            <textarea id="{{ section_key }}" name="{{ section_key }}" rows="4">{{ section_value }}</textarea>
+        </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <button type="submit" class="btn">💾 Save SOP</button>
+            <a href="{{ url_for('view_sop', sop_id=sop.id) }}" class="btn" style="background: #6c757d; margin-left: 1rem;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

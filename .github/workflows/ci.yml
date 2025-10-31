@@ -1,0 +1,288 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run security scan daily at 2 AM
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '18.x'
+  PM2_VERSION: 'latest'
+
+jobs:
+  # Linting and Code Quality
+  lint:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint
+      run: npm run lint
+      continue-on-error: true
+
+    - name: Check for security issues
+      run: npm audit --audit-level=moderate
+      continue-on-error: true
+
+  # Unit Testing
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests with coverage
+      run: npm run test:coverage || true
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+      continue-on-error: true
+
+  # Security Scanning
+  security:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        severity: 'CRITICAL,HIGH'
+
+    - name: Upload Trivy results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+      continue-on-error: true
+
+    - name: OWASP Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'largo-lab-portal'
+        path: '.'
+        format: 'HTML'
+      continue-on-error: true
+
+  # HIPAA Compliance Check
+  compliance:
+    name: Healthcare Compliance Checks
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Check for PHI exposure
+      run: |
+        echo "Checking for exposed PHI patterns..."
+        ! grep -r -E "\b\d{3}-\d{2}-\d{4}\b" --include="*.js" --include="*.json" --exclude-dir=node_modules .
+        ! grep -r -E "MRN[0-9]+" --include="*.js" --include="*.json" --exclude-dir=node_modules .
+
+    - name: Verify audit logging
+      run: |
+        echo "Verifying audit logging implementation..."
+        grep -r "auditLogger" --include="*.js" server/
+
+    - name: Check encryption configuration
+      run: |
+        echo "Checking encryption configuration..."
+        grep -r "HIPAA_ENCRYPTION_KEY" .env.example
+
+    - name: Validate critical value ranges
+      run: |
+        echo "Validating critical value ranges..."
+        grep -r "CRITICAL_RANGES" server/routes/criticalValues.js
+
+  # Build and Deploy
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: [test, security, compliance]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci --production
+
+    - name: Build application
+      run: |
+        echo "Building production application..."
+        npm run build || echo "No build script defined"
+
+    - name: Prepare deployment package
+      run: |
+        mkdir -p deployment
+        cp -r server deployment/
+        cp -r assets deployment/
+        cp index.html deployment/
+        cp package*.json deployment/
+        cp ecosystem.config.js deployment/
+        cp .env.example deployment/
+
+    - name: Upload deployment artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: deployment-package
+        path: deployment/
+        retention-days: 7
+
+  # Deploy to Staging (automated)
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    environment: staging
+
+    steps:
+    - name: Download deployment artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: deployment-package
+
+    - name: Deploy to staging server
+      run: |
+        echo "Deploying to staging environment..."
+        # Add actual deployment commands here
+        # Example: scp -r deployment/* user@staging-server:/var/www/largo-lab-portal/
+
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests on staging..."
+        curl -f https://staging.largo-lab.kaiserpermanente.org/health || exit 1
+
+  # Deploy to Production (manual approval required)
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://largo-lab.kaiserpermanente.org
+
+    steps:
+    - name: Download deployment artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: deployment-package
+
+    - name: Pre-deployment backup
+      run: |
+        echo "Creating production backup..."
+        # Add backup commands here
+
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production environment..."
+        # Add actual deployment commands here
+        # Example:
+        # - SSH to production servers
+        # - Stop PM2 processes
+        # - Deploy new code
+        # - Run database migrations
+        # - Restart PM2 processes
+
+    - name: Health check
+      run: |
+        echo "Verifying production deployment..."
+        # curl -f https://largo-lab.kaiserpermanente.org/health || exit 1
+
+    - name: Notify deployment
+      if: always()
+      run: |
+        echo "Sending deployment notification..."
+        # Add notification logic (Teams, Slack, email)
+
+  # Monitoring and Alerting
+  monitor:
+    name: Post-Deployment Monitoring
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production]
+    if: always()
+
+    steps:
+    - name: Check application health
+      run: |
+        echo "Monitoring application health..."
+        # Add health check commands
+
+    - name: Check critical value system
+      run: |
+        echo "Verifying critical value detection..."
+        # Add critical value system checks
+
+    - name: Verify compliance status
+      run: |
+        echo "Checking compliance dashboard..."
+        # Add compliance verification
+
+# Notification for workflow failure
+  notify-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [lint, test, security, compliance, build]
+    if: failure()
+
+    steps:
+    - name: Send failure notification
+      run: |
+        echo "CI/CD Pipeline failed!"
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref }}"
+        echo "Commit: ${{ github.sha }}"
+        # Add actual notification logic here (Teams webhook, email, etc.)

@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Daily Staff Schedule - Kaiser Permanente Largo Laboratory</title>
+    <meta name="description" content="Daily staff scheduling for Kaiser Permanente Largo Laboratory phlebotomy and laboratory technicians.">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/kaiser-favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/icons/kaiser-favicon.svg">
+    <link rel="stylesheet" href="../assets/css/kps-portal.css">
+    <style>
+        /* Daily Schedule Specific Styles */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 10px;
+            background: #0066cc;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            z-index: 100;
+            transition: top 0.2s ease;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+            outline: 3px solid #ffd54f;
+        }
+
+        .date-banner {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            padding: 20px;
+            border-left: 5px solid #0066cc;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            color: #0066cc;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+        }
+
+        .controls {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #0066cc;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+        }
+
+        #datePicker {
+            padding: 8px 12px;
+            border: 2px solid #d1e7f3;
+            border-radius: 6px;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            margin: 0 10px;
+            transition: border-color 0.3s;
+        }
+
+        #datePicker:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background: #004499;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn.danger {
+            background: #dc3545;
+        }
+
+        .btn.danger:hover {
+            background: #c82333;
+        }
+        
+        .staff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .staff-table thead {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+        }
+
+        .staff-table th {
+            padding: 12px 10px;
+            text-align: left;
+            border: none;
+            font-weight: 600;
+            font-size: 10pt;
+        }
+
+        .staff-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* Even column widths */
+        .staff-table th,
+        .staff-table td {
+            width: auto;
+            word-wrap: break-word;
+        }
+
+        .staff-table {
+            table-layout: fixed;
+        }
+
+        .staff-table tbody tr {
+            background: #ffffff;
+            transition: background 0.2s;
+        }
+
+        .staff-table tbody tr:nth-child(even) {
+            background: #f8fbff;
+        }
+
+        .staff-table tbody tr:hover {
+            background: #e8f4f8;
+        }
+        
+        .dept-mla {
+            border-left: 4px solid #8b5cf6;
+        }
+        
+        .dept-mlt {
+            border-left: 4px solid #10b981;
+        }
+        
+        .dept-mls {
+            border-left: 4px solid #0066cc;
+        }
+        
+        .dept-phleb {
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .staff-name {
+            font-weight: 600;
+        }
+        
+        .staff-nickname {
+            color: #666;
+            font-size: 9pt;
+        }
+        
+        .section {
+            margin: 30px 0 20px 0;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+
+        .section h2 {
+            color: #0066cc;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .notes-section {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #0066cc;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+        }
+
+        .note-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-callout {
+            border-left-color: #dc3545;
+        }
+
+        .note-floater {
+            border-left-color: #ffc107;
+        }
+        
+        @media print {
+            .controls {
+                display: none;
+            }
+        }
+    </style>
+    <!-- Schedule Manager for auto-generation and database integration -->
+    <script src="ScheduleManager.js"></script>
+</head>
+
+<body>
+    <a href="#mainContent" class="skip-link">Skip to main content</a>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <iframe src="schedule-nav.html" style="width: 100%; height: 80px; border: none; margin: -30px -30px 20px -30px; display: block;" title="Schedule Navigation"></iframe>
+
+        <header class="header" role="banner">
+            <div class="kaiser-logo" aria-hidden="true">🏥</div>
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <p class="sr-only">Daily staff scheduling system</p>
+            <h2>Daily Staff Schedule - Detailed View</h2>
+        </header>
+
+        <main id="mainContent" role="main">
+            <div class="date-banner" id="dateBanner" role="status" aria-live="polite">Wednesday, October 8, 2025</div>
+
+            <div id="uploadStatus" style="display: none; margin-bottom: 20px; padding: 15px; background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 6px; font-size: 10pt;">
+                <strong>📤 Uploaded Schedule Data</strong> - This schedule was imported from Schedule Manager
+            </div>
+
+            <div class="controls" role="toolbar" aria-label="Schedule navigation and actions">
+                <div>
+                    <button class="btn" onclick="changeDate(-1)" aria-label="Previous day">← Previous</button>
+                    <input type="date" id="datePicker" value="2025-10-08" onchange="setDate()" aria-label="Select date">
+                    <button class="btn" onclick="changeDate(1)" aria-label="Next day">Next →</button>
+                </div>
+                <div>
+                    <button class="btn" onclick="window.print()" aria-label="Print schedule">📄 Print</button>
+                    <button class="btn" onclick="showCallOutModal()" aria-label="Add call out">Add Call Out</button>
+                    <button class="btn" onclick="showFloaterModal()" aria-label="Add floater">Add Floater</button>
+                    <button class="btn" style="background: #ff9800;" onclick="clearLocalStorage()" aria-label="Clear cached schedule data">🔄 Clear Cache</button>
+                    <button class="btn danger" onclick="clearAll()" aria-label="Clear all notes">Clear All</button>
+                </div>
+            </div>
+
+            <div class="section" id="phlebSection">
+                <h2>Phlebotomy Staff</h2>
+        </div>
+        <table class="staff-table" id="phlebTable"></table>
+
+        <div class="section" id="labSection">
+            <h2>Laboratory Technicians</h2>
+        </div>
+        <table class="staff-table" id="labTable"></table>
+
+            <div class="notes-section" id="notesSection" style="display:none;">
+                <h3>Call-Outs & Floaters</h3>
+                <div id="notesList"></div>
+            </div>
+        </main>
+
+        <div class="footer" role="contentinfo">
+            <div class="footer-logo" aria-hidden="true">⚕️</div>
+            <p><strong>Kaiser Permanente Largo Clinical Core Laboratory</strong></p>
+            <p style="margin-top: 8px; font-size: 9pt;">Daily Schedule | Last Updated: <time data-last-updated aria-live="polite">Loading…</time></p>
+            <p style="margin-top: 5px; font-size: 8pt; color: #999;">
+                Clinical Excellence Through Efficient Scheduling
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const scheduleData = {
+            '2025-10-01': {
+                phleb: [{
+                    name: 'Christina Bolden-Davis',
+                    nickname: 'Christina',
+                    role: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Youlana Miah',
+                    nickname: 'Netta',
+                    role: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Johnette Brooks',
+                    nickname: 'Johnette',
+                    role: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Lakeshia Battle',
+                    nickname: 'Lakeshia',
+                    role: 'Draw Patients',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 3:00p-3:15p',
+                    startTime: 8
+                }, {
+                    name: 'Anne Saint Phirin',
+                    nickname: 'Anne',
+                    role: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Lisa Beasley',
+                    nickname: 'Lisa',
+                    role: 'Break Relief',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    role: 'Runner',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 10:00a-10:15a',
+                    startTime: 8
+                }, {
+                    name: 'Raquel Grayson',
+                    nickname: 'Raquel',
+                    role: 'Draw Patients',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 9
+                }, {
+                    name: 'Nichole Fauntleroy',
+                    nickname: 'Nichole',
+                    role: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    role: 'Train Processing',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 2:00p-2:15p | Lunch: 4:00p-4:30p | Break 2: 6:00p-6:15p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    role: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p',
+                    startTime: 14
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    role: 'Draw Patients',
+                    shift: '5:00p - 9:00p',
+                    breaks: 'Break: 7:00p-7:15p',
+                    startTime: 17
+                }],
+                lab: [{
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    dept: 'MLS',
+                    assignment: 'AUC Front/Processing',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ingrid Benitez-Ruiz',
+                    nickname: 'Ingrid',
+                    dept: 'MLS',
+                    assignment: 'AUC Back',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    dept: 'MLA',
+                    assignment: 'MOB',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p',
+                    startTime: 8
+                }, {
+                    name: 'Albert Che',
+                    nickname: 'Albert',
+                    dept: 'MLS',
+                    assignment: 'AUC Front/Processing',
+                    shift: '3:30p - 5:00a',
+                    breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:30p-9:00p | Break 2: 10:45p-11:00p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    dept: 'MLS',
+                    assignment: 'AUC Back',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Ogheneochuko',
+                    dept: 'MLT',
+                    assignment: 'AUC Urines/Front',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Emmanuel',
+                    dept: 'MLT',
+                    assignment: 'Pure 2 @ 3am AUC',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    dept: 'MLS',
+                    assignment: 'Night Coverage',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-02': {
+                phleb: [{
+                    name: 'Youlana Miah',
+                    nickname: 'Youlana',
+                    role: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Johnette Brooks',
+                    nickname: 'Johnette',
+                    role: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 7
+                }, {
+                    name: 'Lakeshia Battle',
+                    nickname: 'Lakeshia',
+                    role: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    role: 'Draw Patients/Processor 2',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 8
+                }, {
+                    name: 'Anne Saint Phirin',
+                    nickname: 'Anne',
+                    role: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Lisa Beasley',
+                    nickname: 'Lisa',
+                    role: 'Draw Patients',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    role: 'Runner',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 10:00a-10:15a',
+                    startTime: 8
+                }, {
+                    name: 'Lisa Beasley',
+                    nickname: 'Lisa',
+                    role: 'Break Relief',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Raquel Grayson',
+                    nickname: 'Rachel',
+                    role: 'Draw Patients',
+                    shift: '8:00a - 5:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 8
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    role: 'Processor',
+                    shift: '9:00a - 10:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 4:00p-4:30p | Break 2: 7:00p-7:15p',
+                    startTime: 9
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    role: 'Closer',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Emmanuella Theodore',
+                    nickname: 'Emmanuella',
+                    role: 'Hot Seat/Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p',
+                    startTime: 14
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    role: 'Draw Patients',
+                    shift: '5:00p - 9:00p',
+                    breaks: 'Break: 7:00p-7:15p',
+                    startTime: 17
+                }],
+                lab: [{
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    dept: 'MLS',
+                    assignment: 'AUC Front/Processing',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Maxwell Booker',
+                    nickname: 'Maxwell',
+                    dept: 'MLT',
+                    assignment: 'MOB/Inventory',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    dept: 'MLA',
+                    assignment: 'MOB',
+                    shift: '9:00a - 4:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 3:00p-3:15p',
+                    startTime: 9
+                }, {
+                    name: 'Emily Creekmore',
+                    nickname: 'Emily',
+                    dept: 'MLT',
+                    assignment: 'AUC/Inventory',
+                    shift: '7:30a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    dept: 'MLT',
+                    assignment: 'AUC Urines/Front',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Albert Che',
+                    nickname: 'Albert',
+                    dept: 'MLS',
+                    assignment: 'AUC Front/Processing',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:30p-9:00p | Break 2: 10:45p-11:00p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    dept: 'MLS',
+                    assignment: 'AUC Back',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Boyet',
+                    dept: 'MLT',
+                    assignment: 'Night Coverage',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    dept: 'MLS',
+                    assignment: 'Pure 2 @ 3am AUC',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-03': {
+                phleb: [{
+                    name: 'Christina Bolden-Davis',
+                    nickname: 'Christina',
+                    role: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Youlana Miah',
+                    nickname: 'Youlana',
+                    role: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Lakeshia Battle',
+                    nickname: 'Larry',
+                    role: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    role: 'Draw Patients/Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 8
+                }, {
+                    name: 'Manoucheca Onuma',
+                    nickname: 'Mimi',
+                    role: 'Runner',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    role: 'Runner',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 10:00a-10:15a',
+                    startTime: 8
+                }, {
+                    name: 'Anitra Baylor',
+                    nickname: 'Anitra',
+                    role: 'Draw Patients',
+                    shift: '9:00a - 1:00p',
+                    breaks: '',
+                    startTime: 9
+                }, {
+                    name: 'Emmanuella Theodore',
+                    nickname: 'Emma',
+                    role: 'Processor',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 9
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    role: 'Closer',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Nichole Fauntleroy',
+                    nickname: 'Nichole',
+                    role: 'Processor/Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    role: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p',
+                    startTime: 14
+                }, {
+                    name: 'Shannon Pilkington',
+                    nickname: 'Shannon',
+                    role: 'Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }],
+                lab: [{
+                    name: 'Emily Creekmore',
+                    nickname: 'Emily',
+                    dept: 'MLT',
+                    assignment: 'AUC/Stago&Sysmex',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    dept: 'MLS',
+                    assignment: 'AUC Front/Processing',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ingrid Benitez-Ruiz',
+                    nickname: 'Ingrid',
+                    dept: 'MLS',
+                    assignment: 'AUC/Chem&Molecular',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    dept: 'MLT',
+                    assignment: 'AUC Front/Processing',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    dept: 'MLS',
+                    assignment: 'AUC Back',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Boyet',
+                    dept: 'MLT',
+                    assignment: 'Night Coverage',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'Jacqueline Liburd',
+                    nickname: 'Jackie',
+                    dept: 'MLS',
+                    assignment: 'AUC',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    dept: 'MLS',
+                    assignment: 'Night Coverage',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-06': {
+                phleb: [{
+                    name: 'Christina Bolden-Davis',
+                    nickname: 'Christina',
+                    assignment: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Youlana Miah',
+                    nickname: 'Youlana',
+                    assignment: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Johnette Brooks',
+                    nickname: 'Netta',
+                    assignment: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Larry Frazier',
+                    nickname: 'Larry',
+                    assignment: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Anne Saint Phirin',
+                    nickname: 'Anne',
+                    assignment: 'Draw Patients/Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    assignment: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    assignment: 'Runner',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 10:00a-10:15a',
+                    startTime: 8
+                }, {
+                    name: 'Raquel Grayson',
+                    nickname: 'Raquel',
+                    assignment: 'Runner',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 9
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    assignment: 'Closer',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Nichole Fauntleroy',
+                    nickname: 'Nichole',
+                    assignment: 'Processor/Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    assignment: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p',
+                    startTime: 14
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    assignment: 'Draw Patients',
+                    shift: '5:00p - 9:00p',
+                    breaks: 'Break: 7:00p-7:15p',
+                    startTime: 17
+                }],
+                lab: [{
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    role: 'MLS',
+                    assignment: 'AUC/BACK',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ingrid Benitez-Ruiz',
+                    nickname: 'Ingrid',
+                    role: 'MLS',
+                    assignment: 'AUC/Inventory (Both)',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    role: 'MLA',
+                    assignment: 'MOB/Inventory',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p',
+                    startTime: 8
+                }, {
+                    name: 'Steeven Brussot',
+                    nickname: 'Steeven',
+                    role: 'MLT',
+                    assignment: 'AUC/BACK',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p',
+                    startTime: 8
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    role: 'MLT',
+                    assignment: 'AUC Front/Processing',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    role: 'MLS',
+                    assignment: 'AUC/BACK',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    role: 'MLS',
+                    assignment: 'Night Coverage',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }, {
+                    name: 'Jacqueline Liburd',
+                    nickname: 'Jackie',
+                    role: 'MLS',
+                    assignment: 'Night Coverage',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-07': {
+                phleb: [{
+                    name: 'Youlana Miah',
+                    nickname: 'Youlana',
+                    assignment: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:15p-1:30p',
+                    startTime: 6
+                }, {
+                    name: 'Johnette Brooks',
+                    nickname: 'Netta',
+                    assignment: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                    startTime: 7
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    assignment: 'Draw Patients',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 9:15a-9:30a | Lunch: 12:00p-12:30p | Break 2: 3:00p-3:15p',
+                    startTime: 8
+                }, {
+                    name: 'Manoucheca Onuma',
+                    nickname: 'Mimi',
+                    assignment: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    assignment: 'Draw Patients',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 9:30a-9:45a',
+                    startTime: 8
+                }, {
+                    name: 'Anitra Baylor',
+                    nickname: 'Anitra',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                    startTime: 9
+                }, {
+                    name: 'Emmanuella Theodore',
+                    nickname: 'Emma',
+                    assignment: 'Draw Patients/Processor',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 2:00p-2:30p | Break 2: 4:15p-4:30p',
+                    startTime: 9
+                }, {
+                    name: 'Tamika Nettles',
+                    nickname: 'Tamika',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 10:45a-11:00a | Lunch: 2:30p-3:00p | Break 2: 4:30p-4:45p',
+                    startTime: 9
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 1:00p',
+                    breaks: 'Break: 11:15a-11:30a',
+                    startTime: 9
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    assignment: 'Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 3:30p-3:45p | Lunch: 6:00p-6:30p | Break 2: 8:45p-9:00p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    assignment: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 3:45p-4:00p | Lunch: 6:30p-7:00p | Break 2: 9:00p-9:15p',
+                    startTime: 14
+                }, {
+                    name: 'Shannon Pilkington',
+                    nickname: 'Shannon',
+                    assignment: 'Draw Patients/Hot Seat',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 7:00p-7:30p | Break 2: 9:15p-9:30p',
+                    startTime: 14
+                }, {
+                    name: 'Temica Watson',
+                    nickname: 'Temica',
+                    assignment: 'Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 7:30p-8:00p | Break 2: 9:30p-9:45p',
+                    startTime: 14
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    assignment: 'Closer',
+                    shift: '5:00p - 9:00p',
+                    breaks: 'Break: 6:45p-7:00p',
+                    startTime: 17
+                }],
+                lab: [{
+                    name: 'Maxwell Booker',
+                    nickname: 'Booker',
+                    role: 'MLT',
+                    assignment: 'AUC/Back - Hematek Daily QC, Inventory',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:15a-9:30a | Lunch: 11:30a-12:00p | Break 2: 2:15p-2:30p',
+                    startTime: 7.5
+                }, {
+                    name: 'Emily Creekmore',
+                    nickname: 'Emily',
+                    role: 'MLT',
+                    assignment: 'AUC Front/Processing',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                    startTime: 7.5
+                }, {
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    role: 'MLS',
+                    assignment: 'MOB - SQA Daily, Hematek Daily QC, Previ Gram (Weekly Tuesday)',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    role: 'MLA',
+                    assignment: 'MOB/Novus (MOB) Weekly',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                    startTime: 8
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    role: 'MLT',
+                    assignment: 'AUC/Processing',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:15p-5:30p | Lunch: 7:45p-8:15p | Break 2: 10:15p-10:30p',
+                    startTime: 15.5
+                }, {
+                    name: 'Albert Che',
+                    nickname: 'Albert',
+                    role: 'MLS',
+                    assignment: 'AUC/Hematology, Chemistry, Molecular',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:15p-8:45p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    role: 'MLS',
+                    assignment: 'AUC/Urines, Kits, Stago',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:45p-9:15p | Break 2: 10:45p-11:00p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Boyet',
+                    role: 'MLT',
+                    assignment: 'Night Coverage',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    role: 'MLS',
+                    assignment: 'AUC/Novus (Weekly Tuesday after 3am)',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-08': {
+                phleb: [{
+                    name: 'Christina Bolden-Davis',
+                    nickname: 'Christina',
+                    assignment: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p',
+                    startTime: 6
+                }, {
+                    name: 'Youlana Miah',
+                    nickname: 'Youlana',
+                    assignment: 'Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p',
+                    startTime: 6
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    assignment: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:00a-9:15a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                    startTime: 7
+                }, {
+                    name: 'Anne Saint Phirin',
+                    nickname: 'Anne',
+                    assignment: 'Runner (Processor if Mimi gets pulled)',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Angel Brown',
+                    nickname: 'Angel',
+                    assignment: 'Draw Patients',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:30p-3:45p',
+                    startTime: 8
+                }, {
+                    name: 'Manoucheca Onuma',
+                    nickname: 'Mimi',
+                    assignment: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 3:45p-4:00p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    assignment: 'Draw Patients',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 10:00a-10:15a',
+                    startTime: 8
+                }, {
+                    name: 'Getu Babsa',
+                    nickname: 'Getu',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 1:00p',
+                    breaks: 'Break: 11:15a-11:30a',
+                    startTime: 9
+                }, {
+                    name: 'Raquel Grayson',
+                    nickname: 'Raquel',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 5:30p',
+                    breaks: 'Break 1: 11:00a-11:15a | Lunch: 2:00p-2:30p | Break 2: 4:15p-4:30p',
+                    startTime: 9
+                }, {
+                    name: 'Stephanie Dodson',
+                    nickname: 'Stephanie',
+                    assignment: 'Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 3:30p-3:45p | Lunch: 6:00p-6:30p | Break 2: 8:45p-9:00p',
+                    startTime: 14
+                }, {
+                    name: 'Nichole Fauntleroy',
+                    nickname: 'Nichole',
+                    assignment: 'Processor/Draw Patients',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    assignment: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:15p-4:30p | Lunch: 7:00p-7:30p | Break 2: 8:15p-8:30p',
+                    startTime: 14
+                }, {
+                    name: 'Shannon Pilkington',
+                    nickname: 'Shannon',
+                    assignment: 'Closer',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:30p-4:45p | Lunch: 7:30p-8:00p | Break 2: 9:00p-9:15p',
+                    startTime: 14
+                }],
+                lab: [{
+                    name: 'Maxwell Booker',
+                    nickname: 'Booker',
+                    role: 'MLT',
+                    assignment: 'MOB - Wipe Benches, Clean Microscopes, Pure 1 QC @7:30am (Daily), Kits QC (Daily), Sysmex Startup/QC (Daily), Hematek Startup/QC (Daily), Previ Gram Stain (Daily), SQA Daily, Stago Maint, Beads Maint, Log QC',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    role: 'MLA',
+                    assignment: 'MOB/AUC (dependent on Business Needs) - Wipe Benches, Clean Microscopes, Assist with QC/Maint, SQA Daily, Inventory, Novus Weekly (Wed)',
+                    shift: '12:30p - 9:00p',
+                    breaks: 'Break 1: 2:30p-2:45p | Lunch: 5:00p-5:30p | Break 2: 7:00p-7:15p',
+                    startTime: 12.5
+                }, {
+                    name: 'Emily Creekmore',
+                    nickname: 'Emily',
+                    role: 'MLT',
+                    assignment: 'AUC Back Hematology, Chemistry, Molecular - Wipe Benches, Clean Microscopes, MedTox QC (Daily), Sysmex Startup/QC (Daily), Hematek Startup/QC (Daily), Log QC',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:45a-10:00a | Lunch: 11:30a-12:00p | Break 2: 2:45p-3:00p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ingrid Benitez-Ruiz',
+                    nickname: 'Ingrid',
+                    role: 'MLS',
+                    assignment: 'Lead Duties/AUC - Wipe Benches, Clean Microscopes, Kits QC (Daily), Stago Maint, Log QC',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    role: 'MLT',
+                    assignment: 'AUC/Urines, Kits, Stago - Wipe Benches, Clean Microscopes, Stago Maint, ESR 10% Check QC (Daily), Log QC',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Albert Che',
+                    nickname: 'Albert',
+                    role: 'MLS',
+                    assignment: 'AUC/Processing - Wipe Benches, Clean Microscopes',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:45p-11:00p',
+                    startTime: 15.5
+                }, {
+                    name: 'Samuel Lawson',
+                    nickname: 'Samuel',
+                    role: 'MLS',
+                    assignment: 'AUC/Hematology, Chemistry, Molecular - Wipe Benches, Clean Microscopes, Stago Weekly (Wed 9pm)',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 11:00p-11:15p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Boyet',
+                    role: 'MLT',
+                    assignment: 'Night - Wipe Benches, Clean Microscopes, Pure 2 @3am QC (Daily), MiniSed QC (Daily), GeneXpert QC (Both Weekly Thu), Log QC, Night Coverage',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    role: 'MLS',
+                    assignment: 'Night - Wipe Benches, Clean Microscopes, Stago Maint, Night Coverage, Log QC',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-13': {
+    phleb: [
+        {name: 'Christina Bolden-Davis', nickname: 'Christina', role: 'Opener', shift: '6a-2:30p', assignment: 'Opener - Temp check, clean and stock draw stations', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p', startTime: 6},
+        {name: 'Youlana Miah', nickname: 'Youlana', role: 'Opener', shift: '6a-2:30p', assignment: 'Opener - Temp check, clean and stock draw stations', breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:30a-12:00p | Break 2: 1:15p-1:30p', startTime: 6},
+        {name: 'Johnette Brooks', nickname: 'Netta', role: 'Draw Patients', shift: '7a-3:30p', assignment: 'Draw Patients', breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p', startTime: 7},
+        {name: 'Farah Moise', nickname: 'Farah', role: 'Processor', shift: '8a-4:30p', assignment: 'Dayshift Processor', breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 8},
+        {name: 'Manoucheca Onuma', nickname: 'Mimi', role: 'Runner', shift: '8a-4:30p', assignment: 'Runner', breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p', startTime: 8},
+        {name: 'Anne Saint Phirin', nickname: 'Anne', role: 'Draw Patients', shift: '8a-4:30p', assignment: 'Draw Patients', breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:30p-3:45p', startTime: 8},
+        {name: 'Micaela Scarborough', nickname: 'Micaela', role: 'Runner', shift: '8a-12p', assignment: 'Runner', breaks: 'Break: 10:00a-10:15a', startTime: 8},
+        {name: 'Rudolph Rubio', nickname: 'Rudolph', role: 'Draw Patients', shift: '8a-4:30p', assignment: 'Draw Patients', breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 2:15p-2:30p', startTime: 8},
+        {name: 'Raquel Grayson', nickname: 'Rachel', role: 'Draw Patients', shift: '9a-5:30p', assignment: 'Draw Patients', breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 9},
+        {name: 'Taric White', nickname: 'Taric', role: 'Draw Patients', shift: '9a-1p', assignment: 'Draw Patients', breaks: 'Break: 11:00a-11:15a', startTime: 9},
+        {name: 'Stephanie Dodson', nickname: 'Stephanie', role: 'Closer', shift: '2p-10:30p', assignment: 'Closer', breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p', startTime: 14},
+        {name: 'Nichole Fauntleroy', nickname: 'Nichole', role: 'Processor/Draw', shift: '2p-10:30p', assignment: 'Evening Processor', breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p', startTime: 14},
+        {name: 'Shannon Pilkington', nickname: 'Shannon', role: 'Hot Seat', shift: '2p-10:30p', assignment: 'Hot Seat', breaks: 'Break 1: 4:30p-4:45p | Lunch: 7:30p-8:00p | Break 2: 9:00p-9:15p', startTime: 14},
+        {name: 'Taric White', nickname: 'Taric', role: 'Draw Patients', shift: '5p-9p', assignment: 'Draw Patients (Evening)', breaks: 'Break: 7:00p-7:15p', startTime: 17}
+    ],
+    lab: [
+        {name: 'Lorraine Blackwell', nickname: 'Lorraine', dept: 'MLA', shift: '8a-4:30p', assignment: 'MOB - Urines, Kits QC, TempTrak 9am Backup', breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p', startTime: 8},
+        {name: 'Emily Creekmore', nickname: 'Emily', dept: 'MLT', shift: '7:30a-4p', assignment: 'AUC Back - MedTox QC, Sysmex Startup/QC, Hematek Startup/QC, TempTrak 9am', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+        {name: 'Robel Bahre', nickname: 'Robel', dept: 'MLT', shift: '3:30p-12a', assignment: 'AUC Evening - Processing Support, Stago Maintenance', breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p', startTime: 15.5},
+        {name: 'Francis Azih Ngene', nickname: 'Francis', dept: 'MLS', shift: '7:30a-4p', assignment: 'AUC Front - Processing, Urines, Kits QC, Stago Maintenance', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+        {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid', dept: 'MLS', shift: '7:30a-4p', assignment: 'MOB - Lead Duties, Pure 1 QC, SQA QC, Sysmex XN, Hematek, Previ, Novus, Stago, Beads (FULL SHIFT)', breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p', startTime: 7.5},
+        {name: 'Albert Che', nickname: 'Albert', dept: 'MLS', shift: '3:30p-12a', assignment: 'AUC Front - Processing, Urines, Kits, Stago Maintenance, TempTrak 4pm', breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:30p-9:00p | Break 2: 10:45p-11:00p', startTime: 15.5},
+        {name: 'Samuel Lawson', nickname: 'Samuel', dept: 'MLS', shift: '3:30p-12a', assignment: 'AUC Back - Hematology, Chemistry, Molecular, ESR 10% QC, TempTrak 4pm Backup', breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p', startTime: 15.5},
+        {name: 'George Etape', nickname: 'George', dept: 'MLS', shift: '11:30p-8a', assignment: 'Night - Pure 2 @3am, MiniSed QC, GeneXpert QC, All Stations, TempTrak 12am', breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a', startTime: 23.5},
+        {name: 'Jacqueline Liburd', nickname: 'Jackie', dept: 'MLS', shift: '12a-6:30a', assignment: 'Night Support - All Areas, TempTrak 12am Backup', breaks: 'Break 1: 2:00a-2:15a | Lunch: 3:30a-4:00a', startTime: 0}
+    ]
+},
+'2025-10-14': {
+    phleb: [
+        {name: 'Johnette Brooks', nickname: 'Netta', assignment: 'Draw Patients/Opener', shift: '6:00a - 2:30p', breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p', startTime: 6},
+        {name: 'Farah Moise', nickname: 'Farah', assignment: 'Draw Patients/Opener', shift: '6:00a - 2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p', startTime: 6},
+        {name: 'Marilyn Ortiz', nickname: 'Marilyn', assignment: 'Draw Patients', shift: '8:00a - 3:00p', breaks: 'Break 1: 9:50a-10:05a | Lunch: 12:00p-12:30p | Break 2: 1:45p-2:00p', startTime: 8},
+        {name: 'Micaela Scarborough', nickname: 'Micaela', assignment: 'Draw Patients', shift: '8:00a - 12:00p', breaks: 'Break: 10:05a-10:20a', startTime: 8},
+        {name: 'Anne Saint Phirin', nickname: 'Anne', assignment: 'Processor', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:20a-10:35a | Lunch: 12:30p-1:00p | Break 2: 3:15p-3:30p', startTime: 8},
+        {name: 'Raquel Grayson', nickname: 'Raquel', assignment: 'Draw Patients/Runner', shift: '9:00a - 5:30p', breaks: 'Break 1: 10:50a-11:05a | Lunch: 1:00p-1:30p | Break 2: 3:45p-4:00p', startTime: 9},
+        {name: 'Emmanuella Theodore', nickname: 'Emma', assignment: 'Draw Patients (Backup Processor)', shift: '9:00a - 5:30p', breaks: 'Break 1: 11:05a-11:20a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 9},
+        {name: 'Taric White', nickname: 'Taric', assignment: 'Draw Patients', shift: '9:00a - 1:00p', breaks: 'Break: 11:20a-11:35a', startTime: 9},
+        {name: 'Tamika Nettles', nickname: 'Tamika', assignment: 'Draw Patients', shift: '1:30p - 5:30p', breaks: 'Break: 3:30p-3:45p', startTime: 13.5},
+        {name: 'Nichole Fauntleroy', nickname: 'Nichole', assignment: 'Processor', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:10p-4:25p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p', startTime: 14},
+        {name: 'Danalisa Hayes', nickname: 'Danalisa', assignment: 'Processor', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:25p-4:40p | Lunch: 7:00p-7:30p | Break 2: 9:00p-9:15p', startTime: 14},
+        {name: 'Shannon Pilkington', nickname: 'Shannon', assignment: 'Draw Patients/Closer', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:40p-4:55p | Lunch: 7:30p-8:00p | Break 2: 9:15p-9:30p', startTime: 14},
+        {name: 'Taric White', nickname: 'Taric', assignment: 'Draw Patients/Hot Seat', shift: '5:00p - 9:00p', breaks: 'Break: 6:45p-7:00p', startTime: 17}
+    ],
+    lab: [
+        {name: 'Maxwell Booker', nickname: 'Booker', dept: 'MLT', shift: '7:30a-4p', assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram Stain [DAILY], Previ Gram Stain [WEEKLY-Tue], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:45a-10:00a | Lunch: 11:30a-12:00p | Break 2: 2:45p-3:00p', startTime: 7.5},
+        {name: 'Emily Creekmore', nickname: 'Emily', dept: 'MLT', shift: '7:30a-4p', assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 10:15a-10:30a | Lunch: 12:00p-12:30p | Break 2: 3:00p-3:15p', startTime: 7.5},
+        {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid', dept: 'MLS', shift: '7:30a-4p', assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p', startTime: 7.5},
+        {name: 'Lorraine Blackwell', nickname: 'Lorraine', dept: 'MLA', shift: '8a-4:30p', assignment: 'MOB - Assist with QC/Maint, Inventory, SQA Daily [DAILY], Hematek Daily QC [DAILY], Previ Gram [DAILY], Previ Gram Assist [WEEKLY-Tue], Urines, Kits ONLY (MLA Restriction), Wipe Benches, Clean Microscopes', breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p', startTime: 8},
+        {name: 'Ogheneochuko Eshofa', nickname: 'Tracy', dept: 'MLT', shift: '3:30p-12a', assignment: 'AUC - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:30p-10:45p', startTime: 15.5},
+        {name: 'Lionel Ndifor', nickname: 'Lionel', dept: 'MLT', shift: '3:30p-12a', assignment: 'AUC - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:45p-11:00p', startTime: 15.5},
+        {name: 'Albert Che', nickname: 'Albert', dept: 'MLS', shift: '3:30p-12a', assignment: 'AUC - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 11:00p-11:15p', startTime: 15.5},
+        {name: 'Emmanuel Lejano', nickname: 'Boyet', dept: 'MLT', shift: '9:30p-6a', assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a', startTime: 21.5},
+        {name: 'George Etape', nickname: 'George', dept: 'MLS', shift: '11:30p-8a', assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Novus [WEEKLY-Tue after 3am], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a', startTime: 23.5},
+        {name: 'Jacqueline Liburd', nickname: 'Jackie', dept: 'MLS', shift: '12a-6:30a', assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 2:00a-2:15a | Lunch: 3:30a-4:00a | Break 2: 5:30a-5:45a', startTime: 0}
+    ]
+},
+'2025-10-20': {
+    phleb: [
+        {name: 'Christina Bolden-Davis', nickname: 'Christina', assignment: 'Draw Patients/Opener', shift: '6:00a-2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 10:30a-11:00a | Break 2: 1:00p-1:15p', startTime: 6},
+        {name: 'Farah Moise', nickname: 'Farah', assignment: 'Processor', shift: '7:00a-4:30p', breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p', startTime: 7},
+        {name: 'Manoucheca Onuma', nickname: 'Mimi', assignment: 'Draw Patients/Runner', shift: '8:00a-4:30p', breaks: 'Break 1: 8:30a-8:45a | Lunch: 11:30a-12:00p | Break 2: 1:30p-1:45p', startTime: 8},
+        {name: 'Anne Saint Phirin', nickname: 'Anne', assignment: 'Draw Patients (Backup Processor)', shift: '8:00a-4:30p', breaks: 'Break 1: 8:45a-9:00a | Lunch: 12:00p-12:30p | Break 2: 1:45p-2:00p', startTime: 8},
+        {name: 'Micaela Scarborough', nickname: 'Micaela', assignment: 'Draw Patients/Runner', shift: '8:00a-12:00p', breaks: 'Break: 9:15a-9:30a', startTime: 8},
+        {name: 'Emmanuella Theodore', nickname: 'Emma', assignment: 'Draw Patients/Runner', shift: '9:00a-5:30p', breaks: 'Break 1: 9:00a-9:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p', startTime: 9},
+        {name: 'Stephanie Dodson', nickname: 'Stephanie', assignment: 'Draw Patients/Hot Seat', shift: '2:00p-10:30p', breaks: 'Break 1: 3:30p-3:45p | Lunch: 6:00p-6:30p | Break 2: 8:30p-8:45p', startTime: 14},
+        {name: 'Nichole Fauntleroy', nickname: 'Nichole', assignment: 'Draw Patients/Closer', shift: '2:00p-10:30p', breaks: 'Break 1: 3:45p-4:00p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p', startTime: 14},
+        {name: 'Danalisa Hayes', nickname: 'Danalisa', assignment: 'Processor', shift: '2:00p-10:30p', breaks: 'Break 1: 4:00p-4:15p | Lunch: 7:00p-7:30p | Break 2: 9:00p-9:15p', startTime: 14},
+        {name: 'Shannon Pilkington', nickname: 'Shannon', assignment: 'Draw Patients/Hot Seat', shift: '2:00p-10:30p', breaks: 'Break 1: 4:15p-4:30p | Lunch: 7:30p-8:00p | Break 2: 9:15p-9:30p', startTime: 14},
+        {name: 'Taric White', nickname: 'Taric', assignment: 'Draw Patients/Hot Seat', shift: '5:00p-9:00p', breaks: 'Break: 6:45p-7:00p', startTime: 17}
+    ],
+    lab: [
+        {name: 'Francis Azih Ngene', nickname: 'Francis', dept: 'MLS', shift: '7:30a-4:00p', assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:30a-12:00p | Break 2: 2:00p-2:15p', startTime: 7.5},
+        {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid', dept: 'MLS', shift: '7:30a-4:00p', assignment: 'MOB - Lead Duties, Pure 1 QC @7:30am [DAILY], SQA Daily [DAILY], Hematek Daily QC [DAILY], Previ Gram [DAILY], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:15a-9:30a | Lunch: 12:00p-12:30p | Break 2: 2:15p-2:30p', startTime: 7.5},
+        {name: 'Steeven Brussot', nickname: 'Steeven', dept: 'MLT', shift: '8:00a-4:30p', assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:30p-1:00p | Break 2: 2:30p-2:45p', startTime: 8},
+        {name: 'Philisha Reid', nickname: 'Philisha', dept: 'MLT', shift: '12:30p-9:00p', assignment: 'AUC - Processing, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 2:30p-2:45p | Lunch: 5:30p-6:00p | Break 2: 7:30p-7:45p', startTime: 12.5},
+        {name: 'Ogheneochuko Eshofa', nickname: 'Tracy', dept: 'MLT', shift: '3:30p-12:00a', assignment: 'AUC - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:00p-5:15p | Lunch: 7:45p-8:15p | Break 2: 10:15p-10:30p', startTime: 15.5},
+        {name: 'Samuel Lawson', nickname: 'Samuel', dept: 'MLS', shift: '3:30p-12:00a', assignment: 'AUC - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:15p-5:30p | Lunch: 8:15p-8:45p | Break 2: 10:30p-10:45p', startTime: 15.5},
+        {name: 'George Etape', nickname: 'George', dept: 'MLS', shift: '11:30p-8:00a', assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 1:30a-1:45a | Lunch: 3:45a-4:15a | Break 2: 6:00a-6:15a', startTime: 23.5},
+        {name: 'Jacqueline Liburd', nickname: 'Jackie', dept: 'MLS', shift: '12:00a-6:30a', assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 1:45a-2:00a | Lunch: 4:15a-4:45a', startTime: 0}
+    ]
+},
+'2025-10-09': {
+                phleb: [{
+                    name: 'Christina Bolden-Davis',
+                    nickname: 'Christina',
+                    assignment: 'Draw Patients/Opener',
+                    shift: '6:00a - 2:30p',
+                    breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p',
+                    startTime: 6
+                }, {
+                    name: 'Johnette Brooks',
+                    nickname: 'Netta',
+                    assignment: 'Draw Patients',
+                    shift: '7:00a - 3:30p',
+                    breaks: 'Break 1: 9:50a-10:05a | Lunch: 11:30a-12:00p | Break 2: 1:30p-1:45p',
+                    startTime: 7
+                }, {
+                    name: 'Turi Kena',
+                    nickname: 'Turi',
+                    assignment: 'Draw Patients/Runner',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:35a-10:50a | Lunch: 12:30p-1:00p | Break 2: 3:30p-3:45p',
+                    startTime: 8
+                }, {
+                    name: 'Farah Moise',
+                    nickname: 'Farah',
+                    assignment: 'Processor',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:20a-10:35a | Lunch: 1:00p-1:30p | Break 2: 3:45p-4:00p',
+                    startTime: 8
+                }, {
+                    name: 'Manoucheca Onuma',
+                    nickname: 'Mimi',
+                    assignment: 'Draw Patients/Runner',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:50a-11:05a | Lunch: 1:45p-2:15p | Break 2: 4:00p-4:15p',
+                    startTime: 8
+                }, {
+                    name: 'Anne Saint Phirin',
+                    nickname: 'Anne',
+                    assignment: 'Draw Patients (Backup Processor)',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:05a-10:20a | Lunch: 12:00p-12:30p | Break 2: 3:15p-3:30p',
+                    startTime: 8
+                }, {
+                    name: 'Micaela Scarborough',
+                    nickname: 'Micaela',
+                    assignment: 'Draw Patients',
+                    shift: '8:00a - 12:00p',
+                    breaks: 'Break: 9:50a-10:05a',
+                    startTime: 8
+                }, {
+                    name: 'Getu Babsa',
+                    nickname: 'Getu',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 1:00p',
+                    breaks: 'Break: 11:05a-11:20a',
+                    startTime: 9
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    assignment: 'Draw Patients',
+                    shift: '9:00a - 1:00p',
+                    breaks: 'Break: 11:20a-11:35a',
+                    startTime: 9
+                }, {
+                    name: 'Nichole Fauntleroy',
+                    nickname: 'Nichole',
+                    assignment: 'Draw Patients/Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:10p-4:25p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p',
+                    startTime: 14
+                }, {
+                    name: 'Danalisa Hayes',
+                    nickname: 'Danalisa',
+                    assignment: 'Processor',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:25p-4:40p | Lunch: 7:00p-7:30p | Break 2: 9:00p-9:15p',
+                    startTime: 14
+                }, {
+                    name: 'Brandi Howell',
+                    nickname: 'Brandi',
+                    assignment: 'Draw Patients/Hot Seat',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:40p-4:55p | Lunch: 7:30p-8:00p | Break 2: 9:15p-9:30p',
+                    startTime: 14
+                }, {
+                    name: 'Shannon Pilkington',
+                    nickname: 'Shannon',
+                    assignment: 'Draw Patients/Closer',
+                    shift: '2:00p - 10:30p',
+                    breaks: 'Break 1: 4:55p-5:10p | Lunch: 8:00p-8:30p | Break 2: 9:30p-9:45p',
+                    startTime: 14
+                }, {
+                    name: 'Taric White',
+                    nickname: 'Taric',
+                    assignment: 'Draw Patients/Hot Seat',
+                    shift: '5:00p - 9:00p',
+                    breaks: 'Break: 6:45p-7:00p',
+                    startTime: 17
+                }],
+                lab: [{
+                    name: 'Francis Azih Ngene',
+                    nickname: 'Francis',
+                    role: 'MLS',
+                    assignment: 'AUC/Urines, Kits, Stago - Wipe Benches, Clean Microscopes, Kits QC (Daily), Stago Maint, Log QC',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 9:50a-10:05a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                    startTime: 7.5
+                }, {
+                    name: 'Ingrid Benitez-Ruiz',
+                    nickname: 'Ingrid',
+                    role: 'MLS',
+                    assignment: 'MOB - SQA Daily, Hematek Daily QC, Previ Gram (Daily), Wipe Benches, Clean Microscopes (First 5hrs: 7:30a-12:30p Lead Tech Admin)',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 10:05a-10:20a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                    startTime: 7.5
+                }, {
+                    name: 'Emily Creekmore',
+                    nickname: 'Emily',
+                    role: 'MLT',
+                    assignment: 'AUC/Processing & Hematology, Chemistry, Molecular - Wipe Benches, Clean Microscopes, Sysmex Startup/QC (Daily), Hematek Startup/QC (Daily), MedTox QC (Daily), Log QC',
+                    shift: '7:30a - 4:00p',
+                    breaks: 'Break 1: 10:20a-10:35a | Lunch: 11:30a-12:00p | Break 2: 3:00p-3:15p',
+                    startTime: 7.5
+                }, {
+                    name: 'Lorraine Blackwell',
+                    nickname: 'Lorraine',
+                    role: 'MLA',
+                    assignment: 'MOB - Wipe Benches, Clean Microscopes, Assist with QC/Maint, SQA Daily, Inventory',
+                    shift: '8:00a - 4:30p',
+                    breaks: 'Break 1: 10:35a-10:50a | Lunch: 1:00p-1:30p | Break 2: 3:30p-3:45p',
+                    startTime: 8
+                }, {
+                    name: 'Albert Che',
+                    nickname: 'Albert',
+                    role: 'MLS',
+                    assignment: 'AUC Front - Processing/Urines, Kits, Stago - Wipe Benches, Clean Microscopes, Stago Monthly Maint @ 9pm (10/9)',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:45p-11:00p',
+                    startTime: 15.5
+                }, {
+                    name: 'Ogheneochuko Eshofa',
+                    nickname: 'Tracy',
+                    role: 'MLT',
+                    assignment: 'AUC Back - Hematology, Chemistry, Molecular - Wipe Benches, Clean Microscopes, ESR 10% Check QC (Daily), Log QC',
+                    shift: '3:30p - 12:00a',
+                    breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:30p-10:45p',
+                    startTime: 15.5
+                }, {
+                    name: 'Emmanuel Lejano',
+                    nickname: 'Boyet',
+                    role: 'MLT',
+                    assignment: 'Night Coverage - Wipe Benches, Clean Microscopes, Log QC',
+                    shift: '9:30p - 6:00a',
+                    breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+                    startTime: 21.5
+                }, {
+                    name: 'George Etape',
+                    nickname: 'George',
+                    role: 'MLS',
+                    assignment: 'Night Coverage - Wipe Benches, Clean Microscopes, Pure 2 @3am QC (Daily), MiniSed QC (Daily), GeneXpert QC, Log QC',
+                    shift: '11:30p - 8:00a',
+                    breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a',
+                    startTime: 23.5
+                }]
+            },
+            '2025-10-15': {
+                phleb: [
+                    // DAY SHIFT (6:00am - 5:30pm)
+                    {
+                        name: 'Christina Bolden-Davis',
+                        nickname: 'Christina',
+                        assignment: 'Draw Patients/Opener',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:15a-8:30a | Lunch: 10:30a-11:00a | Break 2: 1:00p-1:15p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Youlana Miah',
+                        nickname: 'Youlana',
+                        assignment: 'Processor',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:30a-8:45a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Johnette Brooks',
+                        nickname: 'Netta',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '7:00a-3:30p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Cheryl Gray',
+                        nickname: 'Cheryl',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:15a-10:30a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Anne Saint Phirin',
+                        nickname: 'Anne',
+                        assignment: 'Draw Patients (Backup Processor)',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Micaela Scarborough',
+                        nickname: 'Micaela',
+                        assignment: 'Draw Patients',
+                        shift: '8:00a-12:00p',
+                        breaks: 'Break 1: 10:00a-10:15a',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Raquel Grayson',
+                        nickname: 'Raquel',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 11:15a-11:30a | Lunch: 1:00p-1:30p | Break 2: 3:45p-4:00p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Emmanuella Theodore',
+                        nickname: 'Emma',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 11:30a-11:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Taric White',
+                        nickname: 'Taric',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-1:00p + 5:00p-9:00p',
+                        breaks: 'AM: Break 1: 10:45a-11:00a | PM: Break 1: 6:45p-7:00p',
+                        startTime: 9
+                    },
+                    // EVENING SHIFT (2:00pm - 10:30pm)
+                    {
+                        name: 'Stephanie Dodson',
+                        nickname: 'Stephanie',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:00p-6:30p | Break 2: 8:30p-8:45p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Nichole Fauntleroy',
+                        nickname: 'Nichole',
+                        assignment: 'Draw Patients/Closer',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Danalisa Hayes',
+                        nickname: 'Danalisa',
+                        assignment: 'Processor',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:30p-4:45p | Lunch: 6:45p-7:15p | Break 2: 9:00p-9:15p',
+                        startTime: 14
+                    }
+                ],
+                lab: [
+                    // DAY SHIFT
+                    {
+                        name: 'Dat Chu',
+                        nickname: 'Dat',
+                        dept: 'MLS',
+                        assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC (Evening: Stago [WEEKLY-Wed Both])',
+                        shift: '7:00a-2:30p + 3:30p-12:00a',
+                        breaks: 'AM: Break 1: 9:15a-9:30a | Lunch: 11:30a-12:00p | PM: Break 1: 6:15p-6:30p | Lunch: 8:30p-9:00p | Break 2: 10:45p-11:00p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Francis Azih Ngene',
+                        nickname: 'Francis',
+                        dept: 'MLS',
+                        assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], MedTox [MONTHLY-3rd Wed], Hematek [MONTHLY-CATCH UP], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Lorraine Blackwell',
+                        nickname: 'Lorraine',
+                        dept: 'MLA',
+                        assignment: 'MOB Support - Assist with QC/Maint, Inventory, SQA Daily [DAILY], Novus [WEEKLY-Wed MOB], Urines, Kits ONLY (MLA Restriction), Wipe Benches, Clean Microscopes',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Steeven Brussot',
+                        nickname: 'Steeven',
+                        dept: 'MLT',
+                        assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram Stain [DAILY], Novus [WEEKLY-Wed MOB], Hematek [MONTHLY-CATCH UP], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:15a-10:30a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                        startTime: 8
+                    },
+                    // EVENING SHIFT
+                    {
+                        name: 'Ogheneochuko Eshofa',
+                        nickname: 'Tracy',
+                        dept: 'MLT',
+                        assignment: 'AUC Evening - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Stago [WEEKLY-Wed Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:45p-6:00p | Lunch: 7:30p-8:00p | Break 2: 10:00p-10:15p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Albert Che',
+                        nickname: 'Albert',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Hematology, Chemistry, Molecular QC, Stago [WEEKLY-Wed Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:00p-8:30p | Break 2: 10:15p-10:30p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Samuel Lawson',
+                        nickname: 'Samuel',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Processing, Stago [WEEKLY-Wed Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:45p-8:15p | Break 2: 10:30p-10:45p',
+                        startTime: 15.5
+                    },
+                    // NIGHT SHIFT
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], GeneXpert [MONTHLY-CATCH UP], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '9:30p-6:00a',
+                        breaks: 'Break 1: 11:30p-11:45p | Lunch: 1:30a-2:00a | Break 2: 4:00a-4:15a',
+                        startTime: 21.5
+                    },
+                    {
+                        name: 'George Etape',
+                        nickname: 'George',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], GeneXpert [MONTHLY-CATCH UP], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+                        startTime: 23.5
+                    }
+                ]
+            },
+            '2025-10-16': {
+                phleb: [
+                    // DAY SHIFT (6:00am - 5:30pm)
+                    {
+                        name: 'Johnette Brooks',
+                        nickname: 'Netta',
+                        assignment: 'Draw Patients/Opener',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Youlana Miah',
+                        nickname: 'Youlana',
+                        assignment: 'Processor',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Farah Moise',
+                        nickname: 'Farah',
+                        assignment: 'Draw Patients (Backup Processor)',
+                        shift: '7:00a-4:30p',
+                        breaks: 'Break 1: 9:15a-9:30a | Lunch: 11:30a-12:00p | Break 2: 2:00p-2:15p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Anne Saint Phirin',
+                        nickname: 'Anne',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 3:00p-3:15p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Micaela Scarborough',
+                        nickname: 'Micaela',
+                        assignment: 'Draw Patients',
+                        shift: '8:00a-12:00p',
+                        breaks: 'Break 1: 10:00a-10:15a',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Getu Babsa',
+                        nickname: 'Getu',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-1:00p',
+                        breaks: 'Break 1: 10:30a-10:45a',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Raquel Grayson',
+                        nickname: 'Raquel',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:00p-1:30p | Break 2: 3:30p-3:45p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Emmanuella Theodore',
+                        nickname: 'Emma',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 11:15a-11:30a | Lunch: 1:30p-2:00p | Break 2: 3:45p-4:00p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Taric White',
+                        nickname: 'Taric',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-1:00p + 5:00p-9:00p',
+                        breaks: 'AM: Break 1: 10:45a-11:00a | PM: Break 1: 6:45p-7:00p',
+                        startTime: 9
+                    },
+                    // EVENING SHIFT (1:30pm - 10:30pm)
+                    {
+                        name: 'Brandi Howell',
+                        nickname: 'Brandi',
+                        assignment: 'Draw Patients',
+                        shift: '1:30p-9:30p',
+                        breaks: 'Break 1: 3:30p-3:45p | Lunch: 5:30p-6:00p | Break 2: 7:45p-8:00p',
+                        startTime: 13.5
+                    },
+                    {
+                        name: 'Stephanie Dodson',
+                        nickname: 'Stephanie',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:00p-6:30p | Break 2: 8:30p-8:45p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Danalisa Hayes',
+                        nickname: 'Danalisa',
+                        assignment: 'Processor',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Shannon Pilkington',
+                        nickname: 'Shannon',
+                        assignment: 'Draw Patients/Closer',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:30p-4:45p | Lunch: 7:00p-7:30p | Break 2: 9:00p-9:15p',
+                        startTime: 14
+                    }
+                ],
+                lab: [
+                    // DAY SHIFT LAB
+                    {
+                        name: 'Maxwell Booker',
+                        nickname: 'Booker',
+                        dept: 'MLT',
+                        assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram Stain [DAILY], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Emily Creekmore',
+                        nickname: 'Emily',
+                        dept: 'MLT',
+                        assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Francis Azih Ngene',
+                        nickname: 'Francis',
+                        dept: 'MLS',
+                        assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Lorraine Blackwell',
+                        nickname: 'Lorraine',
+                        dept: 'MLA',
+                        assignment: 'MOB Support - Assist with QC/Maint, Inventory, SQA Daily [DAILY], Urines, Kits ONLY (MLA Restriction), Wipe Benches, Clean Microscopes',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 8
+                    },
+                    // EVENING SHIFT LAB
+                    {
+                        name: 'Ogheneochuko Eshofa',
+                        nickname: 'Tracy',
+                        dept: 'MLT',
+                        assignment: 'AUC Evening - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:00p-10:15p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Albert Che',
+                        nickname: 'Albert',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:15p-10:30p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Samuel Lawson',
+                        nickname: 'Samuel',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Processing, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p',
+                        startTime: 15.5
+                    },
+                    // NIGHT SHIFT LAB - Thursday has GeneXpert weekly
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], GeneXpert [WEEKLY-Thu Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '9:30p-6:00a',
+                        breaks: 'Break 1: 11:30p-11:45p | Lunch: 1:30a-2:00a | Break 2: 4:00a-4:15a',
+                        startTime: 21.5
+                    },
+                    {
+                        name: 'George Etape',
+                        nickname: 'George',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], GeneXpert [WEEKLY-Thu Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+                        startTime: 23.5
+                    }
+                ]
+            },
+            '2025-10-17': {
+                phleb: [
+                    // DAY SHIFT (6:00am - 5:30pm)
+                    {
+                        name: 'Youlana Miah',
+                        nickname: 'Youlana',
+                        assignment: 'Draw Patients/Opener',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:15a-8:30a | Lunch: 10:30a-11:00a | Break 2: 1:00p-1:15p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Christina Bolden-Davis',
+                        nickname: 'Christina',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:30a-8:45a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Farah Moise',
+                        nickname: 'Farah',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '7:00a-4:30p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:30a-12:00p | Break 2: 1:30p-1:45p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Anne Saint Phirin',
+                        nickname: 'Anne',
+                        assignment: 'Draw Patients (Backup Processor)',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 3:00p-3:15p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Angel Brown',
+                        nickname: 'Angel',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 3:15p-3:30p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Micaela Scarborough',
+                        nickname: 'Micaela',
+                        assignment: 'Draw Patients',
+                        shift: '8:00a-12:00p',
+                        breaks: 'Break 1: 10:15a-10:30a',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Raquel Grayson',
+                        nickname: 'Raquel',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 10:45a-11:00a | Lunch: 12:30p-1:00p | Break 2: 3:30p-3:45p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Emmanuella Theodore',
+                        nickname: 'Emma',
+                        assignment: 'Processor',
+                        shift: '9:00a-5:30p',
+                        breaks: 'Break 1: 11:15a-11:30a | Lunch: 1:00p-1:30p | Break 2: 3:45p-4:00p',
+                        startTime: 9
+                    },
+                    {
+                        name: 'Taric White',
+                        nickname: 'Taric',
+                        assignment: 'Draw Patients',
+                        shift: '9:00a-1:00p',
+                        breaks: 'Break 1: 11:00a-11:15a',
+                        startTime: 9
+                    },
+                    // EVENING SHIFT (2:00pm - 10:30pm)
+                    {
+                        name: 'Nichole Fauntleroy',
+                        nickname: 'Nichole',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:00p-6:30p | Break 2: 8:30p-8:45p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Danalisa Hayes',
+                        nickname: 'Danalisa',
+                        assignment: 'Processor',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Stephanie Dodson',
+                        nickname: 'Stephanie',
+                        assignment: 'Draw Patients/Closer',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:30p-4:45p | Lunch: 7:00p-7:30p | Break 2: 9:00p-9:15p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Shannon Pilkington',
+                        nickname: 'Shannon',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:45p-5:00p | Lunch: 7:30p-8:00p | Break 2: 9:15p-9:30p',
+                        startTime: 14
+                    }
+                ],
+                lab: [
+                    // DAY SHIFT
+                    {
+                        name: 'Emily Creekmore',
+                        nickname: 'Emily',
+                        dept: 'MLT',
+                        assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram Stain [DAILY], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Francis Azih Ngene',
+                        nickname: 'Francis',
+                        dept: 'MLS',
+                        assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Ingrid Benitez-Ruiz',
+                        nickname: 'Ingrid',
+                        dept: 'MLS',
+                        assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Lorraine Blackwell',
+                        nickname: 'Lorraine',
+                        dept: 'MLA',
+                        assignment: 'MOB Support - Assist with QC/Maint, Inventory, SQA Daily [DAILY], Urines, Kits ONLY (MLA Restriction), Wipe Benches, Clean Microscopes',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 10:15a-10:30a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+                        startTime: 8
+                    },
+                    // EVENING SHIFT
+                    {
+                        name: 'Samuel Lawson',
+                        nickname: 'Samuel',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Processing/Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:15p-10:30p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Albert Che',
+                        nickname: 'Albert',
+                        dept: 'MLS',
+                        assignment: 'AUC Evening - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p',
+                        startTime: 15.5
+                    },
+                    // NIGHT SHIFT
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '9:30p-6:00a',
+                        breaks: 'Break 1: 11:30p-11:45p | Lunch: 1:30a-2:00a | Break 2: 4:00a-4:15a',
+                        startTime: 21.5
+                    },
+                    {
+                        name: 'George Etape',
+                        nickname: 'George',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+                        startTime: 23.5
+                    },
+                    {
+                        name: 'Jacqueline Liburd',
+                        nickname: 'Jackie',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 1:15a-1:30a | Lunch: 3:30a-4:00a | Break 2: 5:45a-6:00a',
+                        startTime: 23.5
+                    }
+                ]
+            },
+            '2025-10-18': {
+                phleb: [
+                    // DAY SHIFT (6:00am - 5:00pm)
+                    {
+                        name: 'Christina Bolden-Davis',
+                        nickname: 'Christina',
+                        assignment: 'Draw Patients/Opener',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:00a-8:15a | Lunch: 10:30a-11:00a | Break 2: 1:45p-2:00p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Johnette Brooks',
+                        nickname: 'Netta',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '7:00a-3:30p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Emmanuella Theodore',
+                        nickname: 'Emma',
+                        assignment: 'Processor',
+                        shift: '7:00a-3:30p',
+                        breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:30a-12:00p | Break 2: 1:15p-1:30p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Anne Saint Phirin',
+                        nickname: 'Anne',
+                        assignment: 'Draw Patients (Backup Processor)',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 8:30a-8:45a | Lunch: 12:00p-12:30p | Break 2: 1:30p-1:45p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Angel Brown',
+                        nickname: 'Angel',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 8:45a-9:00a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p',
+                        startTime: 8
+                    },
+                    // EVENING SHIFT (2:00pm - 10:30pm)
+                    {
+                        name: 'Nichole Fauntleroy',
+                        nickname: 'Nichole',
+                        assignment: 'Processor',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:00p-6:30p | Break 2: 8:00p-8:15p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Temica Watson',
+                        nickname: 'Temica',
+                        assignment: 'Draw Patients/Closer',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Taric White',
+                        nickname: 'Taric',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '5:00p-9:00p',
+                        breaks: 'Break 1: 7:00p-7:15p',
+                        startTime: 17
+                    }
+                ],
+                lab: [
+                    // DAY SHIFT
+                    {
+                        name: 'Emily Creekmore',
+                        nickname: 'Emily',
+                        dept: 'MLT',
+                        assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Hematek [WEEKLY-Sat Both], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:30a-9:45a | Lunch: 11:30a-12:00p | Break 2: 2:30p-2:45p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Ingrid Benitez-Ruiz',
+                        nickname: 'Ingrid',
+                        dept: 'MLS',
+                        assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Hematek [WEEKLY-Sat Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:00p-12:30p | Break 2: 2:45p-3:00p',
+                        startTime: 7.5
+                    },
+                    // EVENING SHIFT
+                    {
+                        name: 'Lionel Ndifor',
+                        nickname: 'Lionel',
+                        dept: 'MLT',
+                        assignment: 'AUC - Processing/Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Sysmex XN Shutdown [WEEKLY-Sat 9pm AUC, 10pm MOB], Pure 1 [BIWEEKLY-10/18 10pm MOB], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:00p-10:15p',
+                        startTime: 15.5
+                    },
+                    {
+                        name: 'Albert Che',
+                        nickname: 'Albert',
+                        dept: 'MLS',
+                        assignment: 'AUC - Hematology, Chemistry, Molecular QC, Sysmex XN Shutdown [WEEKLY-Sat 9pm AUC, 10pm MOB], Pure 1 [BIWEEKLY-10/18 10pm MOB], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:15p-10:30p',
+                        startTime: 15.5
+                    },
+                    // NIGHT SHIFT
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '9:30p-6:00a',
+                        breaks: 'Break 1: 11:30p-11:45p | Lunch: 1:30a-2:00a | Break 2: 4:00a-4:15a',
+                        startTime: 21.5
+                    },
+                    {
+                        name: 'Jacqueline Liburd',
+                        nickname: 'Jackie',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+                        startTime: 23.5
+                    }
+                ]
+            },
+            '2025-10-19': {
+                phleb: [
+                    // DAY SHIFT (6:00am - 4:30pm)
+                    {
+                        name: 'Christina Bolden-Davis',
+                        nickname: 'Christina',
+                        assignment: 'Draw Patients/Opener',
+                        shift: '6:00a-2:30p',
+                        breaks: 'Break 1: 8:00a-8:15a | Lunch: 10:30a-11:00a | Break 2: 1:45p-2:00p',
+                        startTime: 6
+                    },
+                    {
+                        name: 'Emmanuella Theodore',
+                        nickname: 'Emma',
+                        assignment: 'Processor',
+                        shift: '7:00a-3:30p',
+                        breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:30a-12:00p | Break 2: 1:30p-1:45p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Johnette Brooks',
+                        nickname: 'Netta',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '7:00a-3:30p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
+                        startTime: 7
+                    },
+                    {
+                        name: 'Anne Saint Phirin',
+                        nickname: 'Anne',
+                        assignment: 'Draw Patients (Backup Processor)',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 8:30a-8:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p',
+                        startTime: 8
+                    },
+                    {
+                        name: 'Manoucheca Onuma',
+                        nickname: 'Mimi',
+                        assignment: 'Draw Patients/Runner',
+                        shift: '8:00a-4:30p',
+                        breaks: 'Break 1: 8:45a-9:00a | Lunch: 12:30p-1:00p | Break 2: 2:15p-2:30p',
+                        startTime: 8
+                    },
+                    // EVENING SHIFT (2:00pm - 10:30pm)
+                    {
+                        name: 'Nichole Fauntleroy',
+                        nickname: 'Nichole',
+                        assignment: 'Processor',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 3:00p-3:15p | Lunch: 6:00p-6:30p | Break 2: 8:30p-8:45p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Temica Watson',
+                        nickname: 'Temica',
+                        assignment: 'Draw Patients/Closer',
+                        shift: '2:00p-10:30p',
+                        breaks: 'Break 1: 3:15p-3:30p | Lunch: 6:30p-7:00p | Break 2: 8:45p-9:00p',
+                        startTime: 14
+                    },
+                    {
+                        name: 'Taric White',
+                        nickname: 'Taric',
+                        assignment: 'Draw Patients/Hot Seat',
+                        shift: '5:00p-9:00p',
+                        breaks: 'Break: 6:45p-7:00p',
+                        startTime: 17
+                    }
+                ],
+                lab: [
+                    // DAY SHIFT
+                    {
+                        name: 'Emily Creekmore',
+                        nickname: 'Emily',
+                        dept: 'MLT',
+                        assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Hematek [WEEKLY-Sat Both], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 2:00p-2:15p',
+                        startTime: 7.5
+                    },
+                    {
+                        name: 'Ingrid Benitez-Ruiz',
+                        nickname: 'Ingrid',
+                        dept: 'MLS',
+                        assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Hematek [WEEKLY-Sat Both], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '7:30a-4:00p',
+                        breaks: 'Break 1: 9:15a-9:30a | Lunch: 11:30a-12:00p | Break 2: 2:15p-2:30p',
+                        startTime: 7.5
+                    },
+                    // EVENING SHIFT (includes split shift for Boyet)
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC - Processing, Sysmex XN Shutdown [WEEKLY-Sat 9pm AUC], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:00p-11:30p',
+                        breaks: 'Break 1: 4:00p-4:15p | Lunch: 7:00p-7:30p | Break 2: 9:30p-9:45p',
+                        startTime: 15
+                    },
+                    {
+                        name: 'Albert Che',
+                        nickname: 'Albert',
+                        dept: 'MLS',
+                        assignment: 'AUC - Hematology, Chemistry, Molecular QC, Sysmex XN Shutdown [WEEKLY-Sat 9pm AUC], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '3:30p-12:00a',
+                        breaks: 'Break 1: 4:15p-4:30p | Lunch: 7:30p-8:00p | Break 2: 9:45p-10:00p',
+                        startTime: 15.5
+                    },
+                    // NIGHT SHIFT
+                    {
+                        name: 'Emmanuel Lejano',
+                        nickname: 'Boyet',
+                        dept: 'MLT',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '9:30p-6:00a',
+                        breaks: 'Break 1: 12:00a-12:15a | Break 2: 4:00a-4:30a',
+                        startTime: 21.5
+                    },
+                    {
+                        name: 'George Etape',
+                        nickname: 'George',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Pure Analyzers Both [MONTHLY-3rd Sat 3am], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 12:15a-12:30a | Break 2: 4:30a-5:00a | Break 3: 6:30a-6:45a',
+                        startTime: 23.5
+                    },
+                    {
+                        name: 'Jacqueline Liburd',
+                        nickname: 'Jackie',
+                        dept: 'MLS',
+                        assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                        shift: '11:30p-8:00a',
+                        breaks: 'Break 1: 12:30a-12:45a | Break 2: 5:00a-5:30a',
+                        startTime: 23.5
+                    }
+                ]
+            },
+            '2025-10-21': {
+                phleb: [
+                    {name: 'Youlana Miah', nickname: 'Youlana', assignment: 'Draw Patients/Opener', shift: '6:00a-2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 10:30a-11:00a | Break 2: 1:00p-1:15p', startTime: 6},
+                    {name: 'Farah Moise', nickname: 'Farah', assignment: 'Processor', shift: '7:00a-4:30p', breaks: 'Break 1: 8:15a-8:30a | Lunch: 11:00a-11:30a | Break 2: 1:15p-1:30p', startTime: 7},
+                    {name: 'Micaela Scarborough', nickname: 'Micaela', assignment: 'Draw Patients/Processing Training', shift: '7:00a-12:00p', breaks: 'Break: 9:00a-9:15a', startTime: 7},
+                    {name: 'Getu Babsa', nickname: 'Getu', assignment: 'Draw Patients', shift: '9:00a-1:00p', breaks: 'Break: 10:00a-10:15a', startTime: 9},
+                    {name: 'Emmanuella Theodore', nickname: 'Emma', assignment: 'Draw Patients (Backup Processor)', shift: '9:00a-5:30p', breaks: 'Break 1: 9:15a-9:30a | Lunch: 11:30a-12:00p | Break 2: 1:30p-1:45p', startTime: 9},
+                    {name: 'Tamika Nettles', nickname: 'Tamika', assignment: 'Draw Patients/Runner', shift: '9:00a-5:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 1:45p-2:00p', startTime: 9},
+                    {name: 'Anitra Baylor', nickname: 'Anitra', assignment: 'Draw Patients', shift: '9:00a-5:30p', breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p', startTime: 9},
+                    {name: 'Taric White', nickname: 'Taric', assignment: 'Draw Patients', shift: '9:00a-1:00p', breaks: 'Break: 10:15a-10:30a', startTime: 9},
+                    {name: 'Danalisa Hayes', nickname: 'Danalisa', assignment: 'Processor', shift: '2:00p-10:30p', breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p', startTime: 14},
+                    {name: 'Stephanie Dodson', nickname: 'Stephanie', assignment: 'Draw Patients/Hot Seat', shift: '2:00p-10:30p', breaks: 'Break 1: 4:15p-4:30p | Lunch: 7:00p-7:30p | Break 2: 8:45p-9:00p', startTime: 14},
+                    {name: 'Shannon Pilkington', nickname: 'Shannon', assignment: 'Draw Patients/Closer', shift: '2:00p-10:30p', breaks: 'Break 1: 4:30p-4:45p | Lunch: 7:30p-8:00p | Break 2: 9:00p-9:15p', startTime: 14},
+                    {name: 'Taric White', nickname: 'Taric', assignment: 'Draw Patients/Hot Seat', shift: '5:00p-9:00p', breaks: 'Break: 6:45p-7:00p', startTime: 17}
+                ],
+                lab: [
+                    {name: 'Francis Azih Ngene', nickname: 'Francis', dept: 'MLS', shift: '7:30a-4:00p', assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:30a-12:00p | Break 2: 2:00p-2:15p', startTime: 7.5},
+                    {name: 'Maxwell Booker', nickname: 'Booker', dept: 'MLT', shift: '7:30a-4:00p', assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Inventory [TUESDAY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:15a-9:30a | Lunch: 12:00p-12:30p | Break 2: 2:15p-2:30p', startTime: 7.5},
+                    {name: 'Emily Creekmore', nickname: 'Emily', dept: 'MLT', shift: '7:30a-4:00p', assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram [DAILY], Stago Maint, Beads Maint, Inventory [TUESDAY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:30p-1:00p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Lorraine Blackwell', nickname: 'Lorraine', dept: 'MLA', shift: '8:00a-4:30p', assignment: 'MOB - Assist with QC/Maint, Inventory, SQA Daily [DAILY], Hematek Daily QC [DAILY], Previ Gram [DAILY], Urines, Kits ONLY (MLA Restriction), Wipe Benches, Clean Microscopes', breaks: 'Break 1: 9:45a-10:00a | Lunch: 1:00p-1:30p | Break 2: 2:45p-3:00p', startTime: 8},
+                    {name: 'Ogheneochuko Eshofa', nickname: 'Tracy', dept: 'MLT', shift: '3:30p-12:00a', assignment: 'AUC - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:00p-5:15p | Lunch: 7:45p-8:15p | Break 2: 10:15p-10:30p', startTime: 15.5},
+                    {name: 'Albert Che', nickname: 'Albert', dept: 'MLS', shift: '3:30p-12:00a', assignment: 'AUC - Hematology, Chemistry, Molecular QC, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:15p-5:30p | Lunch: 8:15p-8:45p | Break 2: 10:30p-10:45p', startTime: 15.5},
+                    {name: 'Samuel Lawson', nickname: 'Samuel', dept: 'MLS', shift: '3:30p-12:00a', assignment: 'AUC - Processing, Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:45p-9:15p | Break 2: 10:45p-11:00p', startTime: 15.5},
+                    {name: 'Emmanuel Lejano', nickname: 'Boyet', dept: 'MLT', shift: '9:30p-6:00a', assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a', startTime: 21.5},
+                    {name: 'George Etape', nickname: 'George', dept: 'MLS', shift: '11:30p-8:00a', assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 1:30a-1:45a | Lunch: 3:45a-4:15a | Break 2: 6:00a-6:15a', startTime: 23.5},
+                    {name: 'Jacqueline Liburd', nickname: 'Jackie', dept: 'MLS', shift: '12:00a-6:30a', assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC', breaks: 'Break 1: 1:45a-2:00a | Lunch: 4:15a-4:45a', startTime: 0}
+                ]
+            }
+        };
+// ==========================================
+// SCHEDULE SYNCHRONIZATION SYSTEM
+// Auto-syncs to Visual Coverage & Call Out Tracker
+// ==========================================
+const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHEDULE:'visualScheduleData',CALLOUT_SCHEDULE:'callOutScheduleData',LAST_SYNC:'lastScheduleSync'},convertToVisualFormat(e){const t={};return Object.keys(e).forEach(a=>{const l=e[a],s={MLA:[],MLT:[],MLS:[],PHLEB:[]};l.lab&&l.lab.forEach(e=>{const t=e.dept||"MLS";s[t].push({name:e.nickname||e.name,fullName:e.name,role:e.assignment||e.role||t,shifts:[this.parseShift(e.shift,e.breaks)],startTime:e.startTime})}),l.phleb&&l.phleb.forEach(e=>{s.PHLEB.push({name:e.nickname||e.name,fullName:e.name,role:e.assignment||e.role||"PHLEB",shifts:[this.parseShift(e.shift,e.breaks)],startTime:e.startTime})}),t[a]=s}),t},convertToCallOutFormat(e){const t={};return Object.keys(e).forEach(a=>{const l=e[a],s=[];l.lab&&l.lab.forEach(e=>{s.push({name:e.name,nickname:e.nickname||e.name,dept:e.dept||"MLS",shift:e.shift,role:e.assignment||e.role||e.dept,breaks:e.breaks,startTime:e.startTime,shiftHours:this.parseShiftHours(e.shift,e.breaks)})}),l.phleb&&l.phleb.forEach(e=>{s.push({name:e.name,nickname:e.nickname||e.name,dept:"PHLEB",shift:e.shift,role:e.assignment||e.role||"PHLEB",breaks:e.breaks,startTime:e.startTime,shiftHours:this.parseShiftHours(e.shift,e.breaks)})}),t[a]={staff:s,totalStaff:s.length}}),t},parseShift(e,t){const a={start:0,end:24,breaks:[],lunch:null},l=e.match(/(\d+):?(\d+)?(a|p)-(\d+):?(\d+)?(a|p)/);if(l){let e=parseInt(l[1]);const t=parseInt(l[2]||0),s=l[3];let r=parseInt(l[4]);const n=parseInt(l[5]||0),i=l[6];"p"===s&&12!==e&&(e+=12),"a"===s&&12===e&&(e=0),"p"===i&&12!==r&&(r+=12),"a"===i&&12===r&&(r=0),a.start=e+t/60,a.end=r+n/60}if(t){t.split("|").forEach(e=>{const t=e.trim().match(/(\d+):(\d+)(a|p)-(\d+):(\d+)(a|p)/);if(t){let e=parseInt(t[1]);const l=parseInt(t[2]),s=t[3];let r=parseInt(t[4]);const n=parseInt(t[5]),i=t[6];"p"===s&&12!==e&&(e+=12),"a"===s&&12===e&&(e=0),"p"===i&&12!==r&&(r+=12),"a"===i&&12===r&&(r=0);const c={start:e+l/60,end:r+n/60};t[0].toLowerCase().includes("lunch")?a.lunch=c:a.breaks.push(c)}})}return a},parseShiftHours(e,t){const a=new Array(24).fill("scheduled"),l=this.parseShift(e,t);for(let e=0;e<24;e++)if(e<l.start||e>=l.end)a[e]=null;else{let t=!1;l.breaks.forEach(l=>{e>=Math.floor(l.start)&&e<Math.ceil(l.end)&&(a[e]="break",t=!0)}),!t&&l.lunch&&e>=Math.floor(l.lunch.start)&&e<Math.ceil(l.lunch.end)&&(a[e]="lunch")}return a},syncFromDailySchedule(e){try{localStorage.setItem(this.STORAGE_KEYS.DAILY_SCHEDULE,JSON.stringify(e));const t=this.convertToVisualFormat(e);localStorage.setItem(this.STORAGE_KEYS.VISUAL_SCHEDULE,JSON.stringify(t));const a=this.convertToCallOutFormat(e);return localStorage.setItem(this.STORAGE_KEYS.CALLOUT_SCHEDULE,JSON.stringify(a)),localStorage.setItem(this.STORAGE_KEYS.LAST_SYNC,(new Date).toISOString()),console.log("✅ Schedule data synced successfully across all pages"),!0}catch(e){return console.error("❌ Error syncing schedule data:",e),!1}}};document.addEventListener("DOMContentLoaded",(function(){ScheduleSync.syncFromDailySchedule(scheduleData)}));
+
+
+        let callOuts = JSON.parse(localStorage.getItem('labCallOuts') || '{}');
+        let floaters = JSON.parse(localStorage.getItem('labFloaters') || '{}');
+        let currentDate = new Date();
+
+        // Load uploaded schedule data from Schedule Manager
+        const uploadedScheduleData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+
+        // DEBUG: Log what we found
+        console.log('🔍 [Daily Schedule] Checking localStorage...');
+        console.log('📦 [Daily Schedule] localStorage keys:', Object.keys(localStorage));
+        console.log('📊 [Daily Schedule] dailyScheduleData:', uploadedScheduleData);
+        console.log('📅 [Daily Schedule] Dates found:', Object.keys(uploadedScheduleData));
+
+        // Merge uploaded data with existing scheduleData
+        let mergedCount = 0;
+        Object.keys(uploadedScheduleData).forEach(date => {
+            scheduleData[date] = uploadedScheduleData[date];
+            mergedCount++;
+            console.log(`✅ [Daily Schedule] Merged data for ${date}`);
+        });
+
+        if (mergedCount > 0) {
+            console.log(`✅ [Daily Schedule] Successfully merged ${mergedCount} date(s) from localStorage`);
+            // Show upload status indicator
+            const statusEl = document.getElementById('uploadStatus');
+            if (statusEl) {
+                statusEl.style.display = 'block';
+            }
+        } else {
+            console.log('⚠️ [Daily Schedule] No uploaded data found in localStorage');
+        }
+
+        function renderTables() {
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+
+            // Auto-generate schedule if missing using ScheduleManager
+            let data = scheduleData[dateStr];
+            if (!data && typeof largoScheduleManager !== 'undefined') {
+                console.log(`🔄 [Daily Schedule] Auto-generating schedule for ${dateStr}...`);
+                data = largoScheduleManager.getSchedule(dateStr);
+                scheduleData[dateStr] = data;
+                // Sync to other pages
+                if (typeof ScheduleSync !== 'undefined') {
+                    ScheduleSync.syncFromDailySchedule(scheduleData);
+                }
+            }
+
+            console.log(`📆 [Daily Schedule] Rendering for date: ${dateStr}`);
+            console.log(`📊 [Daily Schedule] Data found:`, data ? 'YES' : 'NO');
+            if (data) {
+                console.log(`👥 [Daily Schedule] Phleb staff:`, data.phleb ? data.phleb.length : 'N/A');
+                console.log(`🔬 [Daily Schedule] Lab staff:`, data.lab ? data.lab.length : 'N/A');
+            }
+
+            // Update section headers with date
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+            document.getElementById('phlebSection').innerHTML = `<h2>Phlebotomy Staff - ${formattedDate}</h2>`;
+            document.getElementById('labSection').innerHTML = `<h2>Laboratory Technicians - ${formattedDate}</h2><p style="font-size: 9pt; color: #666; margin-top: 5px; font-style: italic;">Both = MOB/AUC</p>`;
+
+            if (!data) {
+                console.log(`❌ [Daily Schedule] No data for ${dateStr}`);
+                console.log(`📅 [Daily Schedule] Available dates:`, Object.keys(scheduleData));
+                document.getElementById('phlebTable').innerHTML = '<tbody><tr><td>No data</td></tr></tbody>';
+                document.getElementById('labTable').innerHTML = '<tbody><tr><td>No data</td></tr></tbody>';
+                return;
+            }
+
+            let phlebHtml = '<thead><tr><th>Name</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th></tr></thead><tbody>';
+            data.phleb.forEach(s => {
+                const key = `${dateStr}-${s.name}`;
+                const status = callOuts[key] ? '🚫 CALLED OUT' : '✓ Scheduled';
+                phlebHtml += `<tr class="dept-phleb">
+                    <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
+                    <td>${s.assignment}</td>
+                    <td>${s.shift}</td>
+                    <td style="font-size:9pt;">${s.breaks}</td>
+                    <td>${status}</td>
+                </tr>`;
+            });
+            phlebHtml += '</tbody>';
+            document.getElementById('phlebTable').innerHTML = phlebHtml;
+
+            // Reorganize lab techs by shift: day (before 3:30pm), evening (3:30pm), night (9:30pm and later)
+            const dayShift = data.lab.filter(s => s.startTime < 15.5).sort((a, b) => a.startTime - b.startTime);
+            const eveningShift = data.lab.filter(s => s.startTime >= 15.5 && s.startTime < 21.5).sort((a, b) => a.startTime - b.startTime);
+            const nightShift = data.lab.filter(s => s.startTime >= 21.5).sort((a, b) => a.startTime - b.startTime);
+            const sortedLab = [...dayShift, ...eveningShift, ...nightShift];
+
+            let labHtml = '<thead><tr><th>Name</th><th>Role</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th></tr></thead><tbody>';
+            sortedLab.forEach(s => {
+                const key = `${dateStr}-${s.name}`;
+                const status = callOuts[key] ? '🚫 CALLED OUT' : '✓ Scheduled';
+                labHtml += `<tr class="dept-${s.dept.toLowerCase()}">
+                    <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
+                    <td><strong>${s.dept}</strong></td>
+                    <td>${s.assignment}</td>
+                    <td>${s.shift}</td>
+                    <td style="font-size:9pt;">${s.breaks}</td>
+                    <td>${status}</td>
+                </tr>`;
+            });
+            labHtml += '</tbody>';
+            document.getElementById('labTable').innerHTML = labHtml;
+
+            updateNotes();
+        }
+
+        function updateNotes() {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const notesList = document.getElementById('notesList');
+            const notesSection = document.getElementById('notesSection');
+            let html = '';
+            let hasNotes = false;
+
+            Object.entries(callOuts).forEach(([key, data]) => {
+                if (data.date === dateStr) {
+                    hasNotes = true;
+                    html += `<div class="note-item note-callout"><strong>CALL-OUT:</strong> ${data.staff}${data.reason ? ' - ' + data.reason : ''}</div>`;
+                }
+            });
+
+            Object.entries(floaters).forEach(([key, data]) => {
+                if (data.date === dateStr) {
+                    hasNotes = true;
+                    html += `<div class="note-item note-floater"><strong>FLOATER:</strong> ${data.name} (${data.role}) - ${data.shifts}</div>`;
+                }
+            });
+
+            notesList.innerHTML = html;
+            notesSection.style.display = hasNotes ? 'block' : 'none';
+        }
+
+        function updateDisplay() {
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById('dateBanner').textContent = currentDate.toLocaleDateString('en-US', options);
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            document.getElementById('datePicker').value = `${year}-${month}-${day}`;
+            renderTables();
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDisplay();
+        }
+
+        function setDate() {
+            const val = document.getElementById('datePicker').value;
+            if (val) {
+                const parts = val.split('-');
+                currentDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                updateDisplay();
+            }
+        }
+
+        function showCallOutModal() {
+            const staff = prompt('Enter staff member name:');
+            if (!staff) return;
+            const reason = prompt('Reason (optional):');
+            const dateStr = currentDate.toISOString().split('T')[0];
+            callOuts[`${dateStr}-${staff}`] = {
+                staff,
+                reason,
+                date: dateStr
+            };
+            localStorage.setItem('labCallOuts', JSON.stringify(callOuts));
+            renderTables();
+        }
+
+        function showFloaterModal() {
+            const name = prompt('Floater name:');
+            if (!name) return;
+            const role = prompt('Role (MLA/MLT/MT/PHLEB):');
+            const shifts = prompt('Shift time:');
+            const dateStr = currentDate.toISOString().split('T')[0];
+            floaters[`${dateStr}-${name}`] = {
+                name,
+                role,
+                shifts,
+                date: dateStr
+            };
+            localStorage.setItem('labFloaters', JSON.stringify(floaters));
+            renderTables();
+        }
+
+        function clearAll() {
+            if (confirm('Clear all modifications?')) {
+                callOuts = {};
+                floaters = {};
+                localStorage.removeItem('labCallOuts');
+                localStorage.removeItem('labFloaters');
+                renderTables();
+            }
+        }
+
+        function clearLocalStorage() {
+            if (confirm('Clear cached schedule data? This will remove any uploaded schedules from Schedule Manager and show the default schedule data.\n\nThis action will reload the page.')) {
+                console.log('🗑️ Clearing localStorage schedule data...');
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                localStorage.removeItem('lastScheduleSync');
+                console.log('✅ Cache cleared successfully');
+                alert('Cache cleared! The page will now reload to show the default schedule.');
+                location.reload();
+            }
+        }
+
+        updateDisplay();
+
+        // Update last modified date
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastUpdatedEl = document.querySelector('[data-last-updated]');
+            if (!lastUpdatedEl) {
+                return;
+            }
+
+            const sourceDate = document.lastModified ? new Date(document.lastModified) : new Date();
+            if (Number.isNaN(sourceDate.getTime())) {
+                lastUpdatedEl.textContent = 'Unavailable';
+                return;
+            }
+
+            const formattedDate = new Intl.DateTimeFormat('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            }).format(sourceDate);
+
+            lastUpdatedEl.textContent = formattedDate;
+            lastUpdatedEl.setAttribute('datetime', sourceDate.toISOString().split('T')[0]);
+        });
+    </script>
+</body>
+
+</html>

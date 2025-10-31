@@ -1,0 +1,738 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "triggers": {
+      "When_a_message_is_posted_in_Lab_Alerts": {
+        "type": "ApiConnectionWebhook",
+        "inputs": {
+          "host": {
+            "connection": {
+              "name": "@parameters('$connections')['teams']['connectionId']"
+            }
+          },
+          "body": {
+            "notificationUrl": "@{listCallbackUrl()}"
+          },
+          "path": "/flowbot/actions/flowcontinuation/recipienttypes/channel",
+          "queries": {
+            "groupId": "YOUR_TEAM_ID_HERE",
+            "channelId": "YOUR_LAB_ALERTS_CHANNEL_ID_HERE"
+          }
+        },
+        "description": "Triggers when message posted in Lab Alerts channel - KAISER INTERNAL ONLY"
+      }
+    },
+    "actions": {
+      "Initialize_Variables": {
+        "runAfter": {},
+        "type": "Scope",
+        "actions": {
+          "Initialize_Message_Content": {
+            "runAfter": {},
+            "type": "InitializeVariable",
+            "inputs": {
+              "variables": [
+                {
+                  "name": "MessageContent",
+                  "type": "string",
+                  "value": "@triggerBody()?['plainTextContent']"
+                }
+              ]
+            }
+          },
+          "Initialize_Priority": {
+            "runAfter": {
+              "Initialize_Message_Content": [
+                "Succeeded"
+              ]
+            },
+            "type": "InitializeVariable",
+            "inputs": {
+              "variables": [
+                {
+                  "name": "Priority",
+                  "type": "string",
+                  "value": "P2"
+                }
+              ]
+            }
+          },
+          "Initialize_Department": {
+            "runAfter": {
+              "Initialize_Priority": [
+                "Succeeded"
+              ]
+            },
+            "type": "InitializeVariable",
+            "inputs": {
+              "variables": [
+                {
+                  "name": "Department",
+                  "type": "string",
+                  "value": "General Lab"
+                }
+              ]
+            }
+          },
+          "Initialize_IncidentID": {
+            "runAfter": {
+              "Initialize_Department": [
+                "Succeeded"
+              ]
+            },
+            "type": "InitializeVariable",
+            "inputs": {
+              "variables": [
+                {
+                  "name": "IncidentID",
+                  "type": "string",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "Initialize_SLAMinutes": {
+            "runAfter": {
+              "Initialize_IncidentID": [
+                "Succeeded"
+              ]
+            },
+            "type": "InitializeVariable",
+            "inputs": {
+              "variables": [
+                {
+                  "name": "SLAMinutes",
+                  "type": "integer",
+                  "value": 240
+                }
+              ]
+            }
+          }
+        },
+        "description": "Initialize all workflow variables"
+      },
+      "Check_Lab_Keywords": {
+        "runAfter": {
+          "Initialize_Variables": [
+            "Succeeded"
+          ]
+        },
+        "type": "Condition",
+        "expression": {
+          "or": [
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "stat"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "critical"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "urgent"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "emergency"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "analyzer"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "chemistry"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "hematology"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "microbiology"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "blood bank"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "error"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "failure"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "down"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "patient"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "specimen"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "sample"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "instrument"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "quality"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "glucose"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "troponin"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "cbc"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "culture"
+              ]
+            },
+            {
+              "contains": [
+                "@toLower(variables('MessageContent'))",
+                "crossmatch"
+              ]
+            }
+          ]
+        },
+        "actions": {
+          "Process_Incident": {
+            "runAfter": {},
+            "type": "Scope",
+            "actions": {
+              "Determine_Priority": {
+                "runAfter": {},
+                "type": "Condition",
+                "expression": {
+                  "or": [
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "critical"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "emergency"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "stat"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "down"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "failure"
+                      ]
+                    }
+                  ]
+                },
+                "actions": {
+                  "Set_P0_Critical": {
+                    "runAfter": {},
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "Priority",
+                      "value": "P0"
+                    }
+                  },
+                  "Set_SLA_15_Min": {
+                    "runAfter": {
+                      "Set_P0_Critical": [
+                        "Succeeded"
+                      ]
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "SLAMinutes",
+                      "value": 15
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "Check_P1_Keywords": {
+                      "runAfter": {},
+                      "type": "Condition",
+                      "expression": {
+                        "or": [
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "urgent"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "error"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "analyzer"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "instrument"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Set_P1_High": {
+                          "runAfter": {},
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "Priority",
+                            "value": "P1"
+                          }
+                        },
+                        "Set_SLA_60_Min": {
+                          "runAfter": {
+                            "Set_P1_High": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "SLAMinutes",
+                            "value": 60
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Keep_P2_Medium": {
+                            "runAfter": {},
+                            "type": "SetVariable",
+                            "inputs": {
+                              "name": "SLAMinutes",
+                              "value": 240
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Determine_Department": {
+                "runAfter": {
+                  "Determine_Priority": [
+                    "Succeeded"
+                  ]
+                },
+                "type": "Condition",
+                "expression": {
+                  "or": [
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "chemistry"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "glucose"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "troponin"
+                      ]
+                    },
+                    {
+                      "contains": [
+                        "@toLower(variables('MessageContent'))",
+                        "lipid"
+                      ]
+                    }
+                  ]
+                },
+                "actions": {
+                  "Set_Chemistry": {
+                    "runAfter": {},
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "Department",
+                      "value": "Chemistry"
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "Check_Hematology": {
+                      "runAfter": {},
+                      "type": "Condition",
+                      "expression": {
+                        "or": [
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "hematology"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "cbc"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "blood count"
+                            ]
+                          },
+                          {
+                            "contains": [
+                              "@toLower(variables('MessageContent'))",
+                              "platelet"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Set_Hematology": {
+                          "runAfter": {},
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "Department",
+                            "value": "Hematology"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Check_Microbiology": {
+                            "runAfter": {},
+                            "type": "Condition",
+                            "expression": {
+                              "or": [
+                                {
+                                  "contains": [
+                                    "@toLower(variables('MessageContent'))",
+                                    "microbiology"
+                                  ]
+                                },
+                                {
+                                  "contains": [
+                                    "@toLower(variables('MessageContent'))",
+                                    "culture"
+                                  ]
+                                },
+                                {
+                                  "contains": [
+                                    "@toLower(variables('MessageContent'))",
+                                    "gram"
+                                  ]
+                                }
+                              ]
+                            },
+                            "actions": {
+                              "Set_Microbiology": {
+                                "runAfter": {},
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "Department",
+                                  "value": "Microbiology"
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {
+                                "Check_BloodBank": {
+                                  "runAfter": {},
+                                  "type": "Condition",
+                                  "expression": {
+                                    "or": [
+                                      {
+                                        "contains": [
+                                          "@toLower(variables('MessageContent'))",
+                                          "blood bank"
+                                        ]
+                                      },
+                                      {
+                                        "contains": [
+                                          "@toLower(variables('MessageContent'))",
+                                          "crossmatch"
+                                        ]
+                                      },
+                                      {
+                                        "contains": [
+                                          "@toLower(variables('MessageContent'))",
+                                          "type and screen"
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "actions": {
+                                    "Set_BloodBank": {
+                                      "runAfter": {},
+                                      "type": "SetVariable",
+                                      "inputs": {
+                                        "name": "Department",
+                                        "value": "Blood Bank"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Generate_IncidentID": {
+                "runAfter": {
+                  "Determine_Department": [
+                    "Succeeded"
+                  ]
+                },
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "IncidentID",
+                  "value": "TEAMS-@{variables('Priority')}-@{formatDateTime(utcnow(), 'yyyyMMdd-HHmmss')}"
+                }
+              }
+            }
+          },
+          "Log_to_SharePoint": {
+            "runAfter": {
+              "Process_Incident": [
+                "Succeeded"
+              ]
+            },
+            "type": "ApiConnection",
+            "inputs": {
+              "host": {
+                "connection": {
+                  "name": "@parameters('$connections')['sharepointonline']['connectionId']"
+                }
+              },
+              "method": "post",
+              "path": "/datasets/@{encodeURIComponent(encodeURIComponent('YOUR_SHAREPOINT_SITE_URL'))}/tables/@{encodeURIComponent(encodeURIComponent('Lab_Incidents'))}/items",
+              "body": {
+                "Title": "@{variables('IncidentID')}",
+                "IncidentID": "@{variables('IncidentID')}",
+                "Priority": "@{variables('Priority')}",
+                "Department": "@{variables('Department')}",
+                "Status": "New",
+                "Reporter": "@{triggerBody()?['from']?['user']?['displayName']}",
+                "Description": "@{variables('MessageContent')}",
+                "SLATargetMinutes": "@{variables('SLAMinutes')}",
+                "Source": "Teams Alert",
+                "TeamsChannelId": "@{triggerBody()?['channelData']?['teamsChannelId']}",
+                "MessageId": "@{triggerBody()?['id']}"
+              }
+            },
+            "description": "Log incident to SharePoint - KAISER INTERNAL SYSTEM"
+          },
+          "Post_Teams_Alert": {
+            "runAfter": {
+              "Log_to_SharePoint": [
+                "Succeeded"
+              ]
+            },
+            "type": "ApiConnection",
+            "inputs": {
+              "host": {
+                "connection": {
+                  "name": "@parameters('$connections')['teams']['connectionId']"
+                }
+              },
+              "method": "post",
+              "path": "/beta/teams/@{encodeURIComponent('YOUR_TEAM_ID_HERE')}/channels/@{encodeURIComponent('YOUR_INCIDENTS_CHANNEL_ID')}/messages",
+              "body": {
+                "body": {
+                  "contentType": "html",
+                  "content": "<div style='border-left: 5px solid @{if(equals(variables('Priority'), 'P0'), '#ff0000', if(equals(variables('Priority'), 'P1'), '#ff8c00', if(equals(variables('Priority'), 'P2'), '#ffd700', '#90ee90')))}; padding: 15px; background: #f8f9fa; margin: 10px 0; border-radius: 5px;'><h3 style='margin: 0 0 10px 0; color: @{if(equals(variables('Priority'), 'P0'), '#ff0000', if(equals(variables('Priority'), 'P1'), '#ff8c00', if(equals(variables('Priority'), 'P2'), '#b8860b', '#228b22')))}'>@{if(equals(variables('Priority'), 'P0'), '🚨', if(equals(variables('Priority'), 'P1'), '🟠', if(equals(variables('Priority'), 'P2'), '🟡', '🟢')))} Lab Incident Alert - @{variables('Priority')}</h3><table style='width: 100%; border-collapse: collapse;'><tr><td style='padding: 5px; font-weight: bold; border-bottom: 1px solid #dee2e6;'>Incident ID:</td><td style='padding: 5px; border-bottom: 1px solid #dee2e6;'>@{variables('IncidentID')}</td></tr><tr><td style='padding: 5px; font-weight: bold; border-bottom: 1px solid #dee2e6;'>Priority:</td><td style='padding: 5px; border-bottom: 1px solid #dee2e6; font-weight: bold; color: @{if(equals(variables('Priority'), 'P0'), '#ff0000', if(equals(variables('Priority'), 'P1'), '#ff8c00', if(equals(variables('Priority'), 'P2'), '#b8860b', '#228b22')))}'>@{variables('Priority')}</td></tr><tr><td style='padding: 5px; font-weight: bold; border-bottom: 1px solid #dee2e6;'>Department:</td><td style='padding: 5px; border-bottom: 1px solid #dee2e6;'>@{variables('Department')}</td></tr><tr><td style='padding: 5px; font-weight: bold; border-bottom: 1px solid #dee2e6;'>SLA Target:</td><td style='padding: 5px; border-bottom: 1px solid #dee2e6;'>@{variables('SLAMinutes')} minutes</td></tr><tr><td style='padding: 5px; font-weight: bold; border-bottom: 1px solid #dee2e6;'>Reporter:</td><td style='padding: 5px; border-bottom: 1px solid #dee2e6;'>@{triggerBody()?['from']?['user']?['displayName']}</td></tr><tr><td style='padding: 5px; font-weight: bold;'>Details:</td><td style='padding: 5px;'>@{variables('MessageContent')}</td></tr></table><div style='margin-top: 10px; padding: 8px; background: #e9ecef; border-radius: 3px; font-size: 12px; color: #6c757d;'>📋 Logged to SharePoint | 🤖 Auto-generated at @{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}</div></div>"
+                }
+              }
+            },
+            "description": "Post formatted alert to incidents channel - INTERNAL TEAMS"
+          },
+          "Emergency_P0_Actions": {
+            "runAfter": {
+              "Post_Teams_Alert": [
+                "Succeeded"
+              ]
+            },
+            "type": "Condition",
+            "expression": {
+              "equals": [
+                "@variables('Priority')",
+                "P0"
+              ]
+            },
+            "actions": {
+              "Post_Emergency_Alert": {
+                "runAfter": {},
+                "type": "ApiConnection",
+                "inputs": {
+                  "host": {
+                    "connection": {
+                      "name": "@parameters('$connections')['teams']['connectionId']"
+                    }
+                  },
+                  "method": "post",
+                  "path": "/beta/teams/@{encodeURIComponent('YOUR_TEAM_ID_HERE')}/channels/@{encodeURIComponent('YOUR_EMERGENCY_CHANNEL_ID')}/messages",
+                  "body": {
+                    "body": {
+                      "contentType": "html",
+                      "content": "<div style='border: 4px solid #ff0000; padding: 20px; background: linear-gradient(135deg, #ffe6e6, #ffcccc); margin: 10px 0; border-radius: 10px; box-shadow: 0 4px 8px rgba(255,0,0,0.3);'><h1 style='margin: 0 0 15px 0; color: #cc0000; text-align: center; font-size: 24px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);'>🚨 CRITICAL P0 INCIDENT 🚨</h1><h2 style='margin: 0 0 15px 0; color: #cc0000; text-align: center; font-size: 18px;'>⚡ IMMEDIATE RESPONSE REQUIRED ⚡</h2><div style='background: white; padding: 15px; border-radius: 8px; border: 2px solid #ff0000; margin: 15px 0;'><table style='width: 100%; border-collapse: collapse;'><tr style='background: #ffebee;'><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Incident ID:</td><td style='padding: 10px; border: 1px solid #ff0000; font-weight: bold; font-size: 16px;'>@{variables('IncidentID')}</td></tr><tr><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>⏰ SLA TARGET:</td><td style='padding: 10px; border: 1px solid #ff0000; font-weight: bold; color: #ff0000; font-size: 18px;'>15 MINUTES</td></tr><tr><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Department:</td><td style='padding: 10px; border: 1px solid #ff0000; font-weight: bold;'>@{variables('Department')}</td></tr><tr><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Reporter:</td><td style='padding: 10px; border: 1px solid #ff0000;'>@{triggerBody()?['from']?['user']?['displayName']}</td></tr><tr><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Time:</td><td style='padding: 10px; border: 1px solid #ff0000; font-weight: bold;'>@{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}</td></tr><tr><td style='padding: 10px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Critical Details:</td><td style='padding: 10px; border: 1px solid #ff0000; background: #fff3cd; font-weight: bold;'>@{variables('MessageContent')}</td></tr></table></div><div style='background: #ff0000; color: white; padding: 15px; border-radius: 8px; margin: 15px 0;'><h3 style='margin: 0 0 10px 0; color: white; text-align: center;'>🚨 REQUIRED IMMEDIATE ACTIONS 🚨</h3><ul style='margin: 0; padding-left: 20px; font-weight: bold;'><li style='margin: 5px 0;'>📞 LAB MANAGER: Contact immediately</li><li style='margin: 5px 0;'>🏥 MEDICAL DIRECTOR: Notify within 15 minutes</li><li style='margin: 5px 0;'>⚠️ RISK MANAGEMENT: Alert if patient safety impact</li><li style='margin: 5px 0;'>📋 DOCUMENT: All response actions in SharePoint</li></ul></div><div style='text-align: center; background: #fff; padding: 10px; border-radius: 5px; border: 2px solid #ff0000;'><p style='margin: 0; font-size: 16px; font-weight: bold; color: #cc0000;'>⏱️ MAXIMUM RESPONSE TIME: 15 MINUTES ⏱️</p><p style='margin: 5px 0 0 0; font-size: 12px; color: #666;'>SharePoint Record: @{variables('IncidentID')} | Auto-escalated at @{formatDateTime(utcnow(), 'HH:mm:ss')}</p></div></div>"
+                    }
+                  }
+                },
+                "description": "Emergency alert for P0 critical incidents"
+              },
+              "Send_Emergency_Email": {
+                "runAfter": {
+                  "Post_Emergency_Alert": [
+                    "Succeeded"
+                  ]
+                },
+                "type": "ApiConnection",
+                "inputs": {
+                  "host": {
+                    "connection": {
+                      "name": "@parameters('$connections')['office365']['connectionId']"
+                    }
+                  },
+                  "method": "post",
+                  "path": "/v2/Mail",
+                  "body": {
+                    "To": "LAB.MANAGER@KAISER.COM",
+                    "Cc": "MEDICAL.DIRECTOR@KAISER.COM",
+                    "Subject": "🚨 CRITICAL P0 LAB INCIDENT - IMMEDIATE RESPONSE REQUIRED - @{variables('IncidentID')}",
+                    "Body": "<html><body style='font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5;'><div style='max-width: 600px; margin: 0 auto; background: white; border: 4px solid #ff0000; border-radius: 10px; overflow: hidden;'><div style='background: linear-gradient(135deg, #ff0000, #cc0000); color: white; padding: 20px; text-align: center;'><h1 style='margin: 0; font-size: 28px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);'>🚨 CRITICAL P0 INCIDENT 🚨</h1><h2 style='margin: 10px 0 0 0; font-size: 18px;'>⚡ IMMEDIATE RESPONSE REQUIRED ⚡</h2></div><div style='padding: 20px;'><div style='background: #fff5f5; border: 2px solid #ff0000; border-radius: 8px; padding: 15px; margin: 15px 0;'><table style='width: 100%; border-collapse: collapse;'><tr style='background: #ffebee;'><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Incident ID:</td><td style='padding: 12px; border: 1px solid #ff0000; font-weight: bold; font-size: 16px;'>@{variables('IncidentID')}</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Priority:</td><td style='padding: 12px; border: 1px solid #ff0000; font-weight: bold; color: #ff0000; font-size: 18px;'>P0 - CRITICAL</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>⏰ SLA TARGET:</td><td style='padding: 12px; border: 1px solid #ff0000; font-weight: bold; color: #ff0000; font-size: 18px;'>15 MINUTES</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Department:</td><td style='padding: 12px; border: 1px solid #ff0000; font-weight: bold;'>@{variables('Department')}</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Reporter:</td><td style='padding: 12px; border: 1px solid #ff0000;'>@{triggerBody()?['from']?['user']?['displayName']}</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Incident Time:</td><td style='padding: 12px; border: 1px solid #ff0000; font-weight: bold;'>@{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}</td></tr><tr><td style='padding: 12px; font-weight: bold; border: 1px solid #ff0000; color: #cc0000;'>Critical Details:</td><td style='padding: 12px; border: 1px solid #ff0000; background: #fff3cd; font-weight: bold;'>@{variables('MessageContent')}</td></tr></table></div><div style='background: #ff0000; color: white; padding: 20px; border-radius: 8px; margin: 20px 0;'><h3 style='margin: 0 0 15px 0; color: white; text-align: center;'>🚨 REQUIRED IMMEDIATE ACTIONS 🚨</h3><ul style='margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.6;'><li style='margin: 8px 0; font-weight: bold;'>📞 <strong>LAB MANAGER:</strong> Take immediate action and respond</li><li style='margin: 8px 0; font-weight: bold;'>🏥 <strong>MEDICAL DIRECTOR:</strong> Must be notified within 15 minutes</li><li style='margin: 8px 0; font-weight: bold;'>⚠️ <strong>RISK MANAGEMENT:</strong> Alert immediately if patient safety impact</li><li style='margin: 8px 0; font-weight: bold;'>📋 <strong>DOCUMENTATION:</strong> Log all response actions in SharePoint</li><li style='margin: 8px 0; font-weight: bold;'>🔄 <strong>FOLLOW-UP:</strong> Update Teams channel with status</li></ul></div><div style='text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 3px solid #ff0000; margin: 20px 0;'><p style='margin: 0; font-size: 20px; font-weight: bold; color: #cc0000;'>⏱️ MAXIMUM RESPONSE TIME: 15 MINUTES ⏱️</p><p style='margin: 10px 0 0 0; font-size: 14px; color: #666;'>SharePoint Record: @{variables('IncidentID')}</p><p style='margin: 5px 0 0 0; font-size: 12px; color: #666;'>Auto-escalated at @{formatDateTime(utcnow(), 'yyyy-MM-dd HH:mm:ss')}</p></div><div style='background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #007bff;'><h4 style='margin: 0 0 10px 0; color: #007bff;'>📋 Next Steps:</h4><ol style='margin: 0; padding-left: 20px; color: #333;'><li>Acknowledge receipt of this alert immediately</li><li>Assess the situation and take corrective action</li><li>Update the incident status in SharePoint</li><li>Notify Medical Director if not resolved within 15 minutes</li><li>Document all actions taken in the incident record</li></ol></div></div></div></body></html>",
+                    "Importance": "High"
+                  }
+                },
+                "description": "Email emergency contacts for P0 - INTERNAL KAISER EMAIL ONLY"
+              }
+            },
+            "description": "Emergency escalation for P0 critical incidents - INTERNAL ONLY"
+          }
+        },
+        "else": {
+          "actions": {
+            "No_Keywords_Found": {
+              "runAfter": {},
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Succeeded",
+                "runError": {
+                  "message": "No lab keywords detected in message. Workflow terminated without processing."
+                }
+              }
+            }
+          }
+        },
+        "description": "Process only messages containing lab-related keywords - KAISER INTERNAL PROCESSING"
+      }
+    },
+    "outputs": {}
+  },
+  "parameters": {
+    "$connections": {
+      "value": {
+        "teams": {
+          "connectionId": "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.Web/connections/teams",
+          "connectionName": "teams",
+          "id": "/subscriptions/{subscription-id}/providers/Microsoft.Web/locations/{location}/managedApis/teams"
+        },
+        "office365": {
+          "connectionId": "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.Web/connections/office365",
+          "connectionName": "office365",
+          "id": "/subscriptions/{subscription-id}/providers/Microsoft.Web/locations/{location}/managedApis/office365"
+        },
+        "sharepointonline": {
+          "connectionId": "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.Web/connections/sharepointonline",
+          "connectionName": "sharepointonline",
+          "id": "/subscriptions/{subscription-id}/providers/Microsoft.Web/locations/{location}/managedApis/sharepointonline"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "to": "nathaniel.burmeister@kaiser.org",
+  "cc": [
+    "lorraine@kaiser.org",
+    "ingrid.benitez-ruiz@kaiser.org"
+  ],
+  "subject": "Lab Supply Order Request - 2025-09-10",
+  "items_to_order": 1,
+  "critical_items": 0,
+  "expiring_items": 1
+}

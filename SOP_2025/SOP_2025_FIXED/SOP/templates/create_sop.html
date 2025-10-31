@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Create SOP - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<h2 style="color: var(--kp-blue); margin-bottom: 2rem;">📝 Create New Standard Operating Procedure</h2>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Procedure Title:</label>
+            <input type="text" id="title" name="title" required
+                   placeholder="Enter descriptive procedure title">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Laboratory Department:</label>
+            <select id="department" name="department" required>
+                <option value="">Select Department</option>
+                {% for dept in departments %}
+                <option value="{{ dept }}">{{ dept }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="background: var(--kp-light-blue); padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+            <h4 style="color: var(--kp-dark-blue);">📋 What happens next:</h4>
+            <ol style="margin-left: 1rem;">
+                <li>Document code will be automatically generated</li>
+                <li>Default sections will be created following Kaiser Permanente standards</li>
+                <li>You'll be redirected to the editor to complete the SOP</li>
+                <li>All 23 required sections must be completed for approval</li>
+            </ol>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn">🚀 Create SOP Template</button>
+            <a href="{{ url_for('main_dashboard') }}" class="btn" style="background: #6c757d; margin-left: 1rem;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+SOPs to Create:
+1. iSTAT POCT - Point of Care Testing
+2. Mini iSED ESR - Erythrocyte Sedimentation Rate
+3. Downtime Procedures - Laboratory Operations
+4. Safety - Laboratory Safety Protocol
+5. Lead Technologist Roles - Administrative
+6. Coagulation - Hematology Testing
+7. Chemistry - Clinical Chemistry
+8. Hematology - Complete Blood Count
+9. CSF - Cerebrospinal Fluid Analysis
+10. FFN - Fetal Fibronectin
+11. HCG - Human Chorionic Gonadotropin
+12. Urinalysis - Urine Analysis
+13. Medtox - Medical Toxicology
+14. Phlebotomy - Blood Collection
+15. Specimen Processing - Sample Handling
+16. TRICH - Trichomonas Testing
+17. Rapid Strep - Streptococcus Testing
+18. HIV - HIV Rapid Testing
+19. BV - Bacterial Vaginosis
+20. SQA - Semen Quality Analysis
+
+Creating all SOPs with Kaiser Permanente standards...

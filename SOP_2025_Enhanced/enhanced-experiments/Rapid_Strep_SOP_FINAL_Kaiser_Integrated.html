@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente - Rapid Strep Testing Standard Operating Procedure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #004d99;
+            text-align: center;
+            border-bottom: 3px solid #004d99;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #006633;
+            border-bottom: 2px solid #006633;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #cc6600;
+        }
+        .header {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .critical {
+            background-color: #ffe6e6;
+            border-left: 5px solid #ff4444;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .info {
+            background-color: #e7f3ff;
+            border-left: 5px solid #007bff;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .signature-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .qc-table {
+            background-color: #f8f9fa;
+        }
+        .competency-req {
+            background-color: #e8f5e8;
+            border: 1px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    
+    /* Kaiser Palette Harmonization */
+    html, body {
+        background-color: #f5f5f5;
+        color: #333333;
+    }
+    body {
+        min-height: 100vh;
+        margin: 0 auto;
+    }
+    .container, .main-container, .kp-container, .content-wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .header, .kp-header, header {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+    .header h1, .kp-header h1, h1 {
+        color: #0066cc !important;
+    }
+    h2 {
+        color: #0066cc !important;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 6px;
+    }
+    h3 {
+        color: #004499 !important;
+    }
+    table {
+        background-color: #ffffff !important;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #f0f8ff !important;
+        color: #0066cc !important;
+    }
+    .toc {
+        background-color: #f0f8ff;
+        border-left: 4px solid #0066cc;
+    }
+    @media print {
+        html, body {
+            background-color: #ffffff !important;
+        }
+        .container, .main-container, .kp-container, .content-wrapper {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background-color: #ffffff !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Optimized Kaiser Permanente Laboratory SOP Template</h1>
+    <h1>Rapid Streptococcus Group A Testing</h1>
+    <p><strong>Document ID:</strong> LAB-SOP-RAPID-STREP-2025</p>
+    <p><strong>Version:</strong> 1.0</p>
+    <p><strong>Effective Date:</strong> January 1, 2025</p>
+    <p><strong>Review Date:</strong> January 1, 2026</p>
+    <p><strong>Department:</strong> Clinical Laboratory - Point-of-Care Testing/Microbiology</p>
+</div>
+
+<h2>1. PURPOSE AND SCOPE</h2>
+<p>This Standard Operating Procedure (SOP) provides comprehensive guidelines for the rapid detection of Group A Streptococcus (Streptococcus pyogenes) using immunochromatographic assays and other rapid testing methods. This procedure encompasses specimen collection, testing protocols, result interpretation, and quality assurance for the diagnosis of streptococcal pharyngitis.</p>
+
+<div class="info">
+    <strong>Scope:</strong> This SOP applies to all healthcare personnel performing rapid strep testing using point-of-care devices in clinical laboratories, physician offices, urgent care centers, and emergency departments within Kaiser Permanente healthcare facilities.
+</div>
+
+<h2>2. REGULATORY REQUIREMENTS AND COMPLIANCE</h2>
+<div class="critical">
+    <h3>Regulatory Standards:</h3>
+    <ul>
+        <li><strong>CLIA '88:</strong> Waived and moderate complexity testing requirements</li>
+        <li><strong>CAP:</strong> Laboratory Accreditation Program point-of-care standards</li>
+        <li><strong>FDA:</strong> Device regulations and cleared assays only</li>
+        <li><strong>Joint Commission:</strong> Patient safety and infection control standards</li>
+        <li><strong>OSHA:</strong> Bloodborne pathogen and laboratory safety</li>
+        <li><strong>Kaiser Permanente:</strong> Quality management system requirements</li>
+        <li><strong>CDC:</strong> Streptococcal disease surveillance guidelines</li>
+        <li><strong>State/Local:</strong> Laboratory licensing and reporting requirements</li>
+    </ul>
+</div>
+
+<h2>3. PERSONNEL QUALIFICATIONS AND COMPETENCY</h2>
+<div class="competency-req">
+    <h3>Required Qualifications (Waived Testing):</h3>
+    <ul>
+        <li>Physicians, nurses, medical assistants</li>
+        <li>Clinical laboratory personnel</li>
+        <li>Other healthcare providers as authorized</li>
+        <li>High school diploma or equivalent</li>
+        <li>Completion of Documents 14952_0 and 13792_0 competency assessments</li>
+        <li>Manufacturer-specific training certification</li>
+    </ul>
+
+    <h3>Required Qualifications (Moderate Complexity):</h3>
+    <ul>
+        <li>Medical Laboratory Technician (MLT) or higher</li>
+        <li>Medical Technologist (MT) or Medical Laboratory Scientist (MLS)</li>
+        <li>Associate degree in Clinical Laboratory Science or related field</li>
+        <li>ASCP certification or equivalent</li>
+    </ul>
+
+    <h3>Competency Requirements:</h3>
+    <ul>
+        <li>Initial competency assessment before independent testing</li>
+        <li>Semi-annual competency verification for waived tests</li>
+        <li>Annual competency verification for moderate complexity</li>
+        <li>Understanding of streptococcal infections and clinical significance</li>
+        <li>Proper specimen collection techniques</li>
+        <li>Quality control procedures and troubleshooting</li>
+        <li>Result interpretation and limitations</li>
+    </ul>
+</div>
+
+<h2>4. SAFETY PRECAUTIONS AND HAZARD COMMUNICATION</h2>
+<div class="warning">
+    <h3>Biological Safety:</h3>
+    <ul>
+        <li>Treat all throat specimens as potentially infectious</li>
+        <li>Use standard precautions for all patient specimens</li>
+        <li>Wear appropriate PPE: gloves, lab coat, eye protection if splashing possible</li>
+        <li>Proper disposal of biohazardous waste</li>
+        <li>Hand hygiene before and after specimen handling</li>
+        <li>No eating, drinking, or smoking in testing areas</li>
+        <li>Avoid aerosol generation during testing</li>
+    </ul>
+
+    <h3>Chemical Safety:</h3>
+    <ul>
+        <li>Review SDS for all reagents before use</li>
+        <li>Store reagents according to manufacturer specifications</li>
+        <li>Emergency procedures readily available</li>
+        <li>Spill response materials accessible</li>
+    </ul>
+
+    <h3>Patient Safety:</h3>
+    <ul>
+        <li>Proper patient identification procedures</li>
+        <li>Gentle specimen collection to minimize patient discomfort</li>
+        <li>Age-appropriate collection techniques</li>
+        <li>Communication with patients about procedure and results</li>
+    </ul>
+</div>
+
+<h2>5. INSTRUMENTATION AND EQUIPMENT</h2>
+<h3>Primary Testing Devices:</h3>
+<table>
+    <tr>
+        <th>Device</th>
+        <th>Manufacturer</th>
+        <th>CLIA Complexity</th>
+        <th>Test Principle</th>
+    </tr>
+    <tr>
+        <td>QuickVue In-Line Strep A</td>
+        <td>Quidel</td>
+        <td>Waived</td>
+        <td>Lateral flow immunoassay</td>
+    </tr>
+    <tr>
+        <td>Acceava Strep A</td>
+        <td>Thermo Fisher</td>
+        <td>Waived</td>
+        <td>Immunochromatographic</td>
+    </tr>
+    <tr>
+        <td>Sofia Strep A FIA</td>
+        <td>Quidel</td>
+        <td>Waived</td>
+        <td>Fluorescent immunoassay</td>
+    </tr>
+    <tr>
+        <td>Solana Strep A</td>
+        <td>Quidel</td>
+        <td>Moderate</td>
+        <td>Helicase-dependent amplification</td>
+    </tr>
+    <tr>
+        <td>GenePOC Strep A</td>
+        <td>GenePOC</td>
+        <td>Moderate</td>
+        <td>Real-time PCR</td>
+    </tr>
+</table>
+
+<h3>Collection Supplies:</h3>
+<ul>
+    <li>Sterile polyester or rayon swabs</li>
+    <li>Throat culture transport medium (if backup culture needed)</li>
+    <li>Tongue depressors</li>
+    <li>Penlight or flashlight</li>
+    <li>Timer or stopwatch</li>
+</ul>
+
+<h2>6. REAGENTS AND SUPPLIES</h2>
+<h3>Test Components:</h3>
+<ul>
+    <li>Rapid strep test cassettes or cards</li>
+    <li>Extraction reagents (varies by manufacturer)</li>
+    <li>Positive and negative control materials</li>
+    <li>Sample preparation devices</li>
+    <li>Package insert instructions</li>
+</ul>
+
+<h3>Quality Control Materials:</h3>
+<ul>
+    <li>External positive control (Group A Strep antigen)</li>
+    <li>External negative control (no antigen)</li>
+    <li>Built-in procedural controls (when available)</li>
+    <li>Proficiency testing materials</li>
+</ul>
+
+<h3>Storage Requirements:</h3>
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Storage Temperature</th>
+        <th>Stability</th>
+        <th>Special Conditions</th>
+    </tr>
+    <tr>
+        <td>Test cassettes</td>
+        <td>2-30°C (room temp preferred)</td>
+        <td>Until expiration</td>
+        <td>Keep sealed and dry</td>
+    </tr>
+    <tr>
+        <td>Extraction reagents</td>
+        <td>Room temperature</td>
+        <td>Until expiration</td>
+        <td>Do not freeze</td>
+    </tr>
+    <tr>
+        <td>Control materials</td>
+        <td>2-8°C</td>
+        <td>Until expiration</td>
+        <td>Single use recommended</td>
+    </tr>
+    <tr>
+        <td>Swabs</td>
+        <td>Room temperature</td>
+        <td>Until expiration</td>
+        <td>Keep sterile and dry</td>
+    </tr>
+</table>
+
+<h2>7. SPECIMEN COLLECTION AND HANDLING</h2>
+<h3>Patient Preparation:</h3>
+<ul>
+    <li>Explain the procedure to patient/parent</li>
+    <li>Position patient appropriately (sitting with head tilted back)</li>
+    <li>Use adequate lighting to visualize throat</li>
+    <li>Avoid testing if patient has used mouthwash or eaten recently</li>
+</ul>
+
+<h3>Collection Technique:</h3>
+<ol>
+    <li><strong>Throat Swab Collection:</strong>
+        <ul>
+            <li>Depress tongue with tongue depressor</li>
+            <li>Visualize tonsillar pillars and posterior pharynx</li>
+            <li>Insert sterile swab past teeth and tongue</li>
+            <li>Vigorously swab both tonsillar pillars and posterior pharynx</li>
+            <li>Avoid touching teeth, tongue, cheeks, or lips</li>
+            <li>Rotate swab to collect material from all surfaces</li>
+        </ul>
+    </li>
+    <li><strong>Special Considerations:</strong>
+        <ul>
+            <li>Pediatric patients: May require restraint</li>
+            <li>Adults: Explain to minimize gagging</li>
+            <li>If exudate present: Include in collection</li>
+            <li>Multiple swabs: Use separate swabs for culture and rapid test</li>
+        </ul>
+    </li>
+</ol>
+
+<h3>Specimen Handling:</h3>
+<div class="info">
+    <ul>
+        <li>Test immediately after collection for optimal results</li>
+        <li>If delay unavoidable: Store at room temperature up to 4 hours</li>
+        <li>Do not refrigerate specimens for rapid testing</li>
+        <li>If culture backup needed: Use separate swab in transport medium</li>
+        <li>Label specimens clearly with patient identification</li>
+    </ul>
+</div>
+
+<h3>Rejection Criteria:</h3>
+<ul>
+    <li>Unlabeled specimens</li>
+    <li>Improper collection (saliva only, no pharyngeal material)</li>
+    <li>Contaminated swabs</li>
+    <li>Specimens >4 hours old without proper storage</li>
+    <li>Swabs in inappropriate transport medium</li>
+</ul>
+
+<h2>8. ANALYTICAL PROCEDURE</h2>
+<h3>General Testing Protocol:</h3>
+<ol>
+    <li><strong>Pre-test Preparation:</strong>
+        <ul>
+            <li>Verify test kit components and expiration dates</li>
+            <li>Bring all materials to room temperature</li>
+            <li>Check for damaged or leaking reagents</li>
+            <li>Prepare workspace and gather supplies</li>
+        </ul>
+    </li>
+    <li><strong>Specimen Processing:</strong>
+        <ul>
+            <li>Add extraction reagent to specimen per manufacturer instructions</li>
+            <li>Mix thoroughly by rotating swab (typically 10 times)</li>
+            <li>Express liquid by squeezing tube sides</li>
+            <li>Wait specified time for extraction (varies by kit)</li>
+        </ul>
+    </li>
+    <li><strong>Test Performance:</strong>
+        <ul>
+            <li>Apply specimen to test device as directed</li>
+            <li>Add specified number of drops</li>
+            <li>Start timer immediately</li>
+            <li>Do not move or disturb test device during incubation</li>
+        </ul>
+    </li>
+    <li><strong>Result Reading:</strong>
+        <ul>
+            <li>Read results at exact time specified (typically 5-10 minutes)</li>
+            <li>Do not read results after maximum time limit</li>
+            <li>Interpret results according to manufacturer's guide</li>
+            <li>Document results immediately</li>
+        </ul>
+    </li>
+</ol>
+
+<h3>Specific Test Protocols by Manufacturer:</h3>
+<table>
+    <tr>
+        <th>Test</th>
+        <th>Extraction Time</th>
+        <th>Test Time</th>
+        <th>Reading Window</th>
+        <th>Special Notes</th>
+    </tr>
+    <tr>
+        <td>QuickVue</td>
+        <td>1 minute</td>
+        <td>5 minutes</td>
+        <td>5-10 minutes</td>
+        <td>Pink line = positive</td>
+    </tr>
+    <tr>
+        <td>Sofia FIA</td>
+        <td>1 minute</td>
+        <td>6 minutes</td>
+        <td>Automatic read</td>
+        <td>Digital display</td>
+    </tr>
+    <tr>
+        <td>Solana</td>
+        <td>N/A</td>
+        <td>37 minutes</td>
+        <td>Automatic</td>
+        <td>Molecular method</td>
+    </tr>
+</table>
+
+<h2>9. QUALITY CONTROL</h2>
+<div class="qc-table">
+    <h3>QC Requirements:</h3>
+    <table>
+        <tr>
+            <th>Test Complexity</th>
+            <th>QC Frequency</th>
+            <th>QC Materials</th>
+            <th>Acceptable Results</th>
+        </tr>
+        <tr>
+            <td>Waived</td>
+            <td>Each day of testing</td>
+            <td>External positive and negative controls</td>
+            <td>Expected positive/negative results</td>
+        </tr>
+        <tr>
+            <td>Moderate</td>
+            <td>Each day of testing</td>
+            <td>Positive, negative, and weakly positive controls</td>
+            <td>All controls within expected range</td>
+        </tr>
+        <tr>
+            <td>New lot/shipment</td>
+            <td>Before patient testing</td>
+            <td>Positive and negative controls</td>
+            <td>Expected results before use</td>
+        </tr>
+        <tr>
+            <td>If quality issue</td>
+            <td>As needed</td>
+            <td>Additional controls</td>
+            <td>Verify system performance</td>
+        </tr>
+    </table>
+</div>
+
+<h3>Built-in Controls:</h3>
+<ul>
+    <li>Procedural control line/window</li>
+    <li>Indicates adequate specimen flow</li>
+    <li>Must be present for valid result</li>
+    <li>If absent, repeat test with new device</li>
+</ul>
+
+<h3>QC Documentation:</h3>
+<ul>
+    <li>Daily QC log with results</li>
+    <li>Control lot numbers and expiration dates</li>
+    <li>Operator identification</li>
+    <li>Corrective actions for failed QC</li>
+    <li>Temperature monitoring records</li>
+</ul>
+
+<h2>10. REFERENCE RANGES AND CRITICAL VALUES</h2>
+<h3>Result Interpretation:</h3>
+<table>
+    <tr>
+        <th>Result</th>
+        <th>Visual Appearance</th>
+        <th>Clinical Interpretation</th>
+        <th>Action Required</th>
+    </tr>
+    <tr>
+        <td>Positive</td>
+        <td>Test line/window present</td>
+        <td>Group A Strep detected</td>
+        <td>Consider antibiotic treatment</td>
+    </tr>
+    <tr>
+        <td>Negative</td>
+        <td>Only control line present</td>
+        <td>Group A Strep not detected</td>
+        <td>Consider backup culture if high clinical suspicion</td>
+    </tr>
+    <tr>
+        <td>Invalid</td>
+        <td>No control line</td>
+        <td>Test failure</td>
+        <td>Repeat test with new device</td>
+    </tr>
+</table>
+
+<h3>Test Performance Characteristics:</h3>
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Typical Range</th>
+        <th>Clinical Impact</th>
+        <th>Limitations</th>
+    </tr>
+    <tr>
+        <td>Sensitivity</td>
+        <td>85-95%</td>
+        <td>May miss some infections</td>
+        <td>False negatives possible</td>
+    </tr>
+    <tr>
+        <td>Specificity</td>
+        <td>95-99%</td>
+        <td>Few false positives</td>
+        <td>Cross-reactivity rare</td>
+    </tr>
+    <tr>
+        <td>Positive Predictive Value</td>
+        <td>90-98%</td>
+        <td>Positive result likely true</td>
+        <td>Depends on prevalence</td>
+    </tr>
+    <tr>
+        <td>Negative Predictive Value</td>
+        <td>95-98%</td>
+        <td>Negative result usually reliable</td>
+        <td>Consider backup culture</td>
+    </tr>
+</table>
+
+<div class="critical">
+    <h3>Critical Values and Actions:</h3>
+    <ul>
+        <li><strong>Positive result:</strong> Group A Strep infection likely</li>
+        <li><strong>Clinical correlation:</strong> Consider symptoms, age, season</li>
+        <li><strong>Treatment decision:</strong> Based on clinical guidelines</li>
+        <li><strong>Negative with high suspicion:</strong> Consider throat culture</li>
+        <li><strong>Invalid result:</strong> Repeat test, consider alternative method</li>
+    </ul>
+</div>
+
+<h2>11. RESULT INTERPRETATION AND REPORTING</h2>
+<h3>Reporting Guidelines:</h3>
+<ul>
+    <li><strong>Positive:</strong> "Group A Streptococcus DETECTED"</li>
+    <li><strong>Negative:</strong> "Group A Streptococcus NOT DETECTED"</li>
+    <li><strong>Invalid:</strong> "INVALID - Repeat testing required"</li>
+    <li>Include method used and limitations</li>
+    <li>Reference clinical guidelines for treatment</li>
+</ul>
+
+<h3>Clinical Correlations:</h3>
+<ul>
+    <li>Consider patient age (more common in children 5-15 years)</li>
+    <li>Seasonal patterns (more common in winter/spring)</li>
+    <li>Clinical presentation (fever, exudate, adenopathy)</li>
+    <li>Centor criteria or McIsaac score</li>
+    <li>Local strep prevalence rates</li>
+</ul>
+
+<h3>Limitations and Comments:</h3>
+<ul>
+    <li>Rapid tests may not detect all Group A Strep infections</li>
+    <li>Negative results do not rule out streptococcal infection</li>
+    <li>Consider throat culture for negative results with high clinical suspicion</li>
+    <li>Does not detect other bacterial pathogens</li>
+    <li>Not intended for screening asymptomatic individuals</li>
+</ul>
+
+<h2>12. TURNAROUND TIME (TAT) REQUIREMENTS</h2>
+<table>
+    <tr>
+        <th>Test Type</th>
+        <th>Collection to Result</th>
+        <th>Processing Time</th>
+        <th>Reporting Time</th>
+    </tr>
+    <tr>
+        <td>Rapid immunoassay</td>
+        <td>15-20 minutes</td>
+        <td>5-10 minutes</td>
+        <td>Immediate</td>
+    </tr>
+    <tr>
+        <td>Fluorescent immunoassay</td>
+        <td>15 minutes</td>
+        <td>6 minutes</td>
+        <td>Immediate</td>
+    </tr>
+    <tr>
+        <td>Molecular (rapid PCR)</td>
+        <td>45 minutes</td>
+        <td>37 minutes</td>
+        <td>Within 1 hour</td>
+    </tr>
+    <tr>
+        <td>Point-of-care testing</td>
+        <td>10-15 minutes</td>
+        <td>5-10 minutes</td>
+        <td>Immediate to patient</td>
+    </tr>
+</table>
+
+<h2>13. TROUBLESHOOTING</h2>
+<h3>Common Problems and Solutions:</h3>
+<table>
+    <tr>
+        <th>Problem</th>
+        <th>Possible Cause</th>
+        <th>Solution</th>
+        <th>Prevention</th>
+    </tr>
+    <tr>
+        <td>No control line</td>
+        <td>Insufficient specimen, expired reagents</td>
+        <td>Repeat with new test, check reagents</td>
+        <td>Adequate specimen collection, proper storage</td>
+    </tr>
+    <tr>
+        <td>Weak test line</td>
+        <td>Low organism count, poor collection</td>
+        <td>Consider positive if any line visible</td>
+        <td>Adequate swabbing technique</td>
+    </tr>
+    <tr>
+        <td>Background color</td>
+        <td>Excessive specimen, improper storage</td>
+        <td>Use less specimen, check storage conditions</td>
+        <td>Follow manufacturer instructions</td>
+    </tr>
+    <tr>
+        <td>Delayed results</td>
+        <td>Cold reagents, timing errors</td>
+        <td>Allow reagents to warm, use timer</td>
+        <td>Proper preparation and timing</td>
+    </tr>
+    <tr>
+        <td>Inconsistent results</td>
+        <td>Technique variation, reagent issues</td>
+        <td>Standardize procedure, check QC</td>
+        <td>Training and competency assessment</td>
+    </tr>
+</table>
+
+<h2>14. MAINTENANCE AND CALIBRATION</h2>
+<h3>Daily Activities:</h3>
+<ul>
+    <li>Check reagent and test kit expiration dates</li>
+    <li>Verify storage temperatures</li>
+    <li>Perform quality control testing</li>
+    <li>Clean and disinfect work surfaces</li>
+    <li>Document all activities</li>
+</ul>
+
+<h3>Weekly Activities:</h3>
+<ul>
+    <li>Inventory supplies and reorder as needed</li>
+    <li>Review QC trends and results</li>
+    <li>Clean storage areas</li>
+    <li>Check equipment function (if applicable)</li>
+</ul>
+
+<h3>Monthly Activities:</h3>
+<ul>
+    <li>Review competency and training needs</li>
+    <li>Assess test performance metrics</li>
+    <li>Update procedures if needed</li>
+    <li>Archive documentation</li>
+</ul>
+
+<h2>15. DOCUMENTATION AND RECORD KEEPING</h2>
+<h3>Required Documentation:</h3>
+<ul>
+    <li>Daily testing logs</li>
+    <li>Quality control records</li>
+    <li>Temperature monitoring logs</li>
+    <li>Competency assessment records</li>
+    <li>Training documentation</li>
+    <li>Lot numbers and expiration dates</li>
+    <li>Proficiency testing results</li>
+    <li>Incident reports and corrective actions</li>
+</ul>
+
+<h3>Electronic Records:</h3>
+<ul>
+    <li>Patient test results in laboratory information system</li>
+    <li>Quality control database</li>
+    <li>Temperature monitoring system data</li>
+    <li>Training tracking systems</li>
+</ul>
+
+<h3>Retention Periods:</h3>
+<ul>
+    <li><strong>Patient results:</strong> 7 years</li>
+    <li><strong>QC records:</strong> 2 years</li>
+    <li><strong>Training records:</strong> 2 years after termination</li>
+    <li><strong>Temperature logs:</strong> 2 years</li>
+    <li><strong>Proficiency testing:</strong> 2 years</li>
+</ul>
+
+<h2>16. TRAINING AND COMPETENCY ASSESSMENT</h2>
+<div class="competency-req">
+    <h3>Initial Training Program:</h3>
+    <ul>
+        <li>Streptococcal infections and clinical significance</li>
+        <li>Test principles and methodology</li>
+        <li>Specimen collection techniques</li>
+        <li>Test performance procedures</li>
+        <li>Result interpretation and limitations</li>
+        <li>Quality control requirements</li>
+        <li>Safety procedures and waste management</li>
+        <li>Documentation and record keeping</li>
+    </ul>
+
+    <h3>Competency Assessment Methods:</h3>
+    <ul>
+        <li>Direct observation of test performance</li>
+        <li>Evaluation of specimen collection technique</li>
+        <li>Written examination on procedures</li>
+        <li>Blind quality control testing</li>
+        <li>Problem-solving scenarios</li>
+        <li>Review of documentation practices</li>
+    </ul>
+
+    <h3>Ongoing Education:</h3>
+    <ul>
+        <li>Annual competency verification</li>
+        <li>Updates on new test methods</li>
+        <li>Clinical correlation training</li>
+        <li>Quality improvement activities</li>
+    </ul>
+</div>
+
+<h2>17. BACKUP PROCEDURES AND CONTINGENCY PLANS</h2>
+<div class="warning">
+    <h3>Primary Backup Laboratory:</h3>
+    <p><strong>MOB Laboratory</strong><br>
+    Phone: 301-555-2000<br>
+    Contact: Laboratory Director<br>
+    Expected TAT: Add 2-4 hours for transport and processing</p>
+
+    <h3>Test Kit Shortage:</h3>
+    <ul>
+        <li>Alternative rapid test methods available</li>
+        <li>Throat culture as backup method</li>
+        <li>Emergency supply vendors identified</li>
+        <li>Communication plan for delays</li>
+    </ul>
+
+    <h3>Equipment Failure:</h3>
+    <ul>
+        <li>Manual rapid tests as backup for automated systems</li>
+        <li>Alternative testing locations within facility</li>
+        <li>Send-out testing arrangements</li>
+        <li>Documentation of contingency use</li>
+    </ul>
+</div>
+
+<h2>18. PROFICIENCY TESTING</h2>
+<h3>PT Program Requirements:</h3>
+<ul>
+    <li><strong>Provider:</strong> CAP, AACC, or approved PT provider</li>
+    <li><strong>Frequency:</strong> 2-3 times per year</li>
+    <li><strong>Participation:</strong> All testing personnel</li>
+    <li><strong>Acceptable performance:</strong> 80% or higher score</li>
+</ul>
+
+<h3>PT Sample Handling:</h3>
+<ul>
+    <li>Treat PT samples as patient specimens</li>
+    <li>Follow routine testing procedures</li>
+    <li>Do not discuss results until deadline</li>
+    <li>Document any testing issues</li>
+</ul>
+
+<h3>PT Failure Response:</h3>
+<ol>
+    <li>Immediate investigation of root cause</li>
+    <li>Review of patient results since last successful PT</li>
+    <li>Corrective action implementation</li>
+    <li>Additional training if required</li>
+    <li>Repeat testing to verify correction</li>
+    <li>Documentation of all actions</li>
+</ol>
+
+<h2>19. PROCEDURE UPDATES AND REVISIONS</h2>
+<h3>Review Schedule:</h3>
+<ul>
+    <li><strong>Annual review:</strong> January of each year</li>
+    <li><strong>Triggered reviews:</strong> New tests, regulatory changes</li>
+    <li><strong>Version control:</strong> All changes documented and approved</li>
+</ul>
+
+<h3>Change Control Process:</h3>
+<ol>
+    <li>Change proposal with justification</li>
+    <li>Review by laboratory director and point-of-care coordinator</li>
+    <li>Impact assessment and validation if required</li>
+    <li>Staff training and competency updates</li>
+    <li>Implementation with effective date</li>
+    <li>Monitoring and evaluation</li>
+</ol>
+
+<h2>20. REGULATORY COMPLIANCE MONITORING</h2>
+<h3>Compliance Activities:</h3>
+<ul>
+    <li>Monthly quality indicator reviews</li>
+    <li>Quarterly point-of-care assessments</li>
+    <li>Annual compliance audit</li>
+    <li>CLIA compliance monitoring</li>
+    <li>Manufacturer requirement verification</li>
+</ul>
+
+<h3>Key Performance Indicators:</h3>
+<table>
+    <tr>
+        <th>Indicator</th>
+        <th>Target</th>
+        <th>Monitoring Frequency</th>
+        <th>Responsible Party</th>
+    </tr>
+    <tr>
+        <td>QC Compliance</td>
+        <td>100%</td>
+        <td>Daily</td>
+        <td>Testing Personnel</td>
+    </tr>
+    <tr>
+        <td>TAT Compliance</td>
+        <td>&gt;95%</td>
+        <td>Weekly</td>
+        <td>Supervisor</td>
+    </tr>
+    <tr>
+        <td>Competency Current</td>
+        <td>100%</td>
+        <td>Monthly</td>
+        <td>POCT Coordinator</td>
+    </tr>
+</table>
+
+<h2>21. WASTE MANAGEMENT AND ENVIRONMENTAL CONSIDERATIONS</h2>
+<h3>Waste Categories:</h3>
+<ul>
+    <li><strong>Biohazardous waste:</strong> Used swabs, test cassettes, extraction tubes</li>
+    <li><strong>Sharps waste:</strong> None typically generated</li>
+    <li><strong>General waste:</strong> Packaging materials, expired reagents</li>
+    <li><strong>Chemical waste:</strong> Small volumes of extraction reagents</li>
+</ul>
+
+<h3>Disposal Procedures:</h3>
+<ul>
+    <li>Red bag disposal for all specimen-contaminated materials</li>
+    <li>Regular waste for packaging and non-contaminated items</li>
+    <li>Follow facility waste management protocols</li>
+    <li>Minimize waste generation when possible</li>
+</ul>
+
+<h2>22. CONTINUOUS IMPROVEMENT</h2>
+<h3>Quality Improvement Activities:</h3>
+<ul>
+    <li>Test performance evaluations</li>
+    <li>Workflow optimization studies</li>
+    <li>User satisfaction assessments</li>
+    <li>Error reduction initiatives</li>
+    <li>Technology assessment and adoption</li>
+</ul>
+
+<h3>Innovation Opportunities:</h3>
+<ul>
+    <li>Molecular point-of-care testing</li>
+    <li>Digital result interpretation</li>
+    <li>Electronic connectivity and reporting</li>
+    <li>Multiplex respiratory panels</li>
+</ul>
+
+<h2>23. CONTACT INFORMATION AND REFERENCES</h2>
+<h3>Key Contacts:</h3>
+<table>
+    <tr>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+    <tr>
+        <td>Laboratory Director</td>
+        <td>Dr. [Name]</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+    <tr>
+        <td>Point-of-Care Coordinator</td>
+        <td>[Name], MT(ASCP)</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+    <tr>
+        <td>Microbiology Supervisor</td>
+        <td>[Name], MLS(ASCP)</td>
+        <td>XXX-XXX-XXXX</td>
+        <td>[email]</td>
+    </tr>
+</table>
+
+<h3>References:</h3>
+<ul>
+    <li>Clinical and Laboratory Standards Institute (CLSI) POCT Guidelines</li>
+    <li>CDC Guidelines for Prevention of Group A Streptococcal Infections</li>
+    <li>Infectious Diseases Society of America (IDSA) Pharyngitis Guidelines</li>
+    <li>FDA Guidance for Point-of-Care Testing</li>
+    <li>CAP Point-of-Care Testing Checklist</li>
+    <li>Manufacturer's package inserts and operator manuals</li>
+    <li>Kaiser Permanente Point-of-Care Testing Policy</li>
+    <li>Clinical Laboratory Improvement Amendments (CLIA) Regulations</li>
+</ul>
+
+<div class="signature-section">
+    <h3>APPROVAL SIGNATURES</h3>
+    <table>
+        <tr>
+            <th>Role</th>
+            <th>Signature</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>Laboratory Director</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+        <tr>
+            <td>Point-of-Care Coordinator</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+        <tr>
+            <td>Quality Assurance Manager</td>
+            <td>_________________________</td>
+            <td>_____________</td>
+        </tr>
+    </table>
+</div>
+
+<div class="footer">
+    <p><strong>Kaiser Permanente Laboratory Services</strong><br>
+    This document is controlled and subject to change. Verify current version before use.<br>
+    Document ID: LAB-SOP-RAPID-STREP-2025 | Version 1.0 | Page 1 of 1</p>
+</div>
+
+</body>
+</html>
