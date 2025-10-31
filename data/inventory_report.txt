@@ -1,0 +1,97 @@
+
+KAISER PERMANENTE LARGO LABORATORY
+INVENTORY MANAGEMENT REPORT
+Generated: 10/30/2025, 7:51:18 PM
+==================================================
+
+ALERT SUMMARY
+-------------------------------------------------
+🔴 CRITICAL ALERTS: 1
+⚠️  OUT OF STOCK: 41
+🟡 LOW STOCK: 0
+⏰ EXPIRING SOON: 1
+
+ITEMS REQUIRING IMMEDIATE ATTENTION
+-------------------------------------------------
+• ALT (Alanine Aminotransferase) Reagent Pack (CH001)
+  Status: 🔴 EXPIRING - 🔴 URGENT - REDISTRIBUTE
+  Current Stock: 25 | Reorder Point: 6
+  Location: Refrigerator #1
+    ACTION: URGENT - REDISTRIBUTE!
+
+• MEDTOX Negative Control (KT003)
+  Status: 🚨 Critical - Order Now
+  Current Stock: 1 | Reorder Point: 3
+  Location: Toxicology Fridge
+  
+
+
+OUT OF STOCK ITEMS
+-------------------------------------------------
+• ASTP (Aspartate Aminotransferase) Reagent (CH002) - Roche Diagnostics
+• Glucose (GLUC3) Reagent (CH003) - Roche Diagnostics
+• Creatinine (CREJ2) Enzymatic Reagent (CH004) - Roche Diagnostics
+• Total Bilirubin (BILT3) Reagent (CH005) - Roche Diagnostics
+• Direct Bilirubin (D BILI) Reagent (CH006) - Roche Diagnostics
+• Alkaline Phosphatase (ALP) IFCC Gen.2 (CH007) - Roche Diagnostics
+• Albumin (ALB2) BCG Method (CH008) - Roche Diagnostics
+• Total Protein (TP2) Reagent (CH009) - Roche Diagnostics
+• Calcium (CA2) Reagent (CH010) - Roche Diagnostics
+• ISE Reference Electrode Gen 2 (CH020) - Roche Diagnostics
+• ISE Chloride Electrode Cartridge (CH021) - Roche Diagnostics
+• ISE Potassium Electrode Cartridge (CH022) - Roche Diagnostics
+• ISE Sodium Electrode Cartridge Gen 2 (CH023) - Roche Diagnostics
+• Acid Wash III Solution (CH030) - Roche Diagnostics
+• Basic Wash Solution (CH031) - Roche Diagnostics
+• CBC Control - Level 1 (Low) (HE001) - Sysmex
+• CBC Control - Level 2 (Normal) (HE002) - Sysmex
+• CBC Control - Level 3 (High) (HE003) - Sysmex
+• Cellpack DCL Diluent (HE004) - Sysmex
+• Stromatolyser 4DL (HE005) - Sysmex
+• Sulfolyser (HE006) - Sysmex
+• Cellclean (HE007) - Sysmex
+• Wright-Giemsa Stain (HE008) - Sigma-Aldrich
+• Urinalysis Test Strips - 10 Parameter (UA001) - Roche
+• UA Control - Normal Level (UA002) - Bio-Rad
+• UA Control - Abnormal Level (UA003) - Bio-Rad
+• Urine Collection Cups - 120mL (UA004) - Globe Scientific
+• UA Transfer Tubes - 12mL (UA005) - BD
+• MEDTOX Drug Screen Kit (KT001) - MEDTOX
+• PT/INR Control Set (KT004) - Stago
+• COVID-19 Rapid Test Kit (KT005) - Abbott
+• Digital Thermometer - Refrigerator/Freezer (MS001) - VWR
+• Thermal Paper - MEDTOX Scanner (MS002) - MEDTOX
+• Variable Volume Pipette 20-200µL (MS003) - Eppendorf
+• Hematek Slide Stainer Cleaning Solution (MS004) - Siemens
+• Nitrile Exam Gloves - Small (MS005) - Kimberly-Clark
+• Nitrile Exam Gloves - Medium (MS006) - Kimberly-Clark
+• Nitrile Exam Gloves - Large (MS007) - Kimberly-Clark
+• Sharps Container - 5 Quart (MS008) - BD
+• QC Log Book - Chemistry (MS009) - Lab Armor
+• Maintenance Log Book - Hematology (MS010) - Lab Armor
+
+INVENTORY BY CATEGORY
+-------------------------------------------------
+CHEMISTRY: 16 items | 15 need ordering | Value: $14662.25
+HEMATOLOGY: 8 items | 8 need ordering | Value: $0.00
+URINALYSIS: 5 items | 5 need ordering | Value: $0.00
+KITS: 5 items | 4 need ordering | Value: $778.17
+MISCELLANEOUS: 10 items | 10 need ordering | Value: $0.00
+
+RECOMMENDED ACTIONS
+-------------------------------------------------
+1. ⚠️  URGENT: Redistribute 25 ALT Reagent Packs expiring Oct 31
+2. Order all items marked as "Critical - Order Now"
+3. Review and update expiration dates for all reagents
+4. Verify physical counts match system records
+5. Contact vendors for out-of-stock items
+
+AUTOMATED ORDERING
+-------------------------------------------------
+• Automatic orders sent: 7:00 AM and 3:00 PM daily
+• Critical checks: Every 4 hours
+• Email recipients configured
+• Manual order trigger available via portal
+
+==================================================
+End of Report

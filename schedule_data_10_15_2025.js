@@ -121,15 +121,7 @@ const october15Schedule = {
                 breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
                 startTime: 7.5
             },
-            {
-                name: 'Lorraine Blackwell',
-                nickname: 'Lorraine',
-                dept: 'MLA',
-                assignment: 'MOB Support - Assist QC/Maint, Inventory, SQA Daily [DAILY], Novus [WEEKLY-Wed MOB], Urines, Kits ONLY (MLA)',
-                shift: '8:00a-4:30p',
-                breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
-                startTime: 8
-            },
+            // Lorraine Blackwell - REMOVED (No longer staff)
             {
                 name: 'Steeven Brussot',
                 nickname: 'Steeven',
@@ -158,15 +150,7 @@ const october15Schedule = {
                 breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:00p-8:30p | Break 2: 10:15p-10:30p',
                 startTime: 15.5
             },
-            {
-                name: 'Samuel Lawson',
-                nickname: 'Samuel',
-                dept: 'MLS',
-                assignment: 'AUC Evening - Processing, Stago [WEEKLY-Wed Both], Log QC',
-                shift: '3:30p-12:00a',
-                breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:45p-8:15p | Break 2: 10:30p-10:45p',
-                startTime: 15.5
-            },
+            // Samuel Lawson - REMOVED (No longer staff)
             // NIGHT SHIFT LAB
             {
                 name: 'Emmanuel Lejano',

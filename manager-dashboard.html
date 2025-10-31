@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - Kaiser Permanente Largo Laboratory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+
+        .dashboard-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-action-btn {
+            background: white;
+            border: 2px solid #005EB8;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #005EB8;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-action-btn:hover {
+            background: #005EB8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,94,184,0.3);
+        }
+
+        .quick-action-btn .icon {
+            font-size: 24px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .dashboard-card h2 {
+            margin-top: 0;
+            color: #005EB8;
+            font-size: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .alert-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .critical-alert {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .success-alert {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-list li {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .equipment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .equipment-table th,
+        .equipment-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .equipment-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #005EB8;
+        }
+
+        .task-item.urgent {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .task-item.completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .schedule-day {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            min-height: 80px;
+        }
+
+        .schedule-day.today {
+            background: #005EB8;
+            color: white;
+        }
+
+        .schedule-day.weekend {
+            background: #fff3cd;
+        }
+
+        .tab-container {
+            margin-top: 20px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            color: #005EB8;
+            border-bottom: 3px solid #005EB8;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .staff-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .staff-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .staff-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .training-needed {
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #005EB8;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>Manager Dashboard</h1>
+            <p>Kaiser Permanente Largo Laboratory - Comprehensive Operations Center</p>
+            <p style="margin-top: 10px; font-size: 14px;">GL Code: 1808-18801-5693</p>
+        </div>
+
+        <!-- Critical Alerts -->
+        <div class="alert-section critical-alert">
+            <strong>🚨 EMERGENCY CONTACTS:</strong><br>
+            IT Support: <strong>301-456-6096</strong> |
+            Cerner On-Call: <strong>301-456-6096</strong> |
+            Engineering: <strong>Call Front Desk</strong> |
+            Command Center: <strong>866-248-0661</strong>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="https://kaisermidatlantic.smart-square.com/v2/login" target="_blank" class="quick-action-btn">
+                <span class="icon">📅</span>
+                <span>Insight Schedule</span>
+            </a>
+            <a href="https://hrconnect.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">👤</span>
+                <span>HR Connect</span>
+            </a>
+            <a href="https://temptrakmas.appl.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">🌡️</span>
+                <span>TempTrak Alarms</span>
+            </a>
+            <a href="https://kplearn.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">📚</span>
+                <span>KP Learn</span>
+            </a>
+            <a href="https://servicenow.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">🎫</span>
+                <span>Service Now</span>
+            </a>
+            <a href="https://order.lasership.com" target="_blank" class="quick-action-btn">
+                <span class="icon">📦</span>
+                <span>LaserShip</span>
+            </a>
+            <a href="https://policytech.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">📖</span>
+                <span>PolicyTech</span>
+            </a>
+            <a href="https://maprinters.kp.org" target="_blank" class="quick-action-btn">
+                <span class="icon">🖨️</span>
+                <span>Printer Portal</span>
+            </a>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Daily Tasks Card -->
+            <div class="dashboard-card">
+                <h2>📋 Daily Tasks & Reminders</h2>
+                <ul class="task-list">
+                    <li class="task-item urgent">
+                        <strong>Tuesday & Thursday:</strong> Inventory Team checks
+                    </li>
+                    <li class="task-item">
+                        <strong>Monday:</strong> Verification of Results Testing (10%) - MTII
+                    </li>
+                    <li class="task-item">
+                        <strong>Thursday:</strong> Post on-call weekend manager & send to staff/director
+                    </li>
+                    <li class="task-item">
+                        <strong>Every Other Monday:</strong> Timecard review (due at noon)
+                    </li>
+                    <li class="task-item">
+                        <strong>Daily:</strong> Check TempTrak alarms
+                    </li>
+                    <li class="task-item">
+                        <strong>Daily:</strong> Review pending specimens for LA, TY, MCAH, MA
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Inventory Contacts -->
+            <div class="dashboard-card">
+                <h2>📦 Inventory Point of Contact</h2>
+                <ul class="contact-list">
+                    <li>
+                        <div>
+                            <div class="contact-name">1st: Alex Roberson</div>
+                            <div class="contact-info">Primary Contact</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <div class="contact-name">2nd: Erick A Albarracin</div>
+                            <div class="contact-info">Secondary Contact</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <div class="contact-name">3rd: Daniel Vanzego</div>
+                            <div class="contact-info">Tertiary Contact</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="alert-section" style="margin-top: 15px;">
+                    <strong>Schedule:</strong> Inventory checks on Tuesday & Thursday
+                </div>
+            </div>
+
+            <!-- Monthly Tasks -->
+            <div class="dashboard-card">
+                <h2>📅 Monthly Responsibilities</h2>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <strong>First Week:</strong> Medical Director Meeting
+                        <ul style="margin-top: 5px; font-size: 14px;">
+                            <li>QA Monthly Report</li>
+                            <li>CA for prior month</li>
+                            <li>Gaps in maintenance QC</li>
+                            <li>Schedule one-on-one</li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <strong>First Wednesday:</strong> Lab Ops Meeting
+                    </li>
+                    <li class="task-item">
+                        <strong>Monthly:</strong> Workplace Safety Report in KP Rounding
+                    </li>
+                    <li class="task-item">
+                        <strong>Monthly:</strong> Drill Logs at sp-cloud.kp.org/sites/MASEHS
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Equipment Support -->
+            <div class="dashboard-card">
+                <h2>🔧 Equipment Support Contacts</h2>
+                <table class="equipment-table">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Support Number</th>
+                            <th>Account #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Roche</td>
+                            <td>1-800-428-2336</td>
+                            <td>55042619</td>
+                        </tr>
+                        <tr>
+                            <td>Sysmex XN</td>
+                            <td>1-888-879-7639</td>
+                            <td>2004017492</td>
+                        </tr>
+                        <tr>
+                            <td>Cepheid GeneXpert</td>
+                            <td>1-888-838-3222</td>
+                            <td>844498</td>
+                        </tr>
+                        <tr>
+                            <td>Stago</td>
+                            <td>800-725-0607</td>
+                            <td>33007424</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- On-Call Coverage -->
+            <div class="dashboard-card">
+                <h2>📞 On-Call Coverage</h2>
+                <div class="alert-section">
+                    <strong>Sites to Cover:</strong><br>
+                    • ML Largo Lab (24 hours)<br>
+                    • MTC Tysons Corner Lab<br>
+                    • MA Camp Springs Lab (9am-5pm)<br>
+                    • MCAH Lab (Caton Hill)<br>
+                    • MR Reston Lab (9am-9pm)
+                </div>
+                <p style="margin-top: 15px;"><strong>Schedule:</strong> Every 6 weekends</p>
+                <p><strong>Report Times:</strong> 9am, 1pm, 5pm to Director</p>
+                <p><strong>Work Hours:</strong> 6-8 hours on Saturday or Sunday</p>
+                <p><strong>Compensation:</strong> Take a thrive day within the week</p>
+            </div>
+
+            <!-- Staff Training Needs -->
+            <div class="dashboard-card">
+                <h2>🎓 Staff Training Requirements</h2>
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="switchTab('fulltime')">Full Time</button>
+                        <button class="tab-button" onclick="switchTab('temp')">Temp/PRN</button>
+                        <button class="tab-button" onclick="switchTab('floats')">Floats</button>
+                    </div>
+
+                    <div id="fulltime" class="tab-content active">
+                        <div class="staff-grid">
+                            <div class="staff-card">
+                                <div class="staff-name">Keisha</div>
+                                <div class="training-needed">Needs specimen processing training</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Larry</div>
+                                <div class="training-needed">Needs specimen processing training</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Netta</div>
+                                <div class="training-needed">Needs more experience</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Stephanie</div>
+                                <div class="training-needed">Train with Farah/Mimi for Hot Seat</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="temp" class="tab-content">
+                        <div class="staff-grid">
+                            <div class="staff-card">
+                                <div class="staff-name">Shannon</div>
+                                <div class="training-needed">Train with Danalisa</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Taric</div>
+                                <div class="training-needed">PRN - Needs training</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Micaela</div>
+                                <div class="training-needed">Part-time - Needs training</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="floats" class="tab-content">
+                        <div class="staff-grid">
+                            <div class="staff-card">
+                                <div class="staff-name">Jamaal</div>
+                                <div class="staff-info">✅ Knows specimen processing</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Mimi</div>
+                                <div class="staff-info">✅ Knows specimen processing</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Raven</div>
+                                <div class="staff-info">✅ Knows specimen processing</div>
+                            </div>
+                            <div class="staff-card">
+                                <div class="staff-name">Temica</div>
+                                <div class="staff-info">✅ Knows specimen processing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facility Phone Directory -->
+        <div class="dashboard-card" style="margin-top: 20px;">
+            <h2>☎️ Facility Phone Directory</h2>
+            <table class="equipment-table">
+                <thead>
+                    <tr>
+                        <th>Facility</th>
+                        <th>Phone</th>
+                        <th>TAT Naming</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Largo MOB</td>
+                        <td>301-618-5881</td>
+                        <td>ML Largo Lab</td>
+                    </tr>
+                    <tr>
+                        <td>Largo AUC</td>
+                        <td>301-618-6639</td>
+                        <td>ML Largo Lab</td>
+                    </tr>
+                    <tr>
+                        <td>Tyson Corner</td>
+                        <td>703-287-1484</td>
+                        <td>MTC Tysons Corner Lab</td>
+                    </tr>
+                    <tr>
+                        <td>Camp Spring</td>
+                        <td>301-702-6172</td>
+                        <td>MA Camp Springs Lab</td>
+                    </tr>
+                    <tr>
+                        <td>Caton Hill</td>
+                        <td>703-986-2675</td>
+                        <td>MCAH Lab</td>
+                    </tr>
+                    <tr>
+                        <td>Reston</td>
+                        <td>703-709-1751</td>
+                        <td>MR Reston Lab</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EVS Contacts -->
+        <div class="dashboard-card" style="margin-top: 20px;">
+            <h2>🧹 EVS Directory</h2>
+            <ul class="contact-list">
+                <li>
+                    <div>
+                        <div class="contact-name">EVS Supervisor - Felecia King</div>
+                        <div class="contact-info">301-908-3284 | Felicia.x.king@kp.org</div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="contact-name">EVS Ass Director - Francisca Rios</div>
+                        <div class="contact-info">240-426-0502</div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="contact-name">EVS Director - Shawn Dyches</div>
+                        <div class="contact-info">301-861-8817 | shawn.x.dyches@kp.org</div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="contact-name">KP Cell - Diane Williams</div>
+                        <div class="contact-info">410-499-8876 | Diane.L2.Williams@kp.org</div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="contact-name">Security Desk</div>
+                        <div class="contact-info">Extension #5626</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabName) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Add today's date highlight
+        const today = new Date().getDay();
+        const days = document.querySelectorAll('.schedule-day');
+        if (days[today]) {
+            days[today].classList.add('today');
+        }
+
+        // Add click handlers for task items
+        document.querySelectorAll('.task-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('completed');
+            });
+        });
+    </script>
+</body>
+</html>

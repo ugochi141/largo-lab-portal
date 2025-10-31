@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timecard Management System - Kaiser Permanente Largo</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .critical-alert {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .info-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            color: #005EB8;
+            margin-top: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .schedule-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .code-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .code-badge.pto {
+            background: #28a745;
+            color: white;
+        }
+
+        .code-badge.sick {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .code-badge.holiday {
+            background: #005EB8;
+            color: white;
+        }
+
+        .code-badge.fmla {
+            background: #dc3545;
+            color: white;
+        }
+
+        .code-badge.edu {
+            background: #6f42c1;
+            color: white;
+        }
+
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .shift-times {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .shift-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .shift-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .shift-time {
+            color: #005EB8;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list li {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-left: 3px solid #005EB8;
+            border-radius: 5px;
+        }
+
+        .rules-list li strong {
+            color: #005EB8;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #005EB8;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .quarter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .quarter-table th,
+        .quarter-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .quarter-table th {
+            background: #005EB8;
+            color: white;
+        }
+
+        .quarter-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-indicator.green {
+            background: #28a745;
+        }
+
+        .status-indicator.yellow {
+            background: #ffc107;
+        }
+
+        .status-indicator.red {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>⏰ Timecard Management System</h1>
+            <p>Kaiser Permanente Largo Laboratory - Bi-weekly Timecard Review</p>
+            <p style="margin-top: 10px;">Review Schedule: Every Other Monday - Due at Noon</p>
+        </div>
+
+        <!-- Important Alert -->
+        <div class="alert-box critical-alert">
+            <strong>🚨 Critical Reminder:</strong> Timecard reviews are conducted every other Monday and must be submitted by noon.
+            Check for patterns of lateness, missing clock-outs, and ensure proper codes are used.
+        </div>
+
+        <!-- Timecard Review Checklist -->
+        <div class="section-card">
+            <h2 class="section-title">📋 Timecard Review Checklist</h2>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Check all PTO, Holidays, FMLA, and personal time codes</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Verify employees clocked out for lunches</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3">Review errors first and identify patterns</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4">Check for lateness and potential time theft</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5">Record all instances of lateness and leaving early</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6">Verify proper codes used by techs/phlebs/MLA</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check7">
+                    <label for="check7">Confirm location codes are correct</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check8">
+                    <label for="check8">Update Insight for any call-outs</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check9">
+                    <label for="check9">Verify evening/night shift times (Edit Entry for 8a-4p window)</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check10">
+                    <label for="check10">Check weekend and afterhours entries (Edit Entry for accuracy)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Standard Shift Times -->
+        <div class="section-card">
+            <h2 class="section-title">🕐 Standard Shift Times</h2>
+            <div class="shift-times">
+                <div class="shift-row">
+                    <span class="shift-label">Day Shift:</span>
+                    <span class="shift-time">8:00 AM - 3:00 PM</span>
+                </div>
+                <div class="shift-row">
+                    <span class="shift-label">Evening Shift:</span>
+                    <span class="shift-time">3:30 PM - 11:30 PM</span>
+                </div>
+                <div class="shift-row">
+                    <span class="shift-label">Night Shift:</span>
+                    <span class="shift-time">11:30 PM - 7:30 AM</span>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 15px;">
+                <strong>💡 Weekend & Night Shift Tip:</strong> For weekend night shifts, delete one of the duplicate entries
+                and edit the start date and time first, then the end date.
+            </div>
+        </div>
+
+        <!-- Time Codes Reference -->
+        <div class="section-card">
+            <h2 class="section-title">📌 Time Code Reference</h2>
+            <div class="grid-2col">
+                <div>
+                    <h3>Paid Time Off Codes</h3>
+                    <ul class="rules-list">
+                        <li><span class="code-badge holiday">HOL</span> <strong>Holiday:</strong> Pre-loaded, can float to preferred day</li>
+                        <li><span class="code-badge pto">VCA</span> <strong>Vacation:</strong> Planned time off</li>
+                        <li><span class="code-badge sick">OUT</span> <strong>Sick Leave:</strong> Employee illness (or family with FMLA)</li>
+                        <li><span class="code-badge pto">FP</span> <strong>Flex Personal:</strong> 1-2 days off (min 2 hours, not vacation extender)</li>
+                        <li><span class="code-badge edu">EDU</span> <strong>Education:</strong> Educational purposes (proof may be required)</li>
+                        <li><span class="code-badge pto">BSTIP</span> <strong>Bereavement:</strong> See eligibility rules</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Special Codes & Rules</h3>
+                    <ul class="rules-list">
+                        <li><span class="code-badge fmla">FMLA</span> <strong>FMLA:</strong> Wipes out HOL - must re-add holiday</li>
+                        <li><strong>RTW:</strong> Ready to Work - only during business needs</li>
+                        <li><strong>Jury Duty:</strong> Must produce stamped summons</li>
+                        <li><strong>3+ Days Absence:</strong> Doctor's note required</li>
+                        <li><strong>Float Holiday:</strong> Not forced to work holidays</li>
+                        <li><strong>Holiday Pay:</strong> Separate lines for Holiday 2.5x</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bereavement Eligibility -->
+        <div class="section-card">
+            <h2 class="section-title">🕊️ Bereavement Leave Policy</h2>
+            <div class="grid-2col">
+                <div>
+                    <h3>Eligible Relations:</h3>
+                    <ul>
+                        <li>Parents</li>
+                        <li>In-laws</li>
+                        <li>Siblings</li>
+                        <li>Spouse</li>
+                        <li>Children</li>
+                        <li>Grandparents (non-in-law)</li>
+                        <li>Extended family (if living with employee)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Leave Duration:</h3>
+                    <ul class="rules-list">
+                        <li><strong>300 miles or less:</strong> 3 consecutive workdays</li>
+                        <li><strong>300+ miles:</strong> 5 consecutive workdays</li>
+                        <li><strong>Note:</strong> Proof may be requested if needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PTO Request Windows -->
+        <div class="section-card">
+            <h2 class="section-title">📅 PTO Request Windows</h2>
+            <table class="quarter-table">
+                <thead>
+                    <tr>
+                        <th>Quarter</th>
+                        <th>Period</th>
+                        <th>Due Date</th>
+                        <th>Submission Window</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Q1</td>
+                        <td>January - March</td>
+                        <td>December 10th (prior year)</td>
+                        <td>Dec 1st - 10th</td>
+                    </tr>
+                    <tr>
+                        <td>Q2</td>
+                        <td>April - June</td>
+                        <td>March 10th</td>
+                        <td>March 1st - 10th</td>
+                    </tr>
+                    <tr>
+                        <td>Q3</td>
+                        <td>July - September</td>
+                        <td>June 10th</td>
+                        <td>June 1st - 10th</td>
+                    </tr>
+                    <tr>
+                        <td>Q4</td>
+                        <td>October - December</td>
+                        <td>September 10th</td>
+                        <td>Sept 1st - 10th</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-box" style="margin-top: 15px;">
+                <strong>Important Notes:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Early submissions will be rejected</li>
+                    <li>Within due date window - seniority applies</li>
+                    <li>After deadline - first come, first served</li>
+                    <li>Send email reminders before each deadline</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Issues & Solutions -->
+        <div class="section-card">
+            <h2 class="section-title">⚠️ Common Issues & Solutions</h2>
+            <div class="grid-2col">
+                <div>
+                    <h3>Issue</h3>
+                    <ul class="rules-list">
+                        <li><strong>FMLA wipes out Holiday:</strong> Go back and re-add holiday entry</li>
+                        <li><strong>Evening/Night shift times incorrect:</strong> Edit Entry, ensure start time is 8a-4p window</li>
+                        <li><strong>Weekend night shift duplicates:</strong> Delete one entry, edit start/end dates</li>
+                        <li><strong>Absence > 3 days:</strong> Require doctor's note</li>
+                        <li><strong>11:30 time creates errors:</strong> Adjust entry to avoid system issues</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Solution/Action</h3>
+                    <ul class="rules-list">
+                        <li>Always check HOL entries when FMLA is present</li>
+                        <li>Use Edit Entry for accurate hours on weekends</li>
+                        <li>For absences, estimate time as 2PM to 10PM</li>
+                        <li>Track all instances of lateness in system</li>
+                        <li>Verify Holiday 2.5x appears on separate lines</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="btn btn-primary" onclick="window.open('https://kaisermidatlantic.smart-square.com/v2/login?DB_OEM_ID=2700&DB_ACCOUNT_TYPE=USER', '_blank')">
+                Open Insight
+            </button>
+            <button class="btn btn-success" onclick="window.open('https://hrconnect.kp.org', '_blank')">
+                Open HR Connect
+            </button>
+            <button class="btn btn-danger" onclick="window.print()">
+                Print Checklist
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Save checklist state to localStorage
+        document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+            // Load saved state
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+            }
+
+            // Save state on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+            });
+        });
+
+        // Clear checklist function
+        function clearChecklist() {
+            if (confirm('Are you sure you want to clear all checklist items?')) {
+                document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                    localStorage.setItem(checkbox.id, 'false');
+                });
+            }
+        }
+
+        // Add current date display
+        const today = new Date();
+        const dateDisplay = document.createElement('div');
+        dateDisplay.style.position = 'absolute';
+        dateDisplay.style.top = '10px';
+        dateDisplay.style.right = '10px';
+        dateDisplay.style.background = '#005EB8';
+        dateDisplay.style.color = 'white';
+        dateDisplay.style.padding = '5px 10px';
+        dateDisplay.style.borderRadius = '5px';
+        dateDisplay.style.fontSize = '14px';
+        dateDisplay.textContent = today.toLocaleDateString();
+        document.body.appendChild(dateDisplay);
+    </script>
+</body>
+</html>

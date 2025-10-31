@@ -34,3 +34,24 @@
 # Nested git repositories
 Ugochi-Ndubuisi/
 ugochi141.github.io/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production files
+dist/
+build/
+
+# Environment variables
+.env.local
+.env.production
+
+# Log files
+logs/
+*.log
+
+# OS files
+Thumbs.db

@@ -1,0 +1,256 @@
+{
+  "lastUpdated": "2025-10-30",
+  "equipment": [
+    {
+      "id": "EQ001",
+      "category": "Chemistry",
+      "manufacturer": "Roche",
+      "modelName": "Pure 1",
+      "location": "MOB",
+      "serialNumbers": {
+        "core": "7312-05",
+        "c303": "7313-02",
+        "e402": "7309-10"
+      },
+      "accountNumber": "55042629",
+      "supportPhone": "1-800-428-2336",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-15",
+      "nextMaintenance": "2025-11-15",
+      "notes": "Primary chemistry analyzer"
+    },
+    {
+      "id": "EQ002",
+      "category": "Chemistry",
+      "manufacturer": "Roche",
+      "modelName": "Pure 2",
+      "location": "AUC",
+      "serialNumbers": {
+        "core": "7431-05",
+        "c303": "7326-02",
+        "e402": "7431-02"
+      },
+      "accountNumber": "55042629",
+      "supportPhone": "1-800-428-2336",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-15",
+      "nextMaintenance": "2025-11-15",
+      "notes": "24-hour operation"
+    },
+    {
+      "id": "EQ003",
+      "category": "Hematology",
+      "manufacturer": "Sysmex",
+      "modelName": "XN-2000",
+      "location": "MOB Left",
+      "serialNumber": "31619",
+      "accountNumber": "2004001963",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-10",
+      "nextMaintenance": "2025-11-10",
+      "notes": "Left side unit"
+    },
+    {
+      "id": "EQ004",
+      "category": "Hematology",
+      "manufacturer": "Sysmex",
+      "modelName": "XN-2000",
+      "location": "MOB Right",
+      "serialNumber": "31613",
+      "accountNumber": "2004001963",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-10",
+      "nextMaintenance": "2025-11-10",
+      "notes": "Right side unit"
+    },
+    {
+      "id": "EQ005",
+      "category": "Hematology",
+      "manufacturer": "Sysmex",
+      "modelName": "XN-1000",
+      "location": "AUC",
+      "serialNumber": "27960",
+      "accountNumber": "2004017492",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-12",
+      "nextMaintenance": "2025-11-12",
+      "criticalValues": {
+        "HCT_0_2D": {"low": 30, "high": 65, "units": "%"},
+        "HCT_2D_18Y": {"low": 21, "high": 60, "units": "%"},
+        "HCT_ADULT": {"low": 16, "high": 60, "units": "%"},
+        "HGB_0_2D": {"low": 10, "high": 22, "units": "g/dL"},
+        "HGB_2D_18Y": {"low": 7, "high": 18, "units": "g/dL"},
+        "HGB_ADULT": {"low": 7, "high": 20, "units": "g/dL"},
+        "PLT_PEDIATRIC": {"low": 100000, "high": 1000000, "units": "/μL"},
+        "PLT_ADULT": {"low": 30000, "high": 1000000, "units": "/μL"},
+        "WBC": {"low": 1500, "high": 30000, "units": "/μL"},
+        "WBC_ONC": {"low": 500, "high": 30000, "units": "/μL"},
+        "NEU_ABS": {"low": 500, "units": "/μL"}
+      }
+    },
+    {
+      "id": "EQ006",
+      "category": "Urinalysis",
+      "manufacturer": "Sysmex",
+      "modelName": "UF-5000",
+      "location": "AUC",
+      "serialNumber": "168020",
+      "accountNumber": "2004001963",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-08",
+      "nextMaintenance": "2025-11-08",
+      "propertyTag": "33007424"
+    },
+    {
+      "id": "EQ007",
+      "category": "Urinalysis",
+      "manufacturer": "Siemens",
+      "modelName": "Clinitek Novus",
+      "location": "MOB",
+      "serialNumber": "5005159",
+      "accountNumber": "33004101",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-05",
+      "nextMaintenance": "2025-11-05"
+    },
+    {
+      "id": "EQ008",
+      "category": "Urinalysis",
+      "manufacturer": "Siemens",
+      "modelName": "Clinitek Novus",
+      "location": "AUC",
+      "serialNumber": "5005120",
+      "accountNumber": "33004101",
+      "supportPhone": "888-879-7639",
+      "status": "Operational",
+      "lastMaintenance": "2025-10-05",
+      "nextMaintenance": "2025-11-05"
+    },
+    {
+      "id": "EQ009",
+      "category": "Coagulation",
+      "manufacturer": "Stago",
+      "modelName": "Compact Max",
+      "location": "MOB",
+      "serialNumber": "0000006077",
+      "accountNumber": "1397598",
+      "supportPhone": "800-725-0607",
+      "status": "Operational",
+      "propertyTag": "31000401",
+      "referenceRanges": {
+        "PT": {"range": "11.8-14.5", "units": "sec"},
+        "INR": {"range": "0.9-1.1", "critical": ">4.0"},
+        "APTT": {"range": "21.7-36.9", "critical": ">80", "units": "sec"},
+        "D-dimer": {"range": "<0.5", "critical": ">0.5", "units": "μg/mL FEU"}
+      }
+    },
+    {
+      "id": "EQ010",
+      "category": "Coagulation",
+      "manufacturer": "Stago",
+      "modelName": "Compact Max",
+      "location": "AUC",
+      "serialNumber": "C000015916",
+      "accountNumber": "1224867",
+      "supportPhone": "800-725-0607",
+      "status": "Operational",
+      "propertyTag": "33007424"
+    },
+    {
+      "id": "EQ011",
+      "category": "Molecular",
+      "manufacturer": "Cepheid",
+      "modelName": "GeneXpert Module 6",
+      "location": "Lab",
+      "serialNumber": "844498",
+      "partNumber": "900-0491RS Rev Y",
+      "labPartNumber": "302-6681 Rev A",
+      "supportPhone": "1-888-838-3222",
+      "installDate": "2020-12-18",
+      "status": "Operational",
+      "serialNumber2": "210015992"
+    }
+  ],
+  "maintenanceSchedule": {
+    "daily": [
+      "Lyse QC priority",
+      "Kits QC",
+      "Stago maintenance",
+      "Log QC",
+      "MiniSed QC",
+      "GeneXpert QC",
+      "Pure 1 QC at 7:30am",
+      "Pure 2 QC at 3am"
+    ],
+    "weekly": {
+      "wednesday": [
+        "Stago weekly maintenance (both instruments)",
+        "Novus weekly check (MOB)"
+      ]
+    },
+    "monthly": {
+      "thirdWednesday": "MedTox monthly maintenance",
+      "catchUp": [
+        "Hematek monthly",
+        "GeneXpert monthly"
+      ]
+    }
+  },
+  "waterChangeProtocol": [
+    "Put Pure Analyzer in standby",
+    "Put Pure Analyzer in Shutdown",
+    "Remove all refrigerated reagents",
+    "QC machine",
+    "Lyse QC priority"
+  ],
+  "sysmexReagents": {
+    "AUC": "DCL",
+    "ClinicalLab": "DST"
+  },
+  "waterChangeDates": [
+    "November 8-9",
+    "December 20-21"
+  ],
+  "supportContacts": {
+    "roche": {
+      "name": "Roche Diagnostics",
+      "phone": "1-800-428-2336",
+      "account": "55042619"
+    },
+    "sysmex": {
+      "name": "Sysmex America",
+      "phoneUS": "888-879-7639",
+      "phoneCanada": "888-679-7639",
+      "customerService": "800-482-1282"
+    },
+    "cepheid": {
+      "name": "Cepheid",
+      "phone": "1-888-838-3222 Option 2",
+      "fax": "1-408-716-2550",
+      "email": "techsupport@cepheid.com",
+      "website": "www.cepheid.com/support"
+    },
+    "stago": {
+      "name": "Stago",
+      "phone": "800-725-0607",
+      "website": "www.stago-us.com"
+    },
+    "vitalTears": {
+      "name": "Vital Tears",
+      "contact": "Cherice Phelps",
+      "title": "Blood Collection Facility Coordinator",
+      "address": "2500 Sandersville Rd, Lexington, KY 40511",
+      "phone": "816-255-1424",
+      "website": "vitaltears.org"
+    },
+    "ontrac": {
+      "name": "OnTrac Courier",
+      "email": "kaiser26@ontrac.com"
+    }
+  }
+}
