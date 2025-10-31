@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Order Management - Largo Laboratory Portal</title>
+    <link rel="stylesheet" href="../css/kp-styles.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .inventory-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--kp-primary);
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: var(--kp-secondary);
+            border: none;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            background: var(--kp-primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .inventory-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .stock-low {
+            background: #ffebee !important;
+        }
+
+        .stock-critical {
+            background: #ffcdd2 !important;
+            font-weight: 600;
+        }
+
+        .stock-good {
+            background: #e8f5e9 !important;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stock-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .indicator-critical { background: #dc3545; }
+        .indicator-low { background: #ffc107; }
+        .indicator-good { background: #28a745; }
+
+        .order-summary {
+            background: var(--kp-secondary);
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .email-preview {
+            background: white;
+            border: 1px solid var(--kp-border);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../assets/kp-logo.svg" alt="Kaiser Permanente" class="kp-logo">
+                <h1 class="portal-title">Inventory Order Management</h1>
+            </div>
+            <nav class="main-nav" role="navigation">
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../schedules/daily-schedule.html" class="nav-link">Schedules</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active">Inventory</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="chemistry.html">Chemistry</a></li>
+                            <li><a href="hematology.html">Hematology</a></li>
+                            <li><a href="urinalysis.html">Urinalysis</a></li>
+                            <li><a href="coagulation.html">Coagulation</a></li>
+                            <li><a href="kits.html">Kits</a></li>
+                            <li><a href="order-management.html">Order Management</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../staff/directory.html" class="nav-link">Staff</a></li>
+                    <li><a href="../manager-dashboard.html" class="nav-link">Manager</a></li>
+                    <li><a href="../technical-support.html" class="nav-link">Support</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h2 class="section-title">Largo Laboratory Inventory Management</h2>
+
+            <!-- Critical Alerts -->
+            <div id="inventory-alerts"></div>
+
+            <!-- Search and Filters -->
+            <div class="search-filters">
+                <input type="text" id="search-input" class="form-control" placeholder="Search items..." style="width: 300px;">
+                <select id="stock-filter" class="form-control" style="width: 200px;">
+                    <option value="all">All Stock Levels</option>
+                    <option value="critical">Critical (< 20%)</option>
+                    <option value="low">Low (< 50%)</option>
+                    <option value="good">Good (≥ 50%)</option>
+                    <option value="reorder">Needs Reorder</option>
+                </select>
+                <select id="department-filter" class="form-control" style="width: 200px;">
+                    <option value="all">All Departments</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="hematology">Hematology</option>
+                    <option value="urinalysis">Urinalysis</option>
+                    <option value="coagulation">Coagulation</option>
+                    <option value="kits">Kits</option>
+                    <option value="miscellaneous">Miscellaneous</option>
+                </select>
+                <button class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+                <button class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+            </div>
+
+            <!-- Department Tabs -->
+            <div class="inventory-tabs">
+                <button class="tab-button active" onclick="switchTab('all')">All Items</button>
+                <button class="tab-button" onclick="switchTab('chemistry')">Chemistry</button>
+                <button class="tab-button" onclick="switchTab('hematology')">Hematology</button>
+                <button class="tab-button" onclick="switchTab('urinalysis')">Urinalysis</button>
+                <button class="tab-button" onclick="switchTab('coagulation')">Coagulation</button>
+                <button class="tab-button" onclick="switchTab('kits')">Kits</button>
+                <button class="tab-button" onclick="switchTab('miscellaneous')">Miscellaneous</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="all" class="tab-content active">
+                <h3>All Inventory Items</h3>
+                <table class="kp-table inventory-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all" onchange="toggleSelectAll()"></th>
+                            <th>Item Number</th>
+                            <th>Description</th>
+                            <th>Department</th>
+                            <th>Current Stock</th>
+                            <th>PAR Level</th>
+                            <th>Status</th>
+                            <th>Reorder Qty</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-tbody">
+                        <!-- Items will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Department-specific tabs (hidden by default) -->
+            <div id="chemistry" class="tab-content">
+                <h3>Chemistry Department</h3>
+                <div class="info-box">
+                    <strong>Roche Account:</strong> 55042619 | <strong>Support:</strong> 1-800-428-2336
+                </div>
+                <table class="kp-table inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Item Number</th>
+                            <th>Description</th>
+                            <th>Analyzer</th>
+                            <th>Current</th>
+                            <th>PAR</th>
+                            <th>Status</th>
+                            <th>Reorder</th>
+                        </tr>
+                    </thead>
+                    <tbody id="chemistry-tbody"></tbody>
+                </table>
+            </div>
+
+            <div id="hematology" class="tab-content">
+                <h3>Hematology Department</h3>
+                <div class="info-box">
+                    <strong>Sysmex Account:</strong> Largo Lab | <strong>Support:</strong> 1-888-879-7639
+                </div>
+                <table class="kp-table inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Item Number</th>
+                            <th>Description</th>
+                            <th>Instrument</th>
+                            <th>Current</th>
+                            <th>PAR</th>
+                            <th>Status</th>
+                            <th>Reorder</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hematology-tbody"></tbody>
+                </table>
+            </div>
+
+            <!-- Order Summary Section -->
+            <div class="order-summary">
+                <h3 class="card-title">Order Summary</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="items-selected">0</span>
+                        <span class="stat-label">Items Selected</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value status-red" id="critical-items">0</span>
+                        <span class="stat-label">Critical Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value status-yellow" id="low-items">0</span>
+                        <span class="stat-label">Low Stock Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-cost">$0.00</span>
+                        <span class="stat-label">Est. Total Cost</span>
+                    </div>
+                </div>
+
+                <!-- Email Preview -->
+                <div class="email-preview" id="email-preview">
+                    <strong>To:</strong> largolabinventoryteam@KaiserPermanente.onmicrosoft.com<br>
+                    <strong>CC:</strong> Tianna.J.Maxwell@kp.org, Alex.X.Roberson@kp.org, john.f.ekpe@kp.org,
+                    ugochi.l.ndubuisi@kp.org, Emily.D.Creekmore@kp.org, Ingrid.Z.Benitez-Ruiz@kp.org, Maxwell.L.Booker@kp.org<br>
+                    <strong>Subject:</strong> Largo Laboratory Inventory Order - <span id="order-date"></span><br>
+                    <strong>GL Code:</strong> 1808-18801-5693<br><br>
+                    <div id="email-body">
+                        No items selected for order.
+                    </div>
+                </div>
+
+                <!-- Order Actions -->
+                <div class="order-actions">
+                    <button class="btn btn-secondary" onclick="saveOrder()">Save Draft</button>
+                    <button class="btn btn-warning" onclick="previewOrder()">Preview Order</button>
+                    <button class="btn btn-success" onclick="exportToExcel()">Export Excel</button>
+                    <button class="btn btn-primary" onclick="sendOrder()">Send Order Email</button>
+                </div>
+            </div>
+
+            <!-- Automated Ordering Settings -->
+            <div class="dashboard-card" style="margin-top: 30px;">
+                <h3 class="card-title">Automated Ordering Settings</h3>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="auto-order-enabled" onchange="toggleAutoOrder()">
+                        Enable Automated Ordering
+                    </label>
+                </div>
+                <div id="auto-order-settings" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Check Inventory At:</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="time" id="morning-check" class="form-control" value="07:00" style="width: 150px;">
+                            <input type="time" id="afternoon-check" class="form-control" value="15:00" style="width: 150px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Critical Alert Frequency:</label>
+                        <select id="alert-frequency" class="form-control" style="width: 200px;">
+                            <option value="4">Every 4 hours</option>
+                            <option value="6">Every 6 hours</option>
+                            <option value="8">Every 8 hours</option>
+                            <option value="12">Every 12 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Auto-order Threshold:</label>
+                        <select id="auto-threshold" class="form-control" style="width: 200px;">
+                            <option value="20">Below 20% of PAR</option>
+                            <option value="30">Below 30% of PAR</option>
+                            <option value="40">Below 40% of PAR</option>
+                            <option value="50">Below 50% of PAR</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAutoOrderSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Inventory Contacts</h4>
+                <ul>
+                    <li>Alex Roberson - POC</li>
+                    <li>Erick Albarracin - Backup</li>
+                    <li>Daniel Vanzego - Support</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Supplier Support</h4>
+                <ul>
+                    <li>Roche: 1-800-428-2336</li>
+                    <li>Sysmex: 1-888-879-7639</li>
+                    <li>Stago: 1-800-725-0607</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kaiser Permanente - Largo Laboratory | Inventory Management v2.0</p>
+        </div>
+    </footer>
+
+    <script src="../js/inventory.js"></script>
+    <script src="../js/inventory-data.js"></script>
+    <script src="../js/email-order.js"></script>
+</body>
+</html>
