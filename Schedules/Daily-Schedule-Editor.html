@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Schedule Editor - Kaiser Permanente Largo Laboratory</title>
+    <meta name="description" content="Create and manage daily staff schedules for Kaiser Permanente Largo Laboratory">
+    <meta name="theme-color" content="#0066cc">
+
+    <style>
+        /* Kaiser Permanente Professional Branding */
+        :root {
+            --kp-blue: #0066cc;
+            --kp-dark-blue: #003d82;
+            --kp-light-blue: #e6f2ff;
+            --kp-teal: #00a0a0;
+            --kp-green: #107c41;
+            --kp-orange: #ff6900;
+            --kp-red: #dc3545;
+            --kp-gray: #5e5e5e;
+            --kp-light-gray: #f3f3f3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Professional KP Header */
+        .kp-header {
+            background: linear-gradient(135deg, var(--kp-blue) 0%, var(--kp-dark-blue) 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .kp-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--kp-blue);
+            font-size: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.home {
+            background: var(--kp-green);
+            border: none;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Date Controls */
+        .controls-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .date-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-label {
+            font-weight: 600;
+            color: var(--kp-gray);
+        }
+
+        #scheduleDate {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        #scheduleDate:focus {
+            outline: none;
+            border-color: var(--kp-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: var(--kp-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--kp-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-success {
+            background: var(--kp-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #0d5f31;
+        }
+
+        .btn-warning {
+            background: var(--kp-orange);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--kp-red);
+            color: white;
+        }
+
+        /* Schedule Tables */
+        .schedule-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--kp-blue);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--kp-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .add-btn {
+            background: var(--kp-green);
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #0d5f31;
+            transform: scale(1.05);
+        }
+
+        /* Professional Table Styling */
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
+        }
+
+        .schedule-table thead {
+            background: linear-gradient(135deg, var(--kp-blue) 0%, var(--kp-dark-blue) 100%);
+            color: white;
+        }
+
+        .schedule-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .schedule-table tbody tr {
+            transition: background 0.2s;
+        }
+
+        .schedule-table tbody tr:hover {
+            background: var(--kp-light-blue);
+        }
+
+        .schedule-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .schedule-table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Input Styling */
+        .schedule-input {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .schedule-input:focus {
+            outline: none;
+            border-color: var(--kp-blue);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+
+        .time-input {
+            width: 90px;
+        }
+
+        .role-select {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .role-select:focus {
+            outline: none;
+            border-color: var(--kp-blue);
+        }
+
+        /* Role Badges */
+        .role-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .role-phleb { background: var(--kp-orange); }
+        .role-mla { background: #8b5cf6; }
+        .role-mlt { background: var(--kp-green); }
+        .role-mls { background: var(--kp-blue); }
+
+        /* Action Buttons */
+        .action-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+            margin: 0 2px;
+        }
+
+        .action-btn.remove {
+            background: #ffebee;
+            color: var(--kp-red);
+        }
+
+        .action-btn.remove:hover {
+            background: var(--kp-red);
+            color: white;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: linear-gradient(135deg, var(--kp-light-blue) 0%, white 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--kp-blue);
+            margin-bottom: 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .summary-card h4 {
+            color: var(--kp-gray);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .summary-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--kp-blue);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--kp-dark-blue);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .schedule-table {
+                font-size: 12px;
+            }
+
+            .time-input {
+                width: 70px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .controls-section,
+            .nav-buttons,
+            .add-btn,
+            .action-btn {
+                display: none;
+            }
+
+            .schedule-section {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional KP Header -->
+    <header class="kp-header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="kp-logo">KP</div>
+                <div class="header-text">
+                    <h1>Daily Schedule Editor</h1>
+                    <p>Kaiser Permanente Largo Laboratory</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="../index.html" class="nav-btn home">🏠 Home</a>
+                <a href="Staff_Roster.html" class="nav-btn">👥 Roster</a>
+                <a href="Maintenance Schedule.html" class="nav-btn">🔧 Maintenance</a>
+                <button onclick="window.print()" class="nav-btn">🖨️ Print</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Date Controls -->
+        <div class="controls-section">
+            <div class="controls-row">
+                <div class="date-group">
+                    <label class="date-label">Schedule Date:</label>
+                    <input type="date" id="scheduleDate">
+                    <button class="btn btn-primary" onclick="loadSchedule()">📅 Load Schedule</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="saveSchedule()">💾 Save Schedule</button>
+                    <button class="btn btn-warning" onclick="exportSchedule()">📥 Export</button>
+                    <button class="btn btn-danger" onclick="clearSchedule()">🗑️ Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-section">
+            <h3 style="color: var(--kp-blue); margin-bottom: 10px;">📊 Coverage Summary</h3>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4>TOTAL STAFF</h4>
+                    <div class="value" id="totalStaff">0</div>
+                </div>
+                <div class="summary-card">
+                    <h4>PHLEBOTOMISTS</h4>
+                    <div class="value" id="totalPhleb">0</div>
+                </div>
+                <div class="summary-card">
+                    <h4>LAB TECHS</h4>
+                    <div class="value" id="totalLab">0</div>
+                </div>
+                <div class="summary-card">
+                    <h4>COVERAGE HOURS</h4>
+                    <div class="value" id="coverageHours">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phlebotomy Schedule -->
+        <div class="schedule-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span>🩸 Phlebotomy Team Schedule</span>
+                </h2>
+                <button class="add-btn" onclick="addPhlebRow()">+ Add Staff</button>
+            </div>
+            <table class="schedule-table" id="phlebTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Shift Start</th>
+                        <th>Shift End</th>
+                        <th>Break 1</th>
+                        <th>Break 2</th>
+                        <th>Assignment</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="phlebBody">
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Laboratory Schedule -->
+        <div class="schedule-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span>🔬 Laboratory Team Schedule</span>
+                </h2>
+                <button class="add-btn" onclick="addLabRow()">+ Add Staff</button>
+            </div>
+            <table class="schedule-table" id="labTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Shift Start</th>
+                        <th>Shift End</th>
+                        <th>Break</th>
+                        <th>Department</th>
+                        <th>Assignment</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="labBody">
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="schedule-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span>📝 Daily Notes & Special Instructions</span>
+                </h2>
+            </div>
+            <textarea id="dailyNotes" class="schedule-input" rows="4" style="width: 100%; resize: vertical;"
+                placeholder="Enter any special instructions, coverage notes, or important information for today..."></textarea>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Kaiser Permanente Largo Laboratory - Daily Schedule Editor v2.0</p>
+        <p>Support: 301-456-6096 | Last Updated: <span id="lastUpdated"></span></p>
+    </footer>
+
+    <script>
+        // Initialize date to today
+        document.getElementById('scheduleDate').valueAsDate = new Date();
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+        // Staff roster for autocomplete
+        const phlebStaff = [
+            'Angela', 'Bernadette', 'Briana', 'Crystal', 'Emily B', 'Francisca',
+            'Hannah', 'Karen', 'Nebiyu', 'Roxanne', 'Tamika', 'Tianna'
+        ];
+
+        const labStaff = [
+            'Erika (MLS)', 'Tianna (MLT)', 'Sana (MLT)', 'Josh (MLS)',
+            'Saron (MLA)', 'Kal (MLS)', 'Jenny (MLS)', 'Ugochi (MLS)'
+        ];
+
+        // Add Phlebotomy Row
+        function addPhlebRow() {
+            const tbody = document.getElementById('phlebBody');
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td><input type="text" class="schedule-input" list="phlebList" placeholder="Staff name"></td>
+                <td>
+                    <select class="role-select">
+                        <option value="Phlebotomist">Phlebotomist</option>
+                        <option value="Lead Phleb">Lead Phlebotomist</option>
+                        <option value="Float">Float</option>
+                    </select>
+                </td>
+                <td><input type="time" class="schedule-input time-input" value="07:00"></td>
+                <td><input type="time" class="schedule-input time-input" value="15:30"></td>
+                <td><input type="text" class="schedule-input" placeholder="10:00-10:15"></td>
+                <td><input type="text" class="schedule-input" placeholder="12:00-12:30"></td>
+                <td><input type="text" class="schedule-input" placeholder="MOB/Clinic"></td>
+                <td><input type="text" class="schedule-input" placeholder="Notes"></td>
+                <td><button class="action-btn remove" onclick="removeRow(this)">Remove</button></td>
+            `;
+            updateSummary();
+        }
+
+        // Add Laboratory Row
+        function addLabRow() {
+            const tbody = document.getElementById('labBody');
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td><input type="text" class="schedule-input" list="labList" placeholder="Staff name"></td>
+                <td>
+                    <select class="role-select">
+                        <option value="MLS">MLS</option>
+                        <option value="MLT">MLT</option>
+                        <option value="MLA">MLA</option>
+                        <option value="Lead">Lead Tech</option>
+                    </select>
+                </td>
+                <td><input type="time" class="schedule-input time-input" value="07:00"></td>
+                <td><input type="time" class="schedule-input time-input" value="15:30"></td>
+                <td><input type="text" class="schedule-input" placeholder="12:00-12:30"></td>
+                <td>
+                    <select class="schedule-input">
+                        <option>Chemistry</option>
+                        <option>Hematology</option>
+                        <option>UA/Coag</option>
+                        <option>Processing</option>
+                        <option>Float</option>
+                    </select>
+                </td>
+                <td><input type="text" class="schedule-input" placeholder="Primary/Backup"></td>
+                <td><input type="text" class="schedule-input" placeholder="Notes"></td>
+                <td><button class="action-btn remove" onclick="removeRow(this)">Remove</button></td>
+            `;
+            updateSummary();
+        }
+
+        // Remove Row
+        function removeRow(btn) {
+            btn.closest('tr').remove();
+            updateSummary();
+        }
+
+        // Update Summary
+        function updateSummary() {
+            const phlebRows = document.getElementById('phlebBody').rows.length;
+            const labRows = document.getElementById('labBody').rows.length;
+
+            document.getElementById('totalStaff').textContent = phlebRows + labRows;
+            document.getElementById('totalPhleb').textContent = phlebRows;
+            document.getElementById('totalLab').textContent = labRows;
+
+            // Calculate coverage hours (simplified)
+            const hours = (phlebRows + labRows) * 8;
+            document.getElementById('coverageHours').textContent = hours;
+        }
+
+        // Save Schedule to LocalStorage
+        function saveSchedule() {
+            const date = document.getElementById('scheduleDate').value;
+            const scheduleData = {
+                date: date,
+                phlebotomy: getTableData('phlebBody'),
+                laboratory: getTableData('labBody'),
+                notes: document.getElementById('dailyNotes').value,
+                savedAt: new Date().toISOString()
+            };
+
+            localStorage.setItem(`schedule_${date}`, JSON.stringify(scheduleData));
+            alert('Schedule saved successfully!');
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+        }
+
+        // Get Table Data
+        function getTableData(tableId) {
+            const tbody = document.getElementById(tableId);
+            const data = [];
+
+            for (let row of tbody.rows) {
+                const rowData = [];
+                for (let cell of row.cells) {
+                    const input = cell.querySelector('input, select, textarea');
+                    if (input) {
+                        rowData.push(input.value);
+                    }
+                }
+                if (rowData.length > 0) {
+                    data.push(rowData);
+                }
+            }
+            return data;
+        }
+
+        // Load Schedule from LocalStorage
+        function loadSchedule() {
+            const date = document.getElementById('scheduleDate').value;
+            const savedData = localStorage.getItem(`schedule_${date}`);
+
+            if (savedData) {
+                const scheduleData = JSON.parse(savedData);
+
+                // Clear existing rows
+                document.getElementById('phlebBody').innerHTML = '';
+                document.getElementById('labBody').innerHTML = '';
+
+                // Load phlebotomy data
+                scheduleData.phlebotomy.forEach(rowData => {
+                    addPhlebRow();
+                    const lastRow = document.getElementById('phlebBody').lastElementChild;
+                    const inputs = lastRow.querySelectorAll('input, select');
+                    rowData.forEach((value, index) => {
+                        if (inputs[index]) {
+                            inputs[index].value = value;
+                        }
+                    });
+                });
+
+                // Load laboratory data
+                scheduleData.laboratory.forEach(rowData => {
+                    addLabRow();
+                    const lastRow = document.getElementById('labBody').lastElementChild;
+                    const inputs = lastRow.querySelectorAll('input, select');
+                    rowData.forEach((value, index) => {
+                        if (inputs[index]) {
+                            inputs[index].value = value;
+                        }
+                    });
+                });
+
+                // Load notes
+                document.getElementById('dailyNotes').value = scheduleData.notes || '';
+
+                updateSummary();
+                alert('Schedule loaded successfully!');
+            } else {
+                alert('No saved schedule found for this date.');
+            }
+        }
+
+        // Export Schedule
+        function exportSchedule() {
+            const date = document.getElementById('scheduleDate').value;
+            const scheduleData = {
+                date: date,
+                phlebotomy: getTableData('phlebBody'),
+                laboratory: getTableData('labBody'),
+                notes: document.getElementById('dailyNotes').value,
+                exportedAt: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(scheduleData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `schedule_${date}.json`;
+            link.click();
+        }
+
+        // Clear Schedule
+        function clearSchedule() {
+            if (confirm('Are you sure you want to clear the entire schedule? This cannot be undone.')) {
+                document.getElementById('phlebBody').innerHTML = '';
+                document.getElementById('labBody').innerHTML = '';
+                document.getElementById('dailyNotes').value = '';
+                updateSummary();
+            }
+        }
+
+        // Add some sample rows on load
+        window.onload = function() {
+            // Add 2 sample phlebotomy rows
+            for (let i = 0; i < 2; i++) {
+                addPhlebRow();
+            }
+            // Add 2 sample laboratory rows
+            for (let i = 0; i < 2; i++) {
+                addLabRow();
+            }
+        }
+
+        // Create datalists for autocomplete
+        const phlebDatalist = document.createElement('datalist');
+        phlebDatalist.id = 'phlebList';
+        phlebStaff.forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            phlebDatalist.appendChild(option);
+        });
+        document.body.appendChild(phlebDatalist);
+
+        const labDatalist = document.createElement('datalist');
+        labDatalist.id = 'labList';
+        labStaff.forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            labDatalist.appendChild(option);
+        });
+        document.body.appendChild(labDatalist);
+    </script>
+</body>
+</html>

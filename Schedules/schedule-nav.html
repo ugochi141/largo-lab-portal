@@ -1,6 +1,6 @@
 <style>
     .schedule-nav {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #0066cc 0%, #003d82 100%);
         padding: 15px 20px;
         margin: -30px -30px 30px -30px;
         border-radius: 20px 20px 0 0;
@@ -63,7 +63,7 @@
 
     .nav-link.active {
         background: rgba(255,255,255,0.9);
-        color: #667eea;
+        color: #0066cc;
         font-weight: 600;
     }
 
@@ -91,9 +91,13 @@
         </a>
 
         <div class="nav-links">
+            <a href="Daily-Schedule-Editor.html" class="nav-link" id="nav-editor">
+                <span>✏️</span>
+                <span>Schedule Editor</span>
+            </a>
             <a href="Daily Schedule.html" class="nav-link" id="nav-daily">
                 <span>📋</span>
-                <span>Daily Schedule</span>
+                <span>Daily View</span>
             </a>
             <a href="Maintenance Schedule.html" class="nav-link" id="nav-maintenance">
                 <span>🔧</span>
@@ -116,6 +120,7 @@
     (function() {
         const currentPage = window.location.pathname.split('/').pop();
         const navMap = {
+            'Daily-Schedule-Editor.html': 'nav-editor',
             'Daily Schedule.html': 'nav-daily',
             'Maintenance Schedule.html': 'nav-maintenance',
             'Scheduler.html': 'nav-visual',
