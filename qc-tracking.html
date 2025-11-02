@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC Tracking - Westgard Rules - Largo Lab</title>
+    <link rel="stylesheet" href="css/kp-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .qc-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .qc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .qc-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .qc-card h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+
+        .qc-input-group {
+            margin-bottom: 15px;
+        }
+
+        .qc-input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .qc-input-group input,
+        .qc-input-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .westgard-rules {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .rule-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+
+        .rule-violated {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .rule-passed {
+            color: #28a745;
+        }
+
+        .qc-chart {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 300px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .data-point {
+            width: 10px;
+            height: 10px;
+            background: #0066cc;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .data-point.out-of-control {
+            background: #dc3545;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        table.qc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table.qc-table th,
+        table.qc-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table.qc-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-indicator.pass {
+            background: #28a745;
+        }
+
+        .status-indicator.fail {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="portal-title">Quality Control Tracking - Westgard Rules</h1>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="manager-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="equipment-tracker.html" class="nav-link">Equipment</a></li>
+                    <li><a href="qc-tracking.html" class="nav-link active">QC Tracking</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="qc-container">
+            <h2>Quality Control Tracking System</h2>
+            <p>Monitor QC results and apply Westgard rules for statistical quality control</p>
+
+            <div id="alertMessage" class="alert" style="display: none;"></div>
+
+            <div class="qc-grid">
+                <!-- QC Data Entry -->
+                <div class="qc-card">
+                    <h3>Enter QC Data</h3>
+                    <form id="qcEntryForm">
+                        <div class="qc-input-group">
+                            <label for="instrument">Instrument/Analyzer</label>
+                            <select id="instrument" required>
+                                <option value="">Select Instrument</option>
+                                <option value="roche-cobas">Roche Cobas (Chemistry)</option>
+                                <option value="sysmex-xn2000">Sysmex XN-2000 (Hematology)</option>
+                                <option value="stago">Stago (Coagulation)</option>
+                                <option value="istat">iSTAT (POCT)</option>
+                                <option value="cepheid">Cepheid GeneXpert</option>
+                            </select>
+                        </div>
+
+                        <div class="qc-input-group">
+                            <label for="analyte">Analyte/Test</label>
+                            <input type="text" id="analyte" required placeholder="e.g., Glucose, WBC, PT">
+                        </div>
+
+                        <div class="qc-input-group">
+                            <label for="qcLevel">QC Level</label>
+                            <select id="qcLevel" required>
+                                <option value="level1">Level 1 (Low)</option>
+                                <option value="level2">Level 2 (Normal)</option>
+                                <option value="level3">Level 3 (High)</option>
+                            </select>
+                        </div>
+
+                        <div class="qc-input-group">
+                            <label for="qcValue">QC Result</label>
+                            <input type="number" step="0.01" id="qcValue" required placeholder="Enter result">
+                        </div>
+
+                        <div class="qc-input-group">
+                            <label for="targetMean">Target Mean</label>
+                            <input type="number" step="0.01" id="targetMean" required placeholder="From package insert">
+                        </div>
+
+                        <div class="qc-input-group">
+                            <label for="targetSD">Target SD (σ)</label>
+                            <input type="number" step="0.01" id="targetSD" required placeholder="Standard deviation">
+                        </div>
+
+                        <button type="submit" class="btn-primary">Submit QC Result</button>
+                    </form>
+                </div>
+
+                <!-- Westgard Rules Status -->
+                <div class="qc-card">
+                    <h3>Westgard Rules Status</h3>
+                    <div class="westgard-rules">
+                        <div class="rule-item" id="rule-1-2s">
+                            <strong>1-2s Warning:</strong> <span class="rule-passed">Monitoring</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">One control exceeds ±2 SD (warning only)</p>
+                        </div>
+                        <div class="rule-item" id="rule-1-3s">
+                            <strong>1-3s Rejection:</strong> <span class="rule-passed">Pass</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">One control exceeds ±3 SD (reject run)</p>
+                        </div>
+                        <div class="rule-item" id="rule-2-2s">
+                            <strong>2-2s Rejection:</strong> <span class="rule-passed">Pass</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">Two consecutive controls exceed +2 SD or -2 SD</p>
+                        </div>
+                        <div class="rule-item" id="rule-r-4s">
+                            <strong>R-4s Rejection:</strong> <span class="rule-passed">Pass</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">Range between two levels exceeds 4 SD</p>
+                        </div>
+                        <div class="rule-item" id="rule-4-1s">
+                            <strong>4-1s Rejection:</strong> <span class="rule-passed">Pass</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">Four consecutive controls exceed +1 SD or -1 SD</p>
+                        </div>
+                        <div class="rule-item" id="rule-10-x">
+                            <strong>10-x Rejection:</strong> <span class="rule-passed">Pass</span>
+                            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">Ten consecutive controls on same side of mean</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent QC Results -->
+                <div class="qc-card" style="grid-column: 1 / -1;">
+                    <h3>Recent QC Results</h3>
+                    <table class="qc-table" id="qcResultsTable">
+                        <thead>
+                            <tr>
+                                <th>Date/Time</th>
+                                <th>Instrument</th>
+                                <th>Analyte</th>
+                                <th>Level</th>
+                                <th>Result</th>
+                                <th>SD from Mean</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="qcResultsBody">
+                            <tr>
+                                <td colspan="8" style="text-align: center; color: #999;">No QC results yet. Enter data above to get started.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Levy-Jennings Chart Placeholder -->
+                <div class="qc-card" style="grid-column: 1 / -1;">
+                    <h3>Levy-Jennings Chart</h3>
+                    <div class="qc-chart">
+                        <p style="text-align: center; color: #999;">Chart will display after entering 5+ data points</p>
+                        <div id="levyJenningsChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Kaiser Permanente Largo Laboratory. CLIA Compliant | CAP Accredited</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // QC data storage
+            let qcData = JSON.parse(localStorage.getItem('qc_tracking_data') || '[]');
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', function() {
+                loadQCResults();
+                document.getElementById('qcEntryForm').addEventListener('submit', handleQCSubmit);
+            });
+
+            /**
+             * Handle QC data submission
+             */
+            function handleQCSubmit(e) {
+                e.preventDefault();
+
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    instrument: document.getElementById('instrument').value,
+                    analyte: document.getElementById('analyte').value,
+                    level: document.getElementById('qcLevel').value,
+                    value: parseFloat(document.getElementById('qcValue').value),
+                    targetMean: parseFloat(document.getElementById('targetMean').value),
+                    targetSD: parseFloat(document.getElementById('targetSD').value)
+                };
+
+                // Calculate SD from mean
+                formData.sdFromMean = (formData.value - formData.targetMean) / formData.targetSD;
+
+                // Apply Westgard rules
+                const westgardResult = applyWestgardRules(formData, qcData);
+                formData.westgardStatus = westgardResult.status;
+                formData.violatedRules = westgardResult.violatedRules;
+
+                // Save to storage
+                qcData.unshift(formData);
+                if (qcData.length > 100) qcData = qcData.slice(0, 100); // Keep last 100
+                localStorage.setItem('qc_tracking_data', JSON.stringify(qcData));
+
+                // Show alert
+                showAlert(westgardResult);
+
+                // Refresh display
+                loadQCResults();
+                updateWestgardRulesDisplay(westgardResult);
+
+                // Reset form
+                document.getElementById('qcEntryForm').reset();
+            }
+
+            /**
+             * Apply Westgard rules to QC data
+             */
+            function applyWestgardRules(currentData, historicalData) {
+                const violatedRules = [];
+                const sdValue = currentData.sdFromMean;
+
+                // Get same analyte/level history
+                const relevantData = historicalData.filter(d =>
+                    d.instrument === currentData.instrument &&
+                    d.analyte === currentData.analyte &&
+                    d.level === currentData.level
+                ).slice(0, 10);
+
+                // 1-3s: One control exceeds ±3 SD
+                if (Math.abs(sdValue) > 3) {
+                    violatedRules.push('1-3s');
+                }
+
+                // 1-2s: Warning rule
+                if (Math.abs(sdValue) > 2) {
+                    violatedRules.push('1-2s Warning');
+                }
+
+                // 2-2s: Two consecutive controls exceed same ±2 SD
+                if (relevantData.length >= 1) {
+                    if (Math.abs(sdValue) > 2 && Math.abs(relevantData[0].sdFromMean) > 2) {
+                        if ((sdValue > 0 && relevantData[0].sdFromMean > 0) ||
+                            (sdValue < 0 && relevantData[0].sdFromMean < 0)) {
+                            violatedRules.push('2-2s');
+                        }
+                    }
+                }
+
+                // R-4s: Range between controls exceeds 4 SD
+                if (relevantData.length >= 1) {
+                    const range = Math.abs(sdValue - relevantData[0].sdFromMean);
+                    if (range > 4) {
+                        violatedRules.push('R-4s');
+                    }
+                }
+
+                // 4-1s: Four consecutive controls exceed same ±1 SD
+                if (relevantData.length >= 3) {
+                    const last4 = [currentData, ...relevantData.slice(0, 3)];
+                    const allPositive = last4.every(d => d.sdFromMean > 1);
+                    const allNegative = last4.every(d => d.sdFromMean < -1);
+                    if (allPositive || allNegative) {
+                        violatedRules.push('4-1s');
+                    }
+                }
+
+                // 10-x: Ten consecutive on same side of mean
+                if (relevantData.length >= 9) {
+                    const last10 = [currentData, ...relevantData.slice(0, 9)];
+                    const allPositive = last10.every(d => d.sdFromMean > 0);
+                    const allNegative = last10.every(d => d.sdFromMean < 0);
+                    if (allPositive || allNegative) {
+                        violatedRules.push('10-x');
+                    }
+                }
+
+                return {
+                    status: violatedRules.some(r => r !== '1-2s Warning') ? 'REJECT' :
+                            violatedRules.includes('1-2s Warning') ? 'WARNING' : 'ACCEPT',
+                    violatedRules: violatedRules
+                };
+            }
+
+            /**
+             * Load and display QC results
+             */
+            function loadQCResults() {
+                const tbody = document.getElementById('qcResultsBody');
+                if (qcData.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #999;">No QC results yet. Enter data above to get started.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = qcData.slice(0, 20).map(data => {
+                    const date = new Date(data.timestamp);
+                    const statusClass = data.westgardStatus === 'REJECT' ? 'fail' :
+                                       data.westgardStatus === 'WARNING' ? 'warning' : 'pass';
+
+                    return `
+                        <tr>
+                            <td>${date.toLocaleString()}</td>
+                            <td>${data.instrument}</td>
+                            <td>${data.analyte}</td>
+                            <td>${data.level}</td>
+                            <td>${data.value.toFixed(2)}</td>
+                            <td style="color: ${Math.abs(data.sdFromMean) > 2 ? '#dc3545' : '#28a745'}">
+                                ${data.sdFromMean > 0 ? '+' : ''}${data.sdFromMean.toFixed(2)} σ
+                            </td>
+                            <td>
+                                <span class="status-indicator ${statusClass}"></span>
+                                ${data.westgardStatus}
+                            </td>
+                            <td style="font-size: 0.85em;">
+                                ${data.violatedRules.length > 0 ? data.violatedRules.join(', ') : 'All rules pass'}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            /**
+             * Update Westgard rules display
+             */
+            function updateWestgardRulesDisplay(result) {
+                // Reset all rules
+                ['1-2s', '1-3s', '2-2s', 'r-4s', '4-1s', '10-x'].forEach(rule => {
+                    const elem = document.getElementById('rule-' + rule);
+                    if (elem) {
+                        const statusSpan = elem.querySelector('span');
+                        statusSpan.className = 'rule-passed';
+                        statusSpan.textContent = 'Pass';
+                    }
+                });
+
+                // Mark violated rules
+                result.violatedRules.forEach(rule => {
+                    const ruleId = 'rule-' + rule.toLowerCase().replace(' warning', '');
+                    const elem = document.getElementById(ruleId);
+                    if (elem) {
+                        const statusSpan = elem.querySelector('span');
+                        if (rule.includes('Warning')) {
+                            statusSpan.className = 'rule-warning';
+                            statusSpan.textContent = 'Warning';
+                            statusSpan.style.color = '#856404';
+                        } else {
+                            statusSpan.className = 'rule-violated';
+                            statusSpan.textContent = 'VIOLATED';
+                        }
+                    }
+                });
+            }
+
+            /**
+             * Show alert message
+             */
+            function showAlert(result) {
+                const alertDiv = document.getElementById('alertMessage');
+                alertDiv.style.display = 'block';
+
+                if (result.status === 'REJECT') {
+                    alertDiv.className = 'alert error';
+                    alertDiv.innerHTML = `<strong>QC REJECTED!</strong> Violated rules: ${result.violatedRules.join(', ')}. Do not report patient results. Take corrective action.`;
+                } else if (result.status === 'WARNING') {
+                    alertDiv.className = 'alert warning';
+                    alertDiv.innerHTML = `<strong>QC Warning:</strong> ${result.violatedRules.join(', ')}. Monitor closely on next run.`;
+                } else {
+                    alertDiv.className = 'alert success';
+                    alertDiv.innerHTML = '<strong>QC ACCEPTED:</strong> All Westgard rules pass. Results are in control.';
+                }
+
+                // Auto-hide after 10 seconds
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 10000);
+            }
+
+        })();
+    </script>
+</body>
+</html>
