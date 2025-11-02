@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Link Validator - Largo Lab</title>
+    <link rel="stylesheet" href="css/kp-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .validator-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .scan-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-scan {
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-scan:hover {
+            background: #0052a3;
+        }
+
+        .btn-scan:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .result-card.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .result-card.warning {
+            border-left: 4px solid #ffc107;
+        }
+
+        .result-card.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .link-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .link-status.broken {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .link-status.valid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .link-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #0066cc;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .fix-suggestion {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .code-snippet {
+            background: #f4f4f4;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85em;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="portal-title">Portal Link Validator</h1>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="manager-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="link-validator.html" class="nav-link active">Link Validator</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="validator-container">
+            <h2>Automated Portal Link Validation</h2>
+            <p>Scan all portal pages for broken links, missing files, and navigation issues</p>
+
+            <div class="scan-controls">
+                <button class="btn-scan" onclick="startFullScan()">🔍 Start Full Portal Scan</button>
+                <button class="btn-scan" onclick="scanCurrentPage()">📄 Scan Current Page Only</button>
+                <button class="btn-scan" onclick="exportReport()">📊 Export Report</button>
+                <button class="btn-scan" onclick="fixAllIssues()">🔧 Auto-Fix Issues</button>
+            </div>
+
+            <div id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar">0%</div>
+                </div>
+                <p id="progressText">Initializing scan...</p>
+            </div>
+
+            <div class="stats-grid" id="statsGrid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalLinks">0</div>
+                    <div class="stat-label">Total Links Checked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #28a745;" id="validLinks">0</div>
+                    <div class="stat-label">Valid Links</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #dc3545;" id="brokenLinks">0</div>
+                    <div class="stat-label">Broken Links</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #ffc107;" id="warningLinks">0</div>
+                    <div class="stat-label">Warnings</div>
+                </div>
+            </div>
+
+            <div class="results-grid" id="resultsContainer"></div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Kaiser Permanente Largo Laboratory. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Portal structure - all pages to validate
+            const portalPages = [
+                'index.html',
+                'equipment-tracker.html',
+                'inventory.html',
+                'manager-dashboard.html',
+                'on-call-reference.html',
+                'timecard-management.html',
+                'technical-support.html',
+                'qc-tracking.html',
+                'tat-monitoring.html',
+                'link-validator.html',
+                'schedules/phlebotomy-rotation.html',
+                'schedules/qc-maintenance.html',
+                'schedules/daily-schedule.html',
+                'inventory/chemistry.html',
+                'inventory/hematology.html',
+                'inventory/urinalysis.html',
+                'inventory/coagulation.html',
+                'inventory/kits.html',
+                'inventory/order-management.html',
+                'staff/directory.html',
+                'staff/training.html',
+                'staff/timecard.html',
+                'resources/sop.html',
+                'resources/compliance.html',
+                'resources/contacts.html'
+            ];
+
+            let scanResults = {
+                total: 0,
+                valid: 0,
+                broken: 0,
+                warnings: 0,
+                issues: []
+            };
+
+            /**
+             * Start full portal scan
+             */
+            window.startFullScan = async function() {
+                console.log('🔍 Starting full portal scan...');
+                showProgress(true);
+                resetResults();
+
+                const results = [];
+                let processed = 0;
+
+                for (const page of portalPages) {
+                    updateProgress((processed / portalPages.length) * 100, `Scanning ${page}...`);
+
+                    const pageResults = await scanPage(page);
+                    results.push(...pageResults);
+
+                    processed++;
+                }
+
+                updateProgress(100, 'Scan complete!');
+                displayResults(results);
+                showProgress(false);
+            };
+
+            /**
+             * Scan a single page for broken links
+             */
+            async function scanPage(pageUrl) {
+                const issues = [];
+
+                try {
+                    // Check if page exists
+                    const pageExists = await checkFileExists(pageUrl);
+
+                    if (!pageExists) {
+                        issues.push({
+                            type: 'error',
+                            page: pageUrl,
+                            link: pageUrl,
+                            message: '404 - Page not found',
+                            suggestion: `Create missing file: ${pageUrl}`
+                        });
+                        scanResults.broken++;
+                    } else {
+                        scanResults.valid++;
+
+                        // Fetch and parse the page
+                        const links = await extractLinks(pageUrl);
+
+                        for (const link of links) {
+                            const linkIssue = await validateLink(link, pageUrl);
+                            if (linkIssue) {
+                                issues.push(linkIssue);
+                            }
+                        }
+                    }
+
+                    scanResults.total++;
+                } catch (error) {
+                    issues.push({
+                        type: 'error',
+                        page: pageUrl,
+                        link: pageUrl,
+                        message: `Error scanning page: ${error.message}`,
+                        suggestion: 'Check file permissions and accessibility'
+                    });
+                    scanResults.broken++;
+                }
+
+                return issues;
+            }
+
+            /**
+             * Check if a file exists
+             */
+            async function checkFileExists(url) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    return response.ok;
+                } catch {
+                    return false;
+                }
+            }
+
+            /**
+             * Extract all links from a page
+             */
+            async function extractLinks(pageUrl) {
+                const links = [];
+
+                try {
+                    const response = await fetch(pageUrl);
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Extract all href links
+                    doc.querySelectorAll('a[href]').forEach(a => {
+                        const href = a.getAttribute('href');
+                        if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto:')) {
+                            links.push({
+                                href: href,
+                                text: a.textContent.trim(),
+                                type: 'navigation'
+                            });
+                        }
+                    });
+
+                    // Extract CSS links
+                    doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+                        links.push({
+                            href: link.getAttribute('href'),
+                            type: 'css'
+                        });
+                    });
+
+                    // Extract script sources
+                    doc.querySelectorAll('script[src]').forEach(script => {
+                        links.push({
+                            href: script.getAttribute('src'),
+                            type: 'javascript'
+                        });
+                    });
+
+                    // Extract image sources
+                    doc.querySelectorAll('img[src]').forEach(img => {
+                        links.push({
+                            href: img.getAttribute('src'),
+                            type: 'image'
+                        });
+                    });
+
+                } catch (error) {
+                    console.error(`Error extracting links from ${pageUrl}:`, error);
+                }
+
+                return links;
+            }
+
+            /**
+             * Validate a single link
+             */
+            async function validateLink(link, sourcePage) {
+                const url = resolveUrl(link.href, sourcePage);
+
+                // Skip external links for now
+                if (url.startsWith('http') && !url.includes(window.location.hostname)) {
+                    return null;
+                }
+
+                const exists = await checkFileExists(url);
+
+                if (!exists) {
+                    scanResults.broken++;
+                    return {
+                        type: 'error',
+                        page: sourcePage,
+                        link: link.href,
+                        linkType: link.type,
+                        text: link.text || '',
+                        message: `Broken link: ${link.href}`,
+                        suggestion: getSuggestion(link.href, link.type)
+                    };
+                }
+
+                // Check for case sensitivity issues
+                if (link.href !== link.href.toLowerCase() && link.type === 'navigation') {
+                    scanResults.warnings++;
+                    return {
+                        type: 'warning',
+                        page: sourcePage,
+                        link: link.href,
+                        linkType: link.type,
+                        message: 'Case sensitivity warning - GitHub Pages is case-sensitive',
+                        suggestion: `Use lowercase: ${link.href.toLowerCase()}`
+                    };
+                }
+
+                scanResults.valid++;
+                return null;
+            }
+
+            /**
+             * Resolve relative URL to absolute
+             */
+            function resolveUrl(href, sourcePage) {
+                if (href.startsWith('http')) return href;
+
+                const sourceDir = sourcePage.split('/').slice(0, -1).join('/');
+                if (href.startsWith('./')) {
+                    return sourceDir + '/' + href.substring(2);
+                } else if (href.startsWith('../')) {
+                    const parts = sourceDir.split('/');
+                    const upLevels = (href.match(/\.\.\//g) || []).length;
+                    const newBase = parts.slice(0, parts.length - upLevels).join('/');
+                    return newBase + '/' + href.replace(/\.\.\//g, '');
+                } else if (!href.startsWith('/')) {
+                    return sourceDir + '/' + href;
+                }
+
+                return href;
+            }
+
+            /**
+             * Get fix suggestion based on issue
+             */
+            function getSuggestion(link, type) {
+                if (type === 'css') {
+                    return `Check CSS path. Common locations: css/, assets/css/`;
+                } else if (type === 'javascript') {
+                    return `Check JS path. Common locations: js/, assets/js/`;
+                } else if (type === 'image') {
+                    return `Check image path. Common locations: assets/images/, images/`;
+                } else {
+                    return `Create the missing page or update the link to an existing page`;
+                }
+            }
+
+            /**
+             * Display scan results
+             */
+            function displayResults(issues) {
+                const container = document.getElementById('resultsContainer');
+                container.innerHTML = '';
+
+                // Update stats
+                document.getElementById('statsGrid').style.display = 'grid';
+                document.getElementById('totalLinks').textContent = scanResults.total;
+                document.getElementById('validLinks').textContent = scanResults.valid;
+                document.getElementById('brokenLinks').textContent = scanResults.broken;
+                document.getElementById('warningLinks').textContent = scanResults.warnings;
+
+                if (issues.length === 0) {
+                    container.innerHTML = `
+                        <div class="result-card success">
+                            <h3>✅ All Links Valid!</h3>
+                            <p>No broken links or issues found. Your portal is in excellent shape!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Group issues by page
+                const grouped = {};
+                issues.forEach(issue => {
+                    if (!grouped[issue.page]) {
+                        grouped[issue.page] = [];
+                    }
+                    grouped[issue.page].push(issue);
+                });
+
+                // Display grouped issues
+                Object.keys(grouped).sort().forEach(page => {
+                    const pageIssues = grouped[page];
+                    const cardType = pageIssues.some(i => i.type === 'error') ? 'error' : 'warning';
+
+                    const card = document.createElement('div');
+                    card.className = `result-card ${cardType}`;
+                    card.innerHTML = `
+                        <h3>📄 ${page} <span class="link-status ${cardType}">${pageIssues.length} issue(s)</span></h3>
+                        <div class="issues-list">
+                            ${pageIssues.map(issue => `
+                                <div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                                    <strong>${issue.message}</strong><br>
+                                    ${issue.text ? `<em>Link text: "${issue.text}"</em><br>` : ''}
+                                    <code class="code-snippet">${issue.link}</code>
+                                    <div class="fix-suggestion">
+                                        <strong>💡 Suggestion:</strong> ${issue.suggestion}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Save results
+                scanResults.issues = issues;
+                localStorage.setItem('linkValidationResults', JSON.stringify(scanResults));
+            }
+
+            /**
+             * Update progress bar
+             */
+            function updateProgress(percent, text) {
+                const bar = document.getElementById('progressBar');
+                const textEl = document.getElementById('progressText');
+
+                bar.style.width = percent + '%';
+                bar.textContent = Math.round(percent) + '%';
+                textEl.textContent = text;
+            }
+
+            /**
+             * Show/hide progress
+             */
+            function showProgress(show) {
+                document.getElementById('progressContainer').style.display = show ? 'block' : 'none';
+            }
+
+            /**
+             * Reset results
+             */
+            function resetResults() {
+                scanResults = {
+                    total: 0,
+                    valid: 0,
+                    broken: 0,
+                    warnings: 0,
+                    issues: []
+                };
+            }
+
+            /**
+             * Scan current page only
+             */
+            window.scanCurrentPage = async function() {
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                showProgress(true);
+                resetResults();
+
+                updateProgress(50, `Scanning ${currentPage}...`);
+                const results = await scanPage(currentPage);
+
+                updateProgress(100, 'Scan complete!');
+                displayResults(results);
+                showProgress(false);
+            };
+
+            /**
+             * Export report to CSV
+             */
+            window.exportReport = function() {
+                if (!scanResults.issues || scanResults.issues.length === 0) {
+                    alert('No scan results to export. Run a scan first.');
+                    return;
+                }
+
+                const csv = [
+                    ['Page', 'Link', 'Type', 'Status', 'Message', 'Suggestion'],
+                    ...scanResults.issues.map(issue => [
+                        issue.page,
+                        issue.link,
+                        issue.linkType || 'navigation',
+                        issue.type,
+                        issue.message,
+                        issue.suggestion
+                    ])
+                ].map(row => row.join(',')).join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `link-validation-report-${Date.now()}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+
+            /**
+             * Auto-fix common issues
+             */
+            window.fixAllIssues = function() {
+                alert('Auto-fix functionality would require server-side access.\n\nManual fixes recommended:\n\n1. Create missing pages\n2. Update broken links in source files\n3. Fix case sensitivity issues\n4. Move assets to correct directories\n\nRefer to the suggestions in each issue card.');
+            };
+
+        })();
+    </script>
+</body>
+</html>
