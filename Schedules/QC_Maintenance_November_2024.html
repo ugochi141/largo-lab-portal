@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>November 2024 QC & Maintenance Schedule - Largo Laboratory</title>
+    <link rel="stylesheet" href="../css/kp-styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 5px 0;
+            opacity: 0.95;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 250px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .day-card.weekend {
+            background: #f8f9ff;
+            border-left-color: #6c757d;
+        }
+
+        .day-header {
+            font-weight: bold;
+            font-size: 16px;
+            color: #0066cc;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+
+        .day-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .qc-task {
+            background: #e3f2fd;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 5px;
+            font-size: 11px;
+            border-left: 3px solid #0066cc;
+        }
+
+        .qc-task.daily {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+
+        .qc-task.weekly {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .qc-task.biweekly {
+            background: #f3e5f5;
+            border-left-color: #9c27b0;
+        }
+
+        .qc-task.monthly {
+            background: #ffe0e0;
+            border-left-color: #f44336;
+            font-weight: bold;
+        }
+
+        .qc-time {
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .qc-location {
+            font-style: italic;
+            color: #666;
+            font-size: 10px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border-left: 3px solid;
+        }
+
+        .summary-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .summary-section h2 {
+            color: #0066cc;
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 2px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .task-list li:last-child {
+            border-bottom: none;
+        }
+
+        .frequency-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .frequency-tag.daily { background: #e8f5e9; color: #2e7d32; }
+        .frequency-tag.weekly { background: #fff3e0; color: #e65100; }
+        .frequency-tag.biweekly { background: #f3e5f5; color: #6a1b9a; }
+        .frequency-tag.monthly { background: #ffebee; color: #c62828; }
+
+        @media print {
+            body { background: white; }
+            .no-print { display: none; }
+            .day-card { break-inside: avoid; }
+        }
+
+        @media (max-width: 1200px) {
+            .schedule-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>November 2024 QC & Maintenance Schedule</h1>
+        <p>Kaiser Permanente Largo Laboratory</p>
+        <p><strong>Locations:</strong> MOB (Medical Office Building) | AUC (Ambulatory Care)</p>
+    </div>
+
+    <div class="legend no-print">
+        <div class="legend-item">
+            <div class="legend-box daily" style="background: #e8f5e9; border-left-color: #4caf50;"></div>
+            <span>Daily Tasks</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box weekly" style="background: #fff3e0; border-left-color: #ff9800;"></div>
+            <span>Weekly Tasks</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box biweekly" style="background: #f3e5f5; border-left-color: #9c27b0;"></div>
+            <span>Biweekly Tasks</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box monthly" style="background: #ffe0e0; border-left-color: #f44336;"></div>
+            <span>Monthly Tasks</span>
+        </div>
+    </div>
+
+    <!-- WEEK 1: November 1-7, 2024 -->
+    <h2 style="color: #0066cc; margin: 30px 0 15px 0;">Week 1: November 1-7, 2024</h2>
+    <div class="schedule-grid">
+        <!-- Friday, November 1 -->
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-number">1</div>
+            <div class="qc-task daily">
+                <div class="qc-time">7:30 AM</div>
+                Pure 1 QC<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task daily">
+                <div class="qc-time">3:00 AM</div>
+                Pure 2 QC<span class="qc-location">(AUC Night)</span>
+            </div>
+            <div class="qc-task daily">
+                Kits QC<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task daily">
+                Sysmex Startup/QC<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task daily">
+                Hematek Startup/QC<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task daily">
+                Previ Gram<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task daily">
+                Stago Maint<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">10:00 PM</div>
+                Pure Analyzer 1<span class="qc-location">(MOB - Every other Friday)</span>
+            </div>
+        </div>
+
+        <!-- Saturday, November 2 -->
+        <div class="day-card weekend">
+            <div class="day-header">Saturday</div>
+            <div class="day-number">2</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">9:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(AUC)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">10:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Hematek<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">3:00 AM</div>
+                Pure Analyzer 2<span class="qc-location">(AUC - Every other Saturday)</span>
+            </div>
+        </div>
+
+        <!-- Sunday, November 3 -->
+        <div class="day-card weekend">
+            <div class="day-header">Sunday</div>
+            <div class="day-number">3</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Monday, November 4 -->
+        <div class="day-card">
+            <div class="day-header">Monday</div>
+            <div class="day-number">4</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Tuesday, November 5 -->
+        <div class="day-card">
+            <div class="day-header">Tuesday</div>
+            <div class="day-number">5</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Previ Gram Stain<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">After 3:00 AM</div>
+                Novus<span class="qc-location">(AUC Night)</span>
+            </div>
+        </div>
+
+        <!-- Wednesday, November 6 -->
+        <div class="day-card">
+            <div class="day-header">Wednesday</div>
+            <div class="day-number">6</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Novus<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Stago<span class="qc-location">(Both locations)</span>
+            </div>
+        </div>
+
+        <!-- Thursday, November 7 -->
+        <div class="day-card">
+            <div class="day-header">Thursday</div>
+            <div class="day-number">7</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">Night</div>
+                GeneXpert<span class="qc-location">(Both locations)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 2: November 8-14, 2024 -->
+    <h2 style="color: #0066cc; margin: 30px 0 15px 0;">Week 2: November 8-14, 2024</h2>
+    <div class="schedule-grid">
+        <!-- Friday, November 8 -->
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-number">8</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Saturday, November 9 -->
+        <div class="day-card weekend">
+            <div class="day-header">Saturday</div>
+            <div class="day-number">9</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">9:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(AUC)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">10:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Hematek<span class="qc-location">(Both locations)</span>
+            </div>
+        </div>
+
+        <!-- Sunday, November 10 -->
+        <div class="day-card weekend">
+            <div class="day-header">Sunday</div>
+            <div class="day-number">10</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Monday, November 11 -->
+        <div class="day-card">
+            <div class="day-header">Monday</div>
+            <div class="day-number">11</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Tuesday, November 12 -->
+        <div class="day-card">
+            <div class="day-header">Tuesday</div>
+            <div class="day-number">12</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Previ Gram Stain<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">After 3:00 AM</div>
+                Novus<span class="qc-location">(AUC Night)</span>
+            </div>
+        </div>
+
+        <!-- Wednesday, November 13 (2nd Wednesday) -->
+        <div class="day-card">
+            <div class="day-header">Wednesday</div>
+            <div class="day-number">13</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Novus<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Stago<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task monthly">
+                <strong>MONTHLY:</strong> Hematek<span class="qc-location">(2nd Wednesday)</span>
+            </div>
+            <div class="qc-task monthly">
+                <strong>MONTHLY:</strong> GeneXpert<span class="qc-location">(2nd Wednesday)</span>
+            </div>
+        </div>
+
+        <!-- Thursday, November 14 (2nd Thursday) -->
+        <div class="day-card">
+            <div class="day-header">Thursday</div>
+            <div class="day-number">14</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">Night</div>
+                GeneXpert<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task monthly">
+                <div class="qc-time">9:00 PM</div>
+                <strong>MONTHLY:</strong> Stago<span class="qc-location">(2nd Thursday)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 3: November 15-21, 2024 -->
+    <h2 style="color: #0066cc; margin: 30px 0 15px 0;">Week 3: November 15-21, 2024</h2>
+    <div class="schedule-grid">
+        <!-- Friday, November 15 -->
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-number">15</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">10:00 PM</div>
+                Pure Analyzer 1<span class="qc-location">(MOB - Every other Friday)</span>
+            </div>
+        </div>
+
+        <!-- Saturday, November 16 (3rd Saturday) -->
+        <div class="day-card weekend">
+            <div class="day-header">Saturday</div>
+            <div class="day-number">16</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">9:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(AUC)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">10:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Hematek<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">3:00 AM</div>
+                Pure Analyzer 2<span class="qc-location">(AUC - Every other Saturday)</span>
+            </div>
+            <div class="qc-task monthly">
+                <div class="qc-time">3:00 AM</div>
+                <strong>MONTHLY:</strong> Pure Analyzers<span class="qc-location">(3rd Saturday)</span>
+            </div>
+        </div>
+
+        <!-- Sunday, November 17 -->
+        <div class="day-card weekend">
+            <div class="day-header">Sunday</div>
+            <div class="day-number">17</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Monday, November 18 -->
+        <div class="day-card">
+            <div class="day-header">Monday</div>
+            <div class="day-number">18</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Tuesday, November 19 (3rd Tuesday) -->
+        <div class="day-card">
+            <div class="day-header">Tuesday</div>
+            <div class="day-number">19</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Previ Gram Stain<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">After 3:00 AM</div>
+                Novus<span class="qc-location">(AUC Night)</span>
+            </div>
+            <div class="qc-task monthly">
+                <strong>MONTHLY:</strong> Previ Gram Stain<span class="qc-location">(MOB - 3rd Tuesday)</span>
+            </div>
+        </div>
+
+        <!-- Wednesday, November 20 (3rd Wednesday) -->
+        <div class="day-card">
+            <div class="day-header">Wednesday</div>
+            <div class="day-number">20</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Novus<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Stago<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task monthly">
+                <strong>MONTHLY:</strong> MedTox<span class="qc-location">(AUC - 3rd Wednesday)</span>
+            </div>
+        </div>
+
+        <!-- Thursday, November 21 (3rd Thursday) -->
+        <div class="day-card">
+            <div class="day-header">Thursday</div>
+            <div class="day-number">21</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">Night</div>
+                GeneXpert<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task monthly">
+                <strong>MONTHLY:</strong> Novus<span class="qc-location">(MOB - 3rd Thursday)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 4: November 22-28, 2024 -->
+    <h2 style="color: #0066cc; margin: 30px 0 15px 0;">Week 4: November 22-28, 2024 (Thanksgiving Week)</h2>
+    <div class="schedule-grid">
+        <!-- Friday, November 22 -->
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-number">22</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Saturday, November 23 -->
+        <div class="day-card weekend">
+            <div class="day-header">Saturday</div>
+            <div class="day-number">23</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">9:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(AUC)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">10:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Hematek<span class="qc-location">(Both locations)</span>
+            </div>
+        </div>
+
+        <!-- Sunday, November 24 -->
+        <div class="day-card weekend">
+            <div class="day-header">Sunday</div>
+            <div class="day-number">24</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Monday, November 25 -->
+        <div class="day-card">
+            <div class="day-header">Monday</div>
+            <div class="day-number">25</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+        </div>
+
+        <!-- Tuesday, November 26 -->
+        <div class="day-card">
+            <div class="day-header">Tuesday</div>
+            <div class="day-number">26</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Previ Gram Stain<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">After 3:00 AM</div>
+                Novus<span class="qc-location">(AUC Night)</span>
+            </div>
+        </div>
+
+        <!-- Wednesday, November 27 -->
+        <div class="day-card">
+            <div class="day-header">Wednesday</div>
+            <div class="day-number">27</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                Novus<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Stago<span class="qc-location">(Both locations)</span>
+            </div>
+        </div>
+
+        <!-- Thursday, November 28 (THANKSGIVING) -->
+        <div class="day-card" style="background: #fff9e6; border-left-color: #ff9800;">
+            <div class="day-header" style="color: #ff9800;">Thursday - THANKSGIVING</div>
+            <div class="day-number">28</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">Night</div>
+                GeneXpert<span class="qc-location">(Both locations)</span>
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: #fff3e0; border-radius: 5px; font-weight: bold; color: #e65100;">
+                🦃 Holiday Staffing - Verify coverage
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 5: November 29-30, 2024 -->
+    <h2 style="color: #0066cc; margin: 30px 0 15px 0;">Week 5: November 29-30, 2024</h2>
+    <div class="schedule-grid">
+        <!-- Friday, November 29 -->
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-number">29</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">10:00 PM</div>
+                Pure Analyzer 1<span class="qc-location">(MOB - Every other Friday)</span>
+            </div>
+        </div>
+
+        <!-- Saturday, November 30 -->
+        <div class="day-card weekend">
+            <div class="day-header">Saturday</div>
+            <div class="day-number">30</div>
+            <div class="qc-task daily">
+                Daily QC Tasks<span class="qc-location">(All)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">9:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(AUC)</span>
+            </div>
+            <div class="qc-task weekly">
+                <div class="qc-time">10:00 PM</div>
+                Sysmex XN Shutdown<span class="qc-location">(MOB)</span>
+            </div>
+            <div class="qc-task weekly">
+                Hematek<span class="qc-location">(Both locations)</span>
+            </div>
+            <div class="qc-task biweekly">
+                <div class="qc-time">3:00 AM</div>
+                Pure Analyzer 2<span class="qc-location">(AUC - Every other Saturday)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUMMARY SECTIONS -->
+    <div class="summary-section">
+        <h2>Daily QC Tasks (Every Day)</h2>
+        <ul class="task-list">
+            <li><strong>Pure 1 QC</strong> @7:30am <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(MOB)</span></li>
+            <li><strong>Pure 2 QC</strong> @3:00am <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(AUC night shift)</span></li>
+            <li><strong>Kits QC</strong> <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(All locations)</span></li>
+            <li><strong>Sysmex Startup/QC</strong> <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(All locations)</span></li>
+            <li><strong>Hematek Startup/QC</strong> <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(All locations)</span></li>
+            <li><strong>Previ Gram Stain</strong> <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(All locations)</span></li>
+            <li><strong>Stago Maintenance</strong> <span class="frequency-tag daily">DAILY</span> <span class="qc-location">(All locations)</span></li>
+        </ul>
+    </div>
+
+    <div class="summary-section">
+        <h2>Weekly QC Tasks</h2>
+        <ul class="task-list">
+            <li><strong>Tuesday:</strong> Previ Gram Stain (MOB), Novus (AUC night after 3am) <span class="frequency-tag weekly">WEEKLY</span></li>
+            <li><strong>Wednesday:</strong> Novus (MOB), Stago (Both locations) <span class="frequency-tag weekly">WEEKLY</span></li>
+            <li><strong>Thursday:</strong> GeneXpert (Both locations night) <span class="frequency-tag weekly">WEEKLY</span></li>
+            <li><strong>Saturday:</strong> Sysmex XN Shutdown 9pm (AUC), 10pm (MOB), Hematek (Both) <span class="frequency-tag weekly">WEEKLY</span></li>
+        </ul>
+    </div>
+
+    <div class="summary-section">
+        <h2>Biweekly QC Tasks</h2>
+        <ul class="task-list">
+            <li><strong>Pure Analyzer 1</strong> - Every other Friday @10pm <span class="frequency-tag biweekly">BIWEEKLY</span> <span class="qc-location">(MOB)</span></li>
+            <li><strong>Pure Analyzer 2</strong> - Every other Saturday @3am <span class="frequency-tag biweekly">BIWEEKLY</span> <span class="qc-location">(AUC)</span></li>
+        </ul>
+    </div>
+
+    <div class="summary-section">
+        <h2>Monthly QC Tasks (November 2024 Specific Dates)</h2>
+        <ul class="task-list">
+            <li><strong>November 13 (2nd Wednesday):</strong> Hematek, GeneXpert <span class="frequency-tag monthly">MONTHLY</span></li>
+            <li><strong>November 14 (2nd Thursday):</strong> Stago @9pm <span class="frequency-tag monthly">MONTHLY</span></li>
+            <li><strong>November 16 (3rd Saturday):</strong> Pure Analyzers @3am <span class="frequency-tag monthly">MONTHLY</span></li>
+            <li><strong>November 19 (3rd Tuesday):</strong> Previ Gram Stain (MOB) <span class="frequency-tag monthly">MONTHLY</span></li>
+            <li><strong>November 20 (3rd Wednesday):</strong> MedTox (AUC) <span class="frequency-tag monthly">MONTHLY</span></li>
+            <li><strong>November 21 (3rd Thursday):</strong> Novus (MOB) <span class="frequency-tag monthly">MONTHLY</span></li>
+        </ul>
+    </div>
+
+    <div class="summary-section">
+        <h2>Important Notes for November 2024</h2>
+        <ul class="task-list">
+            <li><strong>Thanksgiving:</strong> November 28 - Verify holiday coverage for essential QC tasks</li>
+            <li><strong>MLA Restrictions:</strong> MLAs can ONLY perform: Kits QC, Urines, Assist with QC/Maintenance</li>
+            <li><strong>Pure Analyzer Schedule:</strong>
+                <ul style="margin-top: 8px;">
+                    <li>Pure 1 (MOB): Nov 1, 15, 29 @10pm</li>
+                    <li>Pure 2 (AUC): Nov 2, 16, 30 @3am</li>
+                </ul>
+            </li>
+            <li><strong>Water Changes:</strong> Follow equipment tracker schedule for monthly water changes</li>
+            <li><strong>Documentation:</strong> All QC tasks must be logged in LIS system immediately after completion</li>
+        </ul>
+    </div>
+
+    <div class="no-print" style="text-align: center; margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+        <button onclick="window.print()" class="btn" style="background: #0066cc; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer;">
+            🖨️ Print Schedule
+        </button>
+        <button onclick="window.location.href='../index.html'" class="btn" style="background: #6c757d; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; margin-left: 10px;">
+            ← Back to Portal
+        </button>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 2px solid #e3f2fd; margin-top: 30px;">
+        <p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+        <p>November 2024 QC & Maintenance Schedule</p>
+        <p>For questions or changes, contact Laboratory Manager</p>
+        <p style="margin-top: 10px; font-style: italic;">Generated with Claude Code • Last Updated: November 2, 2025</p>
+    </footer>
+</body>
+</html>

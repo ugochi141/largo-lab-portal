@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phlebotomy Rotation Tracker - Largo Laboratory</title>
+    <link rel="stylesheet" href="../css/kp-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 5px 0;
+            opacity: 0.95;
+        }
+
+        .info-box {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-box h3 {
+            color: #e65100;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .info-box p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .rotation-cycle {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .rotation-cycle h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 3px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .cycle-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .cycle-step {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 3px solid #0066cc;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 4px 8px rgba(0,102,204,0.2);
+            position: relative;
+        }
+
+        .cycle-step.active {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            border-color: #2e7d32;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .cycle-step h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .cycle-step p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .arrow {
+            font-size: 32px;
+            color: #0066cc;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            border-left: 6px solid #0066cc;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,102,204,0.3);
+        }
+
+        .staff-card.processing-trained {
+            border-left-color: #4caf50;
+        }
+
+        .staff-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 8px;
+        }
+
+        .staff-nickname {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .current-role {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #0066cc;
+        }
+
+        .next-role {
+            background: #f3e5f5;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #6a1b9a;
+        }
+
+        .shift-info {
+            font-size: 13px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .processing-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .controls-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .controls-section h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,102,204,0.3);
+        }
+
+        .btn:hover {
+            background: #004499;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.4);
+        }
+
+        .btn.success {
+            background: #4caf50;
+        }
+
+        .btn.success:hover {
+            background: #388e3c;
+        }
+
+        .btn.warning {
+            background: #ff9800;
+        }
+
+        .btn.warning:hover {
+            background: #e65100;
+        }
+
+        .rotation-history {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .rotation-history h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .history-entry {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            font-size: 13px;
+        }
+
+        .history-entry .date {
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .netta-breaks {
+            background: #fff9e6;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .netta-breaks h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .netta-breaks ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .netta-breaks li {
+            padding: 6px 0;
+            font-weight: 600;
+            color: #666;
+        }
+
+        @media print {
+            body { background: white; }
+            .controls-section { display: none; }
+            .btn-group { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .cycle-diagram {
+                flex-direction: column;
+            }
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Phlebotomy Rotation Tracker</h1>
+            <p>Kaiser Permanente Largo Laboratory</p>
+            <p><strong>Automatic Rotation Cycle:</strong> Processor → Backup Processor → Runner → Opener</p>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 How the Rotation Works</h3>
+            <p><strong>Rotation Cycle (Processing-Trained Staff Only):</strong></p>
+            <p>1. <strong>Processor</strong> → Next: Backup Processor</p>
+            <p>2. <strong>Backup Processor</strong> → Next: Runner</p>
+            <p>3. <strong>Runner</strong> → Next: Opener</p>
+            <p>4. <strong>Opener</strong> → Next: Processor (cycle repeats)</p>
+            <p style="margin-top: 12px;"><strong>Processing-Trained Staff:</strong> Anne, Farah, Mimi, Youlana, Christina, Emma, Danalisa, Nichole</p>
+            <p><strong>Note:</strong> Only processing-trained staff participate in the full rotation cycle.</p>
+        </div>
+
+        <div class="netta-breaks">
+            <h3>⚠️ Johnette "Netta" Brooks - FIXED BREAK TIMES (ALWAYS)</h3>
+            <ul>
+                <li>☕ Break 1: 9:00a - 9:15a</li>
+                <li>🍽️ Lunch: 11:00a - 11:30a</li>
+                <li>☕ Break 2: 1:00p - 1:15p</li>
+            </ul>
+            <p style="margin-top: 10px; color: #e65100; font-weight: bold;">These times NEVER change regardless of rotation position!</p>
+        </div>
+
+        <div class="rotation-cycle">
+            <h2>Current Rotation Cycle</h2>
+            <div class="cycle-diagram">
+                <div class="cycle-step" id="step-processor">
+                    <h3>1. PROCESSOR</h3>
+                    <p>Processes specimens</p>
+                    <p style="margin-top: 8px; font-weight: bold;">Next: Backup Processor</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="cycle-step" id="step-backup">
+                    <h3>2. BACKUP PROCESSOR</h3>
+                    <p>Draw patients + backup</p>
+                    <p style="margin-top: 8px; font-weight: bold;">Next: Runner</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="cycle-step" id="step-runner">
+                    <h3>3. RUNNER</h3>
+                    <p>Draw patients + run specimens</p>
+                    <p style="margin-top: 8px; font-weight: bold;">Next: Opener</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="cycle-step" id="step-opener">
+                    <h3>4. OPENER</h3>
+                    <p>Opens dept + draws</p>
+                    <p style="margin-top: 8px; font-weight: bold;">Next: Processor</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <h2>Rotation Controls</h2>
+            <div class="btn-group">
+                <button class="btn success" onclick="advanceRotation()">⏭️ Advance Rotation (Next Day)</button>
+                <button class="btn warning" onclick="resetRotation()">🔄 Reset to Default</button>
+                <button class="btn" onclick="exportRotation()">💾 Export Current Rotation</button>
+                <button class="btn" onclick="window.print()">🖨️ Print Rotation</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label for="rotationDate" style="font-weight: bold; margin-right: 10px;">Date:</label>
+                <input type="date" id="rotationDate" style="padding: 8px; border: 2px solid #d1e7f3; border-radius: 6px; font-size: 14px;">
+                <button class="btn" style="margin-left: 10px;" onclick="loadRotationForDate()">📅 Load for Date</button>
+            </div>
+
+            <div class="rotation-history" id="rotationHistory">
+                <h3>📜 Recent Rotation Changes</h3>
+                <div id="historyList">
+                    <p style="color: #666; font-style: italic;">No rotation history yet. Click "Advance Rotation" to begin tracking.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rotation-cycle">
+            <h2>Day Shift Staff Assignments</h2>
+            <div class="staff-grid" id="dayShiftGrid"></div>
+        </div>
+
+        <div class="rotation-cycle">
+            <h2>Evening Shift Staff Assignments</h2>
+            <div class="staff-grid" id="eveningShiftGrid"></div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn" onclick="window.location.href='../index.html'">← Back to Portal</button>
+            <button class="btn" onclick="window.location.href='Daily Schedule.html'" style="margin-left: 10px;">📅 View Daily Schedule</button>
+        </div>
+    </div>
+
+    <script>
+        // Staff database with processing training indicator
+        const phlebStaff = {
+            dayShift: [
+                {name: 'Christina Bolden-Davis', nickname: 'Christina', shift: '6:00a-2:30p', processingTrained: true, startTime: 6},
+                {name: 'Youlana Miah', nickname: 'Youlana', shift: '6:00a-2:30p', processingTrained: true, startTime: 6},
+                {name: 'Johnette Brooks', nickname: 'Netta', shift: '7:00a-3:30p', processingTrained: false, startTime: 7, fixedBreaks: true},
+                {name: 'Anne Saint Phirin', nickname: 'Anne', shift: '8:00a-4:30p', processingTrained: true, startTime: 8},
+                {name: 'Raquel Grayson', nickname: 'Raquel', shift: '9:00a-5:30p', processingTrained: false, startTime: 9},
+                {name: 'Emmanuella Theodore', nickname: 'Emma', shift: '9:00a-5:30p', processingTrained: true, startTime: 9},
+                {name: 'Manoucheca Onuma', nickname: 'Mimi', shift: '8:00a-4:30p', processingTrained: true, startTime: 8},
+                {name: 'Farah Moise', nickname: 'Farah', shift: '7:30a-4:00p', processingTrained: true, startTime: 7.5}
+            ],
+            eveningShift: [
+                {name: 'Stephanie Dodson', nickname: 'Stephanie', shift: '2:00p-10:30p', processingTrained: false, startTime: 14},
+                {name: 'Nichole Fauntleroy', nickname: 'Nichole', shift: '2:00p-10:30p', processingTrained: true, startTime: 14},
+                {name: 'Danalisa Hayes', nickname: 'Danalisa', shift: '2:00p-10:30p', processingTrained: true, startTime: 14}
+            ]
+        };
+
+        // Default rotation assignments
+        const defaultRotation = {
+            dayShift: {
+                'Christina': 'Draw Patients/Opener',
+                'Youlana': 'Processor',
+                'Netta': 'Draw Patients/Runner',
+                'Anne': 'Draw Patients (Backup Processor)',
+                'Raquel': 'Draw Patients/Runner',
+                'Emma': 'Draw Patients',
+                'Mimi': 'Draw Patients',
+                'Farah': 'Draw Patients'
+            },
+            eveningShift: {
+                'Stephanie': 'Draw Patients/Hot Seat',
+                'Nichole': 'Draw Patients/Closer',
+                'Danalisa': 'Processor'
+            }
+        };
+
+        // Rotation cycle (for processing-trained staff only)
+        const rotationCycle = ['Processor', 'Draw Patients (Backup Processor)', 'Draw Patients/Runner', 'Draw Patients/Opener'];
+
+        // Initialize rotation state
+        let currentRotation = JSON.parse(localStorage.getItem('phlebRotation')) || JSON.parse(JSON.stringify(defaultRotation));
+        let rotationHistory = JSON.parse(localStorage.getItem('phlebRotationHistory')) || [];
+
+        function saveRotation() {
+            localStorage.setItem('phlebRotation', JSON.stringify(currentRotation));
+            localStorage.setItem('phlebRotationHistory', JSON.stringify(rotationHistory));
+        }
+
+        function advanceRotation() {
+            const today = new Date().toLocaleDateString();
+
+            // Advance day shift rotation
+            advanceShiftRotation('dayShift', phlebStaff.dayShift);
+
+            // Advance evening shift rotation
+            advanceShiftRotation('eveningShift', phlebStaff.eveningShift);
+
+            // Add to history
+            rotationHistory.unshift({
+                date: today,
+                action: 'Advanced rotation',
+                timestamp: new Date().toISOString()
+            });
+
+            // Keep only last 20 entries
+            if (rotationHistory.length > 20) {
+                rotationHistory = rotationHistory.slice(0, 20);
+            }
+
+            saveRotation();
+            renderStaffAssignments();
+            renderHistory();
+
+            alert('✅ Rotation advanced to next day!');
+        }
+
+        function advanceShiftRotation(shiftKey, staff) {
+            const processingTrained = staff.filter(s => s.processingTrained);
+
+            // Get current positions of processing-trained staff in rotation cycle
+            const currentPositions = {};
+            processingTrained.forEach(person => {
+                const assignment = currentRotation[shiftKey][person.nickname];
+                let cycleIndex = -1;
+
+                if (assignment === 'Processor') cycleIndex = 0;
+                else if (assignment === 'Draw Patients (Backup Processor)') cycleIndex = 1;
+                else if (assignment === 'Draw Patients/Runner') cycleIndex = 2;
+                else if (assignment === 'Draw Patients/Opener') cycleIndex = 3;
+
+                currentPositions[person.nickname] = cycleIndex;
+            });
+
+            // Advance each person to next position in cycle
+            Object.keys(currentPositions).forEach(nickname => {
+                const currentIndex = currentPositions[nickname];
+                if (currentIndex >= 0) { // Only rotate if in rotation cycle
+                    const nextIndex = (currentIndex + 1) % rotationCycle.length;
+                    currentRotation[shiftKey][nickname] = rotationCycle[nextIndex];
+                }
+            });
+        }
+
+        function resetRotation() {
+            if (confirm('Are you sure you want to reset the rotation to default assignments?')) {
+                currentRotation = JSON.parse(JSON.stringify(defaultRotation));
+
+                rotationHistory.unshift({
+                    date: new Date().toLocaleDateString(),
+                    action: 'Reset to default rotation',
+                    timestamp: new Date().toISOString()
+                });
+
+                saveRotation();
+                renderStaffAssignments();
+                renderHistory();
+
+                alert('✅ Rotation reset to default!');
+            }
+        }
+
+        function getNextRole(currentRole, processingTrained) {
+            if (!processingTrained) return currentRole; // Non-processing staff don't rotate
+
+            const cycleIndex = rotationCycle.indexOf(currentRole);
+            if (cycleIndex >= 0) {
+                const nextIndex = (cycleIndex + 1) % rotationCycle.length;
+                return rotationCycle[nextIndex];
+            }
+            return currentRole;
+        }
+
+        function renderStaffAssignments() {
+            renderShiftStaff('dayShift', phlebStaff.dayShift, 'dayShiftGrid');
+            renderShiftStaff('eveningShift', phlebStaff.eveningShift, 'eveningShiftGrid');
+        }
+
+        function renderShiftStaff(shiftKey, staff, gridId) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = '';
+
+            staff.forEach(person => {
+                const currentRole = currentRotation[shiftKey][person.nickname];
+                const nextRole = getNextRole(currentRole, person.processingTrained);
+
+                const card = document.createElement('div');
+                card.className = 'staff-card' + (person.processingTrained ? ' processing-trained' : '');
+
+                let breakInfo = '';
+                if (person.fixedBreaks) {
+                    breakInfo = '<div style="background: #fff3e0; padding: 8px; border-radius: 6px; margin-top: 10px; font-size: 12px; font-weight: bold; color: #e65100;">⚠️ FIXED BREAKS: 9:00a-9:15a | 11:00a-11:30a | 1:00p-1:15p</div>';
+                }
+
+                card.innerHTML = `
+                    <div class="staff-name">${person.name}</div>
+                    <div class="staff-nickname">"${person.nickname}"</div>
+                    <div class="current-role">📍 Current: ${currentRole}</div>
+                    ${person.processingTrained ? `<div class="next-role">⏭️ Next: ${nextRole}</div>` : '<div class="next-role">⏭️ Next: Same role (not in rotation)</div>'}
+                    <div class="shift-info">🕐 Shift: ${person.shift}</div>
+                    ${person.processingTrained ? '<span class="processing-badge">✓ Processing Trained</span>' : ''}
+                    ${breakInfo}
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+
+            if (rotationHistory.length === 0) {
+                historyList.innerHTML = '<p style="color: #666; font-style: italic;">No rotation history yet. Click "Advance Rotation" to begin tracking.</p>';
+                return;
+            }
+
+            historyList.innerHTML = rotationHistory.map(entry => `
+                <div class="history-entry">
+                    <span class="date">${entry.date}</span> - ${entry.action}
+                    <div style="font-size: 11px; color: #999; margin-top: 4px;">${new Date(entry.timestamp).toLocaleString()}</div>
+                </div>
+            `).join('');
+        }
+
+        function exportRotation() {
+            const data = {
+                currentRotation,
+                rotationHistory,
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `phlebotomy-rotation-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert('✅ Rotation data exported successfully!');
+        }
+
+        function loadRotationForDate() {
+            const date = document.getElementById('rotationDate').value;
+            if (!date) {
+                alert('Please select a date first!');
+                return;
+            }
+
+            // This is a placeholder - in production, you'd load from a database
+            alert(`Loading rotation for ${date}...\n\nNote: Date-specific loading requires backend integration. Currently showing today's rotation.`);
+        }
+
+        // Set today's date in date picker
+        document.getElementById('rotationDate').valueAsDate = new Date();
+
+        // Initial render
+        renderStaffAssignments();
+        renderHistory();
+    </script>
+</body>
+</html>
