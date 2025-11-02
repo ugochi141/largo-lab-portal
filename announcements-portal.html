@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements Portal - Largo Laboratory</title>
+    <link rel="stylesheet" href="css/kp-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+
+        .header p {
+            margin: 5px 0;
+            opacity: 0.95;
+            font-size: 16px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .panel h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 3px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1e7f3;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            cursor: pointer;
+            background: white;
+        }
+
+        .announcement-type-select {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+        }
+
+        .format-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #004499;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e65100;
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .preview-section h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 3px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .preview-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        .preview-content {
+            background: #f8f9fa;
+            border: 2px solid #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .preview-content.email-format {
+            font-family: 'Calibri', Arial, sans-serif;
+            background: white;
+        }
+
+        .preview-content.teams-format {
+            background: #f3f4f8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .email-header {
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .email-field {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .email-field strong {
+            color: #0066cc;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .email-body {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .teams-message {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .teams-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .teams-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #0066cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .teams-sender {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .teams-body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 16px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #388e3c;
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: #2e7d32;
+        }
+
+        .announcements-archive {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .announcements-archive h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 3px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .announcement-card {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            border-left: 5px solid #0066cc;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.2);
+        }
+
+        .announcement-card.motivational {
+            border-left-color: #ff9800;
+        }
+
+        .announcement-card.policy {
+            border-left-color: #f44336;
+        }
+
+        .announcement-card.equipment {
+            border-left-color: #9c27b0;
+        }
+
+        .announcement-card.training {
+            border-left-color: #4caf50;
+        }
+
+        .announcement-card.safety {
+            border-left-color: #e91e63;
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .announcement-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge-motivational { background: #ff9800; }
+        .badge-policy { background: #f44336; }
+        .badge-equipment { background: #9c27b0; }
+        .badge-training { background: #4caf50; }
+        .badge-safety { background: #e91e63; }
+
+        .announcement-date {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .announcement-content {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .announcement-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .action-btn.view {
+            background: #0066cc;
+            color: white;
+        }
+
+        .action-btn.edit {
+            background: #ff9800;
+            color: white;
+        }
+
+        .action-btn.delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .acknowledgment-status {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 13px;
+            border-left: 3px solid #4caf50;
+        }
+
+        .schedule-section {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin-top: 15px;
+        }
+
+        .schedule-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #e65100;
+        }
+
+        .emoji-picker {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .emoji-btn {
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .emoji-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.1);
+        }
+
+        .template-suggestions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .template-suggestions h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .template-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: white;
+            border: 1px solid #d1e7f3;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .template-btn:hover {
+            background: #f0f7ff;
+            border-color: #0066cc;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        @media print {
+            .btn, .copy-btn, .action-btn { display: none; }
+            body { background: white; }
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .format-buttons {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .preview-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📢 Announcements Portal</h1>
+            <p>Kaiser Permanente Largo Laboratory</p>
+            <p><strong>Create, manage, and distribute announcements across Email and Microsoft Teams</strong></p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalAnnouncements">0</div>
+                <div class="stat-label">Total Announcements</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeAnnouncements">0</div>
+                <div class="stat-label">Active Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="acknowledgmentRate">0%</div>
+                <div class="stat-label">Acknowledgment Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="scheduledAnnouncements">0</div>
+                <div class="stat-label">Scheduled</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Composer Panel -->
+            <div class="panel">
+                <h2>✍️ Create Announcement</h2>
+
+                <div class="form-group">
+                    <label for="announcementType">Announcement Type</label>
+                    <select id="announcementType" class="form-control announcement-type-select">
+                        <option value="motivational">📣 Motivational Message</option>
+                        <option value="policy">📋 Policy Update</option>
+                        <option value="equipment">🔧 Equipment Alert</option>
+                        <option value="training">🎓 Training Announcement</option>
+                        <option value="safety">⚠️ Safety Alert</option>
+                        <option value="recognition">🌟 Staff Recognition</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="announcementTitle">Title</label>
+                    <input type="text" id="announcementTitle" class="form-control" placeholder="Enter announcement title...">
+                </div>
+
+                <div class="form-group">
+                    <label for="announcementContent">Message Content</label>
+                    <textarea id="announcementContent" class="form-control" placeholder="Type your announcement here..."></textarea>
+                </div>
+
+                <div class="emoji-picker">
+                    <button class="emoji-btn" onclick="insertEmoji('💪')">💪</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🔬')">🔬</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🩺')">🩺</button>
+                    <button class="emoji-btn" onclick="insertEmoji('✅')">✅</button>
+                    <button class="emoji-btn" onclick="insertEmoji('⚠️')">⚠️</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🎉')">🎉</button>
+                    <button class="emoji-btn" onclick="insertEmoji('👍')">👍</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🌟')">🌟</button>
+                </div>
+
+                <div class="schedule-section">
+                    <label>
+                        <input type="checkbox" id="scheduleAnnouncement" style="margin-right: 8px;">
+                        Schedule for Later
+                    </label>
+                    <input type="datetime-local" id="scheduleDateTime" class="form-control" style="margin-top: 10px; display: none;">
+                </div>
+
+                <div class="format-buttons">
+                    <button class="btn btn-primary" onclick="generateEmail()">📧 Email Format</button>
+                    <button class="btn btn-success" onclick="generateTeams()">💬 Teams Format</button>
+                    <button class="btn btn-info" onclick="generateBoth()">🔄 Both Formats</button>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <button class="btn btn-warning" style="width: 100%;" onclick="saveAnnouncement()">💾 Save Announcement</button>
+                </div>
+            </div>
+
+            <!-- Template Suggestions Panel -->
+            <div class="panel">
+                <h2>📝 Quick Templates</h2>
+
+                <div class="template-suggestions">
+                    <h4>Motivational Messages</h4>
+                    <button class="template-btn" onclick="loadTemplate('motivational1')">
+                        "Good morning team! Let's make today amazing! 💪"
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('motivational2')">
+                        "Happy Monday! Ready to provide excellent patient care! 🩺"
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('motivational3')">
+                        "Teamwork makes the dream work! Let's crush this day! 🔬"
+                    </button>
+                </div>
+
+                <div class="template-suggestions">
+                    <h4>Policy Updates</h4>
+                    <button class="template-btn" onclick="loadTemplate('policy1')">
+                        QC Failure Protocol Reminder
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('policy2')">
+                        Documentation Standards (One Strike Policy)
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('policy3')">
+                        Break Coordination Requirements
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('policy4')">
+                        Critical Result Handoff Procedures
+                    </button>
+                </div>
+
+                <div class="template-suggestions">
+                    <h4>Equipment Alerts</h4>
+                    <button class="template-btn" onclick="loadTemplate('equipment1')">
+                        Analyzer Maintenance Schedule
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('equipment2')">
+                        New Equipment Training Required
+                    </button>
+                </div>
+
+                <div class="template-suggestions">
+                    <h4>Training</h4>
+                    <button class="template-btn" onclick="loadTemplate('training1')">
+                        New Specimen Tracking System in Cerner
+                    </button>
+                    <button class="template-btn" onclick="loadTemplate('training2')">
+                        Mandatory Safety Training Reminder
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h2>👁️ Message Preview</h2>
+
+            <div class="preview-tabs">
+                <button class="tab-btn active" onclick="switchTab('email')">📧 Email Preview</button>
+                <button class="tab-btn" onclick="switchTab('teams')">💬 Teams Preview</button>
+            </div>
+
+            <div id="emailPreview" class="preview-content email-format">
+                <button class="copy-btn" onclick="copyToClipboard('email')">📋 Copy Email</button>
+                <div class="email-header">
+                    <div class="email-field"><strong>From:</strong> Largo Laboratory Leadership</div>
+                    <div class="email-field"><strong>To:</strong> All Laboratory Staff</div>
+                    <div class="email-field"><strong>Subject:</strong> <span id="emailSubject">Your announcement title will appear here</span></div>
+                </div>
+                <div class="email-body" id="emailBody">
+                    <p>Your message content will appear here...</p>
+                    <p>Create an announcement using the form on the left to see the preview.</p>
+                </div>
+            </div>
+
+            <div id="teamsPreview" class="preview-content teams-format" style="display: none;">
+                <button class="copy-btn" onclick="copyToClipboard('teams')">📋 Copy Teams Message</button>
+                <div class="teams-message">
+                    <div class="teams-header">
+                        <div class="teams-avatar">LL</div>
+                        <div class="teams-sender">Largo Laboratory Leadership</div>
+                    </div>
+                    <div class="teams-body" id="teamsBody">
+                        <p>Your message content will appear here...</p>
+                        <p>Create an announcement using the form on the left to see the preview.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Announcements Archive -->
+        <div class="announcements-archive">
+            <h2>📚 Recent Announcements</h2>
+            <div id="announcementsArchive">
+                <p style="color: #666; font-style: italic;">No announcements yet. Create your first announcement above!</p>
+            </div>
+        </div>
+
+        <!-- Back to Portal -->
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn btn-primary" onclick="window.location.href='index.html'">← Back to Portal Home</button>
+            <button class="btn btn-info" onclick="window.location.href='Schedules/Daily Schedule.html'" style="margin-left: 10px;">📅 Daily Schedule</button>
+        </div>
+    </div>
+
+    <script src="js/message-generator.js"></script>
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedAnnouncements();
+            updateStatistics();
+
+            // Schedule toggle
+            document.getElementById('scheduleAnnouncement').addEventListener('change', function() {
+                document.getElementById('scheduleDateTime').style.display = this.checked ? 'block' : 'none';
+            });
+        });
+
+        function insertEmoji(emoji) {
+            const content = document.getElementById('announcementContent');
+            const cursorPos = content.selectionStart;
+            const textBefore = content.value.substring(0, cursorPos);
+            const textAfter = content.value.substring(cursorPos);
+            content.value = textBefore + emoji + textAfter;
+            content.focus();
+            content.setSelectionRange(cursorPos + emoji.length, cursorPos + emoji.length);
+        }
+
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (tab === 'email') {
+                document.getElementById('emailPreview').style.display = 'block';
+                document.getElementById('teamsPreview').style.display = 'none';
+                tabs[0].classList.add('active');
+            } else {
+                document.getElementById('emailPreview').style.display = 'none';
+                document.getElementById('teamsPreview').style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        function generateEmail() {
+            const type = document.getElementById('announcementType').value;
+            const title = document.getElementById('announcementTitle').value || 'Important Announcement';
+            const content = document.getElementById('announcementContent').value || 'No content provided';
+
+            const generator = new MessageGenerator();
+            const emailData = generator.generateEmail({ type, title, content });
+
+            document.getElementById('emailSubject').textContent = emailData.subject;
+            document.getElementById('emailBody').innerHTML = emailData.body;
+
+            switchTab('email');
+        }
+
+        function generateTeams() {
+            const type = document.getElementById('announcementType').value;
+            const title = document.getElementById('announcementTitle').value || 'Important Announcement';
+            const content = document.getElementById('announcementContent').value || 'No content provided';
+
+            const generator = new MessageGenerator();
+            const teamsData = generator.generateTeams({ type, title, content });
+
+            document.getElementById('teamsBody').innerHTML = teamsData.body;
+
+            switchTab('teams');
+        }
+
+        function generateBoth() {
+            generateEmail();
+            generateTeams();
+        }
+
+        function copyToClipboard(format) {
+            let textToCopy = '';
+
+            if (format === 'email') {
+                const subject = document.getElementById('emailSubject').textContent;
+                const body = document.getElementById('emailBody').innerText;
+                textToCopy = `Subject: ${subject}\n\n${body}`;
+            } else {
+                textToCopy = document.getElementById('teamsBody').innerText;
+            }
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = event.target;
+                btn.textContent = '✅ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = format === 'email' ? '📋 Copy Email' : '📋 Copy Teams Message';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function saveAnnouncement() {
+            const type = document.getElementById('announcementType').value;
+            const title = document.getElementById('announcementTitle').value;
+            const content = document.getElementById('announcementContent').value;
+            const scheduled = document.getElementById('scheduleAnnouncement').checked;
+            const scheduleDate = document.getElementById('scheduleDateTime').value;
+
+            if (!title || !content) {
+                alert('Please enter both a title and content for your announcement.');
+                return;
+            }
+
+            const announcement = {
+                id: Date.now(),
+                type,
+                title,
+                content,
+                scheduled,
+                scheduleDate: scheduled ? scheduleDate : null,
+                createdAt: new Date().toISOString(),
+                acknowledged: []
+            };
+
+            // Save to localStorage
+            let announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+            announcements.unshift(announcement);
+            localStorage.setItem('largoAnnouncements', JSON.stringify(announcements));
+
+            // Clear form
+            document.getElementById('announcementTitle').value = '';
+            document.getElementById('announcementContent').value = '';
+            document.getElementById('scheduleAnnouncement').checked = false;
+            document.getElementById('scheduleDateTime').style.display = 'none';
+
+            // Reload announcements
+            loadSavedAnnouncements();
+            updateStatistics();
+
+            alert('✅ Announcement saved successfully!');
+        }
+
+        function loadSavedAnnouncements() {
+            const announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+            const archive = document.getElementById('announcementsArchive');
+
+            if (announcements.length === 0) {
+                archive.innerHTML = '<p style="color: #666; font-style: italic;">No announcements yet. Create your first announcement above!</p>';
+                return;
+            }
+
+            archive.innerHTML = announcements.map(ann => `
+                <div class="announcement-card ${ann.type}">
+                    <div class="announcement-header">
+                        <span class="announcement-type-badge badge-${ann.type}">
+                            ${getTypeIcon(ann.type)} ${ann.type.toUpperCase()}
+                        </span>
+                        <span class="announcement-date">${new Date(ann.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <h3 style="margin: 10px 0; color: #0066cc;">${ann.title}</h3>
+                    <div class="announcement-content">${ann.content}</div>
+                    <div class="acknowledgment-status">
+                        👥 Acknowledged by: ${ann.acknowledged.length} staff members
+                    </div>
+                    <div class="announcement-actions" style="margin-top: 12px;">
+                        <button class="action-btn view" onclick="viewAnnouncement(${ann.id})">👁️ View</button>
+                        <button class="action-btn edit" onclick="editAnnouncement(${ann.id})">✏️ Edit</button>
+                        <button class="action-btn delete" onclick="deleteAnnouncement(${ann.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                motivational: '📣',
+                policy: '📋',
+                equipment: '🔧',
+                training: '🎓',
+                safety: '⚠️',
+                recognition: '🌟'
+            };
+            return icons[type] || '📢';
+        }
+
+        function updateStatistics() {
+            const announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+            const today = new Date().toDateString();
+
+            document.getElementById('totalAnnouncements').textContent = announcements.length;
+            document.getElementById('activeAnnouncements').textContent = announcements.filter(a =>
+                new Date(a.createdAt).toDateString() === today
+            ).length;
+
+            const totalAck = announcements.reduce((sum, a) => sum + a.acknowledged.length, 0);
+            const ackRate = announcements.length > 0 ? Math.round((totalAck / (announcements.length * 10)) * 100) : 0;
+            document.getElementById('acknowledgmentRate').textContent = ackRate + '%';
+
+            document.getElementById('scheduledAnnouncements').textContent = announcements.filter(a => a.scheduled).length;
+        }
+
+        function deleteAnnouncement(id) {
+            if (confirm('Are you sure you want to delete this announcement?')) {
+                let announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+                announcements = announcements.filter(a => a.id !== id);
+                localStorage.setItem('largoAnnouncements', JSON.stringify(announcements));
+                loadSavedAnnouncements();
+                updateStatistics();
+            }
+        }
+
+        function editAnnouncement(id) {
+            const announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+            const ann = announcements.find(a => a.id === id);
+
+            if (ann) {
+                document.getElementById('announcementType').value = ann.type;
+                document.getElementById('announcementTitle').value = ann.title;
+                document.getElementById('announcementContent').value = ann.content;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function viewAnnouncement(id) {
+            const announcements = JSON.parse(localStorage.getItem('largoAnnouncements') || '[]');
+            const ann = announcements.find(a => a.id === id);
+
+            if (ann) {
+                document.getElementById('announcementType').value = ann.type;
+                document.getElementById('announcementTitle').value = ann.title;
+                document.getElementById('announcementContent').value = ann.content;
+                generateBoth();
+                window.scrollTo({ top: 400, behavior: 'smooth' });
+            }
+        }
+
+        function loadTemplate(templateId) {
+            const templates = {
+                motivational1: {
+                    type: 'motivational',
+                    title: 'Good Morning Team!',
+                    content: "Good morning team! Let's make today amazing! 💪\n\nEvery patient interaction matters. Your dedication to quality care makes a real difference.\n\nLet's have a great day!"
+                },
+                motivational2: {
+                    type: 'motivational',
+                    title: 'Happy Monday!',
+                    content: "Happy Monday! Ready to provide excellent patient care! 🩺\n\nNew week, new opportunities to excel. Let's start strong!\n\nYou've got this!"
+                },
+                motivational3: {
+                    type: 'motivational',
+                    title: 'Teamwork Makes the Dream Work',
+                    content: "Teamwork makes the dream work! Let's crush this day! 🔬\n\nTogether we achieve amazing results. Thank you for your collaboration and dedication.\n\nLet's make it happen!"
+                },
+                policy1: {
+                    type: 'policy',
+                    title: '🛑 CRITICAL: QC Failure Protocol',
+                    content: "IMPORTANT REMINDER: QC Failure Protocol\n\n❌ NEVER release patient results with failed QC\n✅ Follow troubleshooting steps immediately\n✅ Document all actions in LIS\n✅ Notify supervisor if QC fails twice\n✅ Repeat QC after corrective action\n\nPatient safety depends on accurate results!"
+                },
+                policy2: {
+                    type: 'policy',
+                    title: '📝 Documentation Standards - One Strike Policy',
+                    content: "Documentation Standards Reminder\n\n❌ NO white-out allowed\n❌ NO scribbling over errors\n✅ Single line through errors ONLY\n✅ Initial and date all corrections\n✅ Document reason for changes\n\n⚠️ ONE STRIKE POLICY: Documentation errors will result in immediate corrective action.\n\nQuality documentation = Quality care"
+                },
+                policy3: {
+                    type: 'policy',
+                    title: 'Break Coordination Requirements',
+                    content: "Break Coordination Policy\n\n✅ ALWAYS coordinate breaks with your team\n✅ Ensure adequate coverage at all times\n✅ Never leave department unstaffed\n✅ Document break times in schedule\n\nNetta's break times are FIXED:\n• 9:00a-9:15a\n• 11:00a-11:30a\n• 1:00p-1:15p\n\nThank you for your cooperation!"
+                },
+                policy4: {
+                    type: 'policy',
+                    title: 'Critical Result Handoff Procedures',
+                    content: "Critical Result Protocol\n\n✅ Call provider immediately for critical results\n✅ Read back all critical values\n✅ Document: Time, provider name, readback confirmation\n✅ Never leave critical results as voicemail\n✅ Escalate if unable to reach provider within 15 minutes\n\nPatient safety is our priority!"
+                },
+                equipment1: {
+                    type: 'equipment',
+                    title: 'Analyzer Maintenance Schedule',
+                    content: "Equipment Maintenance Reminder\n\nScheduled maintenance this week:\n• Pure Analyzer 1 (MOB) - Friday 10pm\n• Sysmex XN Shutdown - Saturday 9pm (AUC), 10pm (MOB)\n• Hematek maintenance - Saturday\n\nPlease ensure QC is current before maintenance.\n\nQuestions? Contact Equipment Coordinator."
+                },
+                equipment2: {
+                    type: 'equipment',
+                    title: 'New Equipment Training Required',
+                    content: "🔧 New Equipment Training\n\nNew analyzer arriving next week!\n\nMandatory training sessions:\n• Session 1: Monday 8am-10am\n• Session 2: Monday 3pm-5pm\n• Session 3: Tuesday 8am-10am\n\nPlease sign up for ONE session.\n\nTraining is REQUIRED before independent operation."
+                },
+                training1: {
+                    type: 'training',
+                    title: 'New Specimen Tracking System in Cerner',
+                    content: "🎓 New Specimen Tracking System Training\n\nCerner upgrade includes new specimen tracking features!\n\nWhat's New:\n✅ Real-time specimen location tracking\n✅ Automated routing notifications\n✅ Enhanced barcode scanning\n✅ Mobile device compatibility\n\nTraining Schedule:\n• Day shift: Wednesday 10am-12pm\n• Evening shift: Wednesday 4pm-6pm\n• Night shift: Thursday 12am-2am\n\nAttendance is MANDATORY."
+                },
+                training2: {
+                    type: 'training',
+                    title: 'Mandatory Safety Training Reminder',
+                    content: "⚠️ Mandatory Safety Training Due\n\nAnnual safety training must be completed by Friday!\n\nTopics include:\n• Bloodborne pathogens\n• Chemical safety\n• Fire safety\n• Emergency procedures\n\nAccess training in HealthStream.\n\nDeadline: This Friday 5pm\n\nQuestions? Contact Safety Coordinator."
+                }
+            };
+
+            const template = templates[templateId];
+            if (template) {
+                document.getElementById('announcementType').value = template.type;
+                document.getElementById('announcementTitle').value = template.title;
+                document.getElementById('announcementContent').value = template.content;
+            }
+        }
+    </script>
+</body>
+</html>
