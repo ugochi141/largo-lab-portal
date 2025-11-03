@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>QC Maintenance Calendar - October 2025 | Kaiser Permanente Largo Laboratory</title>
+    <title>QC Maintenance Calendar - December 2025 | Kaiser Permanente Largo Laboratory</title>
     <style>
         /* Kaiser Permanente Professional Styling */
         * {
@@ -333,7 +333,7 @@
 <body>
     <div class="header">
         <h1>Kaiser Permanente Largo Laboratory</h1>
-        <h2>Quality Control Maintenance Calendar - October 2025</h2>
+        <h2>Quality Control Maintenance Calendar - December 2025</h2>
     </div>
 
     <div class="document-info">
@@ -346,7 +346,7 @@
             </tr>
             <tr>
                 <td>Effective Date:</td>
-                <td>October 1, 2025</td>
+                <td>December 1, 2025</td>
                 <td>Location:</td>
                 <td>AUC & MOB</td>
             </tr>
@@ -418,37 +418,37 @@
                 <div class="legend-item task-night">
                     <strong>Pure Analyzer 2 (AUC)</strong><br>
                     Every other Saturday, 3am<br>
-                    Dates: 10/11, 10/25
+                    Dates: 12/6, 12/20
                 </div>
                 <div class="legend-item task-evening">
                     <strong>Pure Analyzer 1 (MOB)</strong><br>
                     Every other Friday, 10pm<br>
-                    Dates: 10/3, 10/18
+                    Dates: 12/13, 12/27
                 </div>
             </div>
 
             <div class="legend-section">
                 <h4>Monthly Tasks</h4>
                 <div class="legend-item task-day">
-                    <strong>Hematek</strong> - 2nd Wed (10/8)
+                    <strong>Hematek</strong> - 2nd Wed (12/10)
                 </div>
                 <div class="legend-item task-day">
-                    <strong>Medtox</strong> - 3rd Wed (10/15)
+                    <strong>Medtox</strong> - 3rd Wed (12/17)
                 </div>
                 <div class="legend-item task-day">
-                    <strong>Previ Gram</strong> - 3rd Tue (10/21)
+                    <strong>Previ Gram</strong> - 3rd Tue (12/16)
                 </div>
                 <div class="legend-item task-day">
-                    <strong>Novus</strong> - 3rd Thu (10/16)
+                    <strong>Novus</strong> - 3rd Thu (12/18)
                 </div>
                 <div class="legend-item task-night">
-                    <strong>GeneXpert</strong> - 2nd Wed (10/8) Night
+                    <strong>GeneXpert</strong> - 2nd Wed (12/10) Night
                 </div>
                 <div class="legend-item task-evening">
-                    <strong>Stago</strong> - 2nd Thu (10/9) 9pm
+                    <strong>Stago</strong> - 2nd Thu (12/11) 9pm
                 </div>
                 <div class="legend-item task-night">
-                    <strong>Pure Analyzers</strong> - 3rd Sat (10/18) 3am
+                    <strong>Pure Analyzers</strong> - 3rd Sat (12/20) 3am
                 </div>
             </div>
         </div>
@@ -457,37 +457,37 @@
     <script>
         const tasks = {
             weekly: {
-                hematek: { name: 'Hematek', location: 'Both', shift: 'day', days: [4,11,18,25] },
-                sysmexAUC: { name: 'Sysmex Shutdown', location: 'AUC', shift: 'evening', time: '9pm', days: [4,11,18,25] },
-                sysmexMOB: { name: 'Sysmex Shutdown', location: 'MOB', shift: 'evening', time: '10pm', days: [4,11,18,25] },
-                previGramStain: { name: 'Previ Gram', location: 'MOB', shift: 'day', days: [7,14,21,28] },
-                novusAUC: { name: 'Novus', location: 'AUC', shift: 'night', time: '3am', days: [7,14,21,28] },
-                novusMOB: { name: 'Novus', location: 'MOB', shift: 'day', days: [1,8,15,22,29] },
-                genexpert: { name: 'GeneXpert', location: 'Both', shift: 'night', days: [2,9,16,23,30] },
-                stago: { name: 'Stago', location: 'Both', shift: 'evening', days: [1,8,15,22,29] }
+                hematek: { name: 'Hematek', location: 'Both', shift: 'day', days: [6,13,20,27] },
+                sysmexAUC: { name: 'Sysmex Shutdown', location: 'AUC', shift: 'evening', time: '9pm', days: [6,13,20,27] },
+                sysmexMOB: { name: 'Sysmex Shutdown', location: 'MOB', shift: 'evening', time: '10pm', days: [6,13,20,27] },
+                previGramStain: { name: 'Previ Gram', location: 'MOB', shift: 'day', days: [2,9,16,23,30] },
+                novusAUC: { name: 'Novus', location: 'AUC', shift: 'night', time: '3am', days: [2,9,16,23,30] },
+                novusMOB: { name: 'Novus', location: 'MOB', shift: 'day', days: [3,10,17,24,31] },
+                genexpert: { name: 'GeneXpert', location: 'Both', shift: 'night', days: [4,11,18,25] },
+                stago: { name: 'Stago', location: 'Both', shift: 'evening', days: [3,10,17,24,31] }
             },
             biweekly: {
-                pure2: { name: 'Pure 2', location: 'AUC', shift: 'night', time: '3am', days: [11,25] },
-                pure1: { name: 'Pure 1', location: 'MOB', shift: 'evening', time: '10pm', days: [3,18] }
+                pure2: { name: 'Pure 2', location: 'AUC', shift: 'night', time: '3am', days: [6,20] },
+                pure1: { name: 'Pure 1', location: 'MOB', shift: 'evening', time: '10pm', days: [13,27] }
             },
             monthly: {
-                hematekMonthly: { name: 'Hematek Monthly', location: 'Both', shift: 'day', days: [8] },
-                medtox: { name: 'Medtox', location: 'Both', shift: 'day', days: [15] },
-                previMonthly: { name: 'Previ Monthly', location: 'Both', shift: 'day', days: [21] },
-                novusMonthly: { name: 'Novus Monthly', location: 'Both', shift: 'day', days: [16] },
-                genexpertMonthly: { name: 'GeneXpert Monthly', location: 'Both', shift: 'night', days: [8] },
-                stagoMonthly: { name: 'Stago Monthly', location: 'Both', shift: 'evening', time: '9pm', days: [9] },
-                pureMonthly: { name: 'Pure Monthly', location: 'Both', shift: 'night', time: '3am', days: [18] }
+                hematekMonthly: { name: 'Hematek Monthly', location: 'Both', shift: 'day', days: [10] },
+                medtox: { name: 'Medtox', location: 'Both', shift: 'day', days: [17] },
+                previMonthly: { name: 'Previ Monthly', location: 'Both', shift: 'day', days: [16] },
+                novusMonthly: { name: 'Novus Monthly', location: 'Both', shift: 'day', days: [18] },
+                genexpertMonthly: { name: 'GeneXpert Monthly', location: 'Both', shift: 'night', days: [10] },
+                stagoMonthly: { name: 'Stago Monthly', location: 'Both', shift: 'evening', time: '9pm', days: [11] },
+                pureMonthly: { name: 'Pure Monthly', location: 'Both', shift: 'night', time: '3am', days: [20] }
             }
         };
 
         const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const firstDay = 3;
+        const firstDay = 1; // December 1, 2025 is Monday
         const daysInMonth = 31;
 
         function renderCalendar() {
             const calendar = document.getElementById('calendar');
-            let html = '<div class="month-header">OCTOBER 2025</div>';
+            let html = '<div class="month-header">DECEMBER 2025</div>';
 
             daysOfWeek.forEach(day => {
                 html += `<div class="day-header">${day}</div>`;
