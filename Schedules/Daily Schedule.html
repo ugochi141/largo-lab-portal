@@ -224,16 +224,11 @@
             }
         }
     </style>
-    <!-- Schedule Manager for auto-generation and database integration -->
-    <script src="ScheduleManager.js"></script>
 </head>
 
 <body>
     <a href="#mainContent" class="skip-link">Skip to main content</a>
     <div class="container">
-        <!-- Navigation Bar -->
-        <iframe src="schedule-nav.html" style="width: 100%; height: 80px; border: none; margin: -30px -30px 20px -30px; display: block;" title="Schedule Navigation"></iframe>
-
         <header class="header" role="banner">
             <div class="kaiser-logo" aria-hidden="true">🏥</div>
             <h1>Kaiser Permanente Largo Laboratory</h1>
@@ -258,7 +253,6 @@
                     <button class="btn" onclick="window.print()" aria-label="Print schedule">📄 Print</button>
                     <button class="btn" onclick="showCallOutModal()" aria-label="Add call out">Add Call Out</button>
                     <button class="btn" onclick="showFloaterModal()" aria-label="Add floater">Add Floater</button>
-                    <button class="btn" style="background: #ff9800;" onclick="clearLocalStorage()" aria-label="Clear cached schedule data">🔄 Clear Cache</button>
                     <button class="btn danger" onclick="clearAll()" aria-label="Clear all notes">Clear All</button>
                 </div>
             </div>
