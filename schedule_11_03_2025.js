@@ -105,10 +105,11 @@ const november3Schedule = {
                 name: 'Fatima Gonzalez-Alvarado',
                 nickname: 'Fatima',
                 dept: 'MLT',
-                assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Sysmex XN Startup (Weekend Carryover), Hematek Weekly Maint (Weekend Carryover), Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '8:45a-5:15p',
                 breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p',
-                startTime: 8.75
+                startTime: 8.75,
+                weekendCarryover: ['Sysmex XN AUC Startup (from Sat 11/2 shutdown)', 'Hematek Weekly Maintenance']
             },
             {
                 name: 'Francis Azih Ngene',
@@ -123,10 +124,11 @@ const november3Schedule = {
                 name: 'Ingrid Benitez-Ruiz',
                 nickname: 'Ingrid',
                 dept: 'MT',
-                assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Previ Gram Stain [DAILY], Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'MOB - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex XN Startup (Weekend Carryover), Hematek Weekly Maint (Weekend Carryover), Previ Gram Stain [DAILY], Novus Daily, Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '7:30a-4:00p',
                 breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
-                startTime: 7.5
+                startTime: 7.5,
+                weekendCarryover: ['Sysmex XN MOB Startup (from Sat 11/2 shutdown)', 'Hematek Weekly Maintenance']
             },
             // EVENING SHIFT LAB
             {
@@ -217,16 +219,26 @@ const november3Summary = {
             'Kits QC (Fatima & Ingrid)',
             'Sysmex Startup/QC (Francis & Ingrid)',
             'Hematek Startup/QC (Francis & Ingrid)',
-            'Previ Gram Stain (Ingrid)'
+            'Previ Gram Stain (Ingrid)',
+            'Novus Daily (Ingrid at MOB)'
         ],
-        weekly: []
+        weekly: [],
+        weekendCarryover: [
+            'Sysmex XN Startup Both Locations (Ingrid @ MOB, Fatima @ AUC) - Shutdown was Sat 11/2 evening',
+            'Hematek Weekly Maintenance Both Locations (Ingrid @ MOB, Fatima @ AUC)'
+        ]
     },
     notes: [
         'Turi has on-call hours 6:00a-8:00a before regular shift',
         'Farah has on-call hours 6:00a-8:00a before regular shift',
         'Taric working split shift (9a-1p + 5p-9p)',
         'Jacqueline on-call night shift (12:30a-6:30a)',
-        'Monday - Standard weekday schedule'
+        'Monday - Standard weekday schedule',
+        '⚠️ WEEKEND CARRYOVER TASKS:',
+        '  - Sysmex XN was shut down Saturday 11/2 evening (9pm AUC, 10pm MOB)',
+        '  - Ingrid (MOB) and Fatima (AUC) must complete Sysmex XN startup Monday morning',
+        '  - Hematek Weekly Maintenance due (both locations)',
+        '  - Priority: Complete Sysmex startup BEFORE beginning patient testing'
     ]
 };
 
@@ -236,3 +248,4 @@ console.log(`🩺 Phlebotomy: ${november3Summary.phlebotomy.count}`);
 console.log(`🔬 Laboratory: ${november3Summary.laboratory.count}`);
 console.log(`📋 Monday Schedule - Standard weekday operations`);
 console.log(`⏰ On-call coverage: Turi & Farah (6:00a-8:00a), Jacqueline (12:30a-6:30a)`);
+console.log(`⚠️ WEEKEND CARRYOVER: Sysmex XN startup (both locations) + Hematek weekly maintenance`);
