@@ -217,10 +217,64 @@
         .note-floater {
             border-left-color: #ffc107;
         }
-        
+
+        /* Edit Mode Styles */
+        .editable {
+            cursor: pointer;
+            transition: background-color 0.2s;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .editable:hover {
+            background-color: #fff9e6;
+            outline: 2px dashed #ffc107;
+        }
+
+        .editable:focus {
+            outline: 2px solid #0066cc;
+            background-color: #ffffff;
+        }
+
+        .input-field {
+            padding: 10px;
+            border: 2px solid #d1e7f3;
+            border-radius: 6px;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 8pt;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
         @media print {
             .controls {
                 display: none;
+            }
+            #addStaffForms {
+                display: none !important;
+            }
+            .delete-btn {
+                display: none !important;
             }
         }
     </style>
@@ -250,6 +304,8 @@
                     <button class="btn" onclick="changeDate(1)" aria-label="Next day">Next →</button>
                 </div>
                 <div>
+                    <button class="btn" id="editModeBtn" onclick="toggleEditMode()" aria-label="Toggle edit mode">✏️ Edit Mode</button>
+                    <button class="btn" id="saveBtn" onclick="saveChanges()" style="display:none; background:#28a745;" aria-label="Save changes">💾 Save Changes</button>
                     <button class="btn" onclick="window.print()" aria-label="Print schedule">📄 Print</button>
                     <button class="btn" onclick="showCallOutModal()" aria-label="Add call out">Add Call Out</button>
                     <button class="btn" onclick="showFloaterModal()" aria-label="Add floater">Add Floater</button>
@@ -266,6 +322,41 @@
             <h2>Laboratory Technicians</h2>
         </div>
         <table class="staff-table" id="labTable"></table>
+
+            <!-- Add Staff Forms (shown only in edit mode) -->
+            <div id="addStaffForms" style="display:none; margin-top: 30px;">
+                <!-- Add Phlebotomy Staff Form -->
+                <div class="section" style="background: #f8fbff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="color: #0066cc; margin-bottom: 15px;">➕ Add Phlebotomy Staff</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <input type="text" id="phlebName" placeholder="Full Name" class="input-field" />
+                        <input type="text" id="phlebNickname" placeholder="Nickname" class="input-field" />
+                        <input type="text" id="phlebAssignment" placeholder="Assignment" class="input-field" />
+                        <input type="text" id="phlebShift" placeholder="Shift (e.g., 7:00a-3:30p)" class="input-field" />
+                        <input type="text" id="phlebBreaks" placeholder="Break Schedule" class="input-field" style="grid-column: span 2;" />
+                    </div>
+                    <button class="btn" onclick="addPhlebStaff()" style="margin-top: 15px; background: #28a745;">➕ Add to Phlebotomy</button>
+                </div>
+
+                <!-- Add Lab Staff Form -->
+                <div class="section" style="background: #f8fbff; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #0066cc; margin-bottom: 15px;">➕ Add Laboratory Technician</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <input type="text" id="labName" placeholder="Full Name" class="input-field" />
+                        <input type="text" id="labNickname" placeholder="Nickname" class="input-field" />
+                        <select id="labDept" class="input-field">
+                            <option value="">Select Department</option>
+                            <option value="MLS">MLS</option>
+                            <option value="MLT">MLT</option>
+                            <option value="MLA">MLA</option>
+                        </select>
+                        <input type="text" id="labAssignment" placeholder="Assignment" class="input-field" />
+                        <input type="text" id="labShift" placeholder="Shift (e.g., 7:30a-4:00p)" class="input-field" />
+                        <input type="text" id="labBreaks" placeholder="Break Schedule" class="input-field" style="grid-column: span 2;" />
+                    </div>
+                    <button class="btn" onclick="addLabStaff()" style="margin-top: 15px; background: #28a745;">➕ Add to Laboratory</button>
+                </div>
+            </div>
 
             <div class="notes-section" id="notesSection" style="display:none;">
                 <h3>Call-Outs & Floaters</h3>
@@ -2410,6 +2501,7 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
         let callOuts = JSON.parse(localStorage.getItem('labCallOuts') || '{}');
         let floaters = JSON.parse(localStorage.getItem('labFloaters') || '{}');
         let currentDate = new Date();
+        let isEditMode = false; // Track edit mode state
 
         // Load uploaded schedule data from Schedule Manager
         const uploadedScheduleData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
@@ -2484,17 +2576,29 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
                 return;
             }
 
-            let phlebHtml = '<thead><tr><th>Name</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th></tr></thead><tbody>';
-            data.phleb.forEach(s => {
+            let phlebHtml = `<thead><tr><th>Name</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th>${isEditMode ? '<th>Actions</th>' : ''}</tr></thead><tbody>`;
+            data.phleb.forEach((s, idx) => {
                 const key = `${dateStr}-${s.name}`;
                 const status = callOuts[key] ? '🚫 CALLED OUT' : '✓ Scheduled';
-                phlebHtml += `<tr class="dept-phleb">
-                    <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
-                    <td>${s.assignment}</td>
-                    <td>${s.shift}</td>
-                    <td style="font-size:9pt;">${s.breaks}</td>
-                    <td>${status}</td>
-                </tr>`;
+
+                if (isEditMode) {
+                    phlebHtml += `<tr class="dept-phleb">
+                        <td><div class="staff-name editable" contenteditable="true" data-field="name" data-type="phleb" data-idx="${idx}">${s.name}</div><div class="staff-nickname editable" contenteditable="true" data-field="nickname" data-type="phleb" data-idx="${idx}">${s.nickname}</div></td>
+                        <td class="editable" contenteditable="true" data-field="assignment" data-type="phleb" data-idx="${idx}">${s.assignment}</td>
+                        <td class="editable" contenteditable="true" data-field="shift" data-type="phleb" data-idx="${idx}">${s.shift}</td>
+                        <td class="editable" contenteditable="true" data-field="breaks" data-type="phleb" data-idx="${idx}" style="font-size:9pt;">${s.breaks}</td>
+                        <td>${status}</td>
+                        <td><button class="delete-btn" onclick="deleteStaff('phleb', ${idx})">🗑️ Delete</button></td>
+                    </tr>`;
+                } else {
+                    phlebHtml += `<tr class="dept-phleb">
+                        <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
+                        <td>${s.assignment}</td>
+                        <td>${s.shift}</td>
+                        <td style="font-size:9pt;">${s.breaks}</td>
+                        <td>${status}</td>
+                    </tr>`;
+                }
             });
             phlebHtml += '</tbody>';
             document.getElementById('phlebTable').innerHTML = phlebHtml;
@@ -2505,18 +2609,31 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
             const nightShift = data.lab.filter(s => s.startTime >= 21.5).sort((a, b) => a.startTime - b.startTime);
             const sortedLab = [...dayShift, ...eveningShift, ...nightShift];
 
-            let labHtml = '<thead><tr><th>Name</th><th>Role</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th></tr></thead><tbody>';
-            sortedLab.forEach(s => {
+            let labHtml = `<thead><tr><th>Name</th><th>Role</th><th>Assignment</th><th>Shift</th><th>Break Schedule</th><th>Status</th>${isEditMode ? '<th>Actions</th>' : ''}</tr></thead><tbody>`;
+            sortedLab.forEach((s, idx) => {
                 const key = `${dateStr}-${s.name}`;
                 const status = callOuts[key] ? '🚫 CALLED OUT' : '✓ Scheduled';
-                labHtml += `<tr class="dept-${s.dept.toLowerCase()}">
-                    <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
-                    <td><strong>${s.dept}</strong></td>
-                    <td>${s.assignment}</td>
-                    <td>${s.shift}</td>
-                    <td style="font-size:9pt;">${s.breaks}</td>
-                    <td>${status}</td>
-                </tr>`;
+
+                if (isEditMode) {
+                    labHtml += `<tr class="dept-${s.dept.toLowerCase()}">
+                        <td><div class="staff-name editable" contenteditable="true" data-field="name" data-type="lab" data-idx="${idx}">${s.name}</div><div class="staff-nickname editable" contenteditable="true" data-field="nickname" data-type="lab" data-idx="${idx}">${s.nickname}</div></td>
+                        <td><strong>${s.dept}</strong></td>
+                        <td class="editable" contenteditable="true" data-field="assignment" data-type="lab" data-idx="${idx}">${s.assignment}</td>
+                        <td class="editable" contenteditable="true" data-field="shift" data-type="lab" data-idx="${idx}">${s.shift}</td>
+                        <td class="editable" contenteditable="true" data-field="breaks" data-type="lab" data-idx="${idx}" style="font-size:9pt;">${s.breaks}</td>
+                        <td>${status}</td>
+                        <td><button class="delete-btn" onclick="deleteStaff('lab', ${idx})">🗑️ Delete</button></td>
+                    </tr>`;
+                } else {
+                    labHtml += `<tr class="dept-${s.dept.toLowerCase()}">
+                        <td><div class="staff-name">${s.name}</div><div class="staff-nickname">${s.nickname}</div></td>
+                        <td><strong>${s.dept}</strong></td>
+                        <td>${s.assignment}</td>
+                        <td>${s.shift}</td>
+                        <td style="font-size:9pt;">${s.breaks}</td>
+                        <td>${status}</td>
+                    </tr>`;
+                }
             });
             labHtml += '</tbody>';
             document.getElementById('labTable').innerHTML = labHtml;
@@ -2616,6 +2733,217 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
                 localStorage.removeItem('labFloaters');
                 renderTables();
             }
+        }
+
+        // ==========================================
+        // EDIT MODE FUNCTIONS
+        // ==========================================
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const editBtn = document.getElementById('editModeBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const addFormsEl = document.getElementById('addStaffForms');
+
+            if (isEditMode) {
+                editBtn.textContent = '👁️ View Mode';
+                editBtn.style.background = '#ffc107';
+                saveBtn.style.display = 'inline-block';
+                addFormsEl.style.display = 'block';
+                console.log('✏️ Edit mode ENABLED');
+            } else {
+                editBtn.textContent = '✏️ Edit Mode';
+                editBtn.style.background = '#0066cc';
+                saveBtn.style.display = 'none';
+                addFormsEl.style.display = 'none';
+                console.log('👁️ Edit mode DISABLED');
+            }
+
+            renderTables(); // Re-render with/without contenteditable
+            attachEditListeners(); // Attach listeners if in edit mode
+        }
+
+        function attachEditListeners() {
+            if (!isEditMode) return;
+
+            document.querySelectorAll('.editable').forEach(el => {
+                el.addEventListener('blur', function() {
+                    const field = this.dataset.field;
+                    const type = this.dataset.type;
+                    const idx = parseInt(this.dataset.idx);
+                    const value = this.textContent.trim();
+
+                    updateStaffField(type, idx, field, value);
+                });
+            });
+        }
+
+        function updateStaffField(type, idx, field, value) {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const data = scheduleData[dateStr];
+
+            if (!data) return;
+
+            const staff = type === 'phleb' ? data.phleb[idx] : data.lab[idx];
+
+            if (staff) {
+                staff[field] = value;
+                console.log(`✏️ Updated ${type} staff[${idx}].${field} = "${value}"`);
+            }
+        }
+
+        function saveChanges() {
+            try {
+                // Save to localStorage
+                localStorage.setItem('dailyScheduleData', JSON.stringify(scheduleData));
+
+                // Sync to other schedule pages
+                if (typeof ScheduleSync !== 'undefined') {
+                    ScheduleSync.syncFromDailySchedule(scheduleData);
+                }
+
+                // Show success message
+                alert('✅ Changes saved successfully!\n\nAll edits have been saved to your browser storage.');
+                console.log('💾 Schedule changes saved to localStorage');
+            } catch (error) {
+                alert('❌ Error saving changes:\n' + error.message);
+                console.error('❌ Save error:', error);
+            }
+        }
+
+        function deleteStaff(type, idx) {
+            if (!confirm('Are you sure you want to delete this staff member?')) {
+                return;
+            }
+
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const data = scheduleData[dateStr];
+
+            if (!data) return;
+
+            if (type === 'phleb') {
+                const deleted = data.phleb.splice(idx, 1);
+                console.log(`🗑️ Deleted phlebotomy staff:`, deleted[0]);
+            } else {
+                const deleted = data.lab.splice(idx, 1);
+                console.log(`🗑️ Deleted lab staff:`, deleted[0]);
+            }
+
+            renderTables();
+            attachEditListeners();
+        }
+
+        function addPhlebStaff() {
+            const name = document.getElementById('phlebName').value.trim();
+            const nickname = document.getElementById('phlebNickname').value.trim();
+            const assignment = document.getElementById('phlebAssignment').value.trim();
+            const shift = document.getElementById('phlebShift').value.trim();
+            const breaks = document.getElementById('phlebBreaks').value.trim();
+
+            if (!name || !nickname || !assignment || !shift || !breaks) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const dateStr = currentDate.toISOString().split('T')[0];
+
+            if (!scheduleData[dateStr]) {
+                scheduleData[dateStr] = { phleb: [], lab: [] };
+            }
+
+            // Calculate startTime from shift
+            const startTime = parseStartTime(shift);
+
+            const newStaff = {
+                name,
+                nickname,
+                assignment,
+                shift,
+                breaks,
+                startTime
+            };
+
+            scheduleData[dateStr].phleb.push(newStaff);
+
+            // Clear form
+            document.getElementById('phlebName').value = '';
+            document.getElementById('phlebNickname').value = '';
+            document.getElementById('phlebAssignment').value = '';
+            document.getElementById('phlebShift').value = '';
+            document.getElementById('phlebBreaks').value = '';
+
+            renderTables();
+            attachEditListeners();
+
+            alert(`✅ Added ${nickname} to Phlebotomy staff!`);
+            console.log('➕ Added phlebotomy staff:', newStaff);
+        }
+
+        function addLabStaff() {
+            const name = document.getElementById('labName').value.trim();
+            const nickname = document.getElementById('labNickname').value.trim();
+            const dept = document.getElementById('labDept').value;
+            const assignment = document.getElementById('labAssignment').value.trim();
+            const shift = document.getElementById('labShift').value.trim();
+            const breaks = document.getElementById('labBreaks').value.trim();
+
+            if (!name || !nickname || !dept || !assignment || !shift || !breaks) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const dateStr = currentDate.toISOString().split('T')[0];
+
+            if (!scheduleData[dateStr]) {
+                scheduleData[dateStr] = { phleb: [], lab: [] };
+            }
+
+            // Calculate startTime from shift
+            const startTime = parseStartTime(shift);
+
+            const newStaff = {
+                name,
+                nickname,
+                dept,
+                assignment,
+                shift,
+                breaks,
+                startTime
+            };
+
+            scheduleData[dateStr].lab.push(newStaff);
+
+            // Clear form
+            document.getElementById('labName').value = '';
+            document.getElementById('labNickname').value = '';
+            document.getElementById('labDept').value = '';
+            document.getElementById('labAssignment').value = '';
+            document.getElementById('labShift').value = '';
+            document.getElementById('labBreaks').value = '';
+
+            renderTables();
+            attachEditListeners();
+
+            alert(`✅ Added ${nickname} to Laboratory staff!`);
+            console.log('➕ Added lab staff:', newStaff);
+        }
+
+        function parseStartTime(shift) {
+            const match = shift.match(/(\d+):?(\d+)?(a|p)/);
+            if (!match) return 7; // default
+
+            let hour = parseInt(match[1]);
+            const minute = parseInt(match[2] || 0);
+            const period = match[3];
+
+            if (period === 'p' && hour !== 12) {
+                hour += 12;
+            }
+            if (period === 'a' && hour === 12) {
+                hour = 0;
+            }
+
+            return hour + (minute / 60);
         }
 
         function clearLocalStorage() {
