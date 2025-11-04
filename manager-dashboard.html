@@ -301,9 +301,49 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        .home-btn:active {
+            transform: translateY(0);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
     <div class="dashboard-container">
         <!-- Header -->
         <div class="dashboard-header">
@@ -323,38 +363,96 @@
 
         <!-- Quick Actions -->
         <div class="quick-actions">
-            <a href="https://kaisermidatlantic.smart-square.com/v2/login" target="_blank" class="quick-action-btn">
+            <a href="https://kaisermidatlantic.smart-square.com/v2/login" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">📅</span>
-                <span>Insight Schedule</span>
+                <span>Insight Schedule 🔒</span>
             </a>
-            <a href="https://hrconnect.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://hrconnect.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">👤</span>
-                <span>HR Connect</span>
+                <span>HR Connect 🔒</span>
             </a>
-            <a href="https://temptrakmas.appl.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://temptrakmas.appl.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">🌡️</span>
-                <span>TempTrak Alarms</span>
+                <span>TempTrak Alarms 🔒</span>
             </a>
-            <a href="https://kplearn.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://kplearn.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">📚</span>
-                <span>KP Learn</span>
+                <span>KP Learn 🔒</span>
             </a>
-            <a href="https://servicenow.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://servicenow.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">🎫</span>
-                <span>Service Now</span>
+                <span>Service Now 🔒</span>
             </a>
             <a href="https://order.lasership.com" target="_blank" class="quick-action-btn">
                 <span class="icon">📦</span>
                 <span>LaserShip</span>
             </a>
-            <a href="https://policytech.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://policytech.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">📖</span>
-                <span>PolicyTech</span>
+                <span>PolicyTech 🔒</span>
             </a>
-            <a href="https://maprinters.kp.org" target="_blank" class="quick-action-btn">
+            <a href="https://maprinters.kp.org" target="_blank" class="quick-action-btn" title="Requires Kaiser SSO login">
                 <span class="icon">🖨️</span>
-                <span>Printer Portal</span>
+                <span>Printer Portal 🔒</span>
             </a>
+        </div>
+
+        <!-- SBAR Communication Section -->
+        <div class="sbar-section" style="background: white; border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+            <h2 style="color: #005EB8; margin-top: 0; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">
+                📋 SBAR Communication Technique
+            </h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                <strong>SBAR</strong> (Situation-Background-Assessment-Recommendation) is a structured communication technique
+                that provides important information concisely for UBT teams and co-leads.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                <div style="background: #E3F2FD; padding: 20px; border-left: 4px solid #2196F3; border-radius: 5px;">
+                    <h3 style="color: #1976D2; margin-top: 0; font-size: 18px;">S - Situation</h3>
+                    <p style="margin: 0; color: #555; font-size: 14px;">What is happening right now? Describe the current situation clearly and concisely.</p>
+                </div>
+                <div style="background: #F3E5F5; padding: 20px; border-left: 4px solid #9C27B0; border-radius: 5px;">
+                    <h3 style="color: #7B1FA2; margin-top: 0; font-size: 18px;">B - Background</h3>
+                    <p style="margin: 0; color: #555; font-size: 14px;">What led to this situation? Provide relevant context and history.</p>
+                </div>
+                <div style="background: #FFF3E0; padding: 20px; border-left: 4px solid #FF9800; border-radius: 5px;">
+                    <h3 style="color: #F57C00; margin-top: 0; font-size: 18px;">A - Assessment</h3>
+                    <p style="margin: 0; color: #555; font-size: 14px;">What do you think the problem is? Share your professional assessment.</p>
+                </div>
+                <div style="background: #E8F5E9; padding: 20px; border-left: 4px solid #4CAF50; border-radius: 5px;">
+                    <h3 style="color: #388E3C; margin-top: 0; font-size: 18px;">R - Recommendation</h3>
+                    <p style="margin: 0; color: #555; font-size: 14px;">What action should be taken? Propose clear next steps or solutions.</p>
+                </div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+                <strong style="color: #856404;">💡 Best Used For:</strong>
+                <ul style="margin: 10px 0 0 20px; color: #856404;">
+                    <li>Requesting an action to be considered or taken</li>
+                    <li>Sharing key information during change of shift</li>
+                    <li>Escalating concerns to management</li>
+                    <li>UBT team communications</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="sbar-implementation-guide.html" target="_blank" style="background: #dc3545; color: white; border: none; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">
+                    📚 Complete SBAR Guide
+                </a>
+                <button onclick="generateSBARForm()" style="background: #005EB8; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    📝 Generate SBAR Form
+                </button>
+                <button onclick="downloadSBARFlyer()" style="background: #28a745; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    📄 Download Flyer Template
+                </button>
+                <button onclick="downloadSBARPoster()" style="background: #6f42c1; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    🖼️ Download Signage Template
+                </button>
+                <button onclick="viewSBARExamples()" style="background: #17a2b8; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    👁️ View Examples
+                </button>
+            </div>
         </div>
 
         <!-- Main Dashboard Grid -->
@@ -495,9 +593,9 @@
                 <h2>🎓 Staff Training Requirements</h2>
                 <div class="tab-container">
                     <div class="tab-buttons">
-                        <button class="tab-button active" onclick="switchTab('fulltime')">Full Time</button>
-                        <button class="tab-button" onclick="switchTab('temp')">Temp/PRN</button>
-                        <button class="tab-button" onclick="switchTab('floats')">Floats</button>
+                        <button class="tab-button active" onclick="switchTab('fulltime', this)">Full Time</button>
+                        <button class="tab-button" onclick="switchTab('temp', this)">Temp/PRN</button>
+                        <button class="tab-button" onclick="switchTab('floats', this)">Floats</button>
                     </div>
 
                     <div id="fulltime" class="tab-content active">
@@ -648,7 +746,7 @@
 
     <script>
         // Tab switching function
-        function switchTab(tabName) {
+        function switchTab(tabName, element) {
             // Remove active class from all tabs and contents
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
@@ -658,8 +756,402 @@
             });
 
             // Add active class to selected tab and content
-            event.target.classList.add('active');
+            element.classList.add('active');
             document.getElementById(tabName).classList.add('active');
+        }
+
+        // SBAR Communication Functions
+        function generateSBARForm() {
+            const sbarHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Communication Form - Kaiser Permanente Largo Laboratory</title>
+    <style>
+        @page { size: 8.5in 11in; margin: 0.75in; }
+        body { font-family: Arial, sans-serif; max-width: 8in; margin: 0 auto; padding: 20px; }
+        .header { background: #005EB8; color: white; padding: 20px; text-align: center; margin-bottom: 30px; }
+        .header h1 { margin: 0; font-size: 28px; }
+        .header p { margin: 5px 0 0 0; font-size: 14px; }
+        .section { margin-bottom: 30px; page-break-inside: avoid; }
+        .section-header { background: #E3F2FD; color: #1976D2; padding: 12px; font-size: 18px; font-weight: bold; margin-bottom: 15px; border-left: 5px solid #2196F3; }
+        .form-field { margin-bottom: 15px; }
+        .form-field label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+        .form-field textarea { width: 100%; min-height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; }
+        .form-field input[type="text"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #005EB8; font-size: 12px; color: #666; }
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SBAR Communication Form</h1>
+        <p>Kaiser Permanente Largo Laboratory</p>
+        <p>Structured Communication for UBT Teams & Co-Leads</p>
+    </div>
+
+    <div class="form-field">
+        <label>Date:</label>
+        <input type="text" value="${new Date().toLocaleDateString()}" />
+    </div>
+    <div class="form-field">
+        <label>From (Your Name & Title):</label>
+        <input type="text" />
+    </div>
+    <div class="form-field">
+        <label>To (Recipient Name & Title):</label>
+        <input type="text" />
+    </div>
+
+    <div class="section">
+        <div class="section-header">S - SITUATION</div>
+        <div class="form-field">
+            <label>What is happening right now? Describe the current situation clearly and concisely.</label>
+            <textarea placeholder="Example: We are experiencing a critical shortage of chemistry reagents that will impact patient testing within 48 hours."></textarea>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">B - BACKGROUND</div>
+        <div class="form-field">
+            <label>What led to this situation? Provide relevant context and history.</label>
+            <textarea placeholder="Example: Our routine inventory check revealed stock levels at 15% PAR. The last order was delayed due to vendor supply chain issues. Normal lead time is 5 days."></textarea>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">A - ASSESSMENT</div>
+        <div class="form-field">
+            <label>What do you think the problem is? Share your professional assessment.</label>
+            <textarea placeholder="Example: If we don't receive reagents by tomorrow, we'll need to send specimens to reference lab, increasing TAT from 2 hours to 24 hours and impacting patient care decisions."></textarea>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">R - RECOMMENDATION</div>
+        <div class="form-field">
+            <label>What action should be taken? Propose clear next steps or solutions.</label>
+            <textarea placeholder="Example: 1) Contact vendor for expedited shipping. 2) Coordinate with other KP labs for emergency supply transfer. 3) Notify medical staff of potential testing delays."></textarea>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+        <p>GL Code: 1808-18801-5693 | Account: 55042619</p>
+        <p>This form complies with KP HIPAA and communication standards.</p>
+    </div>
+
+    <div class="no-print" style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()" style="background: #005EB8; color: white; border: none; padding: 15px 30px; font-size: 16px; cursor: pointer; border-radius: 5px;">
+            🖨️ Print SBAR Form
+        </button>
+    </div>
+</body>
+</html>`;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(sbarHTML);
+            newWindow.document.close();
+        }
+
+        function downloadSBARFlyer() {
+            const flyerHTML = generateKPBrandedFlyer();
+            const blob = new Blob([flyerHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'SBAR_Communication_Flyer_KP_Largo.html';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('SBAR Flyer Template Downloaded! Open the HTML file and print to PDF (8.5" x 11")');
+        }
+
+        function downloadSBARPoster() {
+            const posterHTML = generateKPBrandedPoster();
+            const blob = new Blob([posterHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'SBAR_Communication_Poster_KP_Largo.html';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('SBAR Poster Template Downloaded! Open the HTML file and print to PDF (11" x 17" or 18" x 24")');
+        }
+
+        function generateKPBrandedFlyer() {
+            return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Communication Technique - Kaiser Permanente Largo</title>
+    <style>
+        @page { size: 8.5in 11in; margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; width: 8.5in; height: 11in; padding: 0.5in; background: white; }
+        .header { background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%); color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.95; }
+        .sbar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .sbar-card { border: 3px solid; padding: 20px; border-radius: 10px; min-height: 200px; }
+        .sbar-card.situation { border-color: #2196F3; background: #E3F2FD; }
+        .sbar-card.background { border-color: #9C27B0; background: #F3E5F5; }
+        .sbar-card.assessment { border-color: #FF9800; background: #FFF3E0; }
+        .sbar-card.recommendation { border-color: #4CAF50; background: #E8F5E9; }
+        .sbar-card h2 { font-size: 28px; margin-bottom: 10px; }
+        .sbar-card.situation h2 { color: #1976D2; }
+        .sbar-card.background h2 { color: #7B1FA2; }
+        .sbar-card.assessment h2 { color: #F57C00; }
+        .sbar-card.recommendation h2 { color: #388E3C; }
+        .sbar-card p { color: #333; font-size: 14px; line-height: 1.6; }
+        .best-used { background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px; }
+        .best-used h3 { color: #856404; margin-bottom: 10px; }
+        .best-used ul { margin-left: 20px; color: #856404; }
+        .best-used li { margin-bottom: 8px; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #005EB8; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SBAR Communication Technique</h1>
+        <p>Kaiser Permanente Largo Laboratory</p>
+        <p>Structured Communication for UBT Teams & Co-Leads</p>
+    </div>
+
+    <div class="sbar-grid">
+        <div class="sbar-card situation">
+            <h2>S - Situation</h2>
+            <p><strong>What is happening right now?</strong></p>
+            <p>Describe the current situation clearly and concisely. State what you are calling about or what action needs attention.</p>
+        </div>
+
+        <div class="sbar-card background">
+            <h2>B - Background</h2>
+            <p><strong>What led to this situation?</strong></p>
+            <p>Provide relevant context, history, and pertinent information that helps understand the situation.</p>
+        </div>
+
+        <div class="sbar-card assessment">
+            <h2>A - Assessment</h2>
+            <p><strong>What do you think the problem is?</strong></p>
+            <p>Share your professional assessment, analysis, or clinical impression of the situation.</p>
+        </div>
+
+        <div class="sbar-card recommendation">
+            <h2>R - Recommendation</h2>
+            <p><strong>What action should be taken?</strong></p>
+            <p>Propose clear next steps, solutions, or specific actions you want to see implemented.</p>
+        </div>
+    </div>
+
+    <div class="best-used">
+        <h3>💡 Best Used For:</h3>
+        <ul>
+            <li>Requesting an action to be considered or taken</li>
+            <li>Sharing key information during change of shift</li>
+            <li>Escalating concerns to management</li>
+            <li>UBT team communications and decision-making</li>
+            <li>Incident reporting and quality improvement</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+        <p>For questions or support, contact Laboratory Management | GL Code: 1808-18801-5693</p>
+        <p>This document complies with KP Facilities Sign Program (NATL.NFDC.001) and KP Brand Standards</p>
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateKPBrandedPoster() {
+            return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Communication Poster - Kaiser Permanente Largo</title>
+    <style>
+        @page { size: 11in 17in; margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; width: 11in; height: 17in; padding: 0.75in; background: white; }
+        .poster-header { background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%); color: white; padding: 50px; text-align: center; border-radius: 15px; margin-bottom: 40px; }
+        .poster-header h1 { font-size: 60px; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .poster-header p { font-size: 24px; opacity: 0.95; }
+        .sbar-section { margin-bottom: 35px; padding: 35px; border-radius: 15px; border: 5px solid; }
+        .sbar-section.situation { border-color: #2196F3; background: #E3F2FD; }
+        .sbar-section.background { border-color: #9C27B0; background: #F3E5F5; }
+        .sbar-section.assessment { border-color: #FF9800; background: #FFF3E0; }
+        .sbar-section.recommendation { border-color: #4CAF50; background: #E8F5E9; }
+        .sbar-section h2 { font-size: 48px; margin-bottom: 15px; }
+        .sbar-section.situation h2 { color: #1976D2; }
+        .sbar-section.background h2 { color: #7B1FA2; }
+        .sbar-section.assessment h2 { color: #F57C00; }
+        .sbar-section.recommendation h2 { color: #388E3C; }
+        .sbar-section .question { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .sbar-section .description { font-size: 20px; color: #555; line-height: 1.6; }
+        .best-used-poster { background: #fff3cd; border: 5px solid #ffc107; padding: 35px; border-radius: 15px; margin-top: 40px; }
+        .best-used-poster h3 { font-size: 32px; color: #856404; margin-bottom: 15px; }
+        .best-used-poster ul { margin-left: 30px; }
+        .best-used-poster li { font-size: 20px; color: #856404; margin-bottom: 12px; line-height: 1.5; }
+        .poster-footer { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 3px solid #005EB8; }
+        .poster-footer p { font-size: 18px; color: #666; margin-bottom: 8px; }
+        .poster-footer .compliance { font-size: 14px; color: #999; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="poster-header">
+        <h1>SBAR Communication</h1>
+        <p>Kaiser Permanente Largo Laboratory</p>
+        <p>Structured Communication for Better Outcomes</p>
+    </div>
+
+    <div class="sbar-section situation">
+        <h2>S - Situation</h2>
+        <p class="question">What is happening right now?</p>
+        <p class="description">Describe the current situation clearly and concisely. State what you are calling about or what action needs immediate attention.</p>
+    </div>
+
+    <div class="sbar-section background">
+        <h2>B - Background</h2>
+        <p class="question">What led to this situation?</p>
+        <p class="description">Provide relevant context, history, and pertinent information that helps the listener understand the full picture.</p>
+    </div>
+
+    <div class="sbar-section assessment">
+        <h2>A - Assessment</h2>
+        <p class="question">What do you think the problem is?</p>
+        <p class="description">Share your professional assessment, analysis, or clinical impression. This is your expert opinion on what's happening.</p>
+    </div>
+
+    <div class="sbar-section recommendation">
+        <h2>R - Recommendation</h2>
+        <p class="question">What action should be taken?</p>
+        <p class="description">Propose clear next steps, solutions, or specific actions. Be explicit about what you want to see happen.</p>
+    </div>
+
+    <div class="best-used-poster">
+        <h3>💡 When to Use SBAR:</h3>
+        <ul>
+            <li><strong>Shift Changes:</strong> Communicate key information during handoffs</li>
+            <li><strong>Escalations:</strong> Report concerns to management effectively</li>
+            <li><strong>UBT Meetings:</strong> Structure team discussions and decisions</li>
+            <li><strong>Incident Reports:</strong> Document and communicate safety events</li>
+            <li><strong>Quality Improvement:</strong> Present problems and solutions clearly</li>
+        </ul>
+    </div>
+
+    <div class="poster-footer">
+        <p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+        <p>For Support: Contact Laboratory Management</p>
+        <p>GL Code: 1808-18801-5693 | Account: 55042619</p>
+        <p class="compliance">This signage complies with KP Facilities Sign Program (NATL.NFDC.001) and KP Brand Standards</p>
+    </div>
+</body>
+</html>`;
+        }
+
+        function viewSBARExamples() {
+            const examplesHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Examples - Kaiser Permanente Largo Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .header { background: #005EB8; color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 30px; }
+        .example { background: white; padding: 25px; margin-bottom: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .example h3 { color: #005EB8; margin-top: 0; }
+        .sbar-part { margin-bottom: 20px; padding: 15px; border-left: 4px solid; border-radius: 5px; }
+        .sbar-part.s { border-color: #2196F3; background: #E3F2FD; }
+        .sbar-part.b { border-color: #9C27B0; background: #F3E5F5; }
+        .sbar-part.a { border-color: #FF9800; background: #FFF3E0; }
+        .sbar-part.r { border-color: #4CAF50; background: #E8F5E9; }
+        .sbar-part strong { display: block; margin-bottom: 5px; font-size: 16px; }
+        .sbar-part p { margin: 0; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SBAR Communication Examples</h1>
+        <p>Kaiser Permanente Largo Laboratory</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 1: Equipment Malfunction</h3>
+        <div class="sbar-part s">
+            <strong>S - Situation:</strong>
+            <p>The Sysmex XN-2000 hematology analyzer is displaying error code E-051 and has stopped processing samples.</p>
+        </div>
+        <div class="sbar-part b">
+            <strong>B - Background:</strong>
+            <p>The instrument completed routine maintenance yesterday and was functioning normally this morning. At 10:30 AM, it started showing intermittent errors. We have 23 pending stat CBC orders and TAT is approaching 2 hours.</p>
+        </div>
+        <div class="sbar-part a">
+            <strong>A - Assessment:</strong>
+            <p>This appears to be a critical hardware failure based on the error code. We cannot meet stat testing requirements with our backup analyzer alone. Patient care will be impacted if not resolved within 1 hour.</p>
+        </div>
+        <div class="sbar-part r">
+            <strong>R - Recommendation:</strong>
+            <p>1) Contact Sysmex technical support immediately for emergency service. 2) Notify medical staff of testing delays. 3) Divert non-stat specimens to backup analyzer. 4) Consider reference lab for critical samples if downtime exceeds 2 hours.</p>
+        </div>
+    </div>
+
+    <div class="example">
+        <h3>Example 2: Staffing Shortage</h3>
+        <div class="sbar-part s">
+            <strong>S - Situation:</strong>
+            <p>We have 3 unplanned call-outs for tomorrow's evening shift (3:30 PM - 11:30 PM) leaving us with only 2 medical technologists.</p>
+        </div>
+        <div class="sbar-part b">
+            <strong>B - Background:</strong>
+            <p>Minimum safe staffing for evening shift requires 4 MTs to cover Chemistry, Hematology, Urinalysis, and Specimen Processing. Two staff called out due to illness, one has a family emergency. We've already exhausted overtime coverage from day shift.</p>
+        </div>
+        <div class="sbar-part a">
+            <strong>A - Assessment:</strong>
+            <p>With only 2 MTs, we cannot safely operate all testing areas. TAT will be significantly delayed, and quality may be compromised due to staff fatigue and rushing.</p>
+        </div>
+        <div class="sbar-part r">
+            <strong>R - Recommendation:</strong>
+            <p>1) Contact per diem staff immediately for emergency coverage. 2) Reach out to neighboring KP labs for temporary float staff. 3) Extend day shift staff with premium pay incentive. 4) If unable to cover, implement contingency plan to send specimens to reference lab.</p>
+        </div>
+    </div>
+
+    <div class="example">
+        <h3>Example 3: Supply Chain Issue</h3>
+        <div class="sbar-part s">
+            <strong>S - Situation:</strong>
+            <p>Our inventory of chemistry reagent cartridges for the Vitros 5600 is at 12% PAR level with an expected runout in 36 hours.</p>
+        </div>
+        <div class="sbar-part b">
+            <strong>B - Background:</strong>
+            <p>We placed our standard order 7 days ago with expected delivery yesterday. Vendor notified us this morning of a 5-day shipping delay due to manufacturing issues at their facility. Normal consumption rate is 8 cartridges per day.</p>
+        </div>
+        <div class="sbar-part a">
+            <strong>A - Assessment:</strong>
+            <p>If we run out of reagents, we'll lose capability to perform 80% of our chemistry testing (metabolic panels, liver panels, cardiac markers). This will severely impact patient care and ED operations.</p>
+        </div>
+        <div class="sbar-part r">
+            <strong>R - Recommendation:</strong>
+            <p>1) Contact vendor to explore expedited shipping options (overnight). 2) Reach out to other KP labs (Bladensburg, Silver Spring) to borrow emergency supply. 3) Implement reagent conservation protocol to extend current inventory. 4) Pre-arrange reference lab backup for critical tests.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()" style="background: #005EB8; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            🖨️ Print Examples
+        </button>
+    </div>
+</body>
+</html>`;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(examplesHTML);
+            newWindow.document.close();
         }
 
         // Add today's date highlight

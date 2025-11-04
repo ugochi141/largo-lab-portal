@@ -281,9 +281,46 @@
             font-size: 12px;
             margin-top: 5px;
         }
+    
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
+
     <div class="inventory-container">
         <div class="inventory-header">
             <div>
@@ -422,6 +459,11 @@
         async function loadInventory() {
             try {
                 const response = await fetch(API_BASE);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const data = await response.json();
 
                 inventoryData = data.supplies || [];
@@ -441,8 +483,36 @@
                 document.getElementById('inventoryTable').style.display = 'table';
             } catch (error) {
                 console.error('Error loading inventory:', error);
-                document.getElementById('loadingDiv').innerHTML =
-                    '<p style="color: red;">Error loading inventory. Please refresh the page.</p>';
+
+                // Show detailed error message with solution
+                document.getElementById('loadingDiv').innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; margin: 20px;">
+                        <h2 style="color: #856404; margin-bottom: 20px;">⚠️ Backend Server Offline</h2>
+                        <p style="color: #856404; margin-bottom: 15px; font-size: 16px;">
+                            <strong>The inventory system requires the backend server to be running.</strong>
+                        </p>
+                        <p style="color: #666; margin-bottom: 25px;">
+                            The inventory management features depend on the Express.js backend server.<br>
+                            Please start the server to use this feature.
+                        </p>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px auto; max-width: 600px; text-align: left;">
+                            <h3 style="color: #333; margin-bottom: 10px;">🛠️ How to Fix:</h3>
+                            <p style="color: #666; margin-bottom: 10px;">Open terminal and run:</p>
+                            <code style="display: block; background: #1a1a1a; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace; margin-bottom: 10px;">
+                                cd largo-lab-portal<br>
+                                npm run pm2:start
+                            </code>
+                            <p style="color: #666; font-size: 14px;">
+                                Or for development: <code style="background: #e9ecef; padding: 2px 6px; border-radius: 3px;">npm run dev</code>
+                            </p>
+                        </div>
+                        <button onclick="location.reload()" style="background: #005EB8; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 20px;">
+                            🔄 Retry Connection
+                        </button>
+                        <br><br>
+                        <a href="index.html" style="color: #005EB8; text-decoration: none;">← Back to Portal Home</a>
+                    </div>
+                `;
             }
         }
 

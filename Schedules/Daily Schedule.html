@@ -266,6 +266,39 @@
             background: #c82333;
         }
 
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #004499;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.5);
+        }
+
+        .home-btn:active {
+            transform: translateY(0);
+        }
+
         @media print {
             .controls {
                 display: none;
@@ -276,11 +309,15 @@
             .delete-btn {
                 display: none !important;
             }
+            .home-btn {
+                display: none !important;
+            }
         }
     </style>
 </head>
 
 <body>
+    <a href="../index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
     <a href="#mainContent" class="skip-link">Skip to main content</a>
     <div class="container">
         <header class="header" role="banner">

@@ -172,9 +172,46 @@
             border-color: #0066cc;
             color: #0066cc;
         }
+    
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
+
     <!-- Navigation Header -->
     <header class="main-header">
         <div class="header-container">
