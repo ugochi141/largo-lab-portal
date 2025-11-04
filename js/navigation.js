@@ -108,6 +108,7 @@
                 // Toggle on click
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation(); // Prevent event bubbling
                     const isOpen = dropdown.classList.contains('open');
 
                     // Close all other dropdowns
@@ -117,8 +118,15 @@
                         }
                     });
 
+                    // Toggle current dropdown
                     dropdown.classList.toggle('open');
                     toggle.setAttribute('aria-expanded', !isOpen);
+
+                    // Force immediate visual feedback on mobile
+                    if (window.innerWidth <= 768 && !isOpen) {
+                        dropdown.classList.add('open');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
                 });
 
                 // Keyboard navigation

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Daily Schedule - Largo Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32pt;
+            margin-bottom: 10px;
+        }
+
+        .toolbar {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .toolbar-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 11pt;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0066cc, #004499);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220,53,69,0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .date-selector {
+            padding: 10px 15px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 11pt;
+            font-weight: 600;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 18pt;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #dee2e6;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .schedule-table thead {
+            background: #e3f2fd;
+        }
+
+        .schedule-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #0066cc;
+            font-size: 11pt;
+        }
+
+        .schedule-table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top;
+        }
+
+        .schedule-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .editable {
+            padding: 6px 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            min-height: 30px;
+            cursor: text;
+            transition: all 0.2s ease;
+        }
+
+        .editable:hover {
+            background: #f0f8ff;
+            border-color: #0066cc;
+        }
+
+        .editable:focus {
+            outline: none;
+            background: white;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        .editable[contenteditable="true"] {
+            background: white;
+            border-color: #0066cc;
+        }
+
+        .breaks-cell {
+            font-size: 9.5pt;
+            color: #555;
+            max-width: 350px;
+        }
+
+        .delete-btn {
+            padding: 6px 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 9.5pt;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .add-staff-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px dashed #0066cc;
+            display: none;
+        }
+
+        .add-staff-form.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 10pt;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 10pt;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+
+        .badge-mls {
+            background: #007bff;
+            color: white;
+        }
+
+        .badge-mlt {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-mla {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .staff-count {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 11pt;
+        }
+
+        @media print {
+            .toolbar,
+            .add-staff-form,
+            .delete-btn,
+            .btn {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .editable:hover {
+                background: transparent;
+                border-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Editable Daily Schedule</h1>
+            <p>Kaiser Permanente Largo Laboratory - Click any field to edit</p>
+        </div>
+
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <label for="dateSelector" style="font-weight: 600;">Select Date:</label>
+                <input type="date" id="dateSelector" class="date-selector">
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-success" onclick="saveChanges()">
+                    💾 Save Changes
+                </button>
+                <button class="btn btn-danger" onclick="resetSchedule()">
+                    🔄 Reset to Default
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    🖨️ Print
+                </button>
+            </div>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            ✅ Changes saved successfully!
+        </div>
+
+        <div class="main-content">
+            <!-- Phlebotomy Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>🩸 Phlebotomy Staff</h2>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <span class="staff-count">Staff Count: <span id="phlebCount">0</span></span>
+                        <button class="btn btn-primary" onclick="toggleAddForm('phleb')">
+                            ➕ Add Phlebotomist
+                        </button>
+                    </div>
+                </div>
+
+                <div id="addPhlebForm" class="add-staff-form">
+                    <h3 style="margin-bottom: 15px;">Add New Phlebotomist</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="phlebName" placeholder="e.g., Johnette Brooks" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nickname *</label>
+                            <input type="text" id="phlebNickname" placeholder="e.g., Netta" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Assignment *</label>
+                            <select id="phlebAssignment">
+                                <option value="Draw Patients">Draw Patients</option>
+                                <option value="Processor">Processor</option>
+                                <option value="Draw Patients/Opener">Draw Patients/Opener</option>
+                                <option value="Draw Patients/Closer">Draw Patients/Closer</option>
+                                <option value="Draw Patients/Hot Seat">Draw Patients/Hot Seat</option>
+                                <option value="Draw Patients/Runner">Draw Patients/Runner</option>
+                                <option value="Draw Patients (Backup Processor)">Draw Patients (Backup Processor)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Shift *</label>
+                            <input type="text" id="phlebShift" placeholder="e.g., 7:00a-3:30p" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Break Schedule *</label>
+                        <textarea id="phlebBreaks" placeholder="e.g., Break 1: 9:00a-9:15a | Lunch: 11:30a-12:00p | Break 2: 2:00p-2:15p" required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button class="btn btn-success" onclick="addStaff('phleb')">Add Phlebotomist</button>
+                        <button class="btn btn-secondary" onclick="toggleAddForm('phleb')">Cancel</button>
+                    </div>
+                </div>
+
+                <table class="schedule-table" id="phlebTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Name</th>
+                            <th style="width: 20%;">Assignment</th>
+                            <th style="width: 12%;">Shift</th>
+                            <th style="width: 40%;">Break Schedule</th>
+                            <th style="width: 8%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="phlebBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lab/Tech Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>🔬 Laboratory Technicians</h2>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <span class="staff-count">Staff Count: <span id="labCount">0</span></span>
+                        <button class="btn btn-primary" onclick="toggleAddForm('lab')">
+                            ➕ Add Lab Tech
+                        </button>
+                    </div>
+                </div>
+
+                <div id="addLabForm" class="add-staff-form">
+                    <h3 style="margin-bottom: 15px;">Add New Laboratory Technician</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="labName" placeholder="e.g., Rudolph Rubio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nickname *</label>
+                            <input type="text" id="labNickname" placeholder="e.g., Rudolph" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Department *</label>
+                            <select id="labDept">
+                                <option value="MLS">MLS - Medical Laboratory Scientist</option>
+                                <option value="MLT">MLT - Medical Laboratory Technician</option>
+                                <option value="MLA">MLA - Medical Laboratory Assistant</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Shift *</label>
+                            <input type="text" id="labShift" placeholder="e.g., 8:00a-4:30p" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Assignment/Role *</label>
+                        <textarea id="labAssignment" placeholder="e.g., Chemistry/Hematology - QC Tasks, Urines, Blood Bank Support" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Break Schedule *</label>
+                        <textarea id="labBreaks" placeholder="e.g., Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p" required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button class="btn btn-success" onclick="addStaff('lab')">Add Lab Tech</button>
+                        <button class="btn btn-secondary" onclick="toggleAddForm('lab')">Cancel</button>
+                    </div>
+                </div>
+
+                <table class="schedule-table" id="labTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 12%;">Name</th>
+                            <th style="width: 8%;">Dept</th>
+                            <th style="width: 25%;">Assignment</th>
+                            <th style="width: 10%;">Shift</th>
+                            <th style="width: 35%;">Break Schedule</th>
+                            <th style="width: 8%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="labBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../schedule_11_03_2025.js"></script>
+    <script>
+        // Global schedule data
+        let currentSchedule = {};
+        let currentDate = '';
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDateSelector();
+            loadScheduleFromStorage();
+        });
+
+        function initializeDateSelector() {
+            const dateInput = document.getElementById('dateSelector');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+            dateInput.addEventListener('change', (e) => {
+                loadScheduleForDate(e.target.value);
+            });
+            loadScheduleForDate(today);
+        }
+
+        function loadScheduleFromStorage() {
+            const saved = localStorage.getItem('editableScheduleData');
+            if (saved) {
+                try {
+                    currentSchedule = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error parsing saved schedule:', e);
+                    currentSchedule = typeof november3Schedule !== 'undefined' ? november3Schedule : {};
+                }
+            } else {
+                currentSchedule = typeof november3Schedule !== 'undefined' ? november3Schedule : {};
+            }
+        }
+
+        function loadScheduleForDate(date) {
+            currentDate = date;
+            const dayData = currentSchedule[date] || { phleb: [], lab: [] };
+
+            renderPhlebSchedule(dayData.phleb || []);
+            renderLabSchedule(dayData.lab || []);
+        }
+
+        function renderPhlebSchedule(staff) {
+            const tbody = document.getElementById('phlebBody');
+            tbody.innerHTML = '';
+
+            document.getElementById('phlebCount').textContent = staff.length;
+
+            staff.forEach((person, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="name" data-index="${index}" data-type="phleb">
+                            ${person.name || ''}
+                        </div>
+                        <div style="font-size: 9pt; color: #666; margin-top: 5px;">
+                            <strong>Nickname:</strong>
+                            <span class="editable" contenteditable="true" data-field="nickname" data-index="${index}" data-type="phleb">
+                                ${person.nickname || ''}
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="assignment" data-index="${index}" data-type="phleb">
+                            ${person.assignment || ''}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="shift" data-index="${index}" data-type="phleb">
+                            ${person.shift || ''}
+                        </div>
+                    </td>
+                    <td class="breaks-cell">
+                        <div class="editable" contenteditable="true" data-field="breaks" data-index="${index}" data-type="phleb">
+                            ${person.breaks || ''}
+                        </div>
+                    </td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteStaff('phleb', ${index})">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            attachEditListeners();
+        }
+
+        function renderLabSchedule(staff) {
+            const tbody = document.getElementById('labBody');
+            tbody.innerHTML = '';
+
+            document.getElementById('labCount').textContent = staff.length;
+
+            staff.forEach((person, index) => {
+                const deptBadge = person.dept ? `<span class="badge badge-${person.dept.toLowerCase()}">${person.dept}</span>` : '';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="name" data-index="${index}" data-type="lab">
+                            ${person.name || ''}
+                        </div>
+                        <div style="font-size: 9pt; color: #666; margin-top: 5px;">
+                            <strong>Nickname:</strong>
+                            <span class="editable" contenteditable="true" data-field="nickname" data-index="${index}" data-type="lab">
+                                ${person.nickname || ''}
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        ${deptBadge}
+                        <div class="editable" contenteditable="true" data-field="dept" data-index="${index}" data-type="lab" style="display: ${person.dept ? 'none' : 'block'};">
+                            ${person.dept || 'MLS'}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="assignment" data-index="${index}" data-type="lab">
+                            ${person.assignment || ''}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="editable" contenteditable="true" data-field="shift" data-index="${index}" data-type="lab">
+                            ${person.shift || ''}
+                        </div>
+                    </td>
+                    <td class="breaks-cell">
+                        <div class="editable" contenteditable="true" data-field="breaks" data-index="${index}" data-type="lab">
+                            ${person.breaks || ''}
+                        </div>
+                    </td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteStaff('lab', ${index})">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            attachEditListeners();
+        }
+
+        function attachEditListeners() {
+            document.querySelectorAll('.editable').forEach(el => {
+                el.addEventListener('blur', (e) => {
+                    const field = e.target.dataset.field;
+                    const index = parseInt(e.target.dataset.index);
+                    const type = e.target.dataset.type;
+                    const value = e.target.textContent.trim();
+
+                    updateScheduleData(type, index, field, value);
+                });
+            });
+        }
+
+        function updateScheduleData(type, index, field, value) {
+            if (!currentSchedule[currentDate]) {
+                currentSchedule[currentDate] = { phleb: [], lab: [] };
+            }
+
+            const staffArray = currentSchedule[currentDate][type];
+            if (staffArray[index]) {
+                staffArray[index][field] = value;
+
+                // Calculate startTime from shift if shift changed
+                if (field === 'shift') {
+                    staffArray[index].startTime = calculateStartTime(value);
+                }
+            }
+        }
+
+        function calculateStartTime(shift) {
+            const match = shift.match(/(\d+):(\d+)(a|p)/);
+            if (match) {
+                let hour = parseInt(match[1]);
+                const period = match[3];
+                if (period === 'p' && hour !== 12) hour += 12;
+                if (period === 'a' && hour === 12) hour = 0;
+                return hour;
+            }
+            return 7; // default
+        }
+
+        function toggleAddForm(type) {
+            const formId = type === 'phleb' ? 'addPhlebForm' : 'addLabForm';
+            const form = document.getElementById(formId);
+            form.classList.toggle('active');
+        }
+
+        function addStaff(type) {
+            if (!currentSchedule[currentDate]) {
+                currentSchedule[currentDate] = { phleb: [], lab: [] };
+            }
+
+            let newStaff;
+
+            if (type === 'phleb') {
+                const name = document.getElementById('phlebName').value.trim();
+                const nickname = document.getElementById('phlebNickname').value.trim();
+                const assignment = document.getElementById('phlebAssignment').value;
+                const shift = document.getElementById('phlebShift').value.trim();
+                const breaks = document.getElementById('phlebBreaks').value.trim();
+
+                if (!name || !nickname || !shift || !breaks) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                newStaff = {
+                    name,
+                    nickname,
+                    assignment,
+                    shift,
+                    breaks,
+                    startTime: calculateStartTime(shift)
+                };
+
+                currentSchedule[currentDate].phleb.push(newStaff);
+
+                // Clear form
+                document.getElementById('phlebName').value = '';
+                document.getElementById('phlebNickname').value = '';
+                document.getElementById('phlebShift').value = '';
+                document.getElementById('phlebBreaks').value = '';
+
+                renderPhlebSchedule(currentSchedule[currentDate].phleb);
+                toggleAddForm('phleb');
+
+            } else {
+                const name = document.getElementById('labName').value.trim();
+                const nickname = document.getElementById('labNickname').value.trim();
+                const dept = document.getElementById('labDept').value;
+                const assignment = document.getElementById('labAssignment').value.trim();
+                const shift = document.getElementById('labShift').value.trim();
+                const breaks = document.getElementById('labBreaks').value.trim();
+
+                if (!name || !nickname || !assignment || !shift || !breaks) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                newStaff = {
+                    name,
+                    nickname,
+                    dept,
+                    assignment,
+                    shift,
+                    breaks,
+                    startTime: calculateStartTime(shift)
+                };
+
+                currentSchedule[currentDate].lab.push(newStaff);
+
+                // Clear form
+                document.getElementById('labName').value = '';
+                document.getElementById('labNickname').value = '';
+                document.getElementById('labAssignment').value = '';
+                document.getElementById('labShift').value = '';
+                document.getElementById('labBreaks').value = '';
+
+                renderLabSchedule(currentSchedule[currentDate].lab);
+                toggleAddForm('lab');
+            }
+
+            showSuccessMessage();
+        }
+
+        function deleteStaff(type, index) {
+            if (!confirm('Are you sure you want to delete this staff member?')) {
+                return;
+            }
+
+            if (currentSchedule[currentDate]) {
+                currentSchedule[currentDate][type].splice(index, 1);
+
+                if (type === 'phleb') {
+                    renderPhlebSchedule(currentSchedule[currentDate].phleb);
+                } else {
+                    renderLabSchedule(currentSchedule[currentDate].lab);
+                }
+
+                showSuccessMessage();
+            }
+        }
+
+        function saveChanges() {
+            try {
+                localStorage.setItem('editableScheduleData', JSON.stringify(currentSchedule));
+                showSuccessMessage();
+                console.log('Schedule saved successfully:', currentSchedule);
+            } catch (e) {
+                alert('Error saving changes: ' + e.message);
+            }
+        }
+
+        function resetSchedule() {
+            if (!confirm('This will reset the schedule to the original data. Are you sure?')) {
+                return;
+            }
+
+            localStorage.removeItem('editableScheduleData');
+            currentSchedule = typeof november3Schedule !== 'undefined' ? november3Schedule : {};
+            loadScheduleForDate(currentDate);
+            showSuccessMessage();
+        }
+
+        function showSuccessMessage() {
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

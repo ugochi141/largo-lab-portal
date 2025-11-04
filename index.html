@@ -34,9 +34,9 @@
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle">Schedules</a>
                         <ul class="dropdown-menu">
-                            <li><a href="schedules/daily-schedule.html">Daily Schedule</a></li>
-                            <li><a href="schedules/phlebotomy-rotation.html">Phlebotomy Rotation</a></li>
-                            <li><a href="schedules/qc-maintenance.html">QC & Maintenance</a></li>
+                            <li><a href="Schedules/Daily Schedule.html">Daily Schedule</a></li>
+                            <li><a href="Schedules/phlebotomy-rotation.html">Phlebotomy Rotation</a></li>
+                            <li><a href="Schedules/qc-maintenance.html">QC & Maintenance</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -125,7 +125,7 @@
                     <div class="dashboard-card actions-card">
                         <h3 class="card-title">Quick Actions</h3>
                         <div class="actions-grid">
-                            <button class="action-btn" onclick="location.href='schedules/daily-schedule.html'">
+                            <button class="action-btn" onclick="location.href='Schedules/Daily Schedule.html'">
                                 <span class="action-icon">📅</span>
                                 <span class="action-label">View Schedule</span>
                             </button>
@@ -133,7 +133,7 @@
                                 <span class="action-icon">📦</span>
                                 <span class="action-label">Order Supplies</span>
                             </button>
-                            <button class="action-btn" onclick="location.href='schedules/qc-maintenance.html'">
+                            <button class="action-btn" onclick="location.href='Schedules/qc-maintenance.html'">
                                 <span class="action-icon">✅</span>
                                 <span class="action-label">Complete QC</span>
                             </button>
@@ -200,7 +200,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="schedules/daily-schedule.html" class="view-full-link">View Full Schedule →</a>
+                            <a href="Schedules/Daily Schedule.html" class="view-full-link">View Full Schedule →</a>
                         </div>
                     </div>
 
@@ -270,33 +270,67 @@
                 </div>
             </section>
 
+            <!-- SBAR Communication Quick Access -->
+            <section class="sbar-quick-access" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 15px; padding: 30px; margin-bottom: 30px; border: 3px solid #2196F3;">
+                <h2 class="section-title" style="color: #1976D2; margin-top: 0;">📋 SBAR Communication Technique</h2>
+                <p style="color: #555; font-size: 16px; margin-bottom: 25px;">
+                    <strong>Structured communication for UBT teams, shift handoffs, and escalations.</strong>
+                    Use SBAR (Situation-Background-Assessment-Recommendation) to communicate clearly and effectively.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                    <a href="sbar-implementation-guide.html" target="_blank" style="background: #005EB8; color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                        📚 Complete SBAR Guide
+                    </a>
+                    <a href="manager-dashboard.html#sbar" style="background: #2196F3; color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                        📝 Open SBAR Dashboard
+                    </a>
+                    <button onclick="generatePocketCard()" style="background: #4CAF50; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                        🎫 Pocket Reference Card
+                    </button>
+                    <button onclick="generateBadgeCard()" style="background: #9C27B0; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                        🆔 Badge Card
+                    </button>
+                    <button onclick="generateSpanishSBAR()" style="background: #FF9800; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                        🌐 Spanish/SBAR
+                    </button>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 5px solid #2196F3;">
+                    <p style="margin: 0; color: #666; font-size: 14px;">
+                        <strong style="color: #1976D2;">💡 Quick Tip:</strong>
+                        Access SBAR tools from the Manager Dashboard for forms, flyers, posters, and real-world examples.
+                    </p>
+                </div>
+            </section>
+
             <!-- External Systems Links -->
             <section class="external-systems">
                 <h2 class="section-title">External Systems</h2>
                 <div class="systems-grid">
-                    <a href="https://oracle.kp.org" target="_blank" class="system-link">
+                    <a href="https://oracle.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">🔗</span>
-                        <span class="system-name">Oracle Fusion</span>
+                        <span class="system-name">Oracle Fusion 🔒</span>
                     </a>
-                    <a href="https://smartsquare.kp.org" target="_blank" class="system-link">
+                    <a href="https://smartsquare.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">📊</span>
-                        <span class="system-name">Smart Square</span>
+                        <span class="system-name">Smart Square 🔒</span>
                     </a>
-                    <a href="https://insight.kp.org" target="_blank" class="system-link">
+                    <a href="https://insight.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">📈</span>
-                        <span class="system-name">Insight</span>
+                        <span class="system-name">Insight 🔒</span>
                     </a>
-                    <a href="https://temptrak.kp.org" target="_blank" class="system-link">
+                    <a href="https://temptrak.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">🌡️</span>
-                        <span class="system-name">TempTrak</span>
+                        <span class="system-name">TempTrak 🔒</span>
                     </a>
-                    <a href="https://safetynet.kp.org" target="_blank" class="system-link">
+                    <a href="https://safetynet.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">🛡️</span>
-                        <span class="system-name">SafetyNet</span>
+                        <span class="system-name">SafetyNet 🔒</span>
                     </a>
-                    <a href="https://powerbi.kp.org" target="_blank" class="system-link">
+                    <a href="https://powerbi.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">📉</span>
-                        <span class="system-name">Power BI</span>
+                        <span class="system-name">Power BI 🔒</span>
                     </a>
                 </div>
             </section>
@@ -309,7 +343,7 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="schedules/daily-schedule.html">Daily Schedule</a></li>
+                    <li><a href="Schedules/Daily Schedule.html">Daily Schedule</a></li>
                     <li><a href="inventory/order-management.html">Order Supplies</a></li>
                     <li><a href="technical-support.html">Technical Support</a></li>
                     <li><a href="resources/contacts.html">Emergency Contacts</a></li>
@@ -341,5 +375,263 @@
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/navigation.js"></script>
+
+    <script>
+        // SBAR Pocket Card Generator
+        function generatePocketCard() {
+            const pocketCardHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Pocket Reference Card - Kaiser Permanente Largo</title>
+    <style>
+        @page { size: 3.5in 2in; margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; width: 3.5in; height: 2in; background: white; }
+        .card { width: 100%; height: 100%; border: 2px solid #005EB8; display: flex; flex-direction: column; }
+        .card-front { padding: 8px; }
+        .header { background: #005EB8; color: white; padding: 6px; text-align: center; margin-bottom: 8px; }
+        .header h1 { font-size: 14px; margin: 0; }
+        .header p { font-size: 8px; margin: 0; }
+        .sbar-item { margin-bottom: 6px; }
+        .sbar-item strong { font-size: 11px; color: #005EB8; display: block; margin-bottom: 2px; }
+        .sbar-item p { font-size: 8px; color: #333; line-height: 1.2; }
+        .footer { background: #f5f5f5; padding: 4px; text-align: center; font-size: 7px; color: #666; margin-top: auto; }
+        @media print { body { margin: 0; } }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-front">
+            <div class="header">
+                <h1>SBAR Quick Reference</h1>
+                <p>Kaiser Permanente Largo Laboratory</p>
+            </div>
+
+            <div class="sbar-item">
+                <strong>S - Situation</strong>
+                <p>What's happening now? State the issue clearly.</p>
+            </div>
+
+            <div class="sbar-item">
+                <strong>B - Background</strong>
+                <p>What led here? Provide relevant context.</p>
+            </div>
+
+            <div class="sbar-item">
+                <strong>A - Assessment</strong>
+                <p>What's the problem? Share your analysis.</p>
+            </div>
+
+            <div class="sbar-item">
+                <strong>R - Recommendation</strong>
+                <p>What should happen? Propose action steps.</p>
+            </div>
+
+            <div class="footer">
+                GL: 1808-18801-5693 | Complies with NATL.NFDC.001
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 10px; page-break-before: always;">
+        <button onclick="window.print()" style="background: #005EB8; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold;">
+            🖨️ Print Pocket Card (3.5" x 2")
+        </button>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">
+            Print on cardstock, laminate, and keep in badge holder
+        </p>
+    </div>
+</body>
+</html>`;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(pocketCardHTML);
+            newWindow.document.close();
+        }
+
+        // SBAR Badge Card Generator
+        function generateBadgeCard() {
+            const badgeCardHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Badge Card - Kaiser Permanente Largo</title>
+    <style>
+        @page { size: 2.13in 3.38in; margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 10px; }
+        .badge-card { width: 2.13in; height: 3.38in; background: white; border: 3px solid #005EB8; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .badge-header { background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%); color: white; padding: 10px; text-align: center; }
+        .badge-header h1 { font-size: 18px; margin-bottom: 3px; }
+        .badge-header p { font-size: 9px; }
+        .badge-content { padding: 12px 10px; }
+        .sbar-section { margin-bottom: 10px; padding: 8px; border-radius: 5px; }
+        .sbar-section.s { background: #E3F2FD; border-left: 3px solid #2196F3; }
+        .sbar-section.b { background: #F3E5F5; border-left: 3px solid #9C27B0; }
+        .sbar-section.a { background: #FFF3E0; border-left: 3px solid #FF9800; }
+        .sbar-section.r { background: #E8F5E9; border-left: 3px solid #4CAF50; }
+        .sbar-section strong { font-size: 11px; display: block; margin-bottom: 2px; }
+        .sbar-section.s strong { color: #1976D2; }
+        .sbar-section.b strong { color: #7B1FA2; }
+        .sbar-section.a strong { color: #F57C00; }
+        .sbar-section.r strong { color: #388E3C; }
+        .sbar-section p { font-size: 8px; line-height: 1.3; color: #333; }
+        .badge-footer { background: #f5f5f5; padding: 6px; text-align: center; font-size: 7px; color: #666; }
+        @media print { body { margin: 0; padding: 0; background: white; } }
+    </style>
+</head>
+<body>
+    <div class="badge-card">
+        <div class="badge-header">
+            <h1>SBAR</h1>
+            <p>Communication Technique</p>
+        </div>
+
+        <div class="badge-content">
+            <div class="sbar-section s">
+                <strong>S - Situation</strong>
+                <p>What's happening?</p>
+            </div>
+
+            <div class="sbar-section b">
+                <strong>B - Background</strong>
+                <p>What led to this?</p>
+            </div>
+
+            <div class="sbar-section a">
+                <strong>A - Assessment</strong>
+                <p>What's the problem?</p>
+            </div>
+            <div class="sbar-section r">
+                <strong>R - Recommendation</strong>
+                <p>What should we do?</p>
+            </div>
+        </div>
+
+        <div class="badge-footer">
+            Kaiser Permanente Largo Lab<br>
+            GL: 1808-18801-5693
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px;">
+        <button onclick="window.print()" style="background: #005EB8; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 14px;">
+            🖨️ Print Badge Card (2.13" x 3.38")
+        </button>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">
+            <strong>Standard ID Badge Size</strong><br>
+            Print on heavy cardstock and laminate<br>
+            Attach to badge holder with clip or lanyard
+        </p>
+    </div>
+</body>
+</html>`;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(badgeCardHTML);
+            newWindow.document.close();
+        }
+
+        // Spanish SBAR Generator
+        function generateSpanishSBAR() {
+            const spanishHTML = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnica de Comunicación SBAR - Kaiser Permanente Largo</title>
+    <style>
+        @page { size: 8.5in 11in; margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; width: 8.5in; height: 11in; padding: 0.5in; background: white; }
+        .header { background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%); color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.95; }
+        .sbar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .sbar-card { border: 3px solid; padding: 20px; border-radius: 10px; min-height: 200px; }
+        .sbar-card.situation { border-color: #2196F3; background: #E3F2FD; }
+        .sbar-card.background { border-color: #9C27B0; background: #F3E5F5; }
+        .sbar-card.assessment { border-color: #FF9800; background: #FFF3E0; }
+        .sbar-card.recommendation { border-color: #4CAF50; background: #E8F5E9; }
+        .sbar-card h2 { font-size: 28px; margin-bottom: 10px; }
+        .sbar-card.situation h2 { color: #1976D2; }
+        .sbar-card.background h2 { color: #7B1FA2; }
+        .sbar-card.assessment h2 { color: #F57C00; }
+        .sbar-card.recommendation h2 { color: #388E3C; }
+        .sbar-card p { color: #333; font-size: 14px; line-height: 1.6; }
+        .best-used { background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px; }
+        .best-used h3 { color: #856404; margin-bottom: 10px; }
+        .best-used ul { margin-left: 20px; color: #856404; }
+        .best-used li { margin-bottom: 8px; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #005EB8; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Técnica de Comunicación SBAR</h1>
+        <p>Kaiser Permanente Laboratorio Largo</p>
+        <p>Comunicación Estructurada para Equipos UBT y Colíderes</p>
+    </div>
+
+    <div class="sbar-grid">
+        <div class="sbar-card situation">
+            <h2>S - Situación</h2>
+            <p><strong>¿Qué está pasando ahora?</strong></p>
+            <p>Describe la situación actual de manera clara y concisa. Indica sobre qué estás llamando o qué acción necesita atención.</p>
+        </div>
+
+        <div class="sbar-card background">
+            <h2>A - Antecedentes</h2>
+            <p><strong>¿Qué condujo a esta situación?</strong></p>
+            <p>Proporciona contexto relevante, historial e información pertinente que ayude a comprender la situación.</p>
+        </div>
+
+        <div class="sbar-card assessment">
+            <h2>E - Evaluación</h2>
+            <p><strong>¿Cuál crees que es el problema?</strong></p>
+            <p>Comparte tu evaluación profesional, análisis o impresión clínica de la situación.</p>
+        </div>
+
+        <div class="sbar-card recommendation">
+            <h2>R - Recomendación</h2>
+            <p><strong>¿Qué acción se debe tomar?</strong></p>
+            <p>Propone los próximos pasos claros, soluciones o acciones específicas que deseas ver implementadas.</p>
+        </div>
+    </div>
+
+    <div class="best-used">
+        <h3>💡 Mejor Uso Para:</h3>
+        <ul>
+            <li>Solicitar que se considere o tome una acción</li>
+            <li>Compartir información clave durante el cambio de turno</li>
+            <li>Escalar preocupaciones a la gerencia</li>
+            <li>Comunicaciones y toma de decisiones del equipo UBT</li>
+            <li>Informes de incidentes y mejora de calidad</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p><strong>Kaiser Permanente Laboratorio Largo</strong></p>
+        <p>Para preguntas o soporte, contacte a Gestión de Laboratorio | Código GL: 1808-18801-5693</p>
+        <p>Este documento cumple con el Programa de Señalización de Instalaciones de KP (NATL.NFDC.001) y Estándares de Marca de KP</p>
+        <p style="margin-top: 10px;"><em>Español / Spanish | Idioma de umbral para Kaiser Permanente Mid-Atlantic</em></p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px; page-break-before: avoid;">
+        <button onclick="window.print()" style="background: #005EB8; color: white; border: none; padding: 12px 24px; cursor: pointer; border-radius: 5px; font-weight: bold;">
+            🖨️ Imprimir (Print)
+        </button>
+    </div>
+</body>
+</html>`;
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(spanishHTML);
+            newWindow.document.close();
+        }
+    </script>
 </body>
 </html>

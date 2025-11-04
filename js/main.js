@@ -2,11 +2,29 @@
 
 // Initialize portal on page load
 document.addEventListener('DOMContentLoaded', function() {
-    initializePortal();
-    loadDashboardData();
-    setupNavigationHandlers();
-    checkAlerts();
-    initializeAutoSave();
+    try {
+        initializePortal();
+        loadDashboardData();
+        setupNavigationHandlers();
+        checkAlerts();
+        initializeAutoSave();
+    } catch (error) {
+        console.error('Portal initialization error:', error);
+        // Continue gracefully - portal still functions with default values
+    }
+});
+
+// Global error handler
+window.addEventListener('error', function(e) {
+    console.error('Global error caught:', e.error);
+    // Log but don't break the site
+    return false;
+});
+
+// Handle unhandled promise rejections
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    e.preventDefault();
 });
 
 // Portal Initialization
