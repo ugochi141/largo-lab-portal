@@ -347,6 +347,7 @@
                     <button class="btn" onclick="showCallOutModal()" aria-label="Add call out">Add Call Out</button>
                     <button class="btn" onclick="showFloaterModal()" aria-label="Add floater">Add Floater</button>
                     <button class="btn danger" onclick="clearAll()" aria-label="Clear all notes">Clear All</button>
+                    <button class="btn danger" onclick="clearUploadedData()" aria-label="Clear uploaded schedule data" title="Clear uploaded schedule data and use hardcoded schedules">🗑️ Clear Uploaded Data</button>
                 </div>
             </div>
 
@@ -2925,6 +2926,17 @@ const ScheduleSync={STORAGE_KEYS:{DAILY_SCHEDULE:'dailyScheduleData',VISUAL_SCHE
                 localStorage.removeItem('labCallOuts');
                 localStorage.removeItem('labFloaters');
                 renderTables();
+            }
+        }
+
+        function clearUploadedData() {
+            if (confirm('⚠️ This will clear uploaded schedule data and use hardcoded schedules instead.\n\nThe page will reload. Continue?')) {
+                console.log('🗑️ Clearing uploaded schedule data from localStorage...');
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                console.log('✅ Uploaded data cleared. Reloading page...');
+                location.reload();
             }
         }
 
