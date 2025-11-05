@@ -23,6 +23,56 @@ The beginning/opening shift for laboratory operations starts at **5:00am**. This
 
 ---
 
+## Bench Assignment Guidelines by Staffing Level
+
+### AUC Day Shift - Two Techs
+When staffing AUC day shift with 2 technicians, divide work as follows:
+
+**AUC Front (Tech 1):**
+- Processing/Urines
+- Kits
+- Stago
+
+**AUC Back (Tech 2):**
+- Hematology
+- Chemistry
+- Molecular
+
+### AUC Day Shift - Three Techs
+When staffing AUC day shift with 3 technicians, divide work as follows:
+
+**Tech 1 - Urines/Kits/Stago:**
+- Urines
+- Kits
+- Stago
+- Stago Maint
+- ESR 10% Check QC [DAILY]
+
+**Tech 2 - Processing:**
+- Specimen Processing
+- Support as needed
+
+**Tech 3 - Analyzers:**
+- Hematology
+- Chemistry
+- Molecular
+
+### MOB Day Shift - One Tech (MLA)
+When staffing MOB with 1 MLA (Medical Laboratory Assistant):
+
+**MLA Responsibilities:**
+- SQA Daily [DAILY]
+- Hematek Daily QC [DAILY]
+- Previ Gram Stain
+- Patient Support
+- Inventory
+- Urines (MLA Restriction)
+- Kits QC (MLA Restriction)
+
+**Note:** MLAs cannot perform complex testing; restricted to basic QC, patient support, and routine tasks.
+
+---
+
 ## AUC Position Designations
 
 ### Day Shift (7:00a-4:30p)
