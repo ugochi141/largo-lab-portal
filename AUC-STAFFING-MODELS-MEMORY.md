@@ -25,38 +25,61 @@ The beginning/opening shift for laboratory operations starts at **5:00am**. This
 
 ## Bench Assignment Guidelines by Staffing Level
 
-### AUC Day Shift - Two Techs
-When staffing AUC day shift with 2 technicians, divide work as follows:
+### AUC Two Techs (Day/Evening/Night Shifts)
+When staffing AUC with 2 technicians, divide work as follows:
 
-**AUC Front (Tech 1):**
+**Tech 1 - AUC Front:**
 - Processing/Urines
 - Kits
 - Stago
 
-**AUC Back (Tech 2):**
+**Tech 2 - AUC Back:**
 - Hematology
 - Chemistry
 - Molecular
 
-### AUC Day Shift - Three Techs
-When staffing AUC day shift with 3 technicians, divide work as follows:
+**Assignment Format Examples:**
+```javascript
+// Tech 1 - AUC Front (Emily)
+{
+  name: 'Emily Creekmore',
+  nickname: 'Emily',
+  dept: 'MLT',
+  shift: '7:30a-4:00p',
+  assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+  startTime: 7.5
+},
 
-**CRITICAL: Schedule Entry Order**
-When creating schedules with 3 day techs, list them in this EXACT order:
-1. **First:** Tech 2 (Processing)
-2. **Second:** Tech 1 (Urines, Kits, Coag)
-3. **Third:** Tech 3 (Hematology, Chemistry, Molecular)
+// Tech 2 - AUC Back (Francis)
+{
+  name: 'Francis Azih Ngene',
+  nickname: 'Francis',
+  dept: 'MLS',
+  shift: '7:30a-4:00p',
+  assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+  startTime: 7.5
+}
+```
 
-**Tech 1 - AUC/Urines, Kits, and Coag:**
+**IMPORTANT:** Use "AUC Front" and "AUC Back" terminology for two-tech schedules across all shifts (Day/Evening/Night).
+
+---
+
+### AUC Three Techs
+When staffing AUC with 3 technicians, divide work as follows:
+
+**Tech 1 - AUC/Processing:**
+- Specimen Processing
+- Support as needed
+
+**Tech 2 - AUC/Urines, Kits, and Coag:**
 - Urines
 - Kits
 - Coagulation (Stago)
 - Stago Maint
 - ESR 10% Check QC [DAILY]
-
-**Tech 2 - AUC/Processing:**
-- Specimen Processing
-- Support as needed
 
 **Tech 3 - AUC/Hematology, Chemistry, Molecular:**
 - Hematology
@@ -65,9 +88,7 @@ When creating schedules with 3 day techs, list them in this EXACT order:
 
 **Assignment Format Examples:**
 ```javascript
-// CORRECT ORDER: Tech 2, then Tech 1, then Tech 3
-
-// Tech 2 - Processing (Emily)
+// Tech 1 - Processing (Emily)
 {
   name: 'Emily Creekmore',
   nickname: 'Emily',
@@ -78,13 +99,13 @@ When creating schedules with 3 day techs, list them in this EXACT order:
   startTime: 7.5
 },
 
-// Tech 1 - Urines/Kits/Coag (Booker)
+// Tech 2 - Urines/Kits/Coag (Booker)
 {
   name: 'Maxwell Booker',
   nickname: 'Booker',
   dept: 'MLT',
   shift: '7:30a-4:00p',
-  assignment: 'AUC - Urines, Kits, Coag/Stago, Kits QC [DAILY], Inventory AUC and MOB [TUE/THU], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC - Urines, Kits, and Coag, Kits QC [DAILY], Inventory AUC and MOB [TUE/THU], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
   startTime: 7.5
 },
@@ -102,14 +123,16 @@ When creating schedules with 3 day techs, list them in this EXACT order:
 ```
 
 **IMPORTANT NOTES:**
-- Do NOT use "AUC Front" or "AUC Back" terminology for three-tech schedules
+- Do NOT use "AUC Front" or "AUC Back" for three-tech schedules
 - Use "AUC - [specific responsibilities]" format
-- List in order: Tech 2 (Processing), Tech 1 (Urines/Kits/Coag), Tech 3 (Analyzers)
+- Tech 1 = Processing, Tech 2 = Urines/Kits/Coag, Tech 3 = Analyzers
+
+---
 
 ### MOB Day Shift - One Tech (MLA)
 When staffing MOB with 1 MLA (Medical Laboratory Assistant):
 
-**MLA Responsibilities:**
+**Tech 1 - MOB:**
 - SQA Daily [DAILY]
 - Hematek Daily QC [DAILY]
 - Previ Gram Stain
@@ -117,6 +140,21 @@ When staffing MOB with 1 MLA (Medical Laboratory Assistant):
 - Inventory
 - Urines (MLA Restriction)
 - Kits QC (MLA Restriction)
+
+**Assignment Format Example:**
+```javascript
+{
+  name: 'MLA Name',
+  nickname: 'Nickname',
+  dept: 'MLA',
+  shift: '7:30a-4:00p',
+  assignment: 'MOB - SQA Daily [DAILY], Hematek Daily QC [DAILY], Previ Gram Stain, Patient Support, Inventory, Urines (MLA Restriction), Kits QC (MLA Restriction)',
+  breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+  startTime: 7.5
+}
+```
+
+**IMPORTANT:** If no MLA is scheduled, all techs work in AUC.
 
 **Note:** MLAs cannot perform complex testing; restricted to basic QC, patient support, and routine tasks.
 
