@@ -28,104 +28,111 @@ The beginning/opening shift for laboratory operations starts at **5:00am**. This
 ### AUC Two Techs (Day/Evening/Night Shifts)
 When staffing AUC with 2 technicians, divide work as follows:
 
+**DISCERN REPORTING PORTAL MODEL** (Production System)
+
 **Tech 1 - AUC Front:**
-- Processing/Urines
-- Kits
-- Stago
+- Processing
+- Coagulation (Stago)
+- Urines
+- Kit Tests
 
 **Tech 2 - AUC Back:**
 - Hematology
 - Chemistry
 - Molecular
+- MedTox
 
 **Assignment Format Examples:**
 ```javascript
-// Tech 1 - AUC Front (Emily)
+// Tech 1 - AUC Front (Boyet - from Discern Portal)
 {
-  name: 'Emily Creekmore',
-  nickname: 'Emily',
+  name: 'Emmanuel Lejano',
+  nickname: 'Boyet',
   dept: 'MLT',
   shift: '7:30a-4:00p',
-  assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Front - Processing, Coagulation, Urines, Kit Tests, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
   startTime: 7.5
 },
 
-// Tech 2 - AUC Back (Francis)
+// Tech 2 - AUC Back (George - from Discern Portal)
 {
-  name: 'Francis Azih Ngene',
-  nickname: 'Francis',
+  name: 'George Etape',
+  nickname: 'George',
   dept: 'MLS',
   shift: '7:30a-4:00p',
-  assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
   startTime: 7.5
 }
 ```
 
-**IMPORTANT:** Use "AUC Front" and "AUC Back" terminology for two-tech schedules across all shifts (Day/Evening/Night).
+**IMPORTANT:**
+- Use "AUC Front" and "AUC Back" terminology for two-tech schedules across all shifts (Day/Evening/Night)
+- Coagulation (Stago) is part of AUC Front, not separate
+- MedTox is part of AUC Back responsibilities
 
 ---
 
 ### AUC Three Techs
 When staffing AUC with 3 technicians, divide work as follows:
 
-**Tech 1 - AUC/Processing:**
-- Specimen Processing
-- Support as needed
+**DISCERN REPORTING PORTAL MODEL** (Production System)
 
-**Tech 2 - AUC/Urines, Kits, and Coag:**
+**AUC Front:**
 - Urines
-- Kits
+- Kit Tests
 - Coagulation (Stago)
-- Stago Maint
-- ESR 10% Check QC [DAILY]
 
-**Tech 3 - AUC/Hematology, Chemistry, Molecular:**
+**AUC Processing:**
+- Primary Specimen Processing
+
+**AUC Back:**
 - Hematology
 - Chemistry
 - Molecular
 
 **Assignment Format Examples:**
 ```javascript
-// Tech 1 - Processing (Emily)
+// AUC Front (Tracy - from Discern Portal)
 {
-  name: 'Emily Creekmore',
-  nickname: 'Emily',
+  name: 'Ogheneochuko Eshofa',
+  nickname: 'Tracy',
   dept: 'MLT',
   shift: '7:30a-4:00p',
-  assignment: 'AUC - Processing, Inventory AUC and MOB [TUE/THU], Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Front - Urines, Kit Tests, Coagulation, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
   startTime: 7.5
 },
 
-// Tech 2 - Urines/Kits/Coag (Booker)
+// AUC Processing (Lionel - from Discern Portal)
 {
-  name: 'Maxwell Booker',
-  nickname: 'Booker',
+  name: 'Lionel Ndifor',
+  nickname: 'Lionel',
   dept: 'MLT',
   shift: '7:30a-4:00p',
-  assignment: 'AUC - Urines, Kits, and Coag, Kits QC [DAILY], Inventory AUC and MOB [TUE/THU], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Processing - Primary Specimen Processing, Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
   startTime: 7.5
 },
 
-// Tech 3 - Hematology/Chemistry/Molecular (Ingrid)
+// AUC Back (Albert - from Discern Portal)
 {
-  name: 'Ingrid Benitez-Ruiz',
-  nickname: 'Ingrid',
+  name: 'Albert Che',
+  nickname: 'Albert',
   dept: 'MLS',
   shift: '7:30a-4:00p',
-  assignment: 'AUC - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Back - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
   startTime: 7.5
 }
 ```
 
 **IMPORTANT NOTES:**
-- Do NOT use "AUC Front" or "AUC Back" for three-tech schedules
-- Use "AUC - [specific responsibilities]" format
-- Tech 1 = Processing, Tech 2 = Urines/Kits/Coag, Tech 3 = Analyzers
+- Three-tech model uses: "AUC Front", "AUC Processing", "AUC Back"
+- AUC Front handles urines, kits, and coagulation
+- AUC Processing is dedicated specimen processing role
+- AUC Back handles all analyzers (Hematology, Chemistry, Molecular)
 
 ---
 
@@ -157,6 +164,32 @@ When staffing MOB with 1 MLA (Medical Laboratory Assistant):
 **IMPORTANT:** If no MLA is scheduled, all techs work in AUC.
 
 **Note:** MLAs cannot perform complex testing; restricted to basic QC, patient support, and routine tasks.
+
+---
+
+## Quick Reference Summary
+
+### Staffing Model Decision Matrix
+
+| Staff Count | Model | Bench Designations | Usage |
+|-------------|-------|-------------------|--------|
+| **2 Techs** | Two-Tech | AUC Front + AUC Back | Day/Evening/Night |
+| **3 Techs** | Three-Tech | AUC Front + AUC Processing + AUC Back | Day/Evening/Night |
+| **1 MLA** | MOB Model | MOB (single tech) | Day only |
+
+### Two-Tech Model Responsibilities
+- **AUC Front:** Processing, Coagulation, Urines, Kit Tests
+- **AUC Back:** Hematology, Chemistry, Molecular, MedTox
+
+### Three-Tech Model Responsibilities
+- **AUC Front:** Urines, Kit Tests, Coagulation
+- **AUC Processing:** Primary Specimen Processing
+- **AUC Back:** Hematology, Chemistry, Molecular
+
+### MOB Model Responsibilities
+- **MOB:** SQA Daily, Hematek Daily QC, Previ Gram Stain, Patient Support, Inventory
+
+**IMPORTANT:** These assignments are based on the actual Discern Reporting Portal production system.
 
 ---
 
