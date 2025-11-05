@@ -80,9 +80,13 @@ When staffing AUC with 2 technicians, divide work as follows:
 ```
 
 **IMPORTANT:**
-- Use "AUC Front" and "AUC Back" terminology for two-tech schedules across all shifts (Day/Evening/Night)
+- Use "AUC Front" and "AUC Back" terminology for two-tech schedules across **ALL shifts (Day/Evening/Night)**
 - Coagulation (Stago) is part of AUC Front, not separate
 - MedTox is part of AUC Back responsibilities
+- **Night shift follows the SAME two-tech model** - no special "Night Coverage" designation
+- Night shift QC tasks are assigned to appropriate benches:
+  - AUC Front: MiniSed QC, processing-related QC
+  - AUC Back: Pure 2 QC @3am, analyzer QC (Hematology, Chemistry, Molecular)
 
 ---
 
@@ -298,121 +302,131 @@ When staffing MOB with 1 MLA (Medical Laboratory Assistant):
 
 ---
 
-## AUC Night Coverage Models
+## Night Shift (Two-Tech Model)
 
-### 2-Tech Model (Standard)
-**When to Use:** Normal weeknights, lower volume
+**TECH BENCH ROTATION** applies to night shift the same as day/evening shifts.
+
+### 2-Tech Model (Standard Night Staffing)
+**When to Use:** Standard night operations
 
 **Staffing:**
-- **Tech 1:** MLS - 11:30p-8:00a (Lead tech)
-- **Tech 2:** MLS - 12:00a-6:30a (Support/On-call)
+- **AUC Front:** MLT - 9:30p-6:00a (Early night)
+- **AUC Back:** MLS - 11:30p-8:00a (Lead tech)
 
 **Example:**
 ```javascript
-// Tech 1 - Lead Night Tech
-{
-  name: 'George Etape',
-  nickname: 'George',
-  dept: 'MLS',
-  shift: '11:30p-8:00a',
-  assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
-  breaks: 'Break 1: 1:30a-1:45a | Lunch: 3:45a-4:15a | Break 2: 6:00a-6:15a',
-  startTime: 23.5
-}
-
-// Tech 2 - Support Tech (Often on-call)
-{
-  name: 'Jacqueline Liburd',
-  nickname: 'Jackie',
-  dept: 'MLS',
-  shift: '12:00a-6:30a',
-  assignment: 'AUC Night Coverage - MiniSed QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
-  breaks: 'Break 1: 1:45a-2:00a | Lunch: 4:15a-4:45a',
-  notes: 'On-call shift',
-  startTime: 0
-}
-```
-
-**Responsibilities Distribution:**
-- **Tech 1 (George):**
-  - Pure 2 QC @3am [DAILY]
-  - MiniSed QC [DAILY]
-  - GeneXpert QC [DAILY]
-  - Weekly tasks (Novus on Tuesdays after 3am)
-  - Primary responsibility for all critical QC
-
-- **Tech 2 (Jackie):**
-  - MiniSed QC [DAILY] (backup/verification)
-  - Support Tech 1 with workload
-  - Cover breaks
-  - Handle overflow
-
----
-
-### 3-Tech Model (High Volume)
-**When to Use:** Busy nights, Mondays, holidays, high volume periods
-
-**Staffing:**
-- **Tech 1:** MLT - 9:30p-6:00a (Early night)
-- **Tech 2:** MLS - 11:30p-8:00a (Lead tech)
-- **Tech 3:** MLS - 12:00a-6:30a (Support/On-call)
-
-**Example:**
-```javascript
-// Tech 1 - Early Night Tech
+// AUC Front - Night Shift (Boyet)
 {
   name: 'Emmanuel Lejano',
   nickname: 'Boyet',
   dept: 'MLT',
   shift: '9:30p-6:00a',
-  assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Front - Processing, Urines, Kits, Stago, MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
   startTime: 21.5
 }
 
-// Tech 2 - Lead Night Tech
+// AUC Back - Night Shift (George)
 {
   name: 'George Etape',
   nickname: 'George',
   dept: 'MLS',
   shift: '11:30p-8:00a',
-  assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
-  breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+  assignment: 'AUC Back - Hematology, Chemistry, Molecular, Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 1:30a-1:45a | Lunch: 3:45a-4:15a | Break 2: 6:00a-6:15a',
   startTime: 23.5
 }
+```
 
-// Tech 3 - Support Tech (On-call)
+**Responsibilities Distribution:**
+- **AUC Front (Boyet):**
+  - Processing support
+  - MiniSed QC [DAILY]
+  - GeneXpert QC [DAILY]
+  - Urinalysis support
+  - Kit Tests support
+  - Early night coverage
+
+- **AUC Back (George):**
+  - Pure 2 QC @3am [DAILY] (critical timing)
+  - MiniSed QC [DAILY]
+  - GeneXpert QC [DAILY]
+  - Hematology/Chemistry/Molecular analyzers
+  - Weekly tasks (Novus on Tuesdays after 3am)
+  - Lead tech responsibility
+
+---
+
+### 3-Tech Model (High Volume Nights)
+**When to Use:** Busy nights, Mondays, holidays, high volume periods
+
+**TECH BENCH ROTATION** applies the same three-tech model to night shift.
+
+**Staffing:**
+- **AUC Processing:** MLT - 9:30p-6:00a (Early night)
+- **AUC Front:** MLT/MLS - 11:30p-8:00a or 12:00a-6:30a
+- **AUC Back:** MLS - 11:30p-8:00a (Lead tech with Pure 2 QC @3am)
+
+**Example:**
+```javascript
+// AUC Processing - Night Shift
+{
+  name: 'Emmanuel Lejano',
+  nickname: 'Boyet',
+  dept: 'MLT',
+  shift: '9:30p-6:00a',
+  assignment: 'AUC Processing - Primary Specimen Processing, MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
+  startTime: 21.5
+}
+
+// AUC Front - Night Shift (Support/On-call)
 {
   name: 'Jacqueline Liburd',
   nickname: 'Jackie',
   dept: 'MLS',
   shift: '12:00a-6:30a',
-  assignment: 'AUC Night Coverage - MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  assignment: 'AUC Front - Urines, Kit Tests, Coagulation, MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
   breaks: 'Break 1: 2:00a-2:15a | Lunch: 4:00a-4:30a',
   notes: 'On-call shift',
   startTime: 0.5
 }
+
+// AUC Back - Night Shift (Lead Tech)
+{
+  name: 'George Etape',
+  nickname: 'George',
+  dept: 'MLS',
+  shift: '11:30p-8:00a',
+  assignment: 'AUC Back - Hematology, Chemistry, Molecular, Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
+  startTime: 23.5
+}
 ```
 
 **Responsibilities Distribution:**
-- **Tech 1 (Boyet) - 9:30p-6:00a:**
+- **AUC Processing (Boyet):**
+  - Primary specimen processing
   - MiniSed QC [DAILY]
   - GeneXpert QC [DAILY]
   - Handle evening carryover work
   - Early morning prep
 
-- **Tech 2 (George) - 11:30p-8:00a:**
-  - Pure 2 QC @3am [DAILY]
+- **AUC Back (George - Lead Tech):**
+  - Pure 2 QC @3am [DAILY] (critical timing)
+  - Hematology/Chemistry/Molecular analyzers
   - MiniSed QC [DAILY]
   - GeneXpert QC [DAILY]
   - All critical QC tasks
   - Lead/supervisor role
 
-- **Tech 3 (Jackie) - 12:00a-6:30a:**
+- **AUC Front (Jackie - Support):**
+  - Urinalysis support
+  - Kit Tests support
+  - Coagulation support
   - MiniSed QC [DAILY]
   - GeneXpert QC [DAILY]
-  - Backup support
-  - Overlap coverage
+  - Backup support for front work
 
 ---
 
