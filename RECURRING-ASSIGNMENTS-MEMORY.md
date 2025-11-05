@@ -1,7 +1,7 @@
 # Recurring Staff Assignments - Memory Note
 ## Kaiser Permanente Largo Laboratory
 
-**Last Updated:** November 4, 2025
+**Last Updated:** November 5, 2025
 
 ---
 
@@ -12,20 +12,22 @@
 #### 2nd Review Task - QC and Maintenance Verification
 **Alternates Every Other Week:**
 
-- **Week 1 (Nov 4, 11, 18, 25):** Albert Che
+- **Week 1 (Nov 5-8):** Albert Che
   - Assignment: "2nd Review - Verify QC and Maintenance Completed [TUE/THU]"
   - Shift: 3:30p-12:00a (Evening)
+  - Dates: Tuesday Nov 5, Thursday Nov 7
 
-- **Week 2 (Nov 11, 25):** Francis Azih Ngene
+- **Week 2 (Nov 9-15):** Francis Azih Ngene
   - Assignment: "2nd Review - Verify QC and Maintenance Completed [TUE/THU]"
   - Shift: 7:30a-4:00p (Day)
+  - Dates: Tuesday Nov 11, Thursday Nov 13
 
 **Alternation Pattern:**
 ```
-Week of Nov 4:  Albert
-Week of Nov 11: Francis
-Week of Nov 18: Albert
-Week of Nov 25: Francis
+Week 1 (Nov 5-8):    Albert  (Tue 11/5, Thu 11/7)
+Week 2 (Nov 9-15):   Francis (Tue 11/11, Thu 11/13)
+Week 3 (Nov 16-22):  Albert  (Tue 11/18, Thu 11/20)
+Week 4 (Nov 23-29):  Francis (Tue 11/25, Thu 11/27)
 ```
 
 #### Inventory - AUC and MOB
@@ -41,15 +43,20 @@ Week of Nov 25: Francis
   - Shift: 7:30a-4:00p (Day)
   - Note: Works AUC Front
 
+- **George Etape (MLS)**
+  - Assignment: "Inventory AUC and MOB [TUE/THU]"
+  - Shift: 11:30p-8:00a (Night)
+  - Note: Night shift inventory coverage
+
 ### Phlebotomy Staff
 
 #### Inventory - Phlebotomy and Specimen Processing
-**Every Tuesday and Thursday:**
+**Anytime Christina is scheduled:**
 
 - **Christina Bolden-Davis**
-  - Assignment: "Inventory Phleb/Specimen Processing [TUE/THU]"
-  - Shift: 6:00a-2:30p (Opener)
-  - Note: Only on days when Christina is scheduled
+  - Assignment: "Inventory Phleb/Specimen Processing"
+  - Shift: Varies (typically 6:00a-2:30p)
+  - Note: **ALWAYS assign this whenever Christina is on shift** (not just Tue/Thu)
 
 ---
 
@@ -58,14 +65,16 @@ Week of Nov 25: Francis
 ### When Creating Tuesday/Thursday Schedules:
 
 1. **Check which week** for 2nd Review assignment:
-   - Odd weeks (1st, 3rd): Albert
-   - Even weeks (2nd, 4th): Francis
+   - Week 1 (Nov 5-8): Albert
+   - Week 2 (Nov 9-15): Francis
+   - Week 3 (Nov 16-22): Albert
+   - Week 4 (Nov 23-29): Francis
 
-2. **Always add to Booker and Emily:**
+2. **Always add to Booker, Emily, and George (every Tue/Thu):**
    - "Inventory AUC and MOB [TUE/THU]"
 
-3. **If Christina is scheduled, add:**
-   - "Inventory Phleb/Specimen Processing [TUE/THU]"
+3. **Whenever Christina is scheduled (ANY day), add:**
+   - "Inventory Phleb/Specimen Processing"
 
 ### Assignment Format Examples:
 
@@ -102,12 +111,20 @@ Week of Nov 25: Francis
   assignment: 'AUC Front - Processing/Urines, Kits QC [DAILY], Inventory AUC and MOB [TUE/THU], Stago Maint, Wipe Benches, Clean Microscopes, Log QC'
 }
 
-// Christina (every Tue/Thu when scheduled)
+// George (every Tue/Thu)
+{
+  name: 'George Etape',
+  nickname: 'George',
+  dept: 'MLS',
+  assignment: 'AUC Night Coverage - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Inventory AUC and MOB [TUE/THU], Wipe Benches, Clean Microscopes, Log QC'
+}
+
+// Christina (ANYTIME she's scheduled - not just Tue/Thu)
 {
   name: 'Christina Bolden-Davis',
   nickname: 'Christina',
   assignment: 'Draw Patients/Opener',
-  notes: 'Inventory Phleb/Specimen Processing [TUE/THU]'
+  notes: 'Inventory Phleb/Specimen Processing'
 }
 ```
 
@@ -153,23 +170,27 @@ Week of Nov 25: Francis
 
 | Week | Dates | 2nd Review Person | Inventory (Lab) | Inventory (Phleb) |
 |------|-------|-------------------|-----------------|-------------------|
-| Week 1 | Nov 4-5 (Tue-Thu) | **Albert** | Booker, Emily | Christina (if scheduled) |
-| Week 2 | Nov 11-12 (Tue-Thu) | **Francis** | Booker, Emily | Christina (if scheduled) |
-| Week 3 | Nov 18-19 (Tue-Thu) | **Albert** | Booker, Emily | Christina (if scheduled) |
-| Week 4 | Nov 25-26 (Tue-Thu) | **Francis** | Booker, Emily | Christina (if scheduled) |
+| Week 1 | Nov 5-8 (Tue-Fri) | **Albert** | Booker, Emily, George | Christina (whenever scheduled) |
+| Week 2 | Nov 9-15 (Sun-Sat) | **Francis** | Booker, Emily, George | Christina (whenever scheduled) |
+| Week 3 | Nov 16-22 (Sun-Sat) | **Albert** | Booker, Emily, George | Christina (whenever scheduled) |
+| Week 4 | Nov 23-29 (Sun-Sat) | **Francis** | Booker, Emily, George | Christina (whenever scheduled) |
 
 ---
 
 ## Quick Reference
 
 **Question:** Who does 2nd Review this week?
-**Answer:** Check the week number. Week 1 = Albert, Week 2 = Francis, alternating.
+**Answer:**
+- Week 1 (Nov 5-8): Albert
+- Week 2 (Nov 9-15): Francis
+- Week 3 (Nov 16-22): Albert
+- Week 4 (Nov 23-29): Francis
 
 **Question:** Who does lab inventory on Tuesdays/Thursdays?
-**Answer:** Always Booker and Emily.
+**Answer:** Always Booker, Emily, and George.
 
-**Question:** Who does phleb inventory on Tuesdays/Thursdays?
-**Answer:** Christina (when she's scheduled).
+**Question:** Who does phleb inventory?
+**Answer:** Christina, anytime she's scheduled (not just Tue/Thu).
 
 ---
 

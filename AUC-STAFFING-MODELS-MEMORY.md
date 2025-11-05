@@ -41,18 +41,18 @@ When staffing AUC day shift with 2 technicians, divide work as follows:
 ### AUC Day Shift - Three Techs
 When staffing AUC day shift with 3 technicians, divide work as follows:
 
-**Tech 1 - Urines/Kits/Stago:**
+**Tech 1 - AUC/Urines, Kits, and Coag:**
 - Urines
 - Kits
-- Stago
+- Coagulation (Stago)
 - Stago Maint
 - ESR 10% Check QC [DAILY]
 
-**Tech 2 - Processing:**
+**Tech 2 - AUC/Processing:**
 - Specimen Processing
 - Support as needed
 
-**Tech 3 - Analyzers:**
+**Tech 3 - AUC/Hematology, Chemistry, Molecular:**
 - Hematology
 - Chemistry
 - Molecular
