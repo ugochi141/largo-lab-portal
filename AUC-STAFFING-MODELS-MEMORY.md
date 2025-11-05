@@ -5,6 +5,18 @@
 
 ---
 
+## Tech Bench Rotation System
+
+**Definition:** The Tech Bench Rotation is the laboratory's standardized staffing model that defines bench assignments based on the number of technicians working a shift. This system is used across all shifts (Day/Evening/Night) and is documented in the Discern Reporting Portal.
+
+**Key Principles:**
+- Assignments change based on staffing level (2-tech vs 3-tech model)
+- Bench designations are standardized: AUC Front, AUC Processing, AUC Back
+- Responsibilities are clearly defined for each bench position
+- System applies uniformly across all shifts for consistency
+
+---
+
 ## Shift Timing Guidelines
 
 ### Beginning Shift Start Time
@@ -28,7 +40,7 @@ The beginning/opening shift for laboratory operations starts at **5:00am**. This
 ### AUC Two Techs (Day/Evening/Night Shifts)
 When staffing AUC with 2 technicians, divide work as follows:
 
-**DISCERN REPORTING PORTAL MODEL** (Production System)
+**TECH BENCH ROTATION** (Production System)
 
 **Tech 1 - AUC Front:**
 - Processing
@@ -44,7 +56,7 @@ When staffing AUC with 2 technicians, divide work as follows:
 
 **Assignment Format Examples:**
 ```javascript
-// Tech 1 - AUC Front (Boyet - from Discern Portal)
+// Tech 1 - AUC Front (Example: Boyet)
 {
   name: 'Emmanuel Lejano',
   nickname: 'Boyet',
@@ -55,7 +67,7 @@ When staffing AUC with 2 technicians, divide work as follows:
   startTime: 7.5
 },
 
-// Tech 2 - AUC Back (George - from Discern Portal)
+// Tech 2 - AUC Back (Example: George)
 {
   name: 'George Etape',
   nickname: 'George',
@@ -77,7 +89,7 @@ When staffing AUC with 2 technicians, divide work as follows:
 ### AUC Three Techs
 When staffing AUC with 3 technicians, divide work as follows:
 
-**DISCERN REPORTING PORTAL MODEL** (Production System)
+**TECH BENCH ROTATION** (Production System)
 
 **AUC Front:**
 - Urines
@@ -94,7 +106,7 @@ When staffing AUC with 3 technicians, divide work as follows:
 
 **Assignment Format Examples:**
 ```javascript
-// AUC Front (Tracy - from Discern Portal)
+// AUC Front (Example: Tracy)
 {
   name: 'Ogheneochuko Eshofa',
   nickname: 'Tracy',
@@ -105,7 +117,7 @@ When staffing AUC with 3 technicians, divide work as follows:
   startTime: 7.5
 },
 
-// AUC Processing (Lionel - from Discern Portal)
+// AUC Processing (Example: Lionel)
 {
   name: 'Lionel Ndifor',
   nickname: 'Lionel',
@@ -116,7 +128,7 @@ When staffing AUC with 3 technicians, divide work as follows:
   startTime: 7.5
 },
 
-// AUC Back (Albert - from Discern Portal)
+// AUC Back (Example: Albert)
 {
   name: 'Albert Che',
   nickname: 'Albert',
@@ -189,7 +201,7 @@ When staffing MOB with 1 MLA (Medical Laboratory Assistant):
 ### MOB Model Responsibilities
 - **MOB:** SQA Daily, Hematek Daily QC, Previ Gram Stain, Patient Support, Inventory
 
-**IMPORTANT:** These assignments are based on the actual Discern Reporting Portal production system.
+**IMPORTANT:** These assignments are based on the Tech Bench Rotation system used in production.
 
 ---
 
