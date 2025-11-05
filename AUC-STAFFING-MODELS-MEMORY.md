@@ -1,7 +1,7 @@
 # AUC Staffing Models - Memory Note
 ## Kaiser Permanente Largo Laboratory
 
-**Last Updated:** November 4, 2025
+**Last Updated:** November 5, 2025
 
 ---
 
@@ -41,6 +41,12 @@ When staffing AUC day shift with 2 technicians, divide work as follows:
 ### AUC Day Shift - Three Techs
 When staffing AUC day shift with 3 technicians, divide work as follows:
 
+**CRITICAL: Schedule Entry Order**
+When creating schedules with 3 day techs, list them in this EXACT order:
+1. **First:** Tech 2 (Processing)
+2. **Second:** Tech 1 (Urines, Kits, Coag)
+3. **Third:** Tech 3 (Hematology, Chemistry, Molecular)
+
 **Tech 1 - AUC/Urines, Kits, and Coag:**
 - Urines
 - Kits
@@ -56,6 +62,49 @@ When staffing AUC day shift with 3 technicians, divide work as follows:
 - Hematology
 - Chemistry
 - Molecular
+
+**Assignment Format Examples:**
+```javascript
+// CORRECT ORDER: Tech 2, then Tech 1, then Tech 3
+
+// Tech 2 - Processing (Emily)
+{
+  name: 'Emily Creekmore',
+  nickname: 'Emily',
+  dept: 'MLT',
+  shift: '7:30a-4:00p',
+  assignment: 'AUC - Processing, Inventory AUC and MOB [TUE/THU], Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
+  startTime: 7.5
+},
+
+// Tech 1 - Urines/Kits/Coag (Booker)
+{
+  name: 'Maxwell Booker',
+  nickname: 'Booker',
+  dept: 'MLT',
+  shift: '7:30a-4:00p',
+  assignment: 'AUC - Urines, Kits, Coag/Stago, Kits QC [DAILY], Inventory AUC and MOB [TUE/THU], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
+  startTime: 7.5
+},
+
+// Tech 3 - Hematology/Chemistry/Molecular (Ingrid)
+{
+  name: 'Ingrid Benitez-Ruiz',
+  nickname: 'Ingrid',
+  dept: 'MLS',
+  shift: '7:30a-4:00p',
+  assignment: 'AUC - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+  breaks: 'Break 1: 10:00a-10:15a | Lunch: 1:00p-1:30p | Break 2: 3:00p-3:15p',
+  startTime: 7.5
+}
+```
+
+**IMPORTANT NOTES:**
+- Do NOT use "AUC Front" or "AUC Back" terminology for three-tech schedules
+- Use "AUC - [specific responsibilities]" format
+- List in order: Tech 2 (Processing), Tech 1 (Urines/Kits/Coag), Tech 3 (Analyzers)
 
 ### MOB Day Shift - One Tech (MLA)
 When staffing MOB with 1 MLA (Medical Laboratory Assistant):
