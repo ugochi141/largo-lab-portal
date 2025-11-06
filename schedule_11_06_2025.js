@@ -14,29 +14,20 @@ const november6Schedule = {
                 startTime: 6
             },
             {
+                name: 'Farah Moise',
+                nickname: 'Farah',
+                assignment: 'Draw Patients/Opener/Runner',
+                shift: '6:00a-4:30p',
+                breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 2:00p-2:15p',
+                startTime: 6
+            },
+            {
                 name: 'Johnette Brooks',
                 nickname: 'Netta',
                 assignment: 'Draw Patients',
                 shift: '7:00a-3:30p',
                 breaks: 'Break 1: 9:00a-9:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p',
                 startTime: 7
-            },
-            {
-                name: 'Farah Moise',
-                nickname: 'Farah',
-                assignment: 'Draw Patients/Opener',
-                shift: '6:00a-8:00a',
-                breaks: 'None',
-                startTime: 6,
-                notes: 'On-call hours only'
-            },
-            {
-                name: 'Farah Moise',
-                nickname: 'Farah',
-                assignment: 'Draw Patients/Runner',
-                shift: '8:00a-4:30p',
-                breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 1:45p-2:00p',
-                startTime: 8
             },
             {
                 name: 'Anne Saint Phirin',
@@ -175,16 +166,15 @@ const november6Summary = {
     dayOfWeek: 'Thursday',
     totalStaff: 18,
     phlebotomy: {
-        count: 11, // Farah has 2 entries (on-call + regular)
-        actualPeople: 10,
+        count: 10,
         dayShift: 7,
         eveningShift: 4,
         keyAssignments: {
-            openers: 'Christina (6:00a-2:30p) & Farah (6:00a-8:00a on-call)',
+            openers: 'Christina (6:00a-2:30p) & Farah (6:00a-4:30p)',
             processor_day: 'Anne (8:00a-4:30p)',
             processor_evening: 'Danalisa (2:00p-10:30p)',
             closer: 'Shannon (2:00p-10:30p)',
-            runner: 'Farah (8:00a-4:30p)',
+            runner: 'Farah (6:00a-4:30p)',
             partTime: ['Micaela (8a-1p)', 'Taric (5p-9p)']
         }
     },
@@ -222,8 +212,8 @@ const november6Summary = {
         monthly: []
     },
     notes: [
-        'Christina opens at 6:00am',
-        'Farah has on-call hours 6:00a-8:00a before regular shift',
+        'Two openers: Christina (6:00a-2:30p) and Farah (6:00a-4:30p)',
+        'Farah serves dual role as Opener and Runner for full 10.5-hour shift',
         'Netta (Johnette Brooks) has FIXED breaks: 9:00a-9:15a | 11:00a-11:30a | 1:00p-1:15p',
         'Micaela part-time shift (8a-1p)',
         'Taric evening part-time shift (5p-9p)',
@@ -233,10 +223,10 @@ const november6Summary = {
 };
 
 console.log('✅ November 6, 2025 Schedule Generated');
-console.log(`📊 Total Staff: ${november6Summary.totalStaff} (${november6Summary.phlebotomy.actualPeople} phlebotomists, ${november6Summary.laboratory.count} lab staff)`);
-console.log(`🩺 Phlebotomy: ${november6Summary.phlebotomy.actualPeople} people (${november6Summary.phlebotomy.count} entries including on-call)`);
+console.log(`📊 Total Staff: ${november6Summary.totalStaff} (${november6Summary.phlebotomy.count} phlebotomists, ${november6Summary.laboratory.count} lab staff)`);
+console.log(`🩺 Phlebotomy: ${november6Summary.phlebotomy.count} staff`);
 console.log(`🔬 Laboratory: ${november6Summary.laboratory.count}`);
 console.log(`📋 Thursday Schedule - Standard weekday operations`);
-console.log(`⏰ On-call coverage: Farah (6:00a-8:00a)`);
+console.log(`⏰ Dual openers: Christina (6:00a-2:30p) & Farah (6:00a-4:30p)`);
 console.log(`✓ All nicknames verified, all departments corrected to MLS (not MT)`);
 console.log(`✓ Netta's fixed breaks applied: 9:00a-9:15a | 11:00a-11:30a | 1:00p-1:15p`);
