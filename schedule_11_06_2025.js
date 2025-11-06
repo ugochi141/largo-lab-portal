@@ -90,12 +90,12 @@ const november6Schedule = {
             }
         ],
         lab: [
-            // DAY SHIFT LAB
+            // DAY SHIFT LAB (3 techs)
             {
                 name: 'Emily Creekmore',
                 nickname: 'Emily',
                 dept: 'MLT',
-                assignment: 'AUC - Processing/Urines, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC - Tech 1 - Processing, Kits QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '7:30a-4:00p',
                 breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
                 startTime: 7.5
@@ -104,7 +104,7 @@ const november6Schedule = {
                 name: 'Francis Azih Ngene',
                 nickname: 'Francis',
                 dept: 'MLS',
-                assignment: 'AUC - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC - Tech 2 - Urines, Kits, Coag, MedTox QC [DAILY], Sysmex Startup/QC [DAILY], Hematek Startup/QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '7:30a-4:00p',
                 breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p',
                 startTime: 7.5
@@ -113,17 +113,17 @@ const november6Schedule = {
                 name: 'Ingrid Benitez-Ruiz',
                 nickname: 'Ingrid',
                 dept: 'MLS',
-                assignment: 'AUC - Pure 1 QC @7:30am [DAILY], Kits QC [DAILY], Sysmex XN Startup [DAILY], Hematek Startup [DAILY], Previ Gram Stain [DAILY], Novus Daily, Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC - Tech 3 - Hematology, Chemistry, Molecular, Pure 1 QC @7:30am [DAILY], Sysmex XN Startup [DAILY], Hematek Startup [DAILY], Previ Gram Stain [DAILY], Novus Daily, Stago Maint, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '7:30a-4:00p',
                 breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
                 startTime: 7.5
             },
-            // EVENING SHIFT LAB
+            // EVENING SHIFT LAB (2 techs)
             {
                 name: 'Ogheneochuko Eshofa',
                 nickname: 'Tracy',
                 dept: 'MLT',
-                assignment: 'AUC - Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC Front - Tech 1 - Processing/Urines, Kits, Stago, ESR 10% Check QC [DAILY], Stago Maint, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '3:30p-12:00a',
                 breaks: 'Break 1: 5:30p-5:45p | Lunch: 7:30p-8:00p | Break 2: 10:00p-10:15p',
                 startTime: 15.5
@@ -132,17 +132,17 @@ const november6Schedule = {
                 name: 'Albert Che',
                 nickname: 'Albert',
                 dept: 'MLS',
-                assignment: 'AUC - Processing, Hematology, Chemistry, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC Back - Tech 2 - Hematology, Chemistry, Molecular, Wipe Benches, Clean Microscopes, Log QC',
                 shift: '3:30p-12:00a',
                 breaks: 'Break 1: 5:45p-6:00p | Lunch: 8:00p-8:30p | Break 2: 10:15p-10:30p',
                 startTime: 15.5
             },
-            // NIGHT SHIFT LAB
+            // NIGHT SHIFT LAB (2 techs)
             {
                 name: 'Emmanuel Lejano',
                 nickname: 'Boyet',
                 dept: 'MLT',
-                assignment: 'AUC - Processing, Urines, MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC Front - Tech 1 - Processing/Urines, Kits, Stago, MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
                 shift: '9:30p-6:00a',
                 breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a',
                 startTime: 21.5
@@ -151,7 +151,7 @@ const november6Schedule = {
                 name: 'George Etape',
                 nickname: 'George',
                 dept: 'MLS',
-                assignment: 'AUC - Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC Back - Tech 2 - Hematology, Chemistry, Molecular, Pure 2 QC @3am [DAILY], MiniSed QC [DAILY], GeneXpert QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
                 shift: '11:30p-8:00a',
                 breaks: 'Break 1: 1:00a-1:15a | Lunch: 3:00a-3:30a | Break 2: 5:30a-5:45a',
                 startTime: 23.5
