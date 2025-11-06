@@ -113,7 +113,7 @@ const november6Schedule = {
                 name: 'Ingrid Benitez-Ruiz',
                 nickname: 'Ingrid',
                 dept: 'MLS',
-                assignment: 'AUC - Tech 3 - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex XN Startup/QC [DAILY], Hematek Startup/QC [DAILY], Pure 1 QC @7:30am [DAILY], Previ Gram Stain [DAILY], Novus Daily, Beads Maint, Wipe Benches, Clean Microscopes, Log QC',
+                assignment: 'AUC - Tech 3 - Hematology, Chemistry, Molecular, MedTox QC [DAILY], Sysmex XN Startup/QC [DAILY], Hematek Startup/QC [DAILY], Wipe Benches, Clean Microscopes, Log QC',
                 shift: '7:30a-4:00p',
                 breaks: 'Break 1: 9:45a-10:00a | Lunch: 12:30p-1:00p | Break 2: 2:45p-3:00p',
                 startTime: 7.5
