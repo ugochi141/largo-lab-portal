@@ -1,0 +1,622 @@
+/* Kaiser Permanente Laboratory SOP Management System Styles */
+
+:root {
+    --kp-blue: #0066cc;
+    --kp-light-blue: #e8f4f8;
+    --kp-dark-blue: #004d99;
+    --warning-yellow: #fff3cd;
+    --warning-border: #ffc107;
+    --danger-red: #f8d7da;
+    --danger-border: #dc3545;
+    --success-green: #d4edda;
+    --success-border: #28a745;
+    --info-blue: #d1ecf1;
+    --info-border: #17a2b8;
+    --text-dark: #333;
+    --text-light: #666;
+    --border-light: #ddd;
+    --background-light: #f5f5f5;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--background-light);
+}
+
+/* Header Styles */
+.kp-header {
+    background: linear-gradient(135deg, var(--kp-blue), var(--kp-dark-blue));
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.kp-header h1 {
+    font-size: 28pt;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.kp-header h2 {
+    font-size: 16pt;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+}
+
+/* Quick Actions */
+.quick-actions {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-left: 5px solid var(--kp-blue);
+}
+
+.quick-actions h3 {
+    color: var(--kp-dark-blue);
+    margin-bottom: 20px;
+    font-size: 18pt;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: var(--kp-blue);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    background: var(--kp-dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--kp-blue);
+    border: 2px solid var(--kp-blue);
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--kp-blue);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: var(--warning-border);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-info {
+    background: var(--info-border);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-small {
+    background: var(--kp-blue);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Category Grid */
+.sop-categories {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.sop-categories h3 {
+    color: var(--kp-dark-blue);
+    margin-bottom: 25px;
+    font-size: 18pt;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--kp-blue);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover::before {
+    transform: scaleX(1);
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: var(--kp-light-blue);
+}
+
+.category-card .icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.category-card h4 {
+    color: var(--kp-dark-blue);
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
+
+.category-card p {
+    color: var(--text-light);
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.category-card .count {
+    background: var(--kp-light-blue);
+    color: var(--kp-dark-blue);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Department-specific colors */
+.category-card.hematology:hover { border-color: #dc3545; }
+.category-card.chemistry:hover { border-color: #28a745; }
+.category-card.coagulation:hover { border-color: #ffc107; }
+.category-card.urinalysis:hover { border-color: #17a2b8; }
+.category-card.microbiology:hover { border-color: #6f42c1; }
+.category-card.poct:hover { border-color: #fd7e14; }
+.category-card.phlebotomy:hover { border-color: #20c997; }
+.category-card.safety:hover { border-color: #6c757d; }
+
+/* Tables */
+.recent-updates {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.recent-updates h3 {
+    color: var(--kp-dark-blue);
+    margin-bottom: 20px;
+    font-size: 18pt;
+}
+
+.sop-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.sop-table thead {
+    background: var(--kp-light-blue);
+}
+
+.sop-table th {
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--kp-dark-blue);
+    border-bottom: 2px solid var(--kp-blue);
+    font-size: 11pt;
+}
+
+.sop-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 10pt;
+}
+
+.sop-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* Status Indicators */
+.status-active {
+    background: var(--success-green);
+    color: #155724;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid var(--success-border);
+}
+
+.status-review {
+    background: var(--warning-yellow);
+    color: #856404;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid var(--warning-border);
+}
+
+.status-expired {
+    background: var(--danger-red);
+    color: #721c24;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid var(--danger-border);
+}
+
+/* Competency Alerts */
+.competency-alerts {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.competency-alerts h3 {
+    color: var(--kp-dark-blue);
+    margin-bottom: 20px;
+    font-size: 18pt;
+}
+
+.alert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.alert-box {
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid;
+}
+
+.alert-box.warning {
+    background: var(--warning-yellow);
+    border-left-color: var(--warning-border);
+}
+
+.alert-box.info {
+    background: var(--info-blue);
+    border-left-color: var(--info-border);
+}
+
+.alert-box.success {
+    background: var(--success-green);
+    border-left-color: var(--success-border);
+}
+
+.alert-box h4 {
+    margin-bottom: 10px;
+    font-size: 14pt;
+}
+
+.alert-box ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+/* SOP Document Styles */
+.sop-container {
+    background: white;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.document-info {
+    background: var(--kp-light-blue);
+    border: 2px solid var(--kp-blue);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.document-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.document-info td {
+    padding: 8px 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.document-info td:first-child {
+    font-weight: 600;
+    width: 200px;
+    background: rgba(255,255,255,0.7);
+    color: var(--kp-dark-blue);
+}
+
+/* Section Styles */
+.section {
+    margin: 30px 0;
+    page-break-inside: avoid;
+}
+
+.section h2 {
+    color: var(--kp-blue);
+    font-size: 16pt;
+    border-bottom: 3px solid var(--kp-blue);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.section h3 {
+    color: var(--kp-dark-blue);
+    font-size: 12pt;
+    margin: 20px 0 10px 0;
+    font-weight: 600;
+}
+
+/* Alert Boxes in SOPs */
+.critical-box {
+    background: var(--danger-red);
+    border: 2px solid var(--danger-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.critical-box::before {
+    content: "⚠️ CRITICAL";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--danger-border);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.warning-box {
+    background: var(--warning-yellow);
+    border: 2px solid var(--warning-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.info-box {
+    background: var(--info-blue);
+    border-left: 5px solid var(--info-border);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.success-box {
+    background: var(--success-green);
+    border-left: 5px solid var(--success-border);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+/* Checklist Styles */
+.checklist {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--kp-blue);
+}
+
+.checklist h4 {
+    color: var(--kp-dark-blue);
+    margin-bottom: 15px;
+}
+
+.checklist ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.checklist li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.checklist li:last-child {
+    border-bottom: none;
+}
+
+.checklist input[type="checkbox"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+}
+
+/* Footer */
+.kp-footer {
+    background: var(--kp-dark-blue);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 11px;
+}
+
+.kp-footer p {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 0 15px;
+        gap: 20px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .alert-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kp-header h1 {
+        font-size: 20pt;
+    }
+
+    .sop-container {
+        padding: 20px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .kp-header,
+    .quick-actions,
+    .competency-alerts,
+    .kp-footer {
+        display: none;
+    }
+
+    .sop-container {
+        box-shadow: none;
+        max-width: none;
+        padding: 0;
+    }
+
+    .section {
+        page-break-inside: avoid;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .category-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--text-light); }
+.font-weight-bold { font-weight: 600; }
+.mb-20 { margin-bottom: 20px; }
+.mt-20 { margin-top: 20px; }
+.p-15 { padding: 15px; }
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

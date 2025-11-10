@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Schedule Import - Kaiser Permanente Largo Lab</title>
+    <link rel="stylesheet" href="../assets/css/kps-portal.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28pt;
+        }
+
+        .import-section {
+            margin: 30px 0;
+            padding: 25px;
+            border: 2px dashed #0066cc;
+            border-radius: 10px;
+            background: #f8fbff;
+        }
+
+        .import-section h2 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 15px;
+            border: 2px solid #d1e7f3;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 11pt;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 12pt;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+        }
+
+        .status-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .preview-box {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .preview-box h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+
+        .staff-count {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .example-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 10pt;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+
+        .back-link:hover {
+            background: #0066cc;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="font-size: 32pt;">🏥</div>
+            <h1>Simple Schedule Import</h1>
+            <p>Kaiser Permanente Largo Laboratory</p>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="../index.html" class="back-link">← Back to Portal</a>
+            <a href="Daily Schedule.html" class="back-link">📅 View Daily Schedule</a>
+            <a href="Schedule_Manager_Enhanced.html" class="back-link">⚙️ Schedule Manager</a>
+        </div>
+
+        <div class="status-box" id="statusBox"></div>
+
+        <div class="import-section">
+            <h2>📋 Method 1: Paste JSON Schedule Data</h2>
+            <p style="margin-bottom: 15px;">Paste your schedule data in JSON format below:</p>
+            <textarea id="jsonInput" placeholder='Paste JSON data here, for example:
+{
+  "date": "2025-10-13",
+  "phleb": [
+    {
+      "name": "Christina Bolden-Davis",
+      "nickname": "Christina",
+      "role": "Opener",
+      "shift": "6a-2:30p",
+      "assignment": "Opener - Temp check, clean and stock draw stations",
+      "breaks": "Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p"
+    }
+  ],
+  "lab": [
+    {
+      "name": "Lorraine Blackwell",
+      "nickname": "Lorraine",
+      "dept": "MLA",
+      "shift": "8a-4:30p",
+      "assignment": "MOB - Urines, Kits QC, TempTrak 9am Backup",
+      "breaks": "Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p"
+    }
+  ]
+}'></textarea>
+            <button class="btn" onclick="processJSON()">📥 Import JSON Data</button>
+            <button class="btn btn-secondary" onclick="clearInput()">🗑️ Clear</button>
+        </div>
+
+        <div class="import-section">
+            <h2>📊 Method 2: Paste CSV Schedule Data</h2>
+            <p style="margin-bottom: 15px;">Paste comma-separated values (CSV) format:</p>
+            <textarea id="csvInput" placeholder='Paste CSV data here. Format:
+Date,Team,Name,Nickname,Dept/Role,Shift,Assignment,Breaks
+2025-10-13,PHLEB,Christina Bolden-Davis,Christina,Opener,6a-2:30p,Opener - Temp check,Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a
+2025-10-13,LAB,Lorraine Blackwell,Lorraine,MLA,8a-4:30p,MOB - Urines and Kits,Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p'></textarea>
+            <button class="btn" onclick="processCSV()">📥 Import CSV Data</button>
+            <button class="btn btn-secondary" onclick="clearCSVInput()">🗑️ Clear</button>
+        </div>
+
+        <div class="preview-box" id="previewBox" style="display: none;">
+            <h3>📋 Preview Imported Data</h3>
+            <div id="previewContent"></div>
+            <button class="btn btn-success" onclick="saveToSchedule()">✅ Save to Daily Schedule</button>
+            <button class="btn btn-secondary" onclick="cancelImport()">❌ Cancel</button>
+        </div>
+
+        <div class="example-box">
+            <h3>💡 Example: October 13, 2025 Schedule (Copy & Paste)</h3>
+            <p><strong>Click "Copy" button below, then paste into the JSON input above:</strong></p>
+            <button class="btn btn-secondary" onclick="copyExample()">📋 Copy Example JSON</button>
+            <pre id="exampleJSON">{
+  "date": "2025-10-13",
+  "phleb": [
+    {"name": "Christina Bolden-Davis", "nickname": "Christina", "role": "Opener", "shift": "6a-2:30p", "assignment": "Opener", "breaks": "8:00a-8:15a | 11:00a-11:30a | 1:00p-1:15p", "startTime": 6},
+    {"name": "Youlana Miah", "nickname": "Youlana", "role": "Opener", "shift": "6a-2:30p", "assignment": "Opener", "breaks": "8:15a-8:30a | 11:30a-12:00p | 1:15p-1:30p", "startTime": 6}
+  ],
+  "lab": [
+    {"name": "Lorraine Blackwell", "nickname": "Lorraine", "dept": "MLA", "shift": "8a-4:30p", "assignment": "MOB - Urines, Kits", "breaks": "10:00a-10:15a | 12:30p-1:00p | 2:00p-2:15p", "startTime": 8}
+  ]
+}</pre>
+        </div>
+    </div>
+
+    <script>
+        let importedData = null;
+
+        function showStatus(message, type) {
+            const statusBox = document.getElementById('statusBox');
+            statusBox.className = 'status-box status-' + type;
+            statusBox.innerHTML = message;
+            statusBox.style.display = 'block';
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusBox.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('previewBox').style.display = 'none';
+            importedData = null;
+        }
+
+        function clearCSVInput() {
+            document.getElementById('csvInput').value = '';
+            document.getElementById('previewBox').style.display = 'none';
+            importedData = null;
+        }
+
+        function copyExample() {
+            const exampleText = document.getElementById('exampleJSON').textContent;
+            navigator.clipboard.writeText(exampleText).then(() => {
+                showStatus('✅ Example JSON copied to clipboard! Paste it in the JSON input above.', 'success');
+            }).catch(err => {
+                showStatus('❌ Failed to copy: ' + err.message, 'error');
+            });
+        }
+
+        function processJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+
+            if (!input) {
+                showStatus('⚠️ Please paste JSON data first', 'error');
+                return;
+            }
+
+            try {
+                const data = JSON.parse(input);
+
+                // Validate structure
+                if (!data.date) {
+                    throw new Error('Missing "date" field');
+                }
+
+                if (!data.phleb && !data.lab) {
+                    throw new Error('Must include either "phleb" or "lab" array');
+                }
+
+                importedData = {
+                    date: data.date,
+                    phleb: data.phleb || [],
+                    lab: data.lab || []
+                };
+
+                showPreview();
+                showStatus('✅ JSON data parsed successfully!', 'success');
+
+            } catch (error) {
+                showStatus('❌ Invalid JSON: ' + error.message, 'error');
+                console.error('JSON parse error:', error);
+            }
+        }
+
+        function processCSV() {
+            const input = document.getElementById('csvInput').value.trim();
+
+            if (!input) {
+                showStatus('⚠️ Please paste CSV data first', 'error');
+                return;
+            }
+
+            try {
+                const lines = input.split('\n').filter(line => line.trim());
+
+                if (lines.length < 2) {
+                    throw new Error('CSV must have at least a header row and one data row');
+                }
+
+                // Skip header row
+                const dataLines = lines.slice(1);
+
+                const phleb = [];
+                const lab = [];
+                let date = null;
+
+                dataLines.forEach((line, index) => {
+                    const parts = line.split(',').map(p => p.trim());
+
+                    if (parts.length < 7) {
+                        console.warn('Skipping invalid line', index + 2, ':', line);
+                        return;
+                    }
+
+                    const [csvDate, team, name, nickname, deptRole, shift, assignment, breaks] = parts;
+
+                    if (!date) date = csvDate;
+
+                    const staffEntry = {
+                        name: name,
+                        nickname: nickname || name,
+                        shift: shift,
+                        assignment: assignment || '',
+                        breaks: breaks || ''
+                    };
+
+                    if (team.toUpperCase() === 'PHLEB') {
+                        staffEntry.role = deptRole;
+                        phleb.push(staffEntry);
+                    } else if (team.toUpperCase() === 'LAB') {
+                        staffEntry.dept = deptRole;
+                        lab.push(staffEntry);
+                    }
+                });
+
+                if (!date) {
+                    throw new Error('No valid date found in CSV');
+                }
+
+                importedData = { date, phleb, lab };
+                showPreview();
+                showStatus('✅ CSV data parsed successfully!', 'success');
+
+            } catch (error) {
+                showStatus('❌ Invalid CSV: ' + error.message, 'error');
+                console.error('CSV parse error:', error);
+            }
+        }
+
+        function showPreview() {
+            if (!importedData) return;
+
+            const previewBox = document.getElementById('previewBox');
+            const previewContent = document.getElementById('previewContent');
+
+            let html = `
+                <p><strong>Date:</strong> ${importedData.date}</p>
+                <div style="margin: 15px 0;">
+                    <span class="staff-count">Phlebotomy: ${importedData.phleb.length}</span>
+                    <span class="staff-count">Laboratory: ${importedData.lab.length}</span>
+                    <span class="staff-count">Total: ${importedData.phleb.length + importedData.lab.length}</span>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4>Phlebotomy Staff:</h4>
+                    <ul>${importedData.phleb.map(s => `<li><strong>${s.name}</strong> (${s.nickname}) - ${s.shift}</li>`).join('')}</ul>
+                    <h4>Laboratory Staff:</h4>
+                    <ul>${importedData.lab.map(s => `<li><strong>${s.name}</strong> (${s.nickname}) - ${s.dept || 'N/A'} - ${s.shift}</li>`).join('')}</ul>
+                </div>
+            `;
+
+            previewContent.innerHTML = html;
+            previewBox.style.display = 'block';
+        }
+
+        function saveToSchedule() {
+            if (!importedData) {
+                showStatus('⚠️ No data to save', 'error');
+                return;
+            }
+
+            try {
+                // Load existing schedule data
+                const existingData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+
+                // Add the new date
+                existingData[importedData.date] = {
+                    phleb: importedData.phleb,
+                    lab: importedData.lab
+                };
+
+                // Save back to localStorage
+                localStorage.setItem('dailyScheduleData', JSON.stringify(existingData));
+
+                showStatus(`✅ Successfully saved schedule for ${importedData.date}! <a href="Daily Schedule.html" style="color: #155724; text-decoration: underline;">Open Daily Schedule</a>`, 'success');
+
+                // Clear inputs
+                clearInput();
+                clearCSVInput();
+
+            } catch (error) {
+                showStatus('❌ Error saving: ' + error.message, 'error');
+                console.error('Save error:', error);
+            }
+        }
+
+        function cancelImport() {
+            document.getElementById('previewBox').style.display = 'none';
+            importedData = null;
+            showStatus('ℹ️ Import cancelled', 'info');
+        }
+    </script>
+</body>
+</html>

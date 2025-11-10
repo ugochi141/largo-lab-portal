@@ -1,0 +1,40 @@
+{
+    "inventory_settings": {
+        "low_stock_threshold": 10,
+        "critical_stock_threshold": 5,
+        "expiration_warning_days": 60,
+        "auto_backup_enabled": true,
+        "backup_frequency_days": 7
+    },
+    "lab_locations": [
+        "MOB",
+        "AUC",
+        "BOTH"
+    ],
+    "staff_assignments": {
+        "inventory_manager_primary": "Lorraine",
+        "inventory_manager_secondary": "Ingrid",
+        "supply_coordinator": "Nathaniel Burmeister",
+        "backup_processors": [
+            "Mimi"
+        ]
+    },
+    "notification_settings": {
+        "low_stock_alerts": true,
+        "expiration_alerts": true,
+        "daily_reminder_time": "07:30",
+        "weekly_report_day": "Monday"
+    },
+    "critical_items": {
+        "ALT_reagents": {
+            "current_quantity": 25,
+            "expiration_date": "2025-10-31",
+            "action": "Redistribute to other locations before expiration"
+        }
+    },
+    "known_issues": [
+        "Multiple supplier IDs need verification",
+        "MEDTOX QC logging in Cerner",
+        "Coordinate urine processing between labs"
+    ]
+}

@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}Import Documents - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<h2 style="color: var(--kp-blue); margin-bottom: 2rem;">📥 Import Documents to Create SOPs</h2>
+
+<div class="card">
+    <div style="background: var(--kp-light-blue); padding: 1rem; border-radius: 4px; margin-bottom: 2rem;">
+        <h3 style="color: var(--kp-dark-blue);">📋 Document Import Features</h3>
+        <ul style="margin-left: 1rem;">
+            <li><strong>Supported Formats:</strong> PDF, HTML, TXT, DOCX</li>
+            <li><strong>OCR Support:</strong> Automatic text extraction from scanned PDFs</li>
+            <li><strong>Smart Parsing:</strong> Identifies sections, tables, and key information</li>
+            <li><strong>Kaiser Standards:</strong> Maps content to 23-section SOP template</li>
+            <li><strong>Batch Import:</strong> Process multiple documents at once</li>
+        </ul>
+    </div>
+
+    <!-- Single File Import -->
+    <div style="margin-bottom: 3rem;">
+        <h3 style="color: var(--kp-blue); margin-bottom: 1rem;">📄 Import Single Document</h3>
+
+        <form method="POST" enctype="multipart/form-data" id="singleImportForm">
+            <div class="form-group">
+                <label for="document">Select Document:</label>
+                <input type="file" id="document" name="document"
+                       accept=".pdf,.html,.htm,.txt,.docx" required
+                       onchange="previewDocument(this)">
+                <small style="color: #666;">Supported: PDF, HTML, TXT, DOCX (Max 10MB)</small>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Target Department:</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="HEMATOLOGY">🩸 Hematology</option>
+                    <option value="CHEMISTRY">⚗️ Chemistry</option>
+                    <option value="COAGULATION">🧪 Coagulation</option>
+                    <option value="URINALYSIS">🥤 Urinalysis</option>
+                    <option value="MICROBIOLOGY">🦠 Microbiology</option>
+                    <option value="PHLEBOTOMY">💉 Phlebotomy</option>
+                    <option value="POCT">📱 Point of Care</option>
+                    <option value="SAFETY">🛡️ Safety & Quality</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sop_title">SOP Title (optional):</label>
+                <input type="text" id="sop_title" name="sop_title"
+                       placeholder="Will be extracted from document if not provided">
+            </div>
+
+            <div id="documentPreview" style="display: none; margin: 1rem 0; padding: 1rem;
+                 background: #f8f9fa; border-radius: 4px; border: 1px solid #ddd;">
+                <h4>📄 Document Preview</h4>
+                <p><strong>File:</strong> <span id="fileName"></span></p>
+                <p><strong>Size:</strong> <span id="fileSize"></span></p>
+                <p><strong>Type:</strong> <span id="fileType"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="auto_extract" checked>
+                    Automatically extract and map sections
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="ocr_if_needed" checked>
+                    Use OCR if text extraction fails (slower but more thorough)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn" onclick="showImportProgress()">
+                    📥 Import Document
+                </button>
+                <button type="button" class="btn" style="background: #17a2b8; margin-left: 1rem;"
+                        onclick="analyzeDocument()">
+                    🔍 Analyze Document First
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Batch Import -->
+    <div style="border-top: 2px solid var(--kp-light-blue); padding-top: 2rem;">
+        <h3 style="color: var(--kp-blue); margin-bottom: 1rem;">📚 Batch Import from Folder</h3>
+
+        <form method="POST" id="batchImportForm">
+            <div class="form-group">
+                <label for="folder_path">Folder Path:</label>
+                <input type="text" id="folder_path" name="folder_path"
+                       placeholder="/Users/ugochi141/Desktop/SOP_Documents/"
+                       style="font-family: monospace;">
+                <small style="color: #666;">Enter absolute path to folder containing documents</small>
+            </div>
+
+            <div class="form-group">
+                <label for="batch_department">Department for All:</label>
+                <select id="batch_department" name="batch_department" required>
+                    <option value="">Select Department</option>
+                    <option value="HEMATOLOGY">🩸 Hematology</option>
+                    <option value="CHEMISTRY">⚗️ Chemistry</option>
+                    <option value="COAGULATION">🧪 Coagulation</option>
+                    <option value="URINALYSIS">🥤 Urinalysis</option>
+                    <option value="MICROBIOLOGY">🦠 Microbiology</option>
+                    <option value="PHLEBOTOMY">💉 Phlebotomy</option>
+                    <option value="POCT">📱 Point of Care</option>
+                    <option value="SAFETY">🛡️ Safety & Quality</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning">
+                    📚 Import All Documents
+                </button>
+                <small style="margin-left: 1rem; color: #666;">
+                    Will process all PDF, HTML, TXT, and DOCX files in folder
+                </small>
+            </div>
+        </form>
+    </div>
+
+    <!-- Import from Existing SOPs -->
+    <div style="border-top: 2px solid var(--kp-light-blue); padding-top: 2rem; margin-top: 2rem;">
+        <h3 style="color: var(--kp-blue); margin-bottom: 1rem;">🔄 Import from Existing Kaiser SOPs</h3>
+
+        <div style="background: #fff3cd; padding: 1rem; border-radius: 4px; border-left: 4px solid #ffc107;">
+            <h4>📁 Quick Import Locations</h4>
+            <ul style="margin: 0.5rem 0;">
+                <li><code>/Users/ugochi141/Desktop/Largo Lab SOP 2025 Enhanced/</code></li>
+                <li><code>/Users/ugochi141/Desktop/SOP 2025/</code></li>
+                <li><code>/Users/ugochi141/Documents/2025 KP SOP/</code></li>
+            </ul>
+        </div>
+
+        <div class="form-group" style="margin-top: 1rem;">
+            <button class="btn" onclick="importFromEnhanced()">
+                📂 Import from Enhanced Folder
+            </button>
+            <button class="btn" style="background: #6c757d; margin-left: 1rem;"
+                    onclick="importFromDocuments()">
+                📂 Import from Documents
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Modal -->
+<div id="importProgress" style="display: none; position: fixed; top: 50%; left: 50%;
+     transform: translate(-50%, -50%); background: white; padding: 2rem;
+     border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;">
+    <h3 style="color: var(--kp-blue);">⏳ Importing Document...</h3>
+    <div style="margin: 1rem 0;">
+        <div style="width: 300px; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden;">
+            <div id="progressBar" style="width: 0%; height: 100%; background: var(--kp-blue);
+                 transition: width 0.3s; border-radius: 10px;"></div>
+        </div>
+    </div>
+    <p id="progressStatus">Extracting text from document...</p>
+</div>
+
+<script>
+function previewDocument(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        document.getElementById('documentPreview').style.display = 'block';
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(2) + ' KB';
+        document.getElementById('fileType').textContent = file.type || 'Unknown';
+    }
+}
+
+function showImportProgress() {
+    document.getElementById('importProgress').style.display = 'block';
+    let progress = 0;
+    const progressBar = document.getElementById('progressBar');
+    const progressStatus = document.getElementById('progressStatus');
+
+    const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = progress + '%';
+
+        if (progress >= 30) progressStatus.textContent = 'Parsing document sections...';
+        if (progress >= 60) progressStatus.textContent = 'Mapping to Kaiser SOP template...';
+        if (progress >= 90) progressStatus.textContent = 'Creating SOP document...';
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            progressStatus.textContent = 'Import complete!';
+            setTimeout(() => {
+                document.getElementById('importProgress').style.display = 'none';
+            }, 1000);
+        }
+    }, 300);
+}
+
+function analyzeDocument() {
+    const fileInput = document.getElementById('document');
+    if (!fileInput.files[0]) {
+        alert('Please select a document first');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('document', fileInput.files[0]);
+    formData.append('analyze_only', 'true');
+
+    // In production, this would make an AJAX call to analyze the document
+    alert('Document analysis would show:\n• Detected sections\n• Extracted metadata\n• Content preview\n• Suggested department');
+}
+
+function importFromEnhanced() {
+    document.getElementById('folder_path').value = '/Users/ugochi141/Desktop/Largo Lab SOP 2025 Enhanced/untitled folder/';
+    document.getElementById('batch_department').value = 'CHEMISTRY';
+    alert('Folder path set. Click "Import All Documents" to process.');
+}
+
+function importFromDocuments() {
+    document.getElementById('folder_path').value = '/Users/ugochi141/Documents/2025 KP SOP/';
+    alert('Folder path set. Select department and click "Import All Documents" to process.');
+}
+</script>
+
+<style>
+.form-group input[type="file"] {
+    padding: 0.5rem;
+    background: white;
+    cursor: pointer;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+#importProgress::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+}
+</style>
+
+{% endblock %}

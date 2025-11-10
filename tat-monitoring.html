@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAT Monitoring - Largo Lab</title>
+    <link rel="stylesheet" href="css/kp-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .tat-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tat-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tat-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tat-card h3 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .metric-display {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .metric-display.good {
+            color: #28a745;
+        }
+
+        .metric-display.warning {
+            color: #ffc107;
+        }
+
+        .metric-display.critical {
+            color: #dc3545;
+        }
+
+        .metric-label {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .test-type-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .test-type-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            align-items: center;
+        }
+
+        .test-type-row.header {
+            background: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tat-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tat-fill {
+            height: 100%;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .tat-fill.excellent {
+            background: #28a745;
+        }
+
+        .tat-fill.good {
+            background: #20c997;
+        }
+
+        .tat-fill.fair {
+            background: #ffc107;
+        }
+
+        .tat-fill.poor {
+            background: #fd7e14;
+        }
+
+        .tat-fill.critical {
+            background: #dc3545;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid #0066cc;
+            background: white;
+            color: #0066cc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        table.tat-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table.tat-table th,
+        table.tat-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table.tat-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-badge.on-time {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.delayed {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.critical-delay {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="portal-title">Turnaround Time (TAT) Monitoring</h1>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="manager-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="qc-tracking.html" class="nav-link">QC Tracking</a></li>
+                    <li><a href="tat-monitoring.html" class="nav-link active">TAT Monitor</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tat-container">
+            <h2>Laboratory Turnaround Time Monitoring</h2>
+            <p>Real-time tracking of specimen turnaround times by department and test type</p>
+
+            <div class="btn-group">
+                <button class="btn active" onclick="setTimeframe('today')">Today</button>
+                <button class="btn" onclick="setTimeframe('week')">This Week</button>
+                <button class="btn" onclick="setTimeframe('month')">This Month</button>
+                <button class="btn" onclick="exportTATData()">Export Data</button>
+            </div>
+
+            <div class="tat-dashboard">
+                <!-- Overall TAT Metric -->
+                <div class="tat-card">
+                    <h3>Average TAT (All Tests)</h3>
+                    <div class="metric-label">Target: &lt; 60 minutes</div>
+                    <div class="metric-display good" id="overall-tat">45</div>
+                    <div class="metric-label">minutes</div>
+                    <div class="tat-bar">
+                        <div class="tat-fill excellent" style="width: 75%;"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">
+                        <strong>Performance:</strong> 75% within target
+                    </p>
+                </div>
+
+                <!-- STAT Tests -->
+                <div class="tat-card">
+                    <h3>STAT Tests TAT</h3>
+                    <div class="metric-label">Target: &lt; 30 minutes</div>
+                    <div class="metric-display good" id="stat-tat">28</div>
+                    <div class="metric-label">minutes</div>
+                    <div class="tat-bar">
+                        <div class="tat-fill excellent" style="width: 93%;"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">
+                        <strong>Performance:</strong> 93% within target
+                    </p>
+                </div>
+
+                <!-- Routine Tests -->
+                <div class="tat-card">
+                    <h3>Routine Tests TAT</h3>
+                    <div class="metric-label">Target: &lt; 90 minutes</div>
+                    <div class="metric-display good" id="routine-tat">65</div>
+                    <div class="metric-label">minutes</div>
+                    <div class="tat-bar">
+                        <div class="tat-fill good" style="width: 72%;"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">
+                        <strong>Performance:</strong> 88% within target
+                    </p>
+                </div>
+
+                <!-- TAT by Department -->
+                <div class="tat-card" style="grid-column: 1 / -1;">
+                    <h3>TAT by Department</h3>
+                    <div class="test-type-grid">
+                        <div class="test-type-row header">
+                            <div>Department</div>
+                            <div>Avg TAT</div>
+                            <div>Target</div>
+                            <div>Performance</div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Chemistry</strong></div>
+                            <div>42 min</div>
+                            <div>60 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill excellent" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Hematology</strong></div>
+                            <div>35 min</div>
+                            <div>45 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill excellent" style="width: 78%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Coagulation</strong></div>
+                            <div>50 min</div>
+                            <div>60 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill good" style="width: 83%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Urinalysis</strong></div>
+                            <div>25 min</div>
+                            <div>30 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill excellent" style="width: 83%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Point of Care</strong></div>
+                            <div>12 min</div>
+                            <div>15 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill excellent" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="test-type-row">
+                            <div><strong>Microbiology</strong></div>
+                            <div>95 min</div>
+                            <div>120 min</div>
+                            <div>
+                                <div class="tat-bar">
+                                    <div class="tat-fill good" style="width: 79%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delayed Tests Alert -->
+                <div class="tat-card" style="grid-column: 1 / -1;">
+                    <h3>Currently Delayed Tests</h3>
+                    <table class="tat-table">
+                        <thead>
+                            <tr>
+                                <th>Specimen ID</th>
+                                <th>Test Type</th>
+                                <th>Received Time</th>
+                                <th>Elapsed Time</th>
+                                <th>Target TAT</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="delayedTestsBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: #999;">No delayed tests at this time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TAT Trends -->
+                <div class="tat-card" style="grid-column: 1 / -1;">
+                    <h3>TAT Trends (Last 7 Days)</h3>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 4px; min-height: 200px;">
+                        <p style="text-align: center; color: #666;">
+                            Trend chart showing daily average TAT. Chart visualization coming soon.
+                        </p>
+                        <div style="display: flex; justify-content: space-around; margin-top: 30px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; font-weight: bold; color: #0066cc;">↓ 8%</div>
+                                <div style="font-size: 0.9em; color: #666;">vs Last Week</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; font-weight: bold; color: #28a745;">92%</div>
+                                <div style="font-size: 0.9em; color: #666;">Within Target</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; font-weight: bold; color: #0066cc;">1,247</div>
+                                <div style="font-size: 0.9em; color: #666;">Tests Today</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Kaiser Permanente Largo Laboratory. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Initialize TAT monitoring
+            document.addEventListener('DOMContentLoaded', function() {
+                loadTATData();
+                startAutoRefresh();
+                checkDelayedTests();
+            });
+
+            /**
+             * Load TAT data from localStorage or simulate
+             */
+            function loadTATData() {
+                // In production, this would fetch from backend API
+                const tatData = JSON.parse(localStorage.getItem('tat_data') || '{}');
+
+                // Update displays
+                updateMetrics(tatData);
+            }
+
+            /**
+             * Update TAT metrics
+             */
+            function updateMetrics(data) {
+                // Simulated real-time data
+                const overallTAT = data.overall || Math.floor(Math.random() * 20) + 40;
+                const statTAT = data.stat || Math.floor(Math.random() * 10) + 20;
+                const routineTAT = data.routine || Math.floor(Math.random() * 30) + 50;
+
+                document.getElementById('overall-tat').textContent = overallTAT;
+                document.getElementById('stat-tat').textContent = statTAT;
+                document.getElementById('routine-tat').textContent = routineTAT;
+
+                // Update colors based on performance
+                updateMetricColor('overall-tat', overallTAT, 60);
+                updateMetricColor('stat-tat', statTAT, 30);
+                updateMetricColor('routine-tat', routineTAT, 90);
+            }
+
+            /**
+             * Update metric color based on target
+             */
+            function updateMetricColor(elementId, value, target) {
+                const element = document.getElementById(elementId);
+                element.classList.remove('good', 'warning', 'critical');
+
+                if (value <= target * 0.8) {
+                    element.classList.add('good');
+                } else if (value <= target) {
+                    element.classList.add('warning');
+                } else {
+                    element.classList.add('critical');
+                }
+            }
+
+            /**
+             * Check for delayed tests
+             */
+            function checkDelayedTests() {
+                const delayedTests = JSON.parse(localStorage.getItem('delayed_tests') || '[]');
+                const tbody = document.getElementById('delayedTestsBody');
+
+                if (delayedTests.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #28a745;">✓ No delayed tests at this time</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = delayedTests.map(test => {
+                    const elapsedMinutes = Math.floor((Date.now() - new Date(test.receivedTime).getTime()) / 60000);
+                    const statusClass = elapsedMinutes > test.targetTAT * 1.5 ? 'critical-delay' :
+                                       elapsedMinutes > test.targetTAT ? 'delayed' : 'on-time';
+
+                    return `
+                        <tr>
+                            <td>${test.specimenId}</td>
+                            <td>${test.testType}</td>
+                            <td>${new Date(test.receivedTime).toLocaleTimeString()}</td>
+                            <td>${elapsedMinutes} min</td>
+                            <td>${test.targetTAT} min</td>
+                            <td><span class="status-badge ${statusClass}">${statusClass.replace('-', ' ').toUpperCase()}</span></td>
+                            <td><button class="btn" onclick="investigateDelay('${test.specimenId}')">Investigate</button></td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            /**
+             * Set timeframe filter
+             */
+            window.setTimeframe = function(timeframe) {
+                // Update active button
+                document.querySelectorAll('.btn-group .btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+
+                // Load data for timeframe
+                console.log('Loading TAT data for:', timeframe);
+                // In production, fetch filtered data from API
+            };
+
+            /**
+             * Export TAT data
+             */
+            window.exportTATData = function() {
+                const data = {
+                    exportDate: new Date().toISOString(),
+                    overallTAT: document.getElementById('overall-tat').textContent,
+                    statTAT: document.getElementById('stat-tat').textContent,
+                    routineTAT: document.getElementById('routine-tat').textContent
+                };
+
+                const csv = 'Metric,Value\n' +
+                           Object.entries(data).map(([key, value]) => `${key},${value}`).join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `tat-report-${Date.now()}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+
+                alert('TAT data exported successfully!');
+            };
+
+            /**
+             * Investigate delay
+             */
+            window.investigateDelay = function(specimenId) {
+                alert(`Opening investigation for specimen ${specimenId}.\n\nThis would show:\n- Complete specimen timeline\n- Processing bottlenecks\n- Staff assignments\n- Equipment status`);
+            };
+
+            /**
+             * Auto-refresh TAT data every 2 minutes
+             */
+            function startAutoRefresh() {
+                setInterval(function() {
+                    loadTATData();
+                    checkDelayedTests();
+                    console.log('TAT data refreshed at', new Date().toLocaleTimeString());
+                }, 120000); // 2 minutes
+            }
+
+        })();
+    </script>
+</body>
+</html>

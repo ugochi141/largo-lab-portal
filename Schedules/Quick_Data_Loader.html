@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Schedule Data Loader</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #0066cc; }
+        .section { margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        button { background: #0066cc; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; margin: 5px; font-weight: 600; }
+        button:hover { background: #004499; }
+        button.success { background: #28a745; }
+        button.danger { background: #dc3545; }
+        .result { margin: 15px 0; padding: 15px; border-radius: 4px; }
+        .result.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .result.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        input { padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Quick Schedule Data Loader</h1>
+        <p>This tool loads schedule data for 10/03/2025 directly into all schedulers.</p>
+
+        <div class="section">
+            <h2>Option 1: Load 10/03/2025 Data</h2>
+            <p>Click to load complete schedule for October 3, 2025:</p>
+            <button onclick="load10032025()" class="success">📅 Load 10/03/2025 Schedule</button>
+        </div>
+
+        <div class="section">
+            <h2>Option 2: Load Custom Date</h2>
+            <p>Enter a date to load sample data:</p>
+            <input type="date" id="customDate" value="2025-10-03">
+            <button onclick="loadCustomDate()">Load Custom Date</button>
+        </div>
+
+        <div class="section">
+            <h2>Actions</h2>
+            <button onclick="viewStorage()">👀 View Storage</button>
+            <button onclick="clearStorage()" class="danger">🗑️ Clear Storage</button>
+            <button onclick="testSchedulers()">🧪 Test Schedulers</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function load10032025() {
+            const date = '2025-10-03';
+            
+            // Data for Daily Schedule (phleb/lab object format)
+            const dailyData = {
+                phleb: [
+                    {name: 'Christina Bolden-Davis', nickname: 'Christina', role: 'Opener', shift: '5:00a - 2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:00a-11:30a | Break 2: 1:00p-1:15p', startTime: 5},
+                    {name: 'Youlana Miah', nickname: 'Youlana', role: 'Opener', shift: '5:00a - 2:30p', breaks: 'Break 1: 8:00a-8:15a | Lunch: 11:30a-12:00p | Break 2: 1:00p-1:15p', startTime: 5},
+                    {name: 'Stephanie Dodson', nickname: 'Stephanie', role: 'Draw Patients', shift: '7:00a - 3:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p', startTime: 7},
+                    {name: 'Lakeshia Battle', nickname: 'Lakeshia', role: 'Draw Patients', shift: '7:00a - 3:30p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:00p-2:15p', startTime: 7},
+                    {name: 'Farah Moise', nickname: 'Farah', role: 'Draw Patients', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 8},
+                    {name: 'Lisa Beasley', nickname: 'Lisa', role: 'Processor', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:30a-10:45a | Lunch: 1:00p-1:30p | Break 2: 3:15p-3:30p', startTime: 8},
+                    {name: 'Micaela Scarborough', nickname: 'Micaela', role: 'Runner', shift: '8:00a - 12:00p', breaks: 'Break: 10:00a-10:15a', startTime: 8},
+                    {name: 'Nichole Fauntleroy', nickname: 'Nichole', role: 'Closer', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:00p-4:15p | Lunch: 6:30p-7:00p | Break 2: 8:30p-8:45p', startTime: 14},
+                    {name: 'Danalisa Hayes', nickname: 'Danalisa', role: 'Processor', shift: '2:00p - 10:30p', breaks: 'Break 1: 4:15p-4:30p | Lunch: 6:30p-7:00p | Break 2: 8:15p-8:30p', startTime: 14},
+                    {name: 'Emmanuella Theodore', nickname: 'Emmanuella', role: 'Hot Seat', shift: '9:00a - 5:30p', breaks: 'Break 1: 11:00a-11:15a | Lunch: 1:30p-2:00p | Break 2: 4:00p-4:15p', startTime: 9}
+                ],
+                lab: [
+                    {name: 'Lorraine Blackwell', nickname: 'Lorraine', dept: 'MLA', assignment: 'MOB', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:00a-10:15a | Lunch: 12:30p-1:00p | Break 2: 2:00p-2:15p', startTime: 8},
+                    {name: 'Emily Creekmore', nickname: 'Emily', dept: 'MLT', assignment: 'AUC', shift: '7:30a - 4:00p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Ogheneochuko Eshofa', nickname: 'Ogheneochuko', dept: 'MLT', assignment: 'AUC Urines', shift: '3:30p - 12:00a', breaks: 'Break 1: 5:30p-5:45p | Lunch: 8:00p-8:30p | Break 2: 10:30p-10:45p', startTime: 15.5},
+                    {name: 'Emmanuel Lejano', nickname: 'Emmanuel', dept: 'MLT', assignment: 'Night AUC', shift: '9:30p - 6:00a', breaks: 'Break 1: 11:30p-11:45p | Lunch: 2:00a-2:30a | Break 2: 4:30a-4:45a', startTime: 21.5},
+                    {name: 'Francis Azih Ngene', nickname: 'Francis', dept: 'MLS', assignment: 'AUC Front', shift: '7:30a - 4:00p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid', dept: 'MLS', assignment: 'AUC Back', shift: '7:30a - 4:00p', breaks: 'Break 1: 9:30a-9:45a | Lunch: 12:00p-12:30p | Break 2: 2:30p-2:45p', startTime: 7.5},
+                    {name: 'George Etape', nickname: 'George', dept: 'MLS', assignment: 'Night Coverage', shift: '11:30p - 8:00a', breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a', startTime: 23.5},
+                    {name: 'Samuel Lawson', nickname: 'Samuel', dept: 'MLS', assignment: 'AUC Back', shift: '3:30p - 12:00a', breaks: 'Break 1: 6:00p-6:15p | Lunch: 8:30p-9:00p | Break 2: 10:30p-10:45p', startTime: 15.5},
+                    {name: 'Jacqueline Liburd', nickname: 'Jacqueline', dept: 'MLS', assignment: 'Night Coverage', shift: '11:30p - 8:00a', breaks: 'Break 1: 1:30a-1:45a | Lunch: 4:00a-4:30a | Break 2: 6:00a-6:15a', startTime: 23.5}
+                ]
+            };
+
+            // Data for Scheduler1/Scheduler (array format)
+            const arrayData = [
+                {name: 'Lorraine Blackwell', role: 'MLA', shifts: '8a-4:30p', breaks: [{start: 10, end: 10.25, type: 'break'}, {start: 12.5, end: 13, type: 'lunch'}], startTime: 8},
+                {name: 'Emily Creekmore', role: 'MLT', shifts: '7:30a-4p', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}], startTime: 7.5},
+                {name: 'Ogheneochuko Eshofa', role: 'MLT', shifts: '3:30p-12a', breaks: [{start: 17.5, end: 17.75, type: 'break'}, {start: 20, end: 20.5, type: 'lunch'}], startTime: 15.5},
+                {name: 'Emmanuel Lejano', role: 'MLT', shifts: '9:30p-6a', breaks: [{start: 23.5, end: 23.75, type: 'break'}, {start: 2, end: 2.5, type: 'lunch'}], startTime: 21.5},
+                {name: 'Francis Azih Ngene', role: 'MLS', shifts: '7:30a-4p', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}], startTime: 7.5},
+                {name: 'Ingrid Benitez-Ruiz', role: 'MLS', shifts: '7:30a-4p', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}], startTime: 7.5},
+                {name: 'George Etape', role: 'MLS', shifts: '11:30p-8a', breaks: [{start: 1.5, end: 1.75, type: 'break'}, {start: 4, end: 4.5, type: 'lunch'}], startTime: 23.5},
+                {name: 'Samuel Lawson', role: 'MLS', shifts: '3:30p-12a', breaks: [{start: 18, end: 18.25, type: 'break'}, {start: 20.5, end: 21, type: 'lunch'}], startTime: 15.5},
+                {name: 'Jacqueline Liburd', role: 'MLS', shifts: '11:30p-8a', breaks: [{start: 1.5, end: 1.75, type: 'break'}, {start: 4, end: 4.5, type: 'lunch'}], startTime: 23.5},
+                {name: 'Christina Bolden-Davis', role: 'PHLEB', shifts: '5a-2:30p', breaks: [{start: 8, end: 8.25, type: 'break'}, {start: 11, end: 11.5, type: 'lunch'}], startTime: 5},
+                {name: 'Youlana Miah', role: 'PHLEB', shifts: '5a-2:30p', breaks: [{start: 8, end: 8.25, type: 'break'}, {start: 11.5, end: 12, type: 'lunch'}], startTime: 5},
+                {name: 'Stephanie Dodson', role: 'PHLEB', shifts: '7a-3:30p', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}], startTime: 7},
+                {name: 'Lakeshia Battle', role: 'PHLEB', shifts: '7a-3:30p', breaks: [{start: 9.5, end: 9.75, type: 'break'}, {start: 12, end: 12.5, type: 'lunch'}], startTime: 7},
+                {name: 'Farah Moise', role: 'PHLEB', shifts: '8a-4:30p', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}], startTime: 8},
+                {name: 'Lisa Beasley', role: 'PHLEB', shifts: '8a-4:30p', breaks: [{start: 10.5, end: 10.75, type: 'break'}, {start: 13, end: 13.5, type: 'lunch'}], startTime: 8},
+                {name: 'Micaela Scarborough', role: 'PHLEB', shifts: '8a-12p', breaks: [{start: 10, end: 10.25, type: 'break'}], startTime: 8},
+                {name: 'Nichole Fauntleroy', role: 'PHLEB', shifts: '2-10:30p', breaks: [{start: 16, end: 16.25, type: 'break'}, {start: 18.5, end: 19, type: 'lunch'}], startTime: 14},
+                {name: 'Danalisa Hayes', role: 'PHLEB', shifts: '2-10:30p', breaks: [{start: 16.25, end: 16.5, type: 'break'}, {start: 18.5, end: 19, type: 'lunch'}], startTime: 14},
+                {name: 'Emmanuella Theodore', role: 'PHLEB', shifts: '9a-5:30p', breaks: [{start: 11, end: 11.25, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}], startTime: 9}
+            ];
+
+            try {
+                // Store for Daily Schedule
+                const dailyStorage = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+                dailyStorage[date] = dailyData;
+                localStorage.setItem('dailyScheduleData', JSON.stringify(dailyStorage));
+
+                // Store for Call Out Tracker
+                const callOutStorage = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+                callOutStorage[date] = arrayData;
+                localStorage.setItem('callOutScheduleData', JSON.stringify(callOutStorage));
+
+                // Store for Visual Scheduler
+                const visualStorage = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+                visualStorage[date] = arrayData;
+                localStorage.setItem('visualScheduleData', JSON.stringify(visualStorage));
+
+                showResult('success', `✅ Successfully loaded data for ${date}!\n\nData stored in:\n- dailyScheduleData\n- callOutScheduleData\n- visualScheduleData\n\nNow REFRESH your scheduler pages to see the data!`);
+            } catch (e) {
+                showResult('error', '❌ Error: ' + e.message);
+            }
+        }
+
+        function loadCustomDate() {
+            const dateInput = document.getElementById('customDate').value;
+            if (!dateInput) {
+                alert('Please select a date');
+                return;
+            }
+            // Use the same data but with custom date
+            // You could modify this to accept different staff
+            alert('Custom date loading - using 10/03 data with your selected date');
+            load10032025(); // For now, just loads same data
+        }
+
+        function viewStorage() {
+            let html = '<div class="result" style="background: #e3f2fd; color: #0c5460; border: 1px solid #bee5eb;">';
+            html += '<h3>📦 localStorage Contents:</h3>';
+            
+            const keys = ['dailyScheduleData', 'callOutScheduleData', 'visualScheduleData'];
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const dates = Object.keys(parsed);
+                        html += `<p><strong>${key}:</strong> ${dates.length} date(s) - ${dates.join(', ')}</p>`;
+                    } catch (e) {
+                        html += `<p><strong>${key}:</strong> Error parsing</p>`;
+                    }
+                } else {
+                    html += `<p><strong>${key}:</strong> No data</p>`;
+                }
+            });
+            html += '</div>';
+            document.getElementById('results').innerHTML = html;
+        }
+
+        function clearStorage() {
+            if (confirm('Clear all schedule data from localStorage?')) {
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                showResult('success', '✅ Storage cleared!');
+            }
+        }
+
+        function testSchedulers() {
+            const tests = [
+                { name: 'Daily Schedule', url: 'Daily Schedule.html' },
+                { name: 'Call Out Tracker', url: 'Scheduler1.html' },
+                { name: 'Visual Scheduler', url: 'Scheduler.html' }
+            ];
+
+            let html = '<div class="result" style="background: #fff3cd; border: 1px solid #ffc107;">';
+            html += '<h3>🧪 Test Instructions:</h3>';
+            html += '<ol>';
+            tests.forEach(test => {
+                html += `<li>Open <strong>${test.name}</strong> and press F5/Cmd+R to refresh</li>`;
+            });
+            html += '</ol>';
+            html += '<p>If data still doesn\'t appear, check browser console for errors (F12)</p>';
+            html += '</div>';
+            document.getElementById('results').innerHTML = html;
+        }
+
+        function showResult(type, message) {
+            const div = document.createElement('div');
+            div.className = 'result ' + type;
+            div.innerHTML = '<pre>' + message + '</pre>';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('results').appendChild(div);
+        }
+
+        // Auto-load on page load
+        window.onload = () => {
+            setTimeout(() => {
+                if (confirm('Load October 3, 2025 schedule data now?')) {
+                    load10032025();
+                }
+            }, 500);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ sop.procedure_title }} - Kaiser Permanente SOP System{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2 style="color: var(--kp-blue);">{{ sop.document_identifier }}: {{ sop.procedure_title }}</h2>
+    <div>
+        {% if current_user.has_permission('edit') or sop.author_id == current_user.id %}
+        <a href="{{ url_for('edit_sop', sop_id=sop.id) }}" class="btn btn-warning">✏️ Edit</a>
+        {% endif %}
+        <a href="{{ url_for('main_dashboard') }}" class="btn">🔙 Back to Dashboard</a>
+    </div>
+</div>
+
+<div class="card">
+    <div style="background: var(--kp-light-blue); padding: 1rem; border-radius: 4px; margin-bottom: 2rem;">
+        <h3>📋 Document Information</h3>
+        <p><strong>Document Code:</strong> {{ sop.document_identifier }}</p>
+        <p><strong>Department:</strong> {{ sop.laboratory_department }}</p>
+        <p><strong>Version:</strong> {{ sop.version_number }}</p>
+        <p><strong>Status:</strong> <span class="status-badge status-{{ sop.document_status }}">{{ sop.document_status.title() }}</span></p>
+        <p><strong>Author:</strong> {{ sop.document_author.full_name }}</p>
+        <p><strong>Last Updated:</strong> {{ sop.modification_timestamp | format_datetime }}</p>
+    </div>
+
+    {% for section_key, section_value in sections.items() %}
+    <div style="margin: 2rem 0;">
+        <h3 style="color: var(--kp-dark-blue); border-bottom: 2px solid var(--kp-blue); padding-bottom: 0.5rem;">
+            {{ section_key.replace('_', ' ').title() }}
+        </h3>
+        {% if section_value %}
+        <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+            {{ section_value | replace('
+', '<br>') | safe }}
+        </div>
+        {% else %}
+        <p style="color: #666; font-style: italic; margin-top: 1rem;">This section has not been completed yet.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

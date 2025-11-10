@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Full System Integration Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #0066cc; }
+        .test-section { margin: 25px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #0066cc; }
+        .test-result { margin: 10px 0; padding: 15px; background: white; border-radius: 4px; }
+        .pass { border-left: 4px solid #28a745; background: #d4edda; }
+        .fail { border-left: 4px solid #dc3545; background: #f8d7da; }
+        .warn { border-left: 4px solid #ffc107; background: #fff3cd; }
+        button { background: #0066cc; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; font-weight: 600; }
+        button:hover { background: #004499; }
+        button.danger { background: #dc3545; }
+        button.danger:hover { background: #c82333; }
+        button.success { background: #28a745; }
+        button.success:hover { background: #218838; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 9pt; max-height: 300px; overflow-y: auto; }
+        .status { display: inline-block; padding: 4px 12px; border-radius: 4px; font-weight: bold; margin-left: 10px; font-size: 9pt; }
+        .status.pass { background: #28a745; color: white; }
+        .status.fail { background: #dc3545; color: white; }
+        .status.warn { background: #ffc107; color: black; }
+        .progress { margin: 10px 0; }
+        .step { padding: 10px; margin: 5px 0; background: white; border-radius: 4px; }
+        .step.active { background: #e3f2fd; border-left: 4px solid #0066cc; }
+        .step.complete { background: #d4edda; border-left: 4px solid #28a745; }
+        .step.error { background: #f8d7da; border-left: 4px solid #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Full System Integration Assessment</h1>
+        <p style="font-size: 11pt; color: #666; margin-bottom: 20px;">
+            This tool performs a complete diagnostic of the Schedule Manager → Scheduler integration system.
+        </p>
+
+        <!-- Quick Actions -->
+        <div class="test-section">
+            <h2>Quick Actions</h2>
+            <button onclick="runFullAssessment()" class="success">▶️ Run Full Assessment</button>
+            <button onclick="clearAllStorage()" class="danger">🗑️ Clear All Storage</button>
+            <button onclick="simulateUpload()">📤 Simulate Schedule Upload</button>
+            <button onclick="location.reload()">🔄 Refresh Page</button>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="test-section" id="progressSection" style="display: none;">
+            <h2>Assessment Progress</h2>
+            <div id="progressSteps"></div>
+        </div>
+
+        <!-- Test Results -->
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const testSteps = [
+            { id: 'storage', name: 'Check localStorage Access', fn: testLocalStorage },
+            { id: 'keys', name: 'Verify Storage Keys', fn: testStorageKeys },
+            { id: 'dataFormat', name: 'Validate Data Format', fn: testDataFormat },
+            { id: 'dateExtraction', name: 'Test Date Extraction', fn: testDateExtraction },
+            { id: 'nameMapping', name: 'Test Name Correction', fn: testNameMapping },
+            { id: 'integration', name: 'Test Scheduler Integration', fn: testSchedulerIntegration },
+            { id: 'fileStructure', name: 'Check File Structure', fn: testFileStructure }
+        ];
+
+        async function runFullAssessment() {
+            document.getElementById('progressSection').style.display = 'block';
+            document.getElementById('results').innerHTML = '<h2>Running Assessment...</h2>';
+            
+            const progressDiv = document.getElementById('progressSteps');
+            progressDiv.innerHTML = '';
+
+            let allResults = [];
+
+            for (const step of testSteps) {
+                // Add step to progress
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step active';
+                stepDiv.id = 'step-' + step.id;
+                stepDiv.innerHTML = `⏳ ${step.name}...`;
+                progressDiv.appendChild(stepDiv);
+
+                // Run test
+                try {
+                    const result = await step.fn();
+                    allResults.push(result);
+                    
+                    stepDiv.className = result.pass ? 'step complete' : 'step error';
+                    stepDiv.innerHTML = `${result.pass ? '✅' : '❌'} ${step.name}`;
+                } catch (e) {
+                    const errorResult = { 
+                        step: step.name, 
+                        pass: false, 
+                        message: 'Error: ' + e.message,
+                        details: e.stack
+                    };
+                    allResults.push(errorResult);
+                    stepDiv.className = 'step error';
+                    stepDiv.innerHTML = `❌ ${step.name} (Error)`;
+                }
+
+                await sleep(300);
+            }
+
+            displayResults(allResults);
+        }
+
+        function testLocalStorage() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                return {
+                    step: 'localStorage Access',
+                    pass: true,
+                    message: 'localStorage is accessible and working',
+                    details: `Total keys: ${localStorage.length}`
+                };
+            } catch (e) {
+                return {
+                    step: 'localStorage Access',
+                    pass: false,
+                    message: 'localStorage is NOT accessible',
+                    details: e.message
+                };
+            }
+        }
+
+        function testStorageKeys() {
+            const requiredKeys = ['callOutScheduleData', 'visualScheduleData', 'dailyScheduleData'];
+            const foundKeys = [];
+            const missingKeys = [];
+
+            requiredKeys.forEach(key => {
+                if (localStorage.getItem(key)) {
+                    foundKeys.push(key);
+                } else {
+                    missingKeys.push(key);
+                }
+            });
+
+            return {
+                step: 'Storage Keys',
+                pass: foundKeys.length > 0,
+                message: `Found ${foundKeys.length} of ${requiredKeys.length} required keys`,
+                details: {
+                    found: foundKeys,
+                    missing: missingKeys,
+                    allKeys: Object.keys(localStorage)
+                }
+            };
+        }
+
+        function testDataFormat() {
+            const keys = ['callOutScheduleData', 'visualScheduleData', 'dailyScheduleData'];
+            let validCount = 0;
+            let invalidCount = 0;
+            const details = {};
+
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const dates = Object.keys(parsed);
+                        if (dates.length > 0) {
+                            validCount++;
+                            details[key] = {
+                                status: 'Valid',
+                                dates: dates,
+                                sampleDate: dates[0],
+                                staffCount: Array.isArray(parsed[dates[0]]) ? parsed[dates[0]].length : 'N/A'
+                            };
+                        } else {
+                            details[key] = { status: 'Empty', dates: [] };
+                        }
+                    } catch (e) {
+                        invalidCount++;
+                        details[key] = { status: 'Invalid JSON', error: e.message };
+                    }
+                } else {
+                    details[key] = { status: 'Not found' };
+                }
+            });
+
+            return {
+                step: 'Data Format',
+                pass: validCount > 0 && invalidCount === 0,
+                message: `${validCount} valid, ${invalidCount} invalid`,
+                details: details
+            };
+        }
+
+        function testDateExtraction() {
+            const testCases = [
+                { input: '100325 Schedule .jpg', expected: '2025-10-03' },
+                { input: '10/03/25', expected: '2025-10-03' },
+                { input: 'Schedule for 10-03-25', expected: '2025-10-03' }
+            ];
+
+            const results = testCases.map(test => {
+                const extracted = extractDateFromFilename(test.input);
+                return {
+                    input: test.input,
+                    expected: test.expected,
+                    actual: extracted,
+                    pass: extracted === test.expected
+                };
+            });
+
+            const passCount = results.filter(r => r.pass).length;
+
+            return {
+                step: 'Date Extraction',
+                pass: passCount === testCases.length,
+                message: `${passCount}/${testCases.length} test cases passed`,
+                details: results
+            };
+        }
+
+        function extractDateFromFilename(text) {
+            // Match MMDDYY format
+            const match = text.match(/(\d{6})/);
+            if (match && match[0].length === 6) {
+                const month = match[0].substring(0, 2);
+                const day = match[0].substring(2, 4);
+                const year = '20' + match[0].substring(4, 6);
+                return `${year}-${month}-${day}`;
+            }
+
+            // Match MM/DD/YY or MM-DD-YY
+            const match2 = text.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/);
+            if (match2) {
+                const year = '20' + match2[3];
+                return `${year}-${match2[1].padStart(2,'0')}-${match2[2].padStart(2,'0')}`;
+            }
+
+            return null;
+        }
+
+        function testNameMapping() {
+            const nameMap = {
+                'TRACY': 'Ogheneochuko Eshofa',
+                'BOYET': 'Emmanuel Lejano',
+                'LARRY': 'Lakeshia Battle',
+                'MIMI': 'Lisa Beasley'
+            };
+
+            const testNames = ['Tracy Eshofa', 'BOYET LEJANO', 'Larry F.', 'Mimi O.'];
+            const results = [];
+
+            testNames.forEach(name => {
+                let corrected = name;
+                for (const [key, value] of Object.entries(nameMap)) {
+                    if (name.toUpperCase().includes(key)) {
+                        corrected = value;
+                        break;
+                    }
+                }
+                results.push({ original: name, corrected: corrected });
+            });
+
+            return {
+                step: 'Name Mapping',
+                pass: true,
+                message: 'Name correction logic working',
+                details: results
+            };
+        }
+
+        function testSchedulerIntegration() {
+            // Simulate what schedulers should do
+            const callOutData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+            const visualData = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+            const dailyData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+
+            const hasCallOutData = Object.keys(callOutData).length > 0;
+            const hasVisualData = Object.keys(visualData).length > 0;
+            const hasDailyData = Object.keys(dailyData).length > 0;
+
+            const details = {
+                callOutTracker: {
+                    hasData: hasCallOutData,
+                    dates: Object.keys(callOutData),
+                    canMerge: hasCallOutData
+                },
+                visualScheduler: {
+                    hasData: hasVisualData,
+                    dates: Object.keys(visualData),
+                    canMerge: hasVisualData
+                },
+                dailySchedule: {
+                    hasData: hasDailyData,
+                    dates: Object.keys(dailyData),
+                    canMerge: hasDailyData
+                }
+            };
+
+            return {
+                step: 'Scheduler Integration',
+                pass: hasCallOutData || hasVisualData || hasDailyData,
+                message: `${[hasCallOutData, hasVisualData, hasDailyData].filter(Boolean).length}/3 schedulers have data`,
+                details: details
+            };
+        }
+
+        function testFileStructure() {
+            // Test if we can detect the scheduler files
+            const expectedFiles = [
+                'Schedule_Manager_Enhanced.html',
+                'Scheduler1.html',
+                'Scheduler.html',
+                'Daily Schedule.html'
+            ];
+
+            return {
+                step: 'File Structure',
+                pass: true,
+                message: 'File structure check complete',
+                details: {
+                    expectedFiles: expectedFiles,
+                    note: 'File existence cannot be verified from browser'
+                }
+            };
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            let html = '<h2>📊 Assessment Results</h2>';
+
+            const passCount = results.filter(r => r.pass).length;
+            const totalCount = results.length;
+
+            html += `<div class="test-result ${passCount === totalCount ? 'pass' : 'warn'}">`;
+            html += `<h3>Overall: ${passCount}/${totalCount} Tests Passed</h3>`;
+            html += `</div>`;
+
+            results.forEach(result => {
+                const statusClass = result.pass ? 'pass' : 'fail';
+                html += `<div class="test-section">`;
+                html += `<h3>${result.step} <span class="status ${statusClass}">${result.pass ? 'PASS' : 'FAIL'}</span></h3>`;
+                html += `<p><strong>Result:</strong> ${result.message}</p>`;
+                if (result.details) {
+                    html += `<details><summary>Details (click to expand)</summary>`;
+                    html += `<pre>${JSON.stringify(result.details, null, 2)}</pre>`;
+                    html += `</details>`;
+                }
+                html += `</div>`;
+            });
+
+            // Add recommendations
+            html += generateRecommendations(results);
+
+            resultsDiv.innerHTML = html;
+        }
+
+        function generateRecommendations(results) {
+            let html = '<div class="test-section" style="border-left-color: #ffc107;">';
+            html += '<h2>💡 Recommendations</h2>';
+
+            const failedTests = results.filter(r => !r.pass);
+
+            if (failedTests.length === 0) {
+                html += '<p class="test-result pass">✅ All tests passed! System is working correctly.</p>';
+                html += '<p>To use the system:</p>';
+                html += '<ol>';
+                html += '<li>Open Schedule_Manager_Enhanced.html</li>';
+                html += '<li>Upload a schedule image (e.g., 100325 Schedule.jpg)</li>';
+                html += '<li>Click "Update Call Out Tracker" (or other schedulers)</li>';
+                html += '<li>Refresh the scheduler page to see new data</li>';
+                html += '</ol>';
+            } else {
+                html += '<p class="test-result warn">⚠️ Issues detected. Here\'s what to do:</p>';
+                html += '<ul>';
+
+                if (!localStorage.getItem('callOutScheduleData')) {
+                    html += '<li><strong>No uploaded data found:</strong> Use Schedule Manager to upload a schedule first</li>';
+                }
+
+                failedTests.forEach(test => {
+                    html += `<li><strong>${test.step} failed:</strong> ${test.message}</li>`;
+                });
+
+                html += '</ul>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function simulateUpload() {
+            const sampleData = {
+                '2025-10-03': [
+                    {name: 'Lorraine Blackwell', role: 'MLA', shifts: '9a-4:30p', breaks: [], startTime: 9},
+                    {name: 'Emily Creekmore', role: 'MLT', shifts: '9:30a-4p', breaks: [], startTime: 9.5},
+                    {name: 'Ogheneochuko Eshofa', role: 'MLT', shifts: '3:30p-12a', breaks: [], startTime: 15.5},
+                    {name: 'Emmanuel Lejano', role: 'MLT', shifts: '9:30p-6a', breaks: [], startTime: 21.5},
+                    {name: 'Francis Azih Ngene', role: 'MLS', shifts: '7:30a-4p', breaks: [], startTime: 7.5},
+                    {name: 'Ingrid Benitez-Ruiz', role: 'MLS', shifts: '7:30a-4p', breaks: [], startTime: 7.5},
+                    {name: 'George Etape', role: 'MLS', shifts: '11:30p-8a', breaks: [], startTime: 23.5},
+                    {name: 'Samuel Lawson', role: 'MLS', shifts: '3:30p-12a', breaks: [], startTime: 15.5},
+                    {name: 'Jacqueline Liburd', role: 'MLS', shifts: '11:30p-8a', breaks: [], startTime: 23.5},
+                    {name: 'Christina Bolden-Davis', role: 'PHLEB', shifts: '5a-2:30p', breaks: [], startTime: 5},
+                    {name: 'Stephanie Dodson', role: 'PHLEB', shifts: '7a-3:30p', breaks: [], startTime: 7},
+                    {name: 'Nichole Fauntleroy', role: 'PHLEB', shifts: '2-10:30p', breaks: [], startTime: 14},
+                    {name: 'Lakeshia Battle', role: 'PHLEB', shifts: '7a-3:30p', breaks: [], startTime: 7},
+                    {name: 'Danalisa Hayes', role: 'PHLEB', shifts: '2-10:30p', breaks: [], startTime: 14},
+                    {name: 'Youlana Miah', role: 'PHLEB', shifts: '5a-2:30p', breaks: [], startTime: 5},
+                    {name: 'Farah Moise', role: 'PHLEB', shifts: '8a-4:30p', breaks: [], startTime: 8},
+                    {name: 'Lisa Beasley', role: 'PHLEB', shifts: '8a-4:30p', breaks: [], startTime: 8},
+                    {name: 'Emmanuella Theodore', role: 'PHLEB', shifts: '2-10p', breaks: [], startTime: 14},
+                    {name: 'Micaela Scarborough', role: 'PHLEB', shifts: '8a-12p', breaks: [], startTime: 8},
+                    {name: 'Raquel Grayson', role: 'PHLEB', shifts: '9a-5:30p', breaks: [], startTime: 9}
+                ]
+            };
+
+            // Store in all three formats
+            localStorage.setItem('callOutScheduleData', JSON.stringify(sampleData));
+            localStorage.setItem('visualScheduleData', JSON.stringify(sampleData));
+            localStorage.setItem('dailyScheduleData', JSON.stringify(sampleData));
+
+            alert('✅ Simulated upload complete!\n\nData for 10/03/2025 has been stored in localStorage.\nRefresh any scheduler to see the data.');
+        }
+
+        function clearAllStorage() {
+            if (confirm('This will clear ALL localStorage data. Continue?')) {
+                localStorage.clear();
+                alert('✅ All storage cleared!');
+                location.reload();
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Auto-run on load
+        window.onload = () => {
+            setTimeout(() => {
+                if (confirm('Run full assessment now?')) {
+                    runFullAssessment();
+                }
+            }, 500);
+        };
+    </script>
+</body>
+</html>

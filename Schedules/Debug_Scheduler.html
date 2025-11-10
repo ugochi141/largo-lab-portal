@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduler Debug Tool</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #4ec9b0; }
+        h2 { color: #dcdcaa; margin-top: 30px; }
+        pre { background: #252526; padding: 15px; border-radius: 5px; overflow-x: auto; border: 1px solid #3e3e42; }
+        button { background: #0e639c; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #1177bb; }
+        .error { color: #f48771; }
+        .success { color: #4ec9b0; }
+        .warning { color: #dcdcaa; }
+        .section { background: #252526; padding: 20px; margin: 20px 0; border-radius: 8px; border: 1px solid #3e3e42; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Scheduler Integration Debug Tool</h1>
+        
+        <div class="section">
+            <button onclick="runDiagnostic()">▶️ Run Full Diagnostic</button>
+            <button onclick="loadTestData()">📥 Load Test Data</button>
+            <button onclick="clearAll()">🗑️ Clear All</button>
+            <button onclick="location.reload()">🔄 Refresh</button>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const color = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : '';
+            output.innerHTML += `<div class="${color}">${message}</div>`;
+        }
+
+        function section(title) {
+            const output = document.getElementById('output');
+            output.innerHTML += `<h2>${title}</h2>`;
+        }
+
+        function code(data) {
+            const output = document.getElementById('output');
+            output.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        async function runDiagnostic() {
+            document.getElementById('output').innerHTML = '';
+            
+            section('📊 Step 1: Check localStorage Access');
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                log('✅ localStorage is accessible', 'success');
+            } catch (e) {
+                log('❌ localStorage NOT accessible: ' + e.message, 'error');
+                return;
+            }
+
+            section('📦 Step 2: Check Stored Data');
+            const keys = ['dailyScheduleData', 'callOutScheduleData', 'visualScheduleData'];
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const dates = Object.keys(parsed);
+                        log(`✅ ${key}: Found ${dates.length} date(s)`, 'success');
+                        log(`   Dates: ${dates.join(', ')}`, 'info');
+                        
+                        // Show first date's data structure
+                        if (dates.length > 0) {
+                            const firstDate = dates[0];
+                            const firstData = parsed[firstDate];
+                            log(`   Structure for ${firstDate}:`, 'info');
+                            
+                            if (Array.isArray(firstData)) {
+                                log(`   - Array with ${firstData.length} items`, 'info');
+                                if (firstData[0]) {
+                                    log(`   - Sample item keys: ${Object.keys(firstData[0]).join(', ')}`, 'info');
+                                }
+                            } else if (typeof firstData === 'object') {
+                                log(`   - Object with keys: ${Object.keys(firstData).join(', ')}`, 'info');
+                                if (firstData.phleb) log(`   - phleb array: ${firstData.phleb.length} items`, 'info');
+                                if (firstData.lab) log(`   - lab array: ${firstData.lab.length} items`, 'info');
+                            }
+                        }
+                    } catch (e) {
+                        log(`❌ ${key}: Invalid JSON - ${e.message}`, 'error');
+                    }
+                } else {
+                    log(`⚠️ ${key}: Not found`, 'warning');
+                }
+            });
+
+            section('🧪 Step 3: Test Daily Schedule Integration');
+            testDailySchedule();
+
+            section('🧪 Step 4: Test Scheduler1 Integration');
+            testScheduler1();
+
+            section('📋 Step 5: Raw Data View');
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    log(`\n${key}:`, 'warning');
+                    try {
+                        code(JSON.parse(data));
+                    } catch (e) {
+                        log(`Error parsing: ${e.message}`, 'error');
+                    }
+                }
+            });
+        }
+
+        function testDailySchedule() {
+            const data = localStorage.getItem('dailyScheduleData');
+            if (!data) {
+                log('❌ No dailyScheduleData found', 'error');
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(data);
+                const testDate = '2025-10-03';
+                
+                if (parsed[testDate]) {
+                    const dayData = parsed[testDate];
+                    log(`✅ Found data for ${testDate}`, 'success');
+                    
+                    // Check structure
+                    if (dayData.phleb && dayData.lab) {
+                        log(`✅ Correct structure: {phleb: [], lab: []}`, 'success');
+                        log(`   Phleb staff: ${dayData.phleb.length}`, 'info');
+                        log(`   Lab staff: ${dayData.lab.length}`, 'info');
+                        
+                        // Check required fields
+                        if (dayData.phleb[0]) {
+                            const phlebFields = Object.keys(dayData.phleb[0]);
+                            const required = ['name', 'nickname', 'role', 'shift', 'breaks', 'startTime'];
+                            const missing = required.filter(f => !phlebFields.includes(f));
+                            if (missing.length === 0) {
+                                log(`✅ All required phleb fields present`, 'success');
+                            } else {
+                                log(`⚠️ Missing phleb fields: ${missing.join(', ')}`, 'warning');
+                            }
+                        }
+                        
+                        if (dayData.lab[0]) {
+                            const labFields = Object.keys(dayData.lab[0]);
+                            const required = ['name', 'nickname', 'dept', 'assignment', 'shift', 'breaks', 'startTime'];
+                            const missing = required.filter(f => !labFields.includes(f));
+                            if (missing.length === 0) {
+                                log(`✅ All required lab fields present`, 'success');
+                            } else {
+                                log(`⚠️ Missing lab fields: ${missing.join(', ')}`, 'warning');
+                            }
+                        }
+                    } else {
+                        log(`❌ Incorrect structure - missing phleb/lab keys`, 'error');
+                        log(`   Found keys: ${Object.keys(dayData).join(', ')}`, 'error');
+                    }
+                } else {
+                    log(`⚠️ No data for ${testDate}`, 'warning');
+                    log(`   Available dates: ${Object.keys(parsed).join(', ')}`, 'info');
+                }
+            } catch (e) {
+                log(`❌ Error: ${e.message}`, 'error');
+            }
+        }
+
+        function testScheduler1() {
+            const data = localStorage.getItem('callOutScheduleData');
+            if (!data) {
+                log('❌ No callOutScheduleData found', 'error');
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(data);
+                const testDate = '2025-10-03';
+                
+                if (parsed[testDate]) {
+                    const dayData = parsed[testDate];
+                    log(`✅ Found data for ${testDate}`, 'success');
+                    
+                    // Check structure
+                    if (Array.isArray(dayData)) {
+                        log(`✅ Correct structure: Array`, 'success');
+                        log(`   Total staff: ${dayData.length}`, 'info');
+                        
+                        // Check required fields
+                        if (dayData[0]) {
+                            const fields = Object.keys(dayData[0]);
+                            const required = ['name', 'role', 'shifts', 'startTime'];
+                            const missing = required.filter(f => !fields.includes(f));
+                            if (missing.length === 0) {
+                                log(`✅ All required fields present`, 'success');
+                            } else {
+                                log(`⚠️ Missing fields: ${missing.join(', ')}`, 'warning');
+                            }
+                            
+                            log(`   Sample staff:`, 'info');
+                            log(`   - ${dayData[0].name} (${dayData[0].role})`, 'info');
+                        }
+                    } else {
+                        log(`❌ Incorrect structure - should be Array`, 'error');
+                        log(`   Found type: ${typeof dayData}`, 'error');
+                    }
+                } else {
+                    log(`⚠️ No data for ${testDate}`, 'warning');
+                    log(`   Available dates: ${Object.keys(parsed).join(', ')}`, 'info');
+                }
+            } catch (e) {
+                log(`❌ Error: ${e.message}`, 'error');
+            }
+        }
+
+        function loadTestData() {
+            const date = '2025-10-03';
+            
+            const dailyData = {
+                phleb: [
+                    {name: 'Test Phleb', nickname: 'Test', role: 'Draw Patients', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:00a-10:15a', startTime: 8}
+                ],
+                lab: [
+                    {name: 'Test Lab', nickname: 'Test', dept: 'MLS', assignment: 'AUC', shift: '8:00a - 4:30p', breaks: 'Break 1: 10:00a-10:15a', startTime: 8}
+                ]
+            };
+
+            const arrayData = [
+                {name: 'Test Staff', role: 'MLS', shifts: '8a-4:30p', breaks: [], startTime: 8}
+            ];
+
+            try {
+                localStorage.setItem('dailyScheduleData', JSON.stringify({[date]: dailyData}));
+                localStorage.setItem('callOutScheduleData', JSON.stringify({[date]: arrayData}));
+                localStorage.setItem('visualScheduleData', JSON.stringify({[date]: arrayData}));
+                
+                log('✅ Test data loaded successfully!', 'success');
+                log('Now refresh Daily Schedule.html and Scheduler1.html', 'info');
+                setTimeout(() => runDiagnostic(), 500);
+            } catch (e) {
+                log('❌ Error loading test data: ' + e.message, 'error');
+            }
+        }
+
+        function clearAll() {
+            if (confirm('Clear all localStorage?')) {
+                localStorage.clear();
+                log('✅ Cleared!', 'success');
+                setTimeout(() => location.reload(), 500);
+            }
+        }
+
+        // Auto-run on load
+        window.onload = () => {
+            setTimeout(() => runDiagnostic(), 500);
+        };
+    </script>
+</body>
+</html>

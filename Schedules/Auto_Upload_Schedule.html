@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Upload - 100325 Schedule</title>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 5px;
+        }
+        .btn:hover { background: #004499; }
+        .log {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #0066cc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Auto Upload Schedule</h1>
+            <p>Automated upload for 100325 Schedule.jpg</p>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">📁 Select Schedule Image</button>
+            <button class="btn" onclick="processSchedule()">⚡ Process & Upload</button>
+            <button class="btn" onclick="verifyStorage()">🔍 Verify Storage</button>
+            <button class="btn" onclick="clearStorage()">🗑️ Clear Storage</button>
+        </div>
+
+        <div id="log" class="log"></div>
+    </div>
+
+    <script>
+        let selectedFile = null;
+
+        // Staff roster and name mapping (same as Schedule Manager)
+        const staffNameMap = {
+            'TRACY': 'Ogheneochuko Eshofa',
+            'ESHOFA': 'Ogheneochuko Eshofa',
+            'BOYET': 'Emmanuel Lejano',
+            'LEJANO': 'Emmanuel Lejano',
+            'LARRY': 'Lakeshia Battle',
+            'FRAZIER': 'Lakeshia Battle',
+            'LONDON': 'Lakeshia Battle',
+            'MERRIMAN': 'Lakeshia Battle',
+            'SHANNON': 'Emmanuella Theodore',
+            'PILKINGTON': 'Emmanuella Theodore',
+            'JANALISA': 'Danalisa Hayes',
+            'RACHEL': 'Raquel Grayson',
+            'RAQUEL': 'Raquel Grayson'
+        };
+
+        const staffRoster = {
+            phlebotomy: [
+                {name: 'Christina Bolden-Davis', nickname: 'Christina'},
+                {name: 'Youlana Miah', nickname: 'Netta/Youlana'},
+                {name: 'Johnette Brooks', nickname: 'Johnette'},
+                {name: 'Lakeshia Battle', nickname: 'Lakeshia/Larry'},
+                {name: 'Farah Moise', nickname: 'Farah'},
+                {name: 'Anne Saint Phirin', nickname: 'Anne'},
+                {name: 'Micaela Scarborough', nickname: 'Micaela'},
+                {name: 'Raquel Grayson', nickname: 'Raquel/Rachel'},
+                {name: 'Danalisa Hayes', nickname: 'Danalisa/Janalisa'},
+                {name: 'Nichole Fauntleroy', nickname: 'Nichole'},
+                {name: 'Stephanie Dodson', nickname: 'Stephanie'},
+                {name: 'Emmanuella Theodore', nickname: 'Emmanuella/Shannon'},
+                {name: 'Taric White', nickname: 'Taric'}
+            ],
+            laboratory: [
+                {name: 'Francis Azih Ngene', nickname: 'Francis'},
+                {name: 'Ingrid Benitez-Ruiz', nickname: 'Ingrid'},
+                {name: 'Emily Creekmore', nickname: 'Emily'},
+                {name: 'Lorraine Blackwell', nickname: 'Lorraine'},
+                {name: 'Samuel Lawson', nickname: 'Samuel'},
+                {name: 'Ogheneochuko Eshofa', nickname: 'Ogheneochuko/Tracy'},
+                {name: 'Emmanuel Lejano', nickname: 'Emmanuel/Boyet'},
+                {name: 'George Etape', nickname: 'George'}
+            ]
+        };
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            selectedFile = e.target.files[0];
+            if (selectedFile) {
+                log(`📁 File selected: ${selectedFile.name} (${(selectedFile.size / 1024).toFixed(2)} KB)`, 'info');
+            }
+        });
+
+        function correctStaffName(name) {
+            if (!name) return name;
+            const upperName = name.toUpperCase();
+            for (const [key, value] of Object.entries(staffNameMap)) {
+                if (upperName.includes(key)) return value;
+            }
+            return name;
+        }
+
+        async function processSchedule() {
+            if (!selectedFile) {
+                log('❌ No file selected. Please select a schedule image first.', 'error');
+                return;
+            }
+
+            log('🚀 Starting OCR processing...', 'info');
+            log('⏳ This may take 30-60 seconds...', 'info');
+
+            try {
+                const imageDataURL = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(selectedFile);
+                });
+
+                log('✅ File loaded, starting OCR...', 'success');
+
+                const { data: { text } } = await Tesseract.recognize(
+                    imageDataURL,
+                    'eng',
+                    {
+                        logger: (m) => {
+                            if (m.status === 'recognizing text') {
+                                const progress = Math.round(m.progress * 100);
+                                if (progress % 20 === 0) {
+                                    log(`🔍 OCR Progress: ${progress}%`, 'info');
+                                }
+                            }
+                        }
+                    }
+                );
+
+                log(`✅ OCR Complete! Extracted ${text.length} characters`, 'success');
+
+                // Extract date from filename
+                const scheduleDate = extractDateFromFilename(selectedFile.name);
+                log(`📅 Detected date: ${scheduleDate}`, 'success');
+
+                // Parse the schedule data
+                const extractedData = parseScheduleData(text);
+
+                if (extractedData.phleb.length === 0 && extractedData.lab.length === 0) {
+                    log('⚠️ No staff data extracted. Trying alternative parsing...', 'info');
+                    // Could implement alternative parsing here
+                    return;
+                }
+
+                log(`👥 Extracted ${extractedData.phleb.length} phlebotomy staff`, 'success');
+                log(`🔬 Extracted ${extractedData.lab.length} lab staff`, 'success');
+
+                // Store in localStorage for all three schedulers
+                storeScheduleData(scheduleDate, extractedData);
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        function extractDateFromFilename(filename) {
+            // Extract from filename like "100325 Schedule.jpg"
+            const match = filename.match(/(\d{6})/);
+            if (match) {
+                const dateStr = match[1];
+                const month = dateStr.substring(0, 2);
+                const day = dateStr.substring(2, 4);
+                const year = '20' + dateStr.substring(4, 6);
+                return `${year}-${month}-${day}`;
+            }
+            return '2025-10-03'; // Default
+        }
+
+        function parseScheduleData(text) {
+            const extractedData = { phleb: [], lab: [] };
+
+            const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 5);
+
+            lines.forEach(line => {
+                // Look for time patterns
+                const timeMatch = line.match(/(\d{1,2}):?(\d{2})?\s*([ap]m?)\s*[-–]?\s*(\d{1,2}):?(\d{2})?\s*([ap]m?)/i);
+
+                if (timeMatch) {
+                    // Extract name (words before the time)
+                    const timeIndex = line.search(/\d{1,2}[:\s]*\d{0,2}\s*[ap]?m?/i);
+                    const beforeTime = timeIndex > 0 ? line.substring(0, timeIndex).trim() : '';
+
+                    if (beforeTime) {
+                        const nameWords = beforeTime.split(/\s+/).filter(word =>
+                            word.length > 1 && /^[A-Za-z]/.test(word)
+                        );
+
+                        if (nameWords.length >= 2) {
+                            let name = nameWords.slice(0, Math.min(3, nameWords.length)).join(' ');
+                            name = correctStaffName(name);
+
+                            const shift = timeMatch[0];
+                            let hours = parseInt(timeMatch[1]);
+                            const period = (timeMatch[3] || '').toLowerCase();
+                            if (period.includes('p') && hours !== 12) hours += 12;
+                            if (period.includes('a') && hours === 12) hours = 0;
+
+                            const staffData = {
+                                name: name,
+                                nickname: name.split(' ')[0],
+                                shift: shift,
+                                breaks: '',
+                                startTime: hours
+                            };
+
+                            // Categorize as phleb or lab
+                            if (line.toLowerCase().includes('phleb') || line.toLowerCase().includes('draw') || hours < 12) {
+                                staffData.role = 'Draw Patients';
+                                extractedData.phleb.push(staffData);
+                            } else {
+                                staffData.dept = 'MLS';
+                                staffData.assignment = 'Lab Assignment';
+                                extractedData.lab.push(staffData);
+                            }
+                        }
+                    }
+                }
+            });
+
+            return extractedData;
+        }
+
+        function storeScheduleData(date, extractedData) {
+            log('💾 Storing data in localStorage...', 'info');
+
+            // Format 1: Daily Schedule (object with phleb/lab)
+            const dailyData = JSON.parse(localStorage.getItem('dailyScheduleData') || '{}');
+            dailyData[date] = extractedData;
+            localStorage.setItem('dailyScheduleData', JSON.stringify(dailyData));
+            log('✅ Stored dailyScheduleData', 'success');
+
+            // Format 2: Call Out Tracker & Visual Scheduler (array)
+            const arrayData = [
+                ...extractedData.phleb.map(s => ({
+                    name: s.name,
+                    role: 'PHLEB',
+                    shifts: s.shift,
+                    breaks: [],
+                    startTime: s.startTime
+                })),
+                ...extractedData.lab.map(s => ({
+                    name: s.name,
+                    role: s.dept || 'MLS',
+                    shifts: s.shift,
+                    breaks: [],
+                    startTime: s.startTime
+                }))
+            ];
+
+            const callOutData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+            callOutData[date] = arrayData;
+            localStorage.setItem('callOutScheduleData', JSON.stringify(callOutData));
+            log('✅ Stored callOutScheduleData', 'success');
+
+            const visualData = JSON.parse(localStorage.getItem('visualScheduleData') || '{}');
+            visualData[date] = arrayData;
+            localStorage.setItem('visualScheduleData', JSON.stringify(visualData));
+            log('✅ Stored visualScheduleData', 'success');
+
+            log(`🎉 SUCCESS! All schedulers updated for ${date}`, 'success');
+            log('📋 Next: Open Daily Schedule.html, Scheduler1.html, or Scheduler.html and navigate to 10/03/2025', 'info');
+        }
+
+        function verifyStorage() {
+            log('🔍 Verifying localStorage...', 'info');
+
+            const keys = ['dailyScheduleData', 'callOutScheduleData', 'visualScheduleData'];
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    const dates = Object.keys(parsed);
+                    log(`✅ ${key}: ${dates.length} date(s) - ${dates.join(', ')}`, 'success');
+                    dates.forEach(date => {
+                        const entry = parsed[date];
+                        if (Array.isArray(entry)) {
+                            log(`   ${date}: ${entry.length} staff (array)`, 'info');
+                        } else if (entry.phleb && entry.lab) {
+                            log(`   ${date}: ${entry.phleb.length} phleb, ${entry.lab.length} lab (object)`, 'info');
+                        }
+                    });
+                } else {
+                    log(`❌ ${key}: Not found`, 'error');
+                }
+            });
+        }
+
+        function clearStorage() {
+            if (confirm('Clear all schedule data from localStorage?')) {
+                localStorage.removeItem('dailyScheduleData');
+                localStorage.removeItem('callOutScheduleData');
+                localStorage.removeItem('visualScheduleData');
+                log('🗑️ All schedule data cleared', 'info');
+            }
+        }
+
+        // Auto-select the file if it's in Downloads
+        log('📝 Auto Upload Tool Ready', 'success');
+        log('👉 Click "Select Schedule Image" to choose 100325 Schedule.jpg', 'info');
+    </script>
+</body>
+</html>

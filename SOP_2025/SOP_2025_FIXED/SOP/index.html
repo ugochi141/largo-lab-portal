@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaiser Permanente Laboratory SOP Management System</title>
+    <link rel="stylesheet" href="css/sop-styles.css">
+</head>
+<body>
+    <div class="kp-header">
+        <div class="kp-logo">
+            <h1>🏥 Kaiser Permanente Largo Laboratory</h1>
+            <h2>Standard Operating Procedure Management System</h2>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <!-- Quick Actions Panel -->
+        <div class="quick-actions">
+            <h3>📋 Quick Actions</h3>
+            <div class="action-buttons">
+                <button onclick="window.open('templates/kp-sop-production-ready.html')" class="btn-primary" style="background: #0066cc;">
+                    📝 Production Ready Create SOP
+                </button>
+                <button onclick="window.open('sop-editor.html')" class="btn-secondary">
+                    ⚡ Quick Create SOP
+                </button>
+                <button onclick="showComplianceCheck()" class="btn-warning">
+                    ✅ Compliance Check
+                </button>
+                <button onclick="showSOPList()" class="btn-info">
+                    📊 View All SOPs
+                </button>
+                <button onclick="importDocument()" class="btn-primary" style="background: #6f42c1;">
+                    📥 Import from PDF/HTML
+                </button>
+            </div>
+        </div>
+
+        <!-- SOP Categories -->
+        <div class="sop-categories">
+            <h3>🔬 Laboratory Departments</h3>
+            <div class="category-grid">
+                <div class="category-card hematology" onclick="openCategory('HEME')">
+                    <span class="icon">🩸</span>
+                    <h4>Hematology</h4>
+                    <p>Sysmex XN, Mini iSED, Malaria</p>
+                    <span class="count">15 SOPs</span>
+                </div>
+
+                <div class="category-card chemistry" onclick="openCategory('CHEMISTRY')">
+                    <span class="icon">⚗️</span>
+                    <h4>Chemistry</h4>
+                    <p>HCG, FFN, TRICH, BV</p>
+                    <span class="count">22 SOPs</span>
+                </div>
+
+                <div class="category-card coagulation" onclick="openCategory('COAG')">
+                    <span class="icon">🧪</span>
+                    <h4>Coagulation</h4>
+                    <p>Stago Compact Max</p>
+                    <span class="count">8 SOPs</span>
+                </div>
+
+                <div class="category-card urinalysis" onclick="openCategory('URINALYSIS')">
+                    <span class="icon">🥛</span>
+                    <h4>Urinalysis</h4>
+                    <p>SQA, Routine Analysis</p>
+                    <span class="count">6 SOPs</span>
+                </div>
+
+                <div class="category-card microbiology" onclick="openCategory('MICRO')">
+                    <span class="icon">🦠</span>
+                    <h4>Microbiology</h4>
+                    <p>Liat, Previ, GeneXpert</p>
+                    <span class="count">12 SOPs</span>
+                </div>
+
+                <div class="category-card poct" onclick="openCategory('POCT')">
+                    <span class="icon">📱</span>
+                    <h4>Point of Care</h4>
+                    <p>iSTAT, Rapid Strep, HIV</p>
+                    <span class="count">9 SOPs</span>
+                </div>
+
+                <div class="category-card phlebotomy" onclick="openCategory('PHLEBOTOMY')">
+                    <span class="icon">💉</span>
+                    <h4>Phlebotomy</h4>
+                    <p>Collection, Processing</p>
+                    <span class="count">5 SOPs</span>
+                </div>
+
+                <div class="category-card safety" onclick="openCategory('SAFETY')">
+                    <span class="icon">🛡️</span>
+                    <h4>Safety & Quality</h4>
+                    <p>Downtime, Lead Tech Roles</p>
+                    <span class="count">7 SOPs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Updates -->
+        <div class="recent-updates">
+            <h3>📅 Recent Updates & Status</h3>
+            <table class="sop-table">
+                <thead>
+                    <tr>
+                        <th>Document Code</th>
+                        <th>Title</th>
+                        <th>Department</th>
+                        <th>Last Updated</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Enhanced SOPs Created January 2025 -->
+                    <tr>
+                        <td>KP.LAB.HEME.ESR</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Mini_iSED_ESR_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Mini iSED ESR Testing Procedure</a></td>
+                        <td>Hematology</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Mini_iSED_ESR_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.PHLEB.001</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Phlebotomy_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Phlebotomy Standard Operating Procedure</a></td>
+                        <td>Phlebotomy</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Phlebotomy_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.SPEC.001</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Specimen_Processing_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Specimen Processing Standard Operating Procedure</a></td>
+                        <td>Processing</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Specimen_Processing_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.POCT.iSTAT</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/iSTAT_SOP_FINAL_Kaiser_Integrated.html" target="_blank">iSTAT Point-of-Care Testing Procedure</a></td>
+                        <td>POCT</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/iSTAT_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.CHEM.TRICH</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/OSOM_TRICH_SOP_FINAL_Kaiser_Integrated.html" target="_blank">OSOM Trichomonas Testing Procedure</a></td>
+                        <td>Chemistry</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/OSOM_TRICH_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.POCT.STREP</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Rapid_Strep_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Rapid Strep Testing Procedure</a></td>
+                        <td>POCT</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Rapid_Strep_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.POCT.HIV</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Rapid_HIV_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Rapid HIV Testing Procedure</a></td>
+                        <td>POCT</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Rapid_HIV_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.CHEM.BV</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/OSOM_BV_SOP_FINAL_Kaiser_Integrated.html" target="_blank">OSOM BV Blue Test Procedure</a></td>
+                        <td>Chemistry</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/OSOM_BV_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.URIN.SQA</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/SQA_Semen_Analysis_SOP_FINAL_Kaiser_Integrated.html" target="_blank">SQA Semen Analysis Procedure</a></td>
+                        <td>Urinalysis</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/SQA_Semen_Analysis_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.ADMIN.DOWN</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Laboratory_Downtime_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Laboratory Downtime Procedures</a></td>
+                        <td>Administration</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Laboratory_Downtime_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.FLUID.CSF</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/CSF_Analysis_SOP_FINAL_Kaiser_Integrated.html" target="_blank">CSF Analysis Procedure</a></td>
+                        <td>Chemistry</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/CSF_Analysis_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.CHEM.FFN</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/FFN_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Fetal Fibronectin Testing Procedure</a></td>
+                        <td>Chemistry</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/FFN_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.CHEM.HCG</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/HCG_SOP_FINAL_Kaiser_Integrated.html" target="_blank">HCG Testing Procedure</a></td>
+                        <td>Chemistry</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/HCG_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.TOX.MEDTOX</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Medtox_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Medtox Drug Testing Procedure</a></td>
+                        <td>Toxicology</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Medtox_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.SAFE.001</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Laboratory_Safety_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Laboratory Safety Standard Operating Procedure</a></td>
+                        <td>Safety</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Laboratory_Safety_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+                    <tr>
+                        <td>KP.LAB.ADMIN.LEAD</td>
+                        <td><a href="../../Largo Lab SOP 2025 Enhanced/Lead_Tech_Roles_SOP_FINAL_Kaiser_Integrated.html" target="_blank">Lead Technologist Roles and Responsibilities</a></td>
+                        <td>Administration</td>
+                        <td>2025-01-24</td>
+                        <td><span class="status-active">✅ Active</span></td>
+                        <td><button onclick="window.open('../../Largo Lab SOP 2025 Enhanced/Lead_Tech_Roles_SOP_FINAL_Kaiser_Integrated.html')" class="btn-edit">👁️</button></td>
+                    </tr>
+
+                    <!-- Original SOPs -->
+                    <tr>
+                        <td>MAS.LAB.COAG.001</td>
+                        <td>Stago Compact Max Procedure</td>
+                        <td>Coagulation</td>
+                        <td>2024-12-20</td>
+                        <td><span class="status-review">⏳ Legacy</span></td>
+                        <td><button onclick="editSOP('coag-001')" class="btn-edit">✏️</button></td>
+                    </tr>
+                    <tr>
+                        <td>MAS.LAB.HEME.001</td>
+                        <td>Sysmex XN-1000/2000 Procedure</td>
+                        <td>Hematology</td>
+                        <td>2024-12-18</td>
+                        <td><span class="status-review">⏳ Legacy</span></td>
+                        <td><button onclick="editSOP('heme-001')" class="btn-edit">✏️</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Competency Alerts -->
+        <div class="competency-alerts">
+            <h3>📋 Competency & Compliance Alerts</h3>
+            <div class="alert-grid">
+                <div class="alert-box warning">
+                    <h4>⚠️ Competency Documents Required</h4>
+                    <p>All personnel must complete:</p>
+                    <ul>
+                        <li><strong>Document 14952_0:</strong> Medical Laboratory Assistant - MOB</li>
+                        <li><strong>Document 13792_0:</strong> MT and MLT - MOB</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box info">
+                    <h4>📊 QC Reminders</h4>
+                    <p>Critical QC Rule: <strong>NEVER</strong> report patient results if QC is not acceptable.</p>
+                    <button onclick="showQCProcedure()" class="btn-small">View QC Procedure</button>
+                </div>
+
+                <div class="alert-box success">
+                    <h4>✅ Kaiser Permanente Standards</h4>
+                    <p>All SOPs follow MAS.LAB document standards with Technical Quality Specialist oversight.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="kp-footer">
+        <p>Kaiser Permanente Largo Laboratory | Document Control System | Technical Quality Specialist: [Name]</p>
+        <p>For technical support: Contact Laboratory Manager | Emergency: On-Call Director</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';</script>
+    <script src="js/document-uploader.js"></script>
+    <script src="js/sop-import-handler.js"></script>
+    <script src="js/sop-manager.js"></script>
+</body>
+</html>

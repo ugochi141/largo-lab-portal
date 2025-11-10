@@ -1,0 +1,41 @@
+{
+  "email_settings": {
+    "smtp_server": "smtp.kaiser.org",
+    "smtp_port": 587,
+    "use_tls": true,
+    "sender_email": "lab.inventory@kaiser.org",
+    "sender_name": "Largo Lab Inventory System",
+    "sender_password": ""
+  },
+  "recipients": {
+    "supply_coordinator": {
+      "name": "Nathaniel Burmeister",
+      "email": "nathaniel.burmeister@kaiser.org"
+    },
+    "cc_recipients": [
+      {
+        "name": "Lorraine",
+        "email": "lorraine@kaiser.org"
+      },
+      {
+        "name": "Ingrid Benitez-Ruiz",
+        "email": "ingrid.benitez-ruiz@kaiser.org"
+      }
+    ],
+    "urgent_recipients": [
+      {
+        "name": "John F Ekpe",
+        "email": "john.ekpe@kaiser.org"
+      },
+      {
+        "name": "Maxwell Booker",
+        "email": "maxwell.booker@kaiser.org"
+      }
+    ]
+  },
+  "schedule": {
+    "daily_check_time": "07:00",
+    "weekly_summary_day": "Monday",
+    "auto_send": false
+  }
+}

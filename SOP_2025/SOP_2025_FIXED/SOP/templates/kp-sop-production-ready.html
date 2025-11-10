@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+    <title>Kaiser Permanente Largo Laboratory - SOP Editor</title>
+    <style>
+        /* Kaiser Permanente Laboratory SOP Template - PRODUCTION READY */
+        *{margin:0;padding:0;box-sizing:border-box}
+
+        @page{size:8.5in 11in;margin:0.75in}
+
+        html{font-size:10pt;width:100%;overflow-x:hidden}
+
+        body{
+            font-family:Arial,sans-serif;
+            font-size:10pt;
+            line-height:1.5;
+            color:#333;
+            max-width:1200px;
+            margin:0 auto;
+            padding:20px;
+            background:#f0f0f0;
+        }
+
+        .container{
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header{
+            text-align:center;
+            border-bottom:3px solid #0066cc;
+            padding-bottom:15px;
+            margin-bottom:25px;
+        }
+
+        .header h1{
+            color:#0066cc;
+            font-size:22pt;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        .header h2{
+            color:#666;
+            font-size:14pt;
+            margin:0;
+            font-weight:normal;
+        }
+
+        /* Editable Title */
+        .editable-title{
+            background:#fffbf0;
+            border:2px dashed #0066cc;
+            padding:5px 10px;
+            border-radius:5px;
+            outline:none;
+            display:inline-block;
+            min-width:300px;
+            cursor:text;
+        }
+
+        .editable-title:focus{
+            background:#e3f2fd;
+            border-color:#0052a3;
+            border-style:solid;
+        }
+
+        /* Toolbar - Fixed at top */
+        .toolbar{
+            position:sticky;
+            top:0;
+            background:linear-gradient(to bottom, #fff, #f8f9fa);
+            padding:15px;
+            border-bottom:2px solid #0066cc;
+            margin:-30px -30px 25px -30px;
+            z-index:1000;
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .toolbar-buttons{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+
+        .toolbar-btn{
+            padding:10px 20px;
+            background:white;
+            border:1px solid #0066cc;
+            border-radius:5px;
+            cursor:pointer;
+            transition:all 0.3s;
+            font-weight:500;
+        }
+
+        .toolbar-btn:hover{
+            background:#0066cc;
+            color:white;
+            transform:translateY(-2px);
+            box-shadow:0 2px 5px rgba(0,102,204,0.3);
+        }
+
+        /* Table of Contents */
+        .toc{
+            background:linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            padding:20px;
+            border-left:4px solid #0066cc;
+            margin-bottom:30px;
+            border-radius:8px;
+            page-break-after:always;
+        }
+
+        .toc h3{
+            color:#0066cc;
+            font-size:14pt;
+            margin-bottom:15px;
+            border-bottom:2px solid #0066cc;
+            padding-bottom:5px;
+        }
+
+        .toc-columns{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:30px;
+        }
+
+        .toc ul{
+            list-style:none;
+            padding:0;
+        }
+
+        .toc li{
+            margin:8px 0;
+            padding-left:20px;
+            position:relative;
+        }
+
+        .toc li:before{
+            content:"▸";
+            position:absolute;
+            left:5px;
+            color:#0066cc;
+        }
+
+        .toc a{
+            color:#0066cc;
+            text-decoration:none;
+            font-weight:500;
+            transition:all 0.3s;
+        }
+
+        .toc a:hover{
+            color:#0052a3;
+            text-decoration:underline;
+        }
+
+        /* Sections */
+        .section{
+            margin:30px 0;
+            padding:25px;
+            background:#fafafa;
+            border-radius:8px;
+            border-left:4px solid #0066cc;
+            page-break-inside:avoid;
+            position:relative;
+        }
+
+        .section:hover{
+            background:#f5f5f5;
+            box-shadow:0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Section Controls */
+        .section-controls{
+            position:absolute;
+            top:10px;
+            right:10px;
+            display:flex;
+            gap:5px;
+        }
+
+        .section-btn{
+            padding:6px 12px;
+            background:#0066cc;
+            color:white;
+            border:none;
+            border-radius:4px;
+            cursor:pointer;
+            font-size:11pt;
+            transition:all 0.3s;
+        }
+
+        .section-btn:hover{
+            background:#0052a3;
+            transform:scale(1.05);
+        }
+
+        .delete-btn{
+            background:#dc3545;
+        }
+
+        .delete-btn:hover{
+            background:#c82333;
+        }
+
+        .upload-btn{
+            background:#28a745;
+        }
+
+        .upload-btn:hover{
+            background:#218838;
+        }
+
+        /* Section Headings */
+        h2{
+            color:#0066cc;
+            font-size:16pt;
+            margin-bottom:15px;
+            border-bottom:2px solid #0066cc;
+            padding-bottom:8px;
+        }
+
+        h3{
+            color:#004499;
+            font-size:13pt;
+            margin:20px 0 12px 0;
+        }
+
+        /* Content Areas */
+        .section-content{
+            min-height:120px;
+            padding:15px;
+            background:white;
+            border:1px dashed #ccc;
+            border-radius:5px;
+            margin:15px 0;
+            outline:none;
+        }
+
+        .section-content:focus{
+            border-color:#0066cc;
+            border-style:solid;
+            box-shadow:0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        /* Upload Area */
+        .upload-zone{
+            border:3px dashed #0066cc;
+            border-radius:10px;
+            padding:30px;
+            text-align:center;
+            margin:20px 0;
+            background:linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            cursor:pointer;
+            transition:all 0.3s;
+            position:relative;
+        }
+
+        .upload-zone:hover{
+            background:linear-gradient(135deg, #e6f3ff 0%, #d1e9ff 100%);
+            border-color:#0052a3;
+            transform:scale(1.02);
+        }
+
+        .upload-zone.dragover{
+            background:#c5e1ff;
+            border-color:#0052a3;
+            border-style:solid;
+        }
+
+        .upload-zone input[type="file"]{
+            position:absolute;
+            opacity:0;
+            width:100%;
+            height:100%;
+            cursor:pointer;
+        }
+
+        .upload-icon{
+            font-size:48pt;
+            margin-bottom:10px;
+        }
+
+        .upload-text{
+            font-size:14pt;
+            color:#0066cc;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .upload-subtext{
+            font-size:10pt;
+            color:#666;
+        }
+
+        .choose-files-btn{
+            padding:10px 30px;
+            background:#0066cc;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            margin-top:15px;
+            font-size:12pt;
+            font-weight:bold;
+        }
+
+        .choose-files-btn:hover{
+            background:#0052a3;
+        }
+
+        /* Uploaded Files Display */
+        .uploaded-files{
+            margin:20px 0;
+        }
+
+        .file-item{
+            display:flex;
+            align-items:center;
+            padding:12px;
+            background:white;
+            border:1px solid #ddd;
+            border-radius:6px;
+            margin:10px 0;
+            transition:all 0.3s;
+        }
+
+        .file-item:hover{
+            box-shadow:0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .file-icon{
+            font-size:24pt;
+            margin-right:15px;
+        }
+
+        .file-info{
+            flex:1;
+        }
+
+        .file-name{
+            font-weight:bold;
+            color:#333;
+            font-size:11pt;
+        }
+
+        .file-size{
+            color:#666;
+            font-size:9pt;
+        }
+
+        .file-actions{
+            display:flex;
+            gap:5px;
+        }
+
+        .file-btn{
+            padding:5px 10px;
+            border:none;
+            border-radius:4px;
+            cursor:pointer;
+            font-size:9pt;
+        }
+
+        .extract-btn{
+            background:#17a2b8;
+            color:white;
+        }
+
+        .extract-btn:hover{
+            background:#138496;
+        }
+
+        .remove-btn{
+            background:#dc3545;
+            color:white;
+        }
+
+        .remove-btn:hover{
+            background:#c82333;
+        }
+
+        /* Embedded Images */
+        .embedded-image{
+            max-width:100%;
+            height:auto;
+            margin:15px 0;
+            border-radius:6px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Special Content Boxes */
+        .warning-box{
+            background:#fff3cd;
+            border-left:4px solid #ffc107;
+            padding:15px;
+            margin:15px 0;
+            border-radius:5px;
+        }
+
+        .info-box{
+            background:#d1ecf1;
+            border-left:4px solid #17a2b8;
+            padding:15px;
+            margin:15px 0;
+            border-radius:5px;
+        }
+
+        .critical-box{
+            background:#f8d7da;
+            border-left:4px solid #dc3545;
+            padding:15px;
+            margin:15px 0;
+            border-radius:5px;
+        }
+
+        .success-box{
+            background:#d4edda;
+            border-left:4px solid #28a745;
+            padding:15px;
+            margin:15px 0;
+            border-radius:5px;
+        }
+
+        /* Tables */
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin:20px 0;
+            background:white;
+            box-shadow:0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        thead{
+            background:linear-gradient(135deg,#e8f4f8 0%,#d1e7f3 100%);
+        }
+
+        th{
+            padding:12px;
+            text-align:left;
+            font-weight:bold;
+            border-bottom:2px solid #0066cc;
+        }
+
+        td{
+            padding:10px;
+            border-bottom:1px solid #e0e0e0;
+        }
+
+        tr:hover{
+            background:#f8f9fa;
+        }
+
+        /* Subsections */
+        .subsection{
+            margin:20px 0 20px 30px;
+            padding:15px;
+            background:white;
+            border-left:3px solid #17a2b8;
+            border-radius:5px;
+        }
+
+        .subsection h3{
+            color:#17a2b8;
+            margin-bottom:10px;
+        }
+
+        /* Status Messages */
+        .status-message{
+            position:fixed;
+            top:80px;
+            right:20px;
+            padding:15px 25px;
+            border-radius:5px;
+            color:white;
+            font-weight:bold;
+            z-index:10000;
+            animation:slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn{
+            from{
+                transform:translateX(100%);
+                opacity:0;
+            }
+            to{
+                transform:translateX(0);
+                opacity:1;
+            }
+        }
+
+        .status-success{
+            background:#28a745;
+        }
+
+        .status-error{
+            background:#dc3545;
+        }
+
+        .status-info{
+            background:#17a2b8;
+        }
+
+        /* Print Styles */
+        @media print{
+            body{
+                background:white;
+                padding:0;
+                margin:0;
+            }
+
+            .toolbar{
+                display:none;
+            }
+
+            .section-controls{
+                display:none;
+            }
+
+            .upload-zone{
+                display:none;
+            }
+
+            .file-actions{
+                display:none;
+            }
+
+            .section-content{
+                border:none;
+                padding:0;
+            }
+
+            .editable-title{
+                border:none;
+                background:none;
+            }
+
+            .toc{
+                page-break-after:always;
+            }
+
+            .section{
+                page-break-inside:avoid;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width:768px){
+            .toc-columns{
+                grid-template-columns:1fr;
+            }
+
+            .toolbar-buttons{
+                flex-direction:column;
+            }
+
+            .toolbar-btn{
+                width:100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Import Document Section -->
+        <div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:white;padding:20px;margin:-30px -30px 20px -30px;border-radius:10px 10px 0 0;text-align:center;">
+            <h2 style="margin:0 0 15px 0;color:white;border:none;">📤 Import Full Document</h2>
+            <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+                <div style="flex:1;min-width:250px;">
+                    <button onclick="document.getElementById('importPDFInput').click()"
+                            style="width:100%;padding:20px;background:#ff6b6b;color:white;border:none;border-radius:10px;cursor:pointer;font-size:16pt;font-weight:bold;transition:all 0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.2);"
+                            onmouseover="this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.transform='scale(1)'">
+                        📕 Import Entire PDF Document
+                        <div style="font-size:10pt;margin-top:5px;font-weight:normal;">Click to replace all content with PDF</div>
+                    </button>
+                    <input type="file" id="importPDFInput" accept=".pdf" style="display:none;" onchange="importFullPDF(this.files[0])">
+                </div>
+
+                <div style="flex:1;min-width:250px;">
+                    <button onclick="document.getElementById('importHTMLInput').click()"
+                            style="width:100%;padding:20px;background:#4ecdc4;color:white;border:none;border-radius:10px;cursor:pointer;font-size:16pt;font-weight:bold;transition:all 0.3s;box-shadow:0 4px 15px rgba(0,0,0,0.2);"
+                            onmouseover="this.style.transform='scale(1.05)'"
+                            onmouseout="this.style.transform='scale(1)'">
+                        🌐 Import Entire HTML Document
+                        <div style="font-size:10pt;margin-top:5px;font-weight:normal;">Click to replace all content with HTML</div>
+                    </button>
+                    <input type="file" id="importHTMLInput" accept=".html,.htm" style="display:none;" onchange="importFullHTML(this.files[0])">
+                </div>
+            </div>
+            <p style="margin:15px 0 0 0;font-size:11pt;opacity:0.9;">
+                These buttons will import an entire document and automatically create sections based on the content structure
+            </p>
+        </div>
+
+        <!-- Full Document Drop Zone -->
+        <div id="fullDocumentDropZone"
+             style="border:3px dashed white;background:rgba(255,255,255,0.1);margin:10px 30px 20px 30px;padding:30px;border-radius:10px;text-align:center;transition:all 0.3s;"
+             ondrop="handleFullDocumentDrop(event)"
+             ondragover="handleFullDocumentDragOver(event)"
+             ondragleave="handleFullDocumentDragLeave(event)">
+            <div style="color:white;font-size:14pt;">
+                <div style="font-size:48pt;margin-bottom:10px;">📥</div>
+                <strong>Or Drag & Drop Your PDF/HTML File Here</strong>
+                <div style="font-size:11pt;margin-top:10px;opacity:0.8;">
+                    Drop a complete SOP document to import all content at once
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-buttons">
+                <button class="toolbar-btn" onclick="addSection()">➕ Add Section</button>
+                <button class="toolbar-btn" onclick="saveDocument()">💾 Save</button>
+                <button class="toolbar-btn" onclick="exportHTML()">📄 Export HTML</button>
+                <button class="toolbar-btn" onclick="exportPDF()">🖨️ Export PDF</button>
+                <button class="toolbar-btn" onclick="validateSOP()">✅ Validate</button>
+                <button class="toolbar-btn" onclick="autoNumber()">🔢 Auto-Number</button>
+                <button class="toolbar-btn" onclick="insertTable()">📊 Insert Table</button>
+                <button class="toolbar-btn" onclick="loadTemplate()">📋 Load Template</button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <h2>
+                <span contenteditable="true" class="editable-title" id="sopTitle">
+                    [Enter Procedure Name Here]
+                </span>
+                <br>Standard Operating Procedure
+            </h2>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc" id="toc">
+            <h3>📑 Table of Contents</h3>
+            <div class="toc-columns">
+                <div class="toc-column" id="toc-left"></div>
+                <div class="toc-column" id="toc-right"></div>
+            </div>
+        </div>
+
+        <!-- Main Content Container -->
+        <div id="sections-container">
+            <!-- Initial sections will be loaded here -->
+        </div>
+
+        <!-- Add Section Button at Bottom -->
+        <div style="text-align:center;margin:40px 0;">
+            <button class="toolbar-btn" onclick="addSection()" style="padding:15px 40px;font-size:14pt;">
+                ➕ Add New Section
+            </button>
+        </div>
+    </div>
+
+    <!-- Load PDF.js for PDF processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';</script>
+
+    <script>
+        // Global Variables
+        let sectionCounter = 0;
+        let fileIdCounter = 0;
+        let sections = [];
+
+        // Kaiser Permanente Standard 23 Sections
+        const standardSections = [
+            'PURPOSE',
+            'CLINICAL SIGNIFICANCE',
+            'SCOPE',
+            'RESPONSIBILITIES',
+            'SAFETY REQUIREMENTS',
+            'SPECIMEN REQUIREMENTS',
+            'REAGENTS AND SUPPLIES',
+            'EQUIPMENT',
+            'MAINTENANCE',
+            'QUALITY CONTROL REQUIREMENTS',
+            'CALIBRATION',
+            'TROUBLESHOOTING',
+            'TEST PROCEDURE',
+            'CALCULATIONS AND RESULT REPORTING',
+            'REFERENCE RANGES',
+            'CRITICAL VALUES',
+            'LIMITATIONS AND INTERFERENCES',
+            'EMERGENCY PROCEDURES',
+            'TECHNICAL SUPPORT',
+            'QUALITY ASSURANCE',
+            'REGULATORY COMPLIANCE',
+            'DOWNTIME PROCEDURES',
+            'REFERENCES'
+        ];
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDefaultSections();
+            updateTOC();
+
+            // Auto-save every 60 seconds
+            setInterval(saveDocument, 60000);
+
+            // Load saved document if exists
+            const saved = localStorage.getItem('kpSopDocument');
+            if (saved && confirm('Load previously saved document?')) {
+                loadSavedDocument(saved);
+            }
+        });
+
+        // Load default sections
+        function loadDefaultSections() {
+            const container = document.getElementById('sections-container');
+
+            // Load first 10 standard sections by default
+            standardSections.slice(0, 10).forEach((sectionName, index) => {
+                createSectionElement(sectionName, index + 1);
+            });
+
+            updateTOC();
+        }
+
+        // Create a section element
+        function createSectionElement(title, number) {
+            const container = document.getElementById('sections-container');
+            const sectionId = `section_${++sectionCounter}`;
+
+            const section = document.createElement('div');
+            section.className = 'section';
+            section.id = sectionId;
+            section.dataset.number = number || sectionCounter;
+
+            section.innerHTML = `
+                <div class="section-controls">
+                    <button class="section-btn upload-btn" onclick="showUploadArea('${sectionId}')">📎 Upload</button>
+                    <button class="section-btn" onclick="addSubsection('${sectionId}')">➕ Subsection</button>
+                    <button class="section-btn delete-btn" onclick="deleteSection('${sectionId}')">🗑️ Delete</button>
+                </div>
+
+                <h2>
+                    <span class="section-number">${number || sectionCounter}.</span>
+                    <span contenteditable="true" onblur="updateTOC()">${title}</span>
+                </h2>
+
+                <div class="section-content" contenteditable="true">
+                    <p>Enter content for ${title.toLowerCase()}...</p>
+                </div>
+
+                <!-- Upload Zone (hidden by default) -->
+                <div id="upload_${sectionId}" class="upload-zone" style="display:none;"
+                     ondrop="handleDrop(event, '${sectionId}')"
+                     ondragover="handleDragOver(event)"
+                     ondragleave="handleDragLeave(event)">
+                    <input type="file"
+                           id="file_${sectionId}"
+                           accept=".pdf,.html,.htm,.txt,.jpg,.jpeg,.png,.gif,.bmp"
+                           multiple
+                           onchange="handleFiles(this.files, '${sectionId}')">
+
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drop files here or click to browse</div>
+                    <div class="upload-subtext">
+                        Supports: PDF, HTML, TXT, Images (JPG, PNG, GIF, BMP)
+                    </div>
+                    <button class="choose-files-btn" onclick="document.getElementById('file_${sectionId}').click(); event.stopPropagation();">
+                        Choose Files
+                    </button>
+                </div>
+
+                <!-- Uploaded Files Container -->
+                <div id="files_${sectionId}" class="uploaded-files"></div>
+
+                <!-- Subsections Container -->
+                <div id="subsections_${sectionId}" class="subsections-container"></div>
+            `;
+
+            container.appendChild(section);
+            return section;
+        }
+
+        // Show/Hide Upload Area
+        function showUploadArea(sectionId) {
+            const uploadArea = document.getElementById(`upload_${sectionId}`);
+            uploadArea.style.display = uploadArea.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Add New Section
+        function addSection() {
+            const title = prompt('Enter section title:') || 'New Section';
+            const section = createSectionElement(title.toUpperCase());
+            updateTOC();
+            showStatus('Section added successfully', 'success');
+        }
+
+        // Delete Section
+        function deleteSection(sectionId) {
+            if (!confirm('Are you sure you want to delete this section?')) return;
+
+            document.getElementById(sectionId).remove();
+            renumberSections();
+            updateTOC();
+            showStatus('Section deleted', 'info');
+        }
+
+        // Add Subsection
+        function addSubsection(sectionId) {
+            const title = prompt('Enter subsection title:');
+            if (!title) return;
+
+            const container = document.getElementById(`subsections_${sectionId}`);
+            const subsectionId = `subsection_${Date.now()}`;
+            const sectionNumber = document.getElementById(sectionId).dataset.number;
+            const subsectionNumber = container.children.length + 1;
+
+            const subsection = document.createElement('div');
+            subsection.className = 'subsection';
+            subsection.id = subsectionId;
+
+            subsection.innerHTML = `
+                <h3>${sectionNumber}.${subsectionNumber} ${title}</h3>
+                <div class="section-content" contenteditable="true">
+                    <p>Enter subsection content...</p>
+                </div>
+
+                <!-- Upload Zone for Subsection -->
+                <div class="upload-zone"
+                     ondrop="handleDrop(event, '${subsectionId}')"
+                     ondragover="handleDragOver(event)"
+                     ondragleave="handleDragLeave(event)"
+                     onclick="document.getElementById('subfile_${subsectionId}').click()">
+                    <input type="file"
+                           id="subfile_${subsectionId}"
+                           accept=".pdf,.html,.htm,.txt,.jpg,.jpeg,.png,.gif,.bmp"
+                           style="display:none;"
+                           multiple
+                           onchange="handleFiles(this.files, '${subsectionId}')">
+
+                    <div style="font-size:24pt;">📎</div>
+                    <div style="color:#0066cc;font-weight:bold;">Upload files for this subsection</div>
+                </div>
+
+                <!-- Files Container -->
+                <div id="files_${subsectionId}" class="uploaded-files"></div>
+            `;
+
+            container.appendChild(subsection);
+            updateTOC();
+            showStatus('Subsection added', 'success');
+        }
+
+        // File Handling Functions
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(e, targetId) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files, targetId);
+        }
+
+        function handleFiles(files, targetId) {
+            const container = document.getElementById(`files_${targetId}`);
+
+            Array.from(files).forEach(file => {
+                const fileId = `file_${++fileIdCounter}`;
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.id = fileId;
+
+                // Determine file type and icon
+                let icon = '📄';
+                let actions = '';
+
+                if (file.type.startsWith('image/')) {
+                    icon = '🖼️';
+                    handleImageFile(file, targetId, fileId);
+                } else if (file.type === 'application/pdf') {
+                    icon = '📕';
+                    actions = `<button class="file-btn extract-btn" onclick="extractPDF('${fileId}', '${targetId}')">Extract Text</button>`;
+                } else if (file.type.includes('html')) {
+                    icon = '🌐';
+                    actions = `<button class="file-btn extract-btn" onclick="extractHTML('${fileId}', '${targetId}')">Import Content</button>`;
+                } else if (file.type.includes('text')) {
+                    icon = '📝';
+                    actions = `<button class="file-btn extract-btn" onclick="extractText('${fileId}', '${targetId}')">Insert Text</button>`;
+                }
+
+                fileItem.innerHTML = `
+                    <div class="file-icon">${icon}</div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                    <div class="file-actions">
+                        ${actions}
+                        <button class="file-btn remove-btn" onclick="removeFile('${fileId}')">Remove</button>
+                    </div>
+                `;
+
+                // Store file reference
+                fileItem.dataset.file = URL.createObjectURL(file);
+                fileItem.dataset.fileName = file.name;
+                fileItem.dataset.fileType = file.type;
+
+                container.appendChild(fileItem);
+
+                // Auto-process text files
+                if (file.type.includes('text')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        fileItem.dataset.content = e.target.result;
+                    };
+                    reader.readAsText(file);
+                }
+
+                // Auto-process HTML files
+                if (file.type.includes('html')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        fileItem.dataset.content = e.target.result;
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            showStatus(`${files.length} file(s) uploaded`, 'success');
+        }
+
+        // Handle Image Files
+        function handleImageFile(file, targetId, fileId) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // Find the content area
+                let contentArea;
+                if (targetId.startsWith('section_')) {
+                    contentArea = document.querySelector(`#${targetId} .section-content`);
+                } else {
+                    contentArea = document.querySelector(`#${targetId} .section-content`);
+                }
+
+                // Insert image into content
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'embedded-image';
+                img.alt = file.name;
+                contentArea.appendChild(img);
+
+                // Store image data
+                const fileItem = document.getElementById(fileId);
+                if (fileItem) {
+                    fileItem.dataset.imageData = e.target.result;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Extract PDF Content
+        async function extractPDF(fileId, targetId) {
+            const fileItem = document.getElementById(fileId);
+            const pdfUrl = fileItem.dataset.file;
+
+            showStatus('Extracting PDF content...', 'info');
+
+            try {
+                const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+                let fullText = '';
+
+                for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    fullText += `\n--- Page ${i} ---\n${pageText}\n`;
+                }
+
+                insertExtractedContent(targetId, fullText, 'PDF Extract');
+                showStatus('PDF content extracted successfully', 'success');
+            } catch (error) {
+                showStatus('Error extracting PDF: ' + error.message, 'error');
+            }
+        }
+
+        // Extract HTML Content
+        function extractHTML(fileId, targetId) {
+            const fileItem = document.getElementById(fileId);
+            const htmlContent = fileItem.dataset.content;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+
+            // Extract text and preserve some structure
+            const textContent = doc.body.innerText || doc.body.textContent || '';
+
+            insertExtractedContent(targetId, textContent, 'HTML Import');
+            showStatus('HTML content imported', 'success');
+        }
+
+        // Extract Text Content
+        function extractText(fileId, targetId) {
+            const fileItem = document.getElementById(fileId);
+            const textContent = fileItem.dataset.content;
+
+            insertExtractedContent(targetId, textContent, 'Text Import');
+            showStatus('Text content inserted', 'success');
+        }
+
+        // Insert Extracted Content
+        function insertExtractedContent(targetId, content, source) {
+            let contentArea;
+            if (targetId.startsWith('section_')) {
+                contentArea = document.querySelector(`#${targetId} .section-content`);
+            } else {
+                contentArea = document.querySelector(`#${targetId} .section-content`);
+            }
+
+            const contentBox = document.createElement('div');
+            contentBox.className = 'info-box';
+            contentBox.innerHTML = `
+                <strong>📋 ${source}:</strong>
+                <div style="margin-top:10px;white-space:pre-wrap;max-height:400px;overflow-y:auto;">
+                    ${content.substring(0, 5000)}${content.length > 5000 ? '...' : ''}
+                </div>
+            `;
+
+            contentArea.appendChild(contentBox);
+        }
+
+        // Remove File
+        function removeFile(fileId) {
+            document.getElementById(fileId).remove();
+            showStatus('File removed', 'info');
+        }
+
+        // Renumber Sections
+        function renumberSections() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                const number = index + 1;
+                section.dataset.number = number;
+                section.querySelector('.section-number').textContent = number + '.';
+
+                // Update subsection numbers
+                const subsections = section.querySelectorAll('.subsection h3');
+                subsections.forEach((subsection, subIndex) => {
+                    const title = subsection.textContent.replace(/^\d+\.\d+\s*/, '');
+                    subsection.textContent = `${number}.${subIndex + 1} ${title}`;
+                });
+            });
+        }
+
+        // Update Table of Contents
+        function updateTOC() {
+            const leftColumn = document.getElementById('toc-left');
+            const rightColumn = document.getElementById('toc-right');
+
+            leftColumn.innerHTML = '';
+            rightColumn.innerHTML = '';
+
+            const sections = document.querySelectorAll('.section');
+            const midpoint = Math.ceil(sections.length / 2);
+
+            sections.forEach((section, index) => {
+                const title = section.querySelector('h2').textContent;
+                const link = `<li><a href="#${section.id}" onclick="scrollToSection('${section.id}')">${title}</a></li>`;
+
+                if (index < midpoint) {
+                    leftColumn.innerHTML += link;
+                } else {
+                    rightColumn.innerHTML += link;
+                }
+
+                // Add subsections
+                const subsections = section.querySelectorAll('.subsection');
+                subsections.forEach(subsection => {
+                    const subTitle = subsection.querySelector('h3').textContent;
+                    const subLink = `<li style="margin-left:20px;font-size:9pt;">
+                        <a href="#${subsection.id}" onclick="scrollToSection('${subsection.id}')">${subTitle}</a>
+                    </li>`;
+
+                    if (index < midpoint) {
+                        leftColumn.innerHTML += subLink;
+                    } else {
+                        rightColumn.innerHTML += subLink;
+                    }
+                });
+            });
+        }
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Auto-Number Sections
+        function autoNumber() {
+            renumberSections();
+            updateTOC();
+            showStatus('Sections renumbered', 'success');
+        }
+
+        // Insert Table
+        function insertTable() {
+            const rows = prompt('Number of rows:', '3');
+            const cols = prompt('Number of columns:', '3');
+
+            if (!rows || !cols) return;
+
+            let table = '<table><thead><tr>';
+            for (let c = 0; c < cols; c++) {
+                table += `<th contenteditable="true">Header ${c + 1}</th>`;
+            }
+            table += '</tr></thead><tbody>';
+
+            for (let r = 0; r < rows; r++) {
+                table += '<tr>';
+                for (let c = 0; c < cols; c++) {
+                    table += '<td contenteditable="true">Data</td>';
+                }
+                table += '</tr>';
+            }
+            table += '</tbody></table>';
+
+            // Insert at cursor position
+            document.execCommand('insertHTML', false, table);
+            showStatus('Table inserted', 'success');
+        }
+
+        // Load Template
+        function loadTemplate() {
+            if (!confirm('Load all 23 standard Kaiser Permanente sections? This will replace current content.')) return;
+
+            document.getElementById('sections-container').innerHTML = '';
+            sectionCounter = 0;
+
+            standardSections.forEach((section, index) => {
+                createSectionElement(section, index + 1);
+            });
+
+            updateTOC();
+            showStatus('Template loaded with 23 standard sections', 'success');
+        }
+
+        // Validate SOP
+        function validateSOP() {
+            const requiredSections = ['PURPOSE', 'SCOPE', 'RESPONSIBILITIES', 'SAFETY REQUIREMENTS', 'TEST PROCEDURE'];
+            const sections = Array.from(document.querySelectorAll('.section h2')).map(h =>
+                h.textContent.replace(/^\d+\.\s*/, '').toUpperCase()
+            );
+
+            const missing = requiredSections.filter(req =>
+                !sections.some(sec => sec.includes(req))
+            );
+
+            if (missing.length === 0) {
+                showStatus('✅ Validation passed! All required sections present.', 'success');
+            } else {
+                showStatus(`⚠️ Missing required sections: ${missing.join(', ')}`, 'error');
+            }
+        }
+
+        // Save Document
+        function saveDocument() {
+            const content = document.querySelector('.container').innerHTML;
+            const title = document.getElementById('sopTitle').textContent;
+
+            const data = {
+                title: title,
+                content: content,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('kpSopDocument', JSON.stringify(data));
+            showStatus('Document saved locally', 'success');
+        }
+
+        // Load Saved Document
+        function loadSavedDocument(savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                document.querySelector('.container').innerHTML = data.content;
+                showStatus(`Loaded document from ${new Date(data.timestamp).toLocaleString()}`, 'info');
+            } catch (error) {
+                showStatus('Error loading saved document', 'error');
+            }
+        }
+
+        // Export HTML
+        function exportHTML() {
+            const title = document.getElementById('sopTitle').textContent || 'SOP';
+            const content = document.documentElement.outerHTML;
+
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `KP_SOP_${title.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showStatus('Document exported as HTML', 'success');
+        }
+
+        // Export PDF (Print)
+        function exportPDF() {
+            window.print();
+            showStatus('Use print dialog to save as PDF', 'info');
+        }
+
+        // Show Status Message
+        function showStatus(message, type) {
+            const status = document.createElement('div');
+            status.className = `status-message status-${type}`;
+            status.textContent = message;
+            document.body.appendChild(status);
+
+            setTimeout(() => {
+                status.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => status.remove(), 300);
+            }, 3000);
+        }
+
+        // Format File Size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Full Document Drag and Drop Handlers
+        function handleFullDocumentDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropZone = document.getElementById('fullDocumentDropZone');
+            dropZone.style.background = 'rgba(255,255,255,0.3)';
+            dropZone.style.borderColor = '#4ecdc4';
+            dropZone.style.transform = 'scale(1.02)';
+        }
+
+        function handleFullDocumentDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const dropZone = document.getElementById('fullDocumentDropZone');
+            dropZone.style.background = 'rgba(255,255,255,0.1)';
+            dropZone.style.borderColor = 'white';
+            dropZone.style.transform = 'scale(1)';
+        }
+
+        function handleFullDocumentDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const dropZone = document.getElementById('fullDocumentDropZone');
+            dropZone.style.background = 'rgba(255,255,255,0.1)';
+            dropZone.style.borderColor = 'white';
+            dropZone.style.transform = 'scale(1)';
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                const fileType = file.type;
+
+                if (fileType === 'application/pdf') {
+                    importFullPDF(file);
+                } else if (fileType.includes('html')) {
+                    importFullHTML(file);
+                } else {
+                    showStatus('Please drop a PDF or HTML file', 'error');
+                }
+            }
+        }
+
+        // Import Full PDF Document
+        async function importFullPDF(file) {
+            if (!file) return;
+
+            showStatus('Importing PDF document...', 'info');
+
+            try {
+                const fileUrl = URL.createObjectURL(file);
+                const pdf = await pdfjsLib.getDocument(fileUrl).promise;
+
+                // Clear existing sections
+                if (confirm('This will replace all current content with the imported PDF. Continue?')) {
+                    document.getElementById('sections-container').innerHTML = '';
+                    sectionCounter = 0;
+
+                    // Extract title from filename
+                    const title = file.name.replace('.pdf', '').replace(/_/g, ' ');
+                    document.getElementById('sopTitle').textContent = title;
+
+                    // Process PDF and create sections
+                    let currentSection = null;
+                    let currentContent = '';
+                    let sectionNumber = 0;
+
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items.map(item => item.str).join(' ');
+
+                        // Try to detect section headers (numbered items or all caps lines)
+                        const lines = pageText.split(/\n|\r/);
+
+                        for (const line of lines) {
+                            // Check if this looks like a section header
+                            if (line.match(/^\d+\.?\s+[A-Z]{2,}/) ||
+                                line.match(/^[A-Z][A-Z\s]{4,}$/) ||
+                                standardSections.some(sec => line.toUpperCase().includes(sec))) {
+
+                                // Save previous section if exists
+                                if (currentSection) {
+                                    const section = createSectionElement(currentSection, sectionNumber);
+                                    section.querySelector('.section-content').innerHTML = currentContent;
+                                }
+
+                                // Start new section
+                                sectionNumber++;
+                                currentSection = line.replace(/^\d+\.?\s*/, '').trim();
+                                currentContent = '';
+                            } else if (line.trim()) {
+                                // Add to current section content
+                                currentContent += `<p>${line}</p>`;
+                            }
+                        }
+                    }
+
+                    // Add last section
+                    if (currentSection) {
+                        const section = createSectionElement(currentSection, sectionNumber);
+                        section.querySelector('.section-content').innerHTML = currentContent;
+                    }
+
+                    // If no sections were detected, create one with all content
+                    if (sectionNumber === 0) {
+                        let allText = '';
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            allText += textContent.items.map(item => item.str).join(' ') + '\n\n';
+                        }
+
+                        const section = createSectionElement('IMPORTED CONTENT', 1);
+                        section.querySelector('.section-content').innerHTML =
+                            `<div class="info-box">
+                                <h4>Imported from: ${file.name}</h4>
+                                <div style="white-space:pre-wrap;">${allText}</div>
+                            </div>`;
+                    }
+
+                    updateTOC();
+                    showStatus(`PDF imported successfully: ${pdf.numPages} pages processed`, 'success');
+                }
+
+                URL.revokeObjectURL(fileUrl);
+            } catch (error) {
+                showStatus('Error importing PDF: ' + error.message, 'error');
+                console.error(error);
+            }
+        }
+
+        // Import Full HTML Document
+        async function importFullHTML(file) {
+            if (!file) return;
+
+            showStatus('Importing HTML document...', 'info');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(e.target.result, 'text/html');
+
+                    if (confirm('This will replace all current content with the imported HTML. Continue?')) {
+                        document.getElementById('sections-container').innerHTML = '';
+                        sectionCounter = 0;
+
+                        // Extract title from the document
+                        let sopTitle = 'Kaiser Permanente Laboratory SOP';
+                        const titleElement = doc.querySelector('title');
+                        const h1Element = doc.querySelector('.header h1');
+                        const h2Element = doc.querySelector('.header h2');
+
+                        if (h2Element && h2Element.textContent) {
+                            sopTitle = h2Element.textContent.replace('Standard Operating Procedure', '').trim();
+                        } else if (titleElement && titleElement.textContent) {
+                            sopTitle = titleElement.textContent.replace('Kaiser Permanente Largo Laboratory', '').trim();
+                        }
+
+                        document.getElementById('sopTitle').textContent = sopTitle;
+
+                        // Look for sections - prioritize div.section elements first
+                        const sectionDivs = doc.querySelectorAll('.section');
+                        let processedSections = new Set();
+                        let sectionNumber = 0;
+
+                        if (sectionDivs.length > 0) {
+                            // Process structured sections
+                            sectionDivs.forEach(sectionDiv => {
+                                const headerElement = sectionDiv.querySelector('h1, h2, h3');
+                                if (headerElement) {
+                                    const headerText = headerElement.textContent.trim();
+                                    const cleanTitle = headerText.replace(/^\d+\.?\s*/, '').trim();
+
+                                    // Skip if already processed
+                                    if (processedSections.has(cleanTitle.toUpperCase())) {
+                                        return;
+                                    }
+                                    processedSections.add(cleanTitle.toUpperCase());
+
+                                    sectionNumber++;
+
+                                    // Clone the entire section content
+                                    const contentClone = sectionDiv.cloneNode(true);
+                                    // Remove the header from the clone
+                                    const headerInClone = contentClone.querySelector('h1, h2, h3');
+                                    if (headerInClone) {
+                                        headerInClone.remove();
+                                    }
+
+                                    const section = createSectionElement(cleanTitle.toUpperCase(), sectionNumber);
+                                    section.querySelector('.section-content').innerHTML = contentClone.innerHTML;
+                                }
+                            });
+                        } else {
+                            // Fallback: Process by headers
+                            const headers = doc.querySelectorAll('h2, h3');
+                            const tocLinks = doc.querySelectorAll('.toc a');
+
+                            // Build expected sections from TOC
+                            const expectedSections = [];
+                            tocLinks.forEach(link => {
+                                const text = link.textContent.replace(/^\d+\.?\s*/, '').trim();
+                                if (text && !processedSections.has(text.toUpperCase())) {
+                                    expectedSections.push(text);
+                                }
+                            });
+
+                            headers.forEach(header => {
+                                const headerText = header.textContent.trim();
+                                const cleanTitle = headerText.replace(/^\d+\.?\s*/, '').trim();
+
+                                // Skip if already processed or if it's a subsection
+                                if (processedSections.has(cleanTitle.toUpperCase())) {
+                                    return;
+                                }
+
+                                // Check if this is a main section (not a subsection)
+                                const isMainSection = standardSections.some(sec =>
+                                    cleanTitle.toUpperCase().includes(sec)) ||
+                                    expectedSections.some(sec =>
+                                    cleanTitle.toUpperCase() === sec.toUpperCase()) ||
+                                    headerText.match(/^\d+\.?\s+[A-Z]/);
+
+                                if (isMainSection) {
+                                    processedSections.add(cleanTitle.toUpperCase());
+                                    sectionNumber++;
+
+                                    // Get all content until next main header
+                                    let content = '';
+                                    let nextElement = header.nextElementSibling;
+
+                                    while (nextElement) {
+                                        // Stop if we hit another main section
+                                        if (nextElement.tagName === 'H2' ||
+                                            (nextElement.tagName === 'H3' &&
+                                             nextElement.textContent.match(/^\d+\.?\s+[A-Z]/))) {
+                                            break;
+                                        }
+
+                                        // Preserve the original HTML structure
+                                        if (nextElement.outerHTML) {
+                                            content += nextElement.outerHTML;
+                                        }
+
+                                        nextElement = nextElement.nextElementSibling;
+                                    }
+
+                                    const section = createSectionElement(cleanTitle.toUpperCase(), sectionNumber);
+                                    section.querySelector('.section-content').innerHTML = content ||
+                                        `<p>Section content for ${cleanTitle}</p>`;
+                                }
+                            });
+                        }
+
+                        // Import CSS styles if present
+                        const styles = doc.querySelectorAll('style');
+                        if (styles.length > 0) {
+                            // Extract relevant styles
+                            styles.forEach(style => {
+                                if (style.textContent.includes('table') ||
+                                    style.textContent.includes('warning') ||
+                                    style.textContent.includes('info-box') ||
+                                    style.textContent.includes('critical')) {
+                                    // Add styles to current document
+                                    const newStyle = document.createElement('style');
+                                    newStyle.textContent = style.textContent;
+                                    document.head.appendChild(newStyle);
+                                }
+                            });
+                        }
+
+                        updateTOC();
+                        showStatus(`HTML imported successfully: ${sectionNumber} sections created`, 'success');
+
+                        // Auto-save after import
+                        saveDocument();
+                    }
+                } catch (error) {
+                    showStatus('Error importing HTML: ' + error.message, 'error');
+                    console.error(error);
+                }
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>

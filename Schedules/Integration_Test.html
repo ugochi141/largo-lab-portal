@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Integration Diagnostic Tool</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #0066cc; }
+        .section { margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #0066cc; }
+        .test { margin: 10px 0; padding: 10px; background: white; border-radius: 4px; }
+        .pass { border-left: 4px solid #28a745; }
+        .fail { border-left: 4px solid #dc3545; }
+        .warn { border-left: 4px solid #ffc107; }
+        button { background: #0066cc; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #004499; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 10pt; }
+        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-left: 10px; }
+        .status.pass { background: #d4edda; color: #155724; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+        .status.warn { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Schedule Integration Diagnostic Tool</h1>
+        <p>This tool checks if the Schedule Manager → Call Out Tracker integration is working properly.</p>
+        
+        <div class="section">
+            <h2>Step 1: Check Browser Storage</h2>
+            <button onclick="checkStorage()">Run Storage Check</button>
+            <button onclick="clearStorage()">Clear All Storage</button>
+            <div id="storageResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 2: Simulate Schedule Upload</h2>
+            <p>This simulates uploading schedule data like the Schedule Manager does.</p>
+            <button onclick="simulateUpload()">Simulate 10/03/25 Schedule Upload</button>
+            <div id="uploadResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 3: Verify Call Out Tracker Can Read Data</h2>
+            <button onclick="verifyTrackerRead()">Test Tracker Data Read</button>
+            <div id="trackerResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 4: Full Integration Test</h2>
+            <button onclick="runFullTest()">Run Complete Test</button>
+            <div id="fullTestResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>Manual Actions</h2>
+            <button onclick="openScheduleManager()">Open Schedule Manager</button>
+            <button onclick="openCallOutTracker()">Open Call Out Tracker</button>
+            <button onclick="window.location.reload()">Refresh This Page</button>
+        </div>
+    </div>
+
+    <script>
+        function checkStorage() {
+            const results = document.getElementById('storageResults');
+            let html = '<div class="test">';
+            
+            const keys = ['callOutScheduleData', 'visualScheduleData', 'dailyScheduleData', 'labCallOuts'];
+            let allPass = true;
+            
+            keys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    try {
+                        const parsed = JSON.parse(data);
+                        const dates = Object.keys(parsed);
+                        html += `<div class="test pass">
+                            ✅ <strong>${key}</strong> <span class="status pass">EXISTS</span><br>
+                            Dates: ${dates.join(', ') || 'No dates'}<br>
+                            Size: ${data.length} characters
+                        </div>`;
+                    } catch(e) {
+                        html += `<div class="test fail">
+                            ❌ <strong>${key}</strong> <span class="status fail">ERROR</span><br>
+                            Error: ${e.message}
+                        </div>`;
+                        allPass = false;
+                    }
+                } else {
+                    html += `<div class="test warn">
+                        ⚠️ <strong>${key}</strong> <span class="status warn">NOT FOUND</span><br>
+                        This storage key doesn't exist yet
+                    </div>`;
+                }
+            });
+            
+            results.innerHTML = html;
+        }
+
+        function clearStorage() {
+            if (confirm('This will clear ALL localStorage data. Continue?')) {
+                localStorage.clear();
+                alert('Storage cleared!');
+                checkStorage();
+            }
+        }
+
+        function simulateUpload() {
+            const results = document.getElementById('uploadResults');
+            results.innerHTML = '<p>Simulating schedule upload...</p>';
+            
+            // Sample data matching the 10/03/25 schedule structure
+            const scheduleData = {
+                '2025-10-03': [
+                    {name: 'Lorraine Blackwell', role: 'MLA', shifts: '9a-4:30p', breaks: [{start: 11, end: 11.25, type: 'break'}, {start: 13.5, end: 14, type: 'lunch'}], startTime: 9},
+                    {name: 'Emily Creekmore', role: 'MLT', shifts: '9:30a-4p', breaks: [], startTime: 9.5},
+                    {name: 'Tracy Eshofa', role: 'MLT', shifts: '3:30p-12a', breaks: [{start: 17.5, end: 17.75, type: 'break'}], startTime: 15.5},
+                    {name: 'Boyet Lejano', role: 'MLT', shifts: '9:30p-6a', breaks: [], startTime: 21.5},
+                    {name: 'Francis Azih Ngene', role: 'MLS', shifts: '7:30a-4p', breaks: [], startTime: 7.5},
+                    {name: 'Ingrid Benitez-Ruiz', role: 'MLS', shifts: '7:30a-4p', breaks: [], startTime: 7.5},
+                    {name: 'George Etape', role: 'MLS', shifts: '11:30p-8a', breaks: [], startTime: 23.5},
+                    {name: 'Samuel Lawson', role: 'MLS', shifts: '3:30p-12a', breaks: [], startTime: 15.5},
+                    {name: 'Jacqueline Liburd', role: 'MLS', shifts: '11:30p-8a', breaks: [], startTime: 23.5},
+                    {name: 'Christina Bolden-Davis', role: 'PHLEB', shifts: '5a-2:30p', breaks: [], startTime: 5},
+                    {name: 'Stephanie Dodson', role: 'PHLEB', shifts: '7a-3:30p', breaks: [], startTime: 7},
+                    {name: 'Nichole Fauntleroy', role: 'PHLEB', shifts: '2-10:30p', breaks: [], startTime: 14},
+                    {name: 'Larry Frazier', role: 'PHLEB', shifts: '7a-3:30p', breaks: [], startTime: 7},
+                    {name: 'Danalisa Hayes', role: 'PHLEB', shifts: '2-10:30p', breaks: [], startTime: 14},
+                    {name: 'Youlana Miah', role: 'PHLEB', shifts: '5a-2:30p', breaks: [], startTime: 5},
+                    {name: 'Farah Moise', role: 'PHLEB', shifts: '8a-4:30p', breaks: [], startTime: 8},
+                    {name: 'Mimi Onuma', role: 'PHLEB', shifts: '8a-4:30p', breaks: [], startTime: 8},
+                    {name: 'Shannon Pilkington', role: 'PHLEB', shifts: '2-10p', breaks: [], startTime: 14},
+                    {name: 'Micaela Scarborough', role: 'PHLEB', shifts: '8a-12p', breaks: [], startTime: 8},
+                    {name: 'Emmanuela Theodore', role: 'PHLEB', shifts: '9a-5:30p', breaks: [], startTime: 9}
+                ]
+            };
+            
+            try {
+                // Store exactly like Schedule Manager does
+                const existingData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+                Object.assign(existingData, scheduleData);
+                localStorage.setItem('callOutScheduleData', JSON.stringify(existingData));
+                
+                results.innerHTML = `<div class="test pass">
+                    ✅ <strong>Upload Successful</strong> <span class="status pass">DONE</span><br>
+                    Stored ${scheduleData['2025-10-03'].length} staff members for 10/03/25<br>
+                    <pre>${JSON.stringify(scheduleData, null, 2).substring(0, 500)}...</pre>
+                </div>`;
+            } catch(e) {
+                results.innerHTML = `<div class="test fail">
+                    ❌ <strong>Upload Failed</strong> <span class="status fail">ERROR</span><br>
+                    Error: ${e.message}
+                </div>`;
+            }
+        }
+
+        function verifyTrackerRead() {
+            const results = document.getElementById('trackerResults');
+            
+            try {
+                const callOutScheduleData = JSON.parse(localStorage.getItem('callOutScheduleData') || '{}');
+                const dates = Object.keys(callOutScheduleData);
+                
+                if (dates.length === 0) {
+                    results.innerHTML = `<div class="test warn">
+                        ⚠️ <strong>No Data Found</strong> <span class="status warn">EMPTY</span><br>
+                        No schedule data in localStorage. Run "Simulate Upload" first.
+                    </div>`;
+                    return;
+                }
+                
+                let html = '<div class="test pass">';
+                html += `✅ <strong>Tracker Can Read Data</strong> <span class="status pass">SUCCESS</span><br>`;
+                html += `Found ${dates.length} date(s): ${dates.join(', ')}<br><br>`;
+                
+                dates.forEach(date => {
+                    const staff = callOutScheduleData[date];
+                    html += `<strong>${date}:</strong> ${staff.length} staff members<br>`;
+                    html += `Staff: ${staff.map(s => s.name).join(', ')}<br><br>`;
+                });
+                
+                html += '</div>';
+                results.innerHTML = html;
+            } catch(e) {
+                results.innerHTML = `<div class="test fail">
+                    ❌ <strong>Read Failed</strong> <span class="status fail">ERROR</span><br>
+                    Error: ${e.message}
+                </div>`;
+            }
+        }
+
+        function runFullTest() {
+            const results = document.getElementById('fullTestResults');
+            results.innerHTML = '<h3>Running Full Integration Test...</h3>';
+            
+            setTimeout(() => {
+                checkStorage();
+                setTimeout(() => {
+                    simulateUpload();
+                    setTimeout(() => {
+                        verifyTrackerRead();
+                        results.innerHTML = '<div class="test pass">✅ Full test complete! Check results above.</div>';
+                    }, 500);
+                }, 500);
+            }, 500);
+        }
+
+        function openScheduleManager() {
+            window.open('Schedule_Manager_Enhanced.html', '_blank');
+        }
+
+        function openCallOutTracker() {
+            window.open('Scheduler1.html', '_blank');
+        }
+
+        // Auto-run storage check on load
+        window.onload = () => checkStorage();
+    </script>
+</body>
+</html>

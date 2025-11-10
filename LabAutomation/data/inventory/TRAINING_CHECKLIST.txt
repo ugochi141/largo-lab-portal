@@ -1,0 +1,48 @@
+
+# Inventory System Training Checklist
+
+## Trainee: _________________ Date: _________ Trainer: _________________
+
+### Basic Operations:
+- [ ] Open inventory file from Teams
+- [ ] Navigate between sheets
+- [ ] Update HAND COUNT field
+- [ ] Use LOCATION dropdown
+- [ ] Save file properly
+
+### Daily Tasks:
+- [ ] Review SUMMARY alerts
+- [ ] Check assigned section
+- [ ] Identify low stock items
+- [ ] Enter REQ QTY for orders
+- [ ] Add notes for issues
+
+### Receiving Supplies:
+- [ ] Verify supplier IDs
+- [ ] Update counts
+- [ ] Enter expiration dates
+- [ ] Record lot numbers
+- [ ] Check against packing slip
+
+### Special Procedures:
+- [ ] Handle expiring items
+- [ ] Coordinate overflow
+- [ ] Use backup assignments
+- [ ] Report discrepancies
+- [ ] Emergency procedures
+
+### System Features:
+- [ ] Understand color coding
+- [ ] Read status indicators
+- [ ] Use formulas correctly
+- [ ] Find help resources
+- [ ] Contact support
+
+### Completion:
+- [ ] Demonstrate one full update cycle
+- [ ] Answer knowledge check questions
+- [ ] Sign off on training
+
+Trainee Signature: _______________________
+
+Trainer Signature: _______________________

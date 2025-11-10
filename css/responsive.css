@@ -1,0 +1,304 @@
+/* Responsive Design - Mobile First Approach */
+
+/* Tablet Styles (768px - 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .systems-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+/* Mobile Styles (320px - 768px) */
+@media (max-width: 768px) {
+    /* Header Adjustments */
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo-section {
+        margin-bottom: 15px;
+    }
+
+    .portal-title {
+        font-size: 20px;
+    }
+
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .menu-icon {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--kp-white);
+        position: relative;
+    }
+
+    .menu-icon::before,
+    .menu-icon::after {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--kp-white);
+        position: absolute;
+        left: 0;
+    }
+
+    .menu-icon::before {
+        top: -8px;
+    }
+
+    .menu-icon::after {
+        top: 8px;
+    }
+
+    .main-nav {
+        width: 100%;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--kp-primary-dark);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .dropdown-menu {
+        position: static;
+        display: none;
+        background: rgba(0, 0, 0, 0.1);
+        box-shadow: none;
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    /* Content Adjustments */
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .systems-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Table Responsive */
+    .kp-table {
+        font-size: 12px;
+    }
+
+    .kp-table th,
+    .kp-table td {
+        padding: 8px;
+    }
+
+    /* Make tables scrollable on mobile */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Footer Mobile */
+    .footer-container {
+        padding: 0 15px;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
+}
+
+/* Small Mobile Styles (320px - 480px) */
+@media (max-width: 480px) {
+    .portal-title {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .systems-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-btn {
+        padding: 12px;
+    }
+
+    .action-icon {
+        font-size: 20px;
+    }
+
+    /* Stack form elements on small screens */
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+}
+
+/* Print Styles */
+@media print {
+    /* Hide navigation and footer for print */
+    .main-header,
+    .main-footer,
+    .mobile-menu-toggle,
+    .actions-grid,
+    .external-systems {
+        display: none !important;
+    }
+
+    /* Ensure content fits on page */
+    .container {
+        margin: 0;
+        padding: 0.5in;
+        box-shadow: none;
+    }
+
+    /* Prevent page breaks in important elements */
+    .dashboard-card,
+    .kp-table,
+    .alert-item {
+        page-break-inside: avoid;
+    }
+
+    /* Reset colors for print */
+    body {
+        color: black;
+        background: white;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+    /* Ensure tables print properly */
+    .kp-table {
+        border: 1px solid black;
+    }
+
+    .kp-table th {
+        background: #333 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    .kp-logo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Landscape Orientation */
+@media (orientation: landscape) and (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .systems-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Support (System Preference) */
+@media (prefers-color-scheme: dark) {
+    /* Override colors for dark mode if needed */
+    /* Note: KP brand typically uses light theme */
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+    /* Larger touch targets for mobile */
+    .btn,
+    .action-btn,
+    .nav-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Increase spacing for touch */
+    .form-control {
+        padding: 12px;
+    }
+
+    .dropdown-menu a {
+        padding: 12px 20px;
+    }
+}

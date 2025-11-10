@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>QC Maintenance Calendar - December 2025 | Kaiser Permanente Largo Laboratory</title>
+    <style>
+        /* Kaiser Permanente Professional Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter landscape;
+            margin: 0.25in;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 8pt;
+            line-height: 1.2;
+            color: #333;
+            background: white;
+            padding: 0.25in;
+            max-width: 11in;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 6pt;
+            margin-bottom: 8pt;
+            page-break-after: avoid;
+        }
+
+        .header h1 {
+            font-size: 14pt;
+            color: #0066cc;
+            margin-bottom: 4pt;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            font-size: 11pt;
+            color: #004499;
+            font-weight: 600;
+        }
+
+        .document-info {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 4pt;
+            margin-bottom: 6pt;
+            border-radius: 3pt;
+        }
+
+        .document-info table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7pt;
+        }
+
+        .document-info td {
+            padding: 2pt 4pt;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .document-info td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6pt;
+            gap: 6pt;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 4pt;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 3pt 6pt;
+            border: 1px solid #0066cc;
+            background: white;
+            color: #0066cc;
+            border-radius: 2pt;
+            cursor: pointer;
+            font-size: 7pt;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        .print-btn {
+            padding: 4pt 8pt;
+            background: #004499;
+            color: white;
+            border: none;
+            border-radius: 2pt;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 7pt;
+        }
+
+        .calendar-container {
+            border: 1px solid #0066cc;
+            border-radius: 3pt;
+            overflow: hidden;
+            margin-bottom: 6pt;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #ddd;
+        }
+
+        .month-header {
+            grid-column: 1 / -1;
+            background: #0066cc;
+            color: white;
+            padding: 4pt;
+            text-align: center;
+            font-weight: bold;
+            font-size: 10pt;
+            letter-spacing: 0.5px;
+        }
+
+        .day-header {
+            background: #004499;
+            color: white;
+            padding: 3pt;
+            text-align: center;
+            font-weight: bold;
+            font-size: 7pt;
+        }
+
+        .day-cell {
+            background: white;
+            min-height: 70px;
+            padding: 3pt;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .day-cell.empty {
+            background: #f5f5f5;
+        }
+
+        .day-number {
+            font-weight: bold;
+            color: #0066cc;
+            font-size: 8pt;
+            margin-bottom: 2pt;
+        }
+
+        .task {
+            font-size: 5.5pt;
+            padding: 1pt 2pt;
+            margin: 1px 0;
+            border-radius: 1pt;
+            border-left: 1.5px solid;
+            line-height: 1.1;
+        }
+
+        .task-day {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            color: #856404;
+        }
+
+        .task-evening {
+            background: #cfe2ff;
+            border-left-color: #0d6efd;
+            color: #084298;
+        }
+
+        .task-night {
+            background: #e2e3e5;
+            border-left-color: #6c757d;
+            color: #383d41;
+        }
+
+        .task-location {
+            font-weight: bold;
+            font-size: 5pt;
+            text-transform: uppercase;
+        }
+
+        .task-time {
+            font-style: italic;
+            color: #666;
+            font-size: 5pt;
+        }
+
+        .legend {
+            background-color: #f0f8ff;
+            padding: 6pt;
+            margin: 6pt 0;
+            border-left: 3px solid #0066cc;
+            border-radius: 2pt;
+        }
+
+        .legend h3 {
+            color: #0066cc;
+            font-size: 9pt;
+            margin-bottom: 4pt;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6pt;
+        }
+
+        .legend-section {
+            font-size: 6pt;
+        }
+
+        .legend-section h4 {
+            color: #004499;
+            font-size: 7pt;
+            margin-bottom: 3pt;
+        }
+
+        .legend-item {
+            padding: 2pt 3pt;
+            margin: 1pt 0;
+            border-radius: 1pt;
+            font-size: 6pt;
+            line-height: 1.2;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4pt;
+            margin-bottom: 6pt;
+        }
+
+        .summary-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-left: 3px solid #0066cc;
+            padding: 4pt;
+            border-radius: 2pt;
+            text-align: center;
+        }
+
+        .summary-card h4 {
+            color: #004499;
+            font-size: 7pt;
+            margin-bottom: 2pt;
+        }
+
+        .summary-card .number {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0.2in;
+                font-size: 7pt;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .task {
+                font-size: 5pt;
+                padding: 1pt 2pt;
+            }
+
+            .day-cell {
+                min-height: 65px;
+            }
+
+            .calendar-container {
+                page-break-inside: avoid;
+            }
+
+            .header {
+                margin-bottom: 4pt;
+                padding-bottom: 4pt;
+            }
+
+            .document-info {
+                margin-bottom: 4pt;
+            }
+
+            .summary-cards {
+                margin-bottom: 4pt;
+            }
+
+            .legend {
+                margin: 4pt 0;
+                padding: 4pt;
+            }
+        }
+
+        @media screen {
+            body {
+                box-shadow: 0 0 15px rgba(0,0,0,0.1);
+                margin: 20px auto;
+            }
+        }
+    
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
+
+    <div class="header">
+        <h1>Kaiser Permanente Largo Laboratory</h1>
+        <h2>Quality Control Maintenance Calendar - December 2025</h2>
+    </div>
+
+    <div class="document-info">
+        <table>
+            <tr>
+                <td>Document Type:</td>
+                <td>QC Maintenance Schedule</td>
+                <td>Department:</td>
+                <td>Clinical Laboratory</td>
+            </tr>
+            <tr>
+                <td>Effective Date:</td>
+                <td>December 1, 2025</td>
+                <td>Location:</td>
+                <td>AUC & MOB</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="summary-cards">
+        <div class="summary-card">
+            <h4>Weekly Tasks</h4>
+            <div class="number" id="weeklyCount">0</div>
+        </div>
+        <div class="summary-card">
+            <h4>Biweekly Tasks</h4>
+            <div class="number" id="biweeklyCount">0</div>
+        </div>
+        <div class="summary-card">
+            <h4>Monthly Tasks</h4>
+            <div class="number" id="monthlyCount">0</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="filter-group">
+            <button class="btn active" onclick="filterTasks('all')">All Tasks</button>
+            <button class="btn" onclick="filterTasks('weekly')">Weekly</button>
+            <button class="btn" onclick="filterTasks('biweekly')">Biweekly</button>
+            <button class="btn" onclick="filterTasks('monthly')">Monthly</button>
+            <button class="btn" onclick="filterTasks('day')">Day Shift</button>
+            <button class="btn" onclick="filterTasks('evening')">Evening</button>
+            <button class="btn" onclick="filterTasks('night')">Night</button>
+        </div>
+        <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+    </div>
+
+    <div class="calendar-container">
+        <div class="calendar" id="calendar"></div>
+    </div>
+
+    <div class="legend">
+        <h3>QC Maintenance Task Reference Guide</h3>
+        <div class="legend-grid">
+            <div class="legend-section">
+                <h4>Weekly Tasks</h4>
+                <div class="legend-item task-day">
+                    <strong>Hematek (Both)</strong> - Every Saturday
+                </div>
+                <div class="legend-item task-evening">
+                    <strong>Sysmex XN</strong> - Sat: 9pm AUC, 10pm MOB
+                </div>
+                <div class="legend-item task-day">
+                    <strong>Previ Gram (MOB)</strong> - Every Tuesday
+                </div>
+                <div class="legend-item task-night">
+                    <strong>Novus (AUC)</strong> - Every Tuesday after 3am (Night Shift)
+                </div>
+                <div class="legend-item task-day">
+                    <strong>Novus (MOB)</strong> - Every Tuesday (Day Shift)
+                </div>
+                <div class="legend-item task-night">
+                    <strong>GeneXpert (Both)</strong> - Thursday night
+                </div>
+                <div class="legend-item task-evening">
+                    <strong>Stago (Both)</strong> - Wednesday evening
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h4>Biweekly Tasks</h4>
+                <div class="legend-item task-night">
+                    <strong>Pure Analyzer 2 (AUC)</strong><br>
+                    Every other Saturday, 3am<br>
+                    Dates: 12/6, 12/20
+                </div>
+                <div class="legend-item task-evening">
+                    <strong>Pure Analyzer 1 (MOB)</strong><br>
+                    Every other Friday, 10pm<br>
+                    Dates: 12/13, 12/27
+                </div>
+            </div>
+
+            <div class="legend-section">
+                <h4>Monthly Tasks</h4>
+                <div class="legend-item task-day">
+                    <strong>Hematek</strong> - 2nd Wed (12/10)
+                </div>
+                <div class="legend-item task-day">
+                    <strong>Medtox</strong> - 3rd Wed (12/17)
+                </div>
+                <div class="legend-item task-day">
+                    <strong>Previ Gram</strong> - 3rd Tue (12/16)
+                </div>
+                <div class="legend-item task-day">
+                    <strong>Novus</strong> - 3rd Thu (12/18)
+                </div>
+                <div class="legend-item task-night">
+                    <strong>GeneXpert</strong> - 2nd Wed (12/10) Night
+                </div>
+                <div class="legend-item task-evening">
+                    <strong>Stago</strong> - 2nd Thu (12/11) 9pm
+                </div>
+                <div class="legend-item task-night">
+                    <strong>Pure Analyzers</strong> - 3rd Sat (12/20) 3am
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tasks = {
+            weekly: {
+                hematek: { name: 'Hematek', location: 'Both', shift: 'day', days: [6,13,20,27] },
+                sysmexAUC: { name: 'Sysmex Shutdown', location: 'AUC', shift: 'evening', time: '9pm', days: [6,13,20,27] },
+                sysmexMOB: { name: 'Sysmex Shutdown', location: 'MOB', shift: 'evening', time: '10pm', days: [6,13,20,27] },
+                previGramStain: { name: 'Previ Gram', location: 'MOB', shift: 'day', days: [2,9,16,23,30] },
+                novusAUC: { name: 'Novus', location: 'AUC', shift: 'night', time: '3am', days: [2,9,16,23,30] },
+                novusMOB: { name: 'Novus', location: 'MOB', shift: 'day', days: [2,9,16,23,30] },
+                genexpert: { name: 'GeneXpert', location: 'Both', shift: 'night', days: [4,11,18,25] },
+                stago: { name: 'Stago', location: 'Both', shift: 'evening', days: [3,10,17,24,31] }
+            },
+            biweekly: {
+                pure2: { name: 'Pure 2', location: 'AUC', shift: 'night', time: '3am', days: [6,20] },
+                pure1: { name: 'Pure 1', location: 'MOB', shift: 'evening', time: '10pm', days: [13,27] }
+            },
+            monthly: {
+                hematekMonthly: { name: 'Hematek Monthly', location: 'Both', shift: 'day', days: [10] },
+                medtox: { name: 'Medtox', location: 'Both', shift: 'day', days: [17] },
+                previMonthly: { name: 'Previ Monthly', location: 'Both', shift: 'day', days: [16] },
+                novusMonthly: { name: 'Novus Monthly', location: 'Both', shift: 'day', days: [18] },
+                genexpertMonthly: { name: 'GeneXpert Monthly', location: 'Both', shift: 'night', days: [10] },
+                stagoMonthly: { name: 'Stago Monthly', location: 'Both', shift: 'evening', time: '9pm', days: [11] },
+                pureMonthly: { name: 'Pure Monthly', location: 'Both', shift: 'night', time: '3am', days: [20] }
+            }
+        };
+
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const firstDay = 1; // December 1, 2025 is Monday
+        const daysInMonth = 31;
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            let html = '<div class="month-header">DECEMBER 2025</div>';
+
+            daysOfWeek.forEach(day => {
+                html += `<div class="day-header">${day}</div>`;
+            });
+
+            for (let i = 0; i < firstDay; i++) {
+                html += `<div class="day-cell empty"></div>`;
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                html += `<div class="day-cell" data-day="${day}">
+                    <div class="day-number">${day}</div>
+                    <div class="tasks-container" id="day-${day}"></div>
+                </div>`;
+            }
+
+            calendar.innerHTML = html;
+            populateTasks();
+            updateCounts();
+        }
+
+        function populateTasks() {
+            let weeklyTotal = 0, biweeklyTotal = 0, monthlyTotal = 0;
+
+            Object.entries(tasks.weekly).forEach(([key, task]) => {
+                task.days.forEach(day => {
+                    const container = document.getElementById(`day-${day}`);
+                    if (container) {
+                        container.appendChild(createTaskElement(task, 'weekly'));
+                        weeklyTotal++;
+                    }
+                });
+            });
+
+            Object.entries(tasks.biweekly).forEach(([key, task]) => {
+                task.days.forEach(day => {
+                    const container = document.getElementById(`day-${day}`);
+                    if (container) {
+                        container.appendChild(createTaskElement(task, 'biweekly'));
+                        biweeklyTotal++;
+                    }
+                });
+            });
+
+            Object.entries(tasks.monthly).forEach(([key, task]) => {
+                task.days.forEach(day => {
+                    const container = document.getElementById(`day-${day}`);
+                    if (container) {
+                        container.appendChild(createTaskElement(task, 'monthly'));
+                        monthlyTotal++;
+                    }
+                });
+            });
+
+            document.getElementById('weeklyCount').textContent = weeklyTotal;
+            document.getElementById('biweeklyCount').textContent = biweeklyTotal;
+            document.getElementById('monthlyCount').textContent = monthlyTotal;
+        }
+
+        function createTaskElement(task, type) {
+            const div = document.createElement('div');
+            div.className = `task task-${task.shift}`;
+            div.setAttribute('data-type', type);
+            div.setAttribute('data-shift', task.shift);
+
+            let timeStr = task.time ? ` ${task.time}` : '';
+            div.innerHTML = `<span class="task-location">${task.location}</span> ${task.name}${timeStr ? `<div class="task-time">${timeStr}</div>` : ''}`;
+
+            return div;
+        }
+
+        function filterTasks(filter) {
+            document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const tasks = document.querySelectorAll('.task');
+            tasks.forEach(task => {
+                const type = task.getAttribute('data-type');
+                const shift = task.getAttribute('data-shift');
+
+                if (filter === 'all') {
+                    task.style.display = 'block';
+                } else if (['weekly', 'biweekly', 'monthly'].includes(filter)) {
+                    task.style.display = type === filter ? 'block' : 'none';
+                } else {
+                    task.style.display = shift === filter ? 'block' : 'none';
+                }
+            });
+        }
+
+        function updateCounts() {
+            // Already updated in populateTasks
+        }
+
+        renderCalendar();
+    </script>
+</body>
+</html>

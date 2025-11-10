@@ -1,0 +1,21 @@
+{
+  "created_at": "2025-09-10T19:20:35.262547",
+  "pages": [
+    {
+      "name": "Lab Operations Center",
+      "id": "26ad2227-51b3-8168-9ef2-f96e400b2788"
+    },
+    {
+      "name": "Standard Template",
+      "id": "26ad2227-51b3-810c-a64a-e9d8211cf14b"
+    },
+    {
+      "name": "Critical Template",
+      "id": "26ad2227-51b3-8156-a8e2-df5d10f5e920"
+    },
+    {
+      "name": "Daily Dashboard",
+      "id": "26ad2227-51b3-81b4-8302-eb1cf270bc4d"
+    }
+  ]
+}

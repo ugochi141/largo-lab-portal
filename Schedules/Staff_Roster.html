@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Staff Roster Directory - Kaiser Permanente Largo Laboratory</title>
+    <meta name="description" content="Comprehensive staff directory for Kaiser Permanente Largo Laboratory with contact information, roles, and shift schedules.">
+    <meta name="theme-color" content="#0066cc">
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/kaiser-favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/icons/kaiser-favicon.svg">
+    <link rel="stylesheet" href="../assets/css/kps-portal.css">
+    <style>
+        /* Staff Roster Specific Styles */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 10px;
+            background: #0066cc;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            z-index: 100;
+            transition: top 0.2s ease;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+            outline: 3px solid #ffd54f;
+        }
+
+        .controls {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            border-left: 5px solid #0066cc;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #d1e7f3;
+            border-radius: 6px;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 9pt;
+            font-weight: 600;
+            font-family: Arial, sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background: #004499;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn.active {
+            background: #004499;
+            box-shadow: 0 2px 6px rgba(0, 68, 153, 0.4);
+        }
+
+        .btn-print {
+            background: #28a745;
+        }
+
+        .btn-print:hover {
+            background: #218838;
+        }
+
+        .content {
+            padding: 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-card h3 {
+            font-size: 32pt;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .stat-card p {
+            font-size: 10pt;
+            opacity: 0.95;
+        }
+
+        .staff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .staff-table thead {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+        }
+
+        .staff-table th {
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 10pt;
+            font-family: Arial, sans-serif;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .staff-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 9pt;
+            font-family: Arial, sans-serif;
+        }
+
+        .staff-table tbody tr {
+            transition: background 0.2s;
+            background: #ffffff;
+        }
+
+        .staff-table tbody tr:nth-child(even) {
+            background: #f8fbff;
+        }
+
+        .staff-table tbody tr:hover {
+            background: #e8f4f8;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 8pt;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .badge-mla {
+            background: #e7d4f7;
+            color: #6f42c1;
+            border: 1px solid #d4b5e8;
+        }
+
+        .badge-mlt {
+            background: #d1f2eb;
+            color: #0f6848;
+            border: 1px solid #b8e6db;
+        }
+
+        .badge-mls {
+            background: #cfe2ff;
+            color: #084298;
+            border: 1px solid #b6d4fe;
+        }
+
+        .badge-phleb {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .shift-badge {
+            background: #d1e7f3;
+            color: #0066cc;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 8pt;
+            font-weight: 600;
+            border: 1px solid #b3d9ed;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 9pt;
+            color: #333;
+        }
+
+        .contact-item a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-item a:hover {
+            color: #004499;
+            text-decoration: underline;
+        }
+
+        .icon {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .controls,
+            .btn {
+                display: none !important;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .staff-table thead {
+                background: #0066cc !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .staff-table {
+                font-size: 8pt;
+            }
+
+            .staff-table th,
+            .staff-table td {
+                padding: 8px 6px;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#mainContent" class="skip-link">Skip to main content</a>
+    <div class="container">
+        <header class="header" role="banner">
+            <div class="kaiser-logo" aria-hidden="true">🏥</div>
+            <h1>Kaiser Permanente Largo Laboratory</h1>
+            <p class="sr-only">Staff roster directory for laboratory personnel</p>
+            <h2>Staff Roster Directory - Complete Personnel Information</h2>
+        </header>
+
+        <main id="mainContent" role="main">
+            <div class="controls" role="search">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by name, role, NUID, email, or phone..." aria-label="Search staff roster">
+                </div>
+                <div class="filter-buttons" role="group" aria-label="Filter by role">
+                    <button class="btn active" onclick="filterRole('ALL')" aria-label="Show all staff">All Staff</button>
+                    <button class="btn" onclick="filterRole('MLA')" aria-label="Filter by MLA">MLA</button>
+                    <button class="btn" onclick="filterRole('MLT')" aria-label="Filter by MLT">MLT</button>
+                    <button class="btn" onclick="filterRole('MLS')" aria-label="Filter by MLS">MLS</button>
+                    <button class="btn" onclick="filterRole('PHLEB')" aria-label="Filter by Phlebotomists">Phlebotomists</button>
+                    <button class="btn btn-print" onclick="window.print()" aria-label="Print roster">📄 Print Roster</button>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="stats" id="statsContainer" role="status" aria-live="polite"></div>
+
+                <table class="staff-table" id="staffTable" role="table" aria-label="Staff roster table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Nickname</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">NUID</th>
+                            <th scope="col">Standard Shift</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <div class="footer" role="contentinfo">
+            <div class="footer-logo" aria-hidden="true">⚕️</div>
+            <p><strong>Kaiser Permanente Largo Clinical Core Laboratory</strong></p>
+            <p style="margin-top: 8px; font-size: 9pt;">Staff Directory | Last Updated: <time data-last-updated aria-live="polite">Loading…</time></p>
+            <p style="margin-top: 5px; font-size: 8pt; color: #999;">
+                Clinical Excellence Through Dedicated Personnel
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Staff roster data - Updated with complete employee information
+        const staffRoster = [
+            // Lab Assistant - MLA (1 staff)
+            {
+                name: 'Lorraine Blackwell',
+                nickname: 'Lorraine',
+                role: 'MLA',
+                nuid: 'O975731',
+                hireDate: '07/31/2000',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Lorraine.M.Blackwell@kp.org',
+                phone: '(240) 841-6490'
+            },
+
+            // Lab Scientists - MLS (6 staff)
+            {
+                name: 'Albert Che',
+                nickname: 'Albert',
+                role: 'MLS',
+                nuid: 'E715825',
+                hireDate: '10/18/2015',
+                shift: 'Evening (3:30p-12:00a)',
+                email: 'Albert.Che@kp.org',
+                phone: '(240) 441-2206'
+            },
+            {
+                name: 'Francis Azih Ngene',
+                nickname: 'Francis',
+                role: 'MLS',
+                nuid: 'K985930',
+                hireDate: '11/01/2015',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Francis.Azih-Ngene@kp.org',
+                phone: '(301) 437-3317'
+            },
+            {
+                name: 'George Etape',
+                nickname: 'George',
+                role: 'MLS',
+                nuid: 'B799280',
+                hireDate: '08/14/2022',
+                shift: 'Night (11:30p-8:00a)',
+                email: 'George.T.Etape@kp.org',
+                phone: '(240) 938-3314'
+            },
+            {
+                name: 'Ingrid Benitez-Ruiz',
+                nickname: 'Ingrid',
+                role: 'MLS',
+                nuid: 'Z711849',
+                hireDate: '08/15/2010',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Ingrid.Z.Benitez-Ruiz@kp.org',
+                phone: '(202) 894-5149'
+            },
+            {
+                name: 'Jacqueline Liburd',
+                nickname: 'Jackie',
+                role: 'MLS',
+                nuid: 'G600902',
+                hireDate: '06/11/1994',
+                shift: 'Night (12:00a-6:30a)',
+                email: 'Jacqueline.E.Liburd@kp.org',
+                phone: '(202) 297-5269'
+            },
+            {
+                name: 'Samuel Lawson',
+                nickname: 'Samuel',
+                role: 'MLS',
+                nuid: 'P171374',
+                hireDate: '09/04/2003',
+                shift: 'Evening (3:30p-12:00a)',
+                email: 'Samuel.D.Lawson@kp.org',
+                phone: '(240) 413-1001'
+            },
+
+            // Lab Technicians - MLT (4 staff)
+            {
+                name: 'Emily Creekmore',
+                nickname: 'Emily',
+                role: 'MLT',
+                nuid: 'F196088',
+                hireDate: '09/11/2022',
+                shift: 'Day (7:30a-4:00p)',
+                email: 'Emily.D.Creekmore@kp.org',
+                phone: '(601) 965-2300'
+            },
+            {
+                name: 'Emmanuel Lejano',
+                nickname: 'Boyet',
+                role: 'MLT',
+                nuid: 'S476844',
+                hireDate: '04/17/2016',
+                shift: 'Variable',
+                email: 'Emmanuel.M.Lejano@kp.org',
+                phone: '(301) 792-4483'
+            },
+            {
+                name: 'Maxwell Booker',
+                nickname: 'Booker',
+                role: 'MLT',
+                nuid: 'C221245',
+                hireDate: '06/26/2016',
+                shift: 'Variable',
+                email: 'Maxwell.L.Booker@kp.org',
+                phone: '(301) 499-2712'
+            },
+            {
+                name: 'Ogheneochuko Eshofa',
+                nickname: 'Tracy',
+                role: 'MLT',
+                nuid: 'I909813',
+                hireDate: '09/10/2023',
+                shift: 'Variable',
+                email: 'Ogheneochuko.T.Eshofa@kp.org',
+                phone: '(240) 825-8236'
+            },
+            {
+                name: 'Robel Bahre',
+                nickname: 'Robel',
+                role: 'MLT',
+                nuid: 'TBD',
+                hireDate: 'TBD',
+                shift: 'Evening (3:30p-12:00a)',
+                email: 'Robel.Bahre@kp.org',
+                phone: 'TBD'
+            },
+
+            // Phlebotomists - PHLEB (17 staff)
+            {
+                name: 'Anne Saint Phirin',
+                nickname: 'Anne',
+                role: 'PHLEB',
+                nuid: 'G191226',
+                hireDate: '10/30/2016',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Anne.T.Saint-Phirin@kp.org',
+                phone: '(227) 213-8358'
+            },
+            {
+                name: 'Christina Bolden-Davis',
+                nickname: 'Christina',
+                role: 'PHLEB',
+                nuid: 'B469877',
+                hireDate: '11/27/2016',
+                shift: 'Day (6:00a-2:30p)',
+                email: 'Christina.N.Bolden-Davis@kp.org',
+                phone: '(202) 375-8459'
+            },
+            {
+                name: 'Danalisa Hayes',
+                nickname: 'Danalisa',
+                role: 'PHLEB',
+                nuid: 'H418243',
+                hireDate: '05/04/2008',
+                shift: 'Variable',
+                email: 'Danalisa.E.Hayes@kp.org',
+                phone: '(301) 568-1829'
+            },
+            {
+                name: 'Emmanuella Theodore',
+                nickname: 'Emma',
+                role: 'PHLEB',
+                nuid: 'E100889',
+                hireDate: '08/07/2016',
+                shift: 'Variable',
+                email: 'Emmanuella.Theodore@kp.org',
+                phone: '(202) 716-1499'
+            },
+            {
+                name: 'Farah Moise',
+                nickname: 'Farah',
+                role: 'PHLEB',
+                nuid: 'I308821',
+                hireDate: '02/13/2022',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Farah.F.Moise@kp.org',
+                phone: '(240) 355-6515'
+            },
+            {
+                name: 'Johnette Brooks',
+                nickname: 'Netta',
+                role: 'PHLEB',
+                nuid: 'M391610',
+                hireDate: '05/14/2017',
+                shift: 'Day (7:00a-3:30p)',
+                email: 'Johnette.L.Brooks@kp.org',
+                phone: '(301) 275-9567'
+            },
+            {
+                name: 'Lakeshia Battle',
+                nickname: 'Keshia',
+                role: 'PHLEB',
+                nuid: 'L296279',
+                hireDate: '07/16/2023',
+                shift: 'Variable',
+                email: 'Keshia.A.Battle@kp.org',
+                phone: '(301) 828-6336'
+            },
+            {
+                name: 'Micaela Scarborough',
+                nickname: 'Micaela',
+                role: 'PHLEB',
+                nuid: 'I441746',
+                hireDate: '07/03/2022',
+                shift: 'Day (8:00a-12:00p)',
+                email: 'Micaela.X.Scarborough@kp.org',
+                phone: '(443) 991-0888'
+            },
+            {
+                name: 'Nichole Fauntleroy',
+                nickname: 'Nichole',
+                role: 'PHLEB',
+                nuid: 'X044352',
+                hireDate: '07/02/2023',
+                shift: 'Evening (2:00p-10:30p)',
+                email: 'Nichole.X.Fauntleroy@kp.org',
+                phone: '(443) 231-8396'
+            },
+            {
+                name: 'Stephanie Dodson',
+                nickname: 'Stephanie',
+                role: 'PHLEB',
+                nuid: 'P838373',
+                hireDate: '08/01/2014',
+                shift: 'Evening (2:00p-10:30p)',
+                email: 'Stephanie.J.Dodson@kp.org',
+                phone: '(202) 568-3007'
+            },
+            {
+                name: 'Taric White',
+                nickname: 'Taric',
+                role: 'PHLEB',
+                nuid: 'A298633',
+                hireDate: '07/16/2023',
+                shift: 'Split (9:00a-1:00p / 5:00p-9:00p)',
+                email: 'Taric.X.White@kp.org',
+                phone: '(240) 682-4322'
+            },
+            {
+                name: 'Youlana Miah',
+                nickname: 'Youlana',
+                role: 'PHLEB',
+                nuid: 'P214486',
+                hireDate: '04/03/2016',
+                shift: 'Day (6:00a-2:30p)',
+                email: 'Youlana.Miah@kp.org',
+                phone: '(301) 404-8949'
+            },
+            {
+                name: 'Rudolph Rubio',
+                nickname: 'Rudolph',
+                role: 'PHLEB',
+                nuid: 'TBD',
+                hireDate: 'TBD',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Rudolph.Rubio@kp.org',
+                phone: 'TBD'
+            },
+            {
+                name: 'Manoucheca Onuma',
+                nickname: 'Mimi',
+                role: 'PHLEB',
+                nuid: 'TBD',
+                hireDate: 'TBD',
+                shift: 'Day (8:00a-4:30p)',
+                email: 'Manoucheca.Onuma@kp.org',
+                phone: 'TBD'
+            },
+            {
+                name: 'Raquel Grayson',
+                nickname: 'Rachel',
+                role: 'PHLEB',
+                nuid: 'TBD',
+                hireDate: 'TBD',
+                shift: 'Day (9:00a-5:30p)',
+                email: 'Raquel.Grayson@kp.org',
+                phone: 'TBD'
+            },
+            {
+                name: 'Shannon Pilkington',
+                nickname: 'Shannon',
+                role: 'PHLEB',
+                nuid: 'TBD',
+                hireDate: 'TBD',
+                shift: 'Evening (2:00p-10:30p)',
+                email: 'Shannon.Pilkington@kp.org',
+                phone: 'TBD'
+            }
+        ];
+
+        let currentFilter = 'ALL';
+
+        function renderStaffTable(filter = 'ALL', searchTerm = '') {
+            const tbody = document.getElementById('staffTableBody');
+            tbody.innerHTML = '';
+
+            let filteredStaff = staffRoster;
+
+            // Apply role filter
+            if (filter !== 'ALL') {
+                filteredStaff = filteredStaff.filter(staff => staff.role === filter);
+            }
+
+            // Apply search filter
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filteredStaff = filteredStaff.filter(staff =>
+                    staff.name.toLowerCase().includes(term) ||
+                    staff.nickname.toLowerCase().includes(term) ||
+                    staff.role.toLowerCase().includes(term) ||
+                    staff.nuid.toLowerCase().includes(term) ||
+                    staff.email.toLowerCase().includes(term) ||
+                    staff.phone.includes(term)
+                );
+            }
+
+            // Render rows
+            filteredStaff.forEach(staff => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${staff.name}</strong></td>
+                    <td>${staff.nickname}</td>
+                    <td><span class="badge badge-${staff.role.toLowerCase()}">${staff.role}</span></td>
+                    <td><code>${staff.nuid}</code></td>
+                    <td><span class="shift-badge">${staff.shift}</span></td>
+                    <td><div class="contact-info">
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <a href="mailto:${staff.email}">${staff.email}</a>
+                        </div>
+                    </div></td>
+                    <td><div class="contact-info">
+                        <div class="contact-item">
+                            <span class="icon">📱</span>
+                            <a href="tel:${staff.phone}">${staff.phone}</a>
+                        </div>
+                    </div></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Update stats
+            updateStats(filteredStaff);
+        }
+
+        function updateStats(filteredStaff) {
+            const statsContainer = document.getElementById('statsContainer');
+            const mlaCount = filteredStaff.filter(s => s.role === 'MLA').length;
+            const mltCount = filteredStaff.filter(s => s.role === 'MLT').length;
+            const mlsCount = filteredStaff.filter(s => s.role === 'MLS').length;
+            const phlebCount = filteredStaff.filter(s => s.role === 'PHLEB').length;
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <h3>${filteredStaff.length}</h3>
+                    <p>Total Staff</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${phlebCount}</h3>
+                    <p>Phlebotomists</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${mltCount}</h3>
+                    <p>MLT</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${mlsCount}</h3>
+                    <p>MLS</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${mlaCount}</h3>
+                    <p>MLA</p>
+                </div>
+            `;
+        }
+
+        function filterRole(role) {
+            currentFilter = role;
+            const searchTerm = document.getElementById('searchInput').value;
+            renderStaffTable(role, searchTerm);
+
+            // Update active button
+            document.querySelectorAll('.filter-buttons .btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderStaffTable(currentFilter, e.target.value);
+        });
+
+        // Initial render
+        renderStaffTable();
+
+        // Update last modified date
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastUpdatedEl = document.querySelector('[data-last-updated]');
+            if (!lastUpdatedEl) {
+                return;
+            }
+
+            const sourceDate = document.lastModified ? new Date(document.lastModified) : new Date();
+            if (Number.isNaN(sourceDate.getTime())) {
+                lastUpdatedEl.textContent = 'Unavailable';
+                return;
+            }
+
+            const formattedDate = new Intl.DateTimeFormat('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            }).format(sourceDate);
+
+            lastUpdatedEl.textContent = formattedDate;
+            lastUpdatedEl.setAttribute('datetime', sourceDate.toISOString().split('T')[0]);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-09-09T19:49:34.605166",
+  "performance_score": {
+    "overall": 98,
+    "grade": "A"
+  },
+  "lab_operations": {
+    "tat_compliance": {
+      "current": 95,
+      "target": 95
+    },
+    "qc_performance": {
+      "pass_rate": 97,
+      "target": 95
+    },
+    "sample_throughput": {
+      "daily_average": 1253,
+      "capacity": 1500
+    }
+  },
+  "system_metrics": {
+    "uptime": 99.9,
+    "response_time_ms": 128,
+    "error_rate": 0.1
+  },
+  "recommendations": [
+    "System performing optimally",
+    "Consider scaling automation during peak hours",
+    "QC performance exceeding targets"
+  ]
+}

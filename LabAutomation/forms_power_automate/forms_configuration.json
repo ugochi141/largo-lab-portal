@@ -1,0 +1,335 @@
+{
+  "inventory_update_form": {
+    "form_name": "Largo Lab Inventory Update",
+    "form_id": "inventory-update-form",
+    "description": "Update inventory levels, add new items, and report issues",
+    "sections": [
+      {
+        "section_name": "Basic Information",
+        "fields": [
+          {
+            "field_name": "Staff Name",
+            "field_type": "text",
+            "required": true,
+            "placeholder": "Enter your full name"
+          },
+          {
+            "field_name": "Lab Location",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "MOB Lab (Core)",
+              "AUC Lab (STAT)",
+              "Both Labs"
+            ],
+            "default": "MOB Lab (Core)"
+          },
+          {
+            "field_name": "Update Type",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "Daily Count Update",
+              "New Item Addition",
+              "Stock Issue Report",
+              "Expiration Alert",
+              "Supplier ID Correction"
+            ]
+          },
+          {
+            "field_name": "Date/Time",
+            "field_type": "date",
+            "required": true,
+            "default": "today"
+          }
+        ]
+      },
+      {
+        "section_name": "Item Details",
+        "fields": [
+          {
+            "field_name": "Item Number",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "e.g., CH001, HE001 (leave blank for new items)"
+          },
+          {
+            "field_name": "Item Description",
+            "field_type": "text",
+            "required": true,
+            "placeholder": "Full product name"
+          },
+          {
+            "field_name": "Category",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "CHEMISTRY",
+              "HEMATOLOGY",
+              "URINALYSIS",
+              "KITS",
+              "MISCELLANEOUS"
+            ]
+          },
+          {
+            "field_name": "Manufacturer",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "e.g., Roche, Sysmex, BD"
+          },
+          {
+            "field_name": "Catalog Number",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "Manufacturer catalog number"
+          },
+          {
+            "field_name": "Kaiser Material Number",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "KAISER#/OLID"
+          },
+          {
+            "field_name": "Supplier ID",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "For ordering"
+          }
+        ]
+      },
+      {
+        "section_name": "Stock Information",
+        "fields": [
+          {
+            "field_name": "Current Hand Count",
+            "field_type": "number",
+            "required": true,
+            "min": 0,
+            "placeholder": "Physical count"
+          },
+          {
+            "field_name": "Package Size",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "e.g., 800 tests, 20L, 100/box"
+          },
+          {
+            "field_name": "Unit of Measure",
+            "field_type": "choice",
+            "required": false,
+            "options": [
+              "Pack",
+              "Each",
+              "Box",
+              "Case",
+              "Bottle",
+              "Vial",
+              "mL",
+              "L"
+            ]
+          },
+          {
+            "field_name": "Storage Location",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "e.g., Refrigerator #1, Supply Room A"
+          },
+          {
+            "field_name": "Storage Temperature",
+            "field_type": "choice",
+            "required": false,
+            "options": [
+              "Room Temp",
+              "2-8\u00b0C",
+              "-20\u00b0C",
+              "Other"
+            ]
+          }
+        ]
+      },
+      {
+        "section_name": "Critical Information",
+        "fields": [
+          {
+            "field_name": "Is Critical Item",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "default": "No"
+          },
+          {
+            "field_name": "Expiration Date",
+            "field_type": "date",
+            "required": false,
+            "description": "For reagents and time-sensitive items"
+          },
+          {
+            "field_name": "Lot Number",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "For tracking"
+          },
+          {
+            "field_name": "Analyzer/Equipment",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "e.g., Roche c303, Sysmex XN-1000"
+          },
+          {
+            "field_name": "Test/Procedure",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "What test this item is used for"
+          }
+        ]
+      },
+      {
+        "section_name": "Issues and Notes",
+        "fields": [
+          {
+            "field_name": "Issue Type",
+            "field_type": "choice",
+            "required": false,
+            "options": [
+              "None",
+              "Low Stock Alert",
+              "Out of Stock",
+              "Expiring Soon",
+              "Supplier ID Error",
+              "Damaged Item",
+              "Wrong Item Received",
+              "Other"
+            ]
+          },
+          {
+            "field_name": "Priority",
+            "field_type": "choice",
+            "required": false,
+            "options": [
+              "Low",
+              "Medium",
+              "High",
+              "Critical"
+            ],
+            "default": "Medium"
+          },
+          {
+            "field_name": "Notes",
+            "field_type": "longtext",
+            "required": false,
+            "placeholder": "Additional details, issues, or special instructions"
+          },
+          {
+            "field_name": "Action Required",
+            "field_type": "longtext",
+            "required": false,
+            "placeholder": "What needs to be done (ordering, redistribution, etc.)"
+          }
+        ]
+      }
+    ]
+  },
+  "alt_redistribution_form": {
+    "form_name": "ALT Reagent Redistribution Request",
+    "form_id": "alt-redistribution-form",
+    "description": "Request redistribution of excess ALT reagents before October 31 expiration",
+    "sections": [
+      {
+        "section_name": "Request Information",
+        "fields": [
+          {
+            "field_name": "Requestor Name",
+            "field_type": "text",
+            "required": true
+          },
+          {
+            "field_name": "Lab Location",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "MOB Lab",
+              "AUC Lab"
+            ]
+          },
+          {
+            "field_name": "Current ALT Stock",
+            "field_type": "number",
+            "required": true,
+            "min": 0,
+            "description": "How many ALT packs do you currently have?"
+          }
+        ]
+      },
+      {
+        "section_name": "Redistribution Details",
+        "fields": [
+          {
+            "field_name": "Packs to Redistribute",
+            "field_type": "number",
+            "required": true,
+            "min": 1,
+            "max": 17,
+            "description": "How many packs can you send to other locations?"
+          },
+          {
+            "field_name": "Preferred Recipients",
+            "field_type": "choice",
+            "required": false,
+            "multiple": true,
+            "options": [
+              "Kaiser Oakland",
+              "Kaiser San Francisco",
+              "Kaiser San Jose",
+              "Kaiser Santa Clara",
+              "Kaiser Fremont",
+              "Other Kaiser Location"
+            ]
+          },
+          {
+            "field_name": "Other Location",
+            "field_type": "text",
+            "required": false,
+            "placeholder": "If 'Other Kaiser Location' selected"
+          },
+          {
+            "field_name": "Contact Person",
+            "field_type": "text",
+            "required": true,
+            "placeholder": "Who to contact at receiving location"
+          },
+          {
+            "field_name": "Contact Email/Phone",
+            "field_type": "text",
+            "required": true,
+            "placeholder": "Contact information"
+          }
+        ]
+      },
+      {
+        "section_name": "Urgency",
+        "fields": [
+          {
+            "field_name": "Urgency Level",
+            "field_type": "choice",
+            "required": true,
+            "options": [
+              "Normal",
+              "Urgent",
+              "Critical"
+            ],
+            "default": "Urgent"
+          },
+          {
+            "field_name": "Special Instructions",
+            "field_type": "longtext",
+            "required": false,
+            "placeholder": "Any special handling or delivery requirements"
+          }
+        ]
+      }
+    ]
+  }
+}
