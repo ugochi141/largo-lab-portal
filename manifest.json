@@ -1,0 +1,103 @@
+{
+  "name": "Kaiser Permanente Largo Laboratory Portal",
+  "short_name": "Largo Lab Portal",
+  "description": "Enterprise laboratory management system for Kaiser Permanente Largo Laboratory with real-time metrics, schedule management, and workflow automation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0066cc",
+  "theme_color": "#0066cc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "healthcare", "productivity"],
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Enhanced Dashboard with Real-time Metrics"
+    },
+    {
+      "src": "/assets/screenshots/schedule.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Staff Schedule Management"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View enhanced dashboard",
+      "url": "/enhanced-dashboard.html",
+      "icons": [{ "src": "/assets/icons/shortcut-dashboard.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Schedule",
+      "short_name": "Schedule",
+      "description": "View staff schedule",
+      "url": "/Schedules/Daily%20Schedule.html",
+      "icons": [{ "src": "/assets/icons/shortcut-schedule.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "QC Tracking",
+      "short_name": "QC",
+      "description": "Quality control tracking",
+      "url": "/qc-tracking.html",
+      "icons": [{ "src": "/assets/icons/shortcut-qc.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr"
+}

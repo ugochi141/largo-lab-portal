@@ -9,8 +9,6 @@
     <meta name="theme-color" content="#0066cc">
     <link rel="icon" type="image/svg+xml" href="assets/icons/kaiser-favicon.svg">
     <link rel="apple-touch-icon" href="assets/icons/kaiser-favicon.svg">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="assets/css/modern-theme-system.css">
     <link rel="stylesheet" href="assets/css/kps-portal.css">
 </head>
 
@@ -25,40 +23,6 @@
         </header>
 
         <main id="mainContent" role="main">
-            <!-- Enhanced Dashboard Feature Highlight -->
-            <section class="section-card" style="background: linear-gradient(135deg, #0066cc 0%, #007fa3 100%); color: white; border: none; margin-bottom: 30px;" aria-labelledby="enhanced-dashboard-title">
-                <div class="section-header">
-                    <div class="section-icon" style="background: rgba(255,255,255,0.2); color: white; font-size: 2rem;" aria-hidden="true">🚀</div>
-                    <h2 class="section-title" id="enhanced-dashboard-title" style="color: white;">Enhanced Dashboard - Modern Analytics & Real-Time Metrics</h2>
-                </div>
-                <div class="section-description" style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin-bottom: 20px;">
-                    <strong style="color: white; font-size: 1.2rem;">NEW: Enterprise-Grade Dashboard</strong><br>
-                    Experience the next generation of laboratory management with real-time KPIs, interactive data visualization, dark/light theme support, and advanced analytics. Built with modern web technologies for optimal performance and accessibility (WCAG 2.1 AA compliant).
-                </div>
-                <nav aria-label="Enhanced dashboard access">
-                    <ul class="links-grid">
-                        <li>
-                            <a href="enhanced-dashboard.html" class="link-item" style="background: white; color: #0066cc; border: 3px solid rgba(255,255,255,0.3); font-weight: 700; font-size: 1.1rem; padding: 20px;">
-                                <span class="link-icon" style="font-size: 2rem;" aria-hidden="true">📊</span>
-                                <span class="link-text">Launch Enhanced Dashboard →</span>
-                                <span class="status-indicator" style="background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); color: #000; font-weight: 800;">LIVE</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="info-box" style="background: rgba(0,0,0,0.3); border-left: 4px solid #00ffff; margin-top: 20px; color: white;" aria-labelledby="dashboard-features-heading">
-                    <h4 id="dashboard-features-heading" style="color: #00ffff;">✨ Modern Features Included</h4>
-                    <ul style="color: rgba(255,255,255,0.95); line-height: 1.8;">
-                        <li><strong style="color: #00ff00;">Real-Time Metrics:</strong> Live updates every 30 seconds for staff counts, pending orders, QC tasks, turnaround times, and compliance rates</li>
-                        <li><strong style="color: #00ff00;">Interactive Charts:</strong> Test volume bar charts, turnaround time trends, equipment status visualizations with SVG rendering</li>
-                        <li><strong style="color: #00ff00;">Dark/Light Theme:</strong> Automatic theme detection with manual toggle - reduces eye strain and improves focus</li>
-                        <li><strong style="color: #00ff00;">Quick Actions:</strong> One-click access to schedules, QC tracking, inventory, reports, and manager tools</li>
-                        <li><strong style="color: #00ff00;">Responsive Design:</strong> Optimized for desktop, tablet, and mobile devices with touch-friendly interfaces</li>
-                        <li><strong style="color: #00ff00;">Toast Notifications:</strong> Real-time system alerts and status updates with auto-dismiss functionality</li>
-                    </ul>
-                </div>
-            </section>
-
             <div class="main-sections">
                 <!-- SOPs Section -->
                 <section class="section-card" aria-labelledby="sop-section-title">
@@ -185,22 +149,6 @@
                                 <a href="Schedules/QC_Maintenance_October_2025.html" class="link-item warning">
                                     <span class="link-icon" aria-hidden="true">🔬</span>
                                     <span class="link-text">QC Maintenance Calendar - October 2025</span>
-                                    <span class="status-indicator enhanced">QC</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Schedules/QC_Maintenance_November_2025.html" class="link-item warning">
-                                    <span class="link-icon" aria-hidden="true">🔬</span>
-                                    <span class="link-text">QC Maintenance Calendar - November 2025</span>
-                                    <span class="status-indicator enhanced">QC</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Schedules/QC_Maintenance_December_2025.html" class="link-item warning">
-                                    <span class="link-icon" aria-hidden="true">🔬</span>
-                                    <span class="link-text">QC Maintenance Calendar - December 2025</span>
                                     <span class="status-indicator enhanced">QC</span>
                                     <span class="link-arrow" aria-hidden="true">→</span>
                                 </a>
@@ -822,86 +770,6 @@
                     </p>
                 </section>
             </div>
-
-                <!-- System Tools & Diagnostics Section -->
-                <section class="section-card" aria-labelledby="debug-section-title" style="border: 2px solid #00ff00; background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);">
-                    <div class="section-header">
-                        <div class="section-icon" aria-hidden="true">🛠️</div>
-                        <h2 class="section-title" id="debug-section-title" style="color: #00ff00;">System Tools & Diagnostics</h2>
-                    </div>
-                    <div class="section-description">
-                        <strong style="color: #00ffff;">Advanced Portal Diagnostics & Quality Assurance</strong><br>
-                        <span style="color: #ffffff;">Comprehensive debugging tools, link validation, performance monitoring, and system health checks. Access real-time diagnostics, run automated QA tests, and monitor portal performance metrics.</span>
-                    </div>
-
-                    <div class="alert-box" role="status" style="background: #1a2332; border-left: 4px solid #00ff00;">
-                        <strong style="color: #00ff00;">Developer Tools:</strong> <span style="color: #ffffff;">These diagnostic tools are designed for system administrators and developers to monitor portal health, validate integrations, and troubleshoot issues.</span>
-                    </div>
-
-                    <nav aria-label="System diagnostic tools">
-                        <ul class="links-grid">
-                            <li>
-                                <a href="debug-portal.html" class="link-item" style="background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); border: 2px solid #00ff00;">
-                                    <span class="link-icon" aria-hidden="true">🔍</span>
-                                    <span class="link-text" style="color: #000; font-weight: bold;">Debug Portal - System Diagnostics</span>
-                                    <span class="status-indicator production" style="background: #000; color: #00ff00;">LIVE</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="link-validator.html" class="link-item info">
-                                    <span class="link-icon" aria-hidden="true">🔗</span>
-                                    <span class="link-text">Link Validator - Automated Checks</span>
-                                    <span class="status-indicator enhanced">VALIDATION</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="portal-qa-dashboard.html" class="link-item success">
-                                    <span class="link-icon" aria-hidden="true">✓</span>
-                                    <span class="link-text">QA Dashboard - Quality Metrics</span>
-                                    <span class="status-indicator production">QA</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="runPerformanceTest(); return false;" class="link-item warning">
-                                    <span class="link-icon" aria-hidden="true">⚡</span>
-                                    <span class="link-text">Performance Monitor - Load Test</span>
-                                    <span class="status-indicator enhanced">METRICS</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="toggleDarkMode(); return false;" class="link-item" style="background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%); border: 2px solid #00ffff;">
-                                    <span class="link-icon" aria-hidden="true">🌙</span>
-                                    <span class="link-text" style="color: #00ffff; font-weight: bold;">Dark Mode Toggle</span>
-                                    <span class="status-indicator enhanced" style="background: #00ffff; color: #000;">THEME</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" onclick="checkAccessibility(); return false;" class="link-item primary">
-                                    <span class="link-icon" aria-hidden="true">♿</span>
-                                    <span class="link-text">Accessibility Checker - WCAG 2.1</span>
-                                    <span class="status-indicator production">A11Y</span>
-                                    <span class="link-arrow" aria-hidden="true">→</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div class="info-box" aria-labelledby="debug-features-heading" style="background: #2c3e50; border-left: 4px solid #00ffff; margin-top: 20px;">
-                        <h4 id="debug-features-heading" style="color: #00ffff;">🎯 Advanced Features</h4>
-                        <ul style="color: #ffffff;">
-                            <li><strong style="color: #00ff00;">Real-time Monitoring:</strong> Live system health metrics, resource usage, and performance analytics</li>
-                            <li><strong style="color: #00ff00;">Automated Testing:</strong> Run comprehensive QA tests on all portal links and integrations</li>
-                            <li><strong style="color: #00ff00;">Performance Profiling:</strong> Measure page load times, resource optimization, and Core Web Vitals</li>
-                            <li><strong style="color: #00ff00;">Accessibility Audit:</strong> WCAG 2.1 compliance checking with detailed recommendations</li>
-                            <li><strong style="color: #00ff00;">Dark Mode:</strong> Reduce eye strain with system-wide dark theme support</li>
-                        </ul>
-                    </div>
-                </section>
         </main>
 
         <div class="footer" role="contentinfo">
@@ -970,12 +838,6 @@
             });
         }
     </script>
-
-    <!-- Core Enhancement Scripts -->
-    <script src="js/theme-manager.js"></script>
-    <script src="js/pwa-installer.js"></script>
-    <script src="js/workflow-automation.js"></script>
-    <script src="js/advanced-reporting.js"></script>
 </body>
 
 </html>
