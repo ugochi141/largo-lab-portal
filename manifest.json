@@ -1,0 +1,42 @@
+{
+  "name": "Largo Laboratory Portal",
+  "short_name": "Largo Lab",
+  "description": "Production-ready healthcare laboratory management system for phlebotomy staff scheduling and operations",
+  "start_url": "/largo-lab-portal/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066cc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/largo-lab-portal/assets/icons/kaiser-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["healthcare", "medical", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Schedule",
+      "short_name": "Schedule",
+      "description": "Create and manage staff schedules",
+      "url": "/largo-lab-portal/schedule",
+      "icons": []
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Manager dashboard and tools",
+      "url": "/largo-lab-portal/dashboard",
+      "icons": []
+    },
+    {
+      "name": "Safety",
+      "short_name": "Safety",
+      "description": "Safety incident reporting",
+      "url": "/largo-lab-portal/safety",
+      "icons": []
+    }
+  ]
+}
