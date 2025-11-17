@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import MeetingScheduler from '@/components/dashboard/MeetingScheduler';
 import ActionItemTracker from '@/components/dashboard/ActionItemTracker';
 import { useMeetingStore } from '@/store/meetingStore';
+import { useDashboardStore } from '@/store/dashboardStore';
+import { Link } from 'react-router-dom';
 
 const DashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'meetings' | 'actions' | 'rounding'>('overview');
   const { getUpcomingMeetings, getOverdueActionItems } = useMeetingStore();
+  const stats = useDashboardStore((state) => state.stats);
+  const inventory = useDashboardStore((state) => state.inventory);
 
   const upcomingMeetings = getUpcomingMeetings();
   const overdueActions = getOverdueActionItems();
+  const criticalInventory = inventory.filter((item) => item.status === 'CRITICAL').length;
 
   const tabs = [
     { id: 'overview' as const, label: 'Overview', icon: '📊' },
@@ -61,50 +66,50 @@ const DashboardPage: React.FC = () => {
           <div className="space-y-6">
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="card bg-primary-50 border-primary-200">
+              <div className="card bg-primary-50 border-primary-200" role="status" aria-live="polite">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-primary-500 rounded-lg flex items-center justify-center text-white text-2xl">
-                    📅
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary-700">{upcomingMeetings.length}</div>
-                    <div className="text-sm text-primary-600">Upcoming Meetings</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-danger-50 border-danger-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-danger-500 rounded-lg flex items-center justify-center text-white text-2xl">
-                    ⚠️
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-danger-700">{overdueActions.length}</div>
-                    <div className="text-sm text-danger-600">Overdue Actions</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-success-50 border-success-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-success-500 rounded-lg flex items-center justify-center text-white text-2xl">
-                    ✓
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-success-700">0</div>
-                    <div className="text-sm text-success-600">Completed Today</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card bg-secondary-50 border-secondary-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-secondary-500 rounded-lg flex items-center justify-center text-white text-2xl">
                     👥
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-secondary-700">0</div>
-                    <div className="text-sm text-secondary-600">Staff Rounds</div>
+                    <div className="text-2xl font-bold text-primary-700">{stats.staffOnDuty}</div>
+                    <div className="text-sm text-primary-600">Staff On Duty</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card bg-danger-50 border-danger-200" role="status" aria-live="polite">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-danger-500 rounded-lg flex items-center justify-center text-white text-2xl">
+                    📦
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-danger-700">{stats.pendingOrders}</div>
+                    <div className="text-sm text-danger-600">Pending Orders</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card bg-success-50 border-success-200" role="status" aria-live="polite">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-success-500 rounded-lg flex items-center justify-center text-white text-2xl">
+                    ✅
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-success-700">{stats.qcTasksDue}</div>
+                    <div className="text-sm text-success-600">QC Tasks Due</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card bg-secondary-50 border-secondary-200" role="status" aria-live="polite">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-secondary-500 rounded-lg flex items-center justify-center text-white text-2xl">
+                    ⚠️
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-secondary-700">{criticalInventory}</div>
+                    <div className="text-sm text-secondary-600">Critical Stock Items</div>
                   </div>
                 </div>
               </div>
@@ -113,7 +118,7 @@ const DashboardPage: React.FC = () => {
             {/* Quick Actions */}
             <div className="card">
               <h3 className="text-xl font-bold text-neutral-900 mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <button
                   onClick={() => setActiveTab('meetings')}
                   className="p-4 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors text-left border border-primary-200"
@@ -140,6 +145,15 @@ const DashboardPage: React.FC = () => {
                   <div className="font-semibold text-neutral-900">Staff Rounding</div>
                   <div className="text-sm text-neutral-600">Check in with team members</div>
                 </button>
+
+                <Link
+                  to="/inventory"
+                  className="p-4 bg-danger-50 hover:bg-danger-100 rounded-lg transition-colors text-left border border-danger-200"
+                >
+                  <div className="text-3xl mb-2">📦</div>
+                  <div className="font-semibold text-neutral-900">Inventory Review</div>
+                  <div className="text-sm text-neutral-600">Evaluate supply levels & PAR thresholds</div>
+                </Link>
               </div>
             </div>
 

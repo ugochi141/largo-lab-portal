@@ -1,6 +1,6 @@
 // Sample data for demonstration and testing
 import { PhlebotomyRole } from '@/types';
-import type { Staff, Meeting, SafetyIncident } from '@/types';
+import type { Staff, Meeting, SafetyIncident, ComplianceItem, TrainingRequirement } from '@/types';
 
 export const sampleStaff: Staff[] = [
   {
@@ -263,6 +263,64 @@ export const sampleIncidents: SafetyIncident[] = [
   },
 ];
 
+export const sampleComplianceItems: ComplianceItem[] = [
+  {
+    id: 'comp-1',
+    category: 'CLIA',
+    title: 'Annual CLIA Validation',
+    description: 'Complete annual CLIA competency review and documentation.',
+    dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    assignedTo: 'staff-1',
+    status: 'IN_PROGRESS',
+    documents: ['CLIA-2024.pdf'],
+  },
+  {
+    id: 'comp-2',
+    category: 'CAP',
+    title: 'CAP Instrument Calibration',
+    description: 'Document calibration evidence for Sysmex XN-2000.',
+    dueDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+    assignedTo: 'staff-2',
+    status: 'OVERDUE',
+  },
+  {
+    id: 'comp-3',
+    category: 'OSHA',
+    title: 'Needle Stick Training Roster',
+    description: 'Verify OSHA training attendance for all staff.',
+    dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+    assignedTo: 'staff-3',
+    status: 'PENDING',
+  },
+];
+
+export const sampleTrainingRequirements: TrainingRequirement[] = [
+  {
+    id: 'train-1',
+    title: 'Annual Competency - Venipuncture',
+    assignedTo: 'staff-4',
+    status: 'OVERDUE',
+    dueDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+    competencyArea: 'CLIA',
+  },
+  {
+    id: 'train-2',
+    title: 'Specimen Processing Refresher',
+    assignedTo: 'staff-5',
+    status: 'PENDING',
+    dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+    competencyArea: 'Quality',
+  },
+  {
+    id: 'train-3',
+    title: 'Chemical Spill Drill',
+    assignedTo: 'staff-2',
+    status: 'IN_PROGRESS',
+    dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    competencyArea: 'Safety',
+  },
+];
+
 // Function to load sample data into stores
 export const loadSampleData = () => {
   // This can be imported and called from main.tsx or a demo mode toggle
@@ -270,11 +328,15 @@ export const loadSampleData = () => {
     staff: sampleStaff.length,
     meetings: sampleMeetings.length,
     incidents: sampleIncidents.length,
+    compliance: sampleComplianceItems.length,
+    training: sampleTrainingRequirements.length,
   });
   
   return {
     sampleStaff,
     sampleMeetings,
     sampleIncidents,
+    sampleComplianceItems,
+    sampleTrainingRequirements,
   };
 };

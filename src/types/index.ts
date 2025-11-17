@@ -207,6 +207,77 @@ export interface UserSettings {
   language: string;
 }
 
+export interface DashboardStats {
+  staffOnDuty: number;
+  pendingOrders: number;
+  qcTasksDue: number;
+  complianceRate: number;
+}
+
+export interface SchedulePreviewEntry {
+  time: string;
+  staff: string;
+  role: string;
+  station: string;
+}
+
+export type InventoryStatus = 'OK' | 'WARNING' | 'CRITICAL';
+
+export interface InventoryLevel {
+  category: string;
+  percentage: number;
+  status: InventoryStatus;
+  message: string;
+}
+
+export interface AlertMessage {
+  id: string;
+  title: string;
+  description: string;
+  severity: 'INFO' | 'WARNING' | 'CRITICAL';
+}
+
+export interface DashboardPayload {
+  stats: DashboardStats;
+  schedulePreview: SchedulePreviewEntry[];
+  inventory: InventoryLevel[];
+  alerts: AlertMessage[];
+  updatedAt: string;
+}
+
+export interface InventoryItem {
+  id: string;
+  name: string;
+  category: string;
+  location: string;
+  currentStock: number;
+  parLevel: number;
+  unit: string;
+  status: InventoryStatus;
+  vendor?: string;
+  catalogNumber?: string;
+  lotNumber?: string;
+  expirationDate?: string;
+  unitPrice?: number;
+}
+
+export interface InventoryDataset {
+  items: InventoryItem[];
+  categories: string[];
+  locations: string[];
+  updatedAt: string;
+}
+
+export interface TrainingRequirement {
+  id: string;
+  title: string;
+  assignedTo: string; // staff ID
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'OVERDUE';
+  dueDate: Date;
+  competencyArea: string;
+  lastCompleted?: Date;
+}
+
 // Utility types
 export type StaffWithSchedule = Staff & {
   schedule: ScheduleEntry[];
@@ -221,3 +292,36 @@ export type SafetyIncidentWithStaff = SafetyIncident & {
   reporterDetails: Staff;
   involvedStaffDetails: Staff[];
 };
+
+// Production Schedule Data Types (from Daily Schedule.html)
+export interface ProductionPhlebStaff {
+  name: string;
+  nickname: string;
+  role?: string;
+  assignment?: string;
+  shift: string;
+  breaks: string;
+  startTime: number;
+  notes?: string;
+}
+
+export interface ProductionLabStaff {
+  name: string;
+  nickname: string;
+  dept?: string;
+  role?: string;
+  assignment: string;
+  shift: string;
+  breaks: string;
+  startTime: number;
+  notes?: string;
+}
+
+export interface ProductionDaySchedule {
+  phleb: ProductionPhlebStaff[];
+  lab: ProductionLabStaff[];
+}
+
+export interface ProductionScheduleData {
+  [date: string]: ProductionDaySchedule;
+}
