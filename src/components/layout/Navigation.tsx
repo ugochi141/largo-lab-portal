@@ -40,21 +40,11 @@ const Navigation: React.FC = () => {
       icon: '📅',
       items: [
         { path: '/schedule', label: 'Daily Schedule', icon: '📅' },
-        { path: '/phlebotomy-rotation', label: 'Phlebotomy Rotation', icon: '🩸' },
-        { path: '/qc-maintenance', label: 'QC & Maintenance', icon: '🔧' },
         { path: '/schedule-manager', label: 'Schedule Manager', icon: '📝' },
       ],
     },
-    {
-      label: 'Inventory',
-      icon: '📦',
-      items: [
-        { path: '/inventory', label: 'All Inventory', icon: '📦' },
-        { path: '/inventory/chemistry', label: 'Chemistry', icon: '⚗️' },
-        { path: '/inventory/hematology', label: 'Hematology', icon: '🩸' },
-        { path: '/inventory/urinalysis', label: 'Urinalysis', icon: '🧪' },
-      ],
-    },
+    { path: '/inventory', label: 'Inventory', icon: '📦' },
+    { path: '/equipment', label: 'Equipment', icon: '🔧' },
     { path: '/sbar', label: 'SBAR Toolkit', icon: '🗂️' },
     { path: '/dashboard', label: 'Manager Dashboard', icon: '📊' },
     { path: '/safety', label: 'Safety & Compliance', icon: '🛡️' },
