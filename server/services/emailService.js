@@ -9,35 +9,45 @@ const cron = require('node-cron');
 
 class EmailService {
     constructor() {
-        // Configure email transporter
-        this.transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp.kp.org',
-            port: process.env.SMTP_PORT || 587,
-            secure: false,
-            auth: {
-                user: process.env.SMTP_USER || 'largo-lab-portal@kp.org',
-                pass: process.env.SMTP_PASS
-            },
-            tls: {
-                rejectUnauthorized: false
-            }
-        });
+        // Validate required SMTP configuration
+        if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+            console.warn('⚠️  SMTP configuration incomplete. Email service disabled.');
+            console.warn('   Required: SMTP_HOST, SMTP_USER, SMTP_PASS');
+            this.isConfigured = false;
+            this.transporter = null;
+        } else {
+            this.isConfigured = true;
 
-        // Email recipients configuration
+            // Configure email transporter
+            this.transporter = nodemailer.createTransport({
+                host: process.env.SMTP_HOST,
+                port: process.env.SMTP_PORT || 587,
+                secure: false,
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS
+                },
+                tls: {
+                    rejectUnauthorized: process.env.NODE_ENV === 'production'
+                }
+            });
+
+            console.log('✓ Email service configured successfully');
+        }
+
+        // Email recipients configuration (using environment variables for security)
+        const getEmailRecipients = (envVar, fallbackArray) => {
+            if (process.env[envVar]) {
+                return process.env[envVar].split(',').map(e => e.trim());
+            }
+            return fallbackArray;
+        };
+
         this.recipients = {
-            to: [
-                'LargoInventoryTeam@KP.org',
-                'Alex.X.Roberson@kp.org',
-                'Tianna.J.Maxwell@kp.org'
-            ],
-            cc: [
-                'John.F.Ekpe@kp.org',
-                'Ugochi.L.Ndubuisi@kp.org',
-                'Shanthi.A.Hayes@kp.org',
-                'Emily.D.Creekmore@kp.org',
-                'Maxwell.L.Booker@kp.org',
-                'George.T.Etape@kp.org'
-            ]
+            to: getEmailRecipients('EMAIL_TO_RECIPIENTS', [
+                'LargoInventoryTeam@KP.org'
+            ]),
+            cc: getEmailRecipients('EMAIL_CC_RECIPIENTS', [])
         };
 
         // Schedule automatic inventory checks
@@ -128,6 +138,12 @@ class EmailService {
      * Send order email
      */
     async sendOrderEmail(ordersByVendor, itemsToOrder) {
+        if (!this.isConfigured) {
+            const error = new Error('Email service not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS environment variables.');
+            console.error(error.message);
+            throw error;
+        }
+
         const orderDate = new Date().toISOString().split('T')[0];
         const orderNumber = `PO-${orderDate}-${Date.now().toString().slice(-6)}`;
 
@@ -145,9 +161,9 @@ class EmailService {
         );
 
         const mailOptions = {
-            from: '"Largo Lab Portal" <largo-lab-portal@kp.org>',
+            from: `"Largo Lab Portal" <${process.env.SMTP_USER}>`,
             to: this.recipients.to.join(', '),
-            cc: this.recipients.cc.join(', '),
+            cc: this.recipients.cc.length > 0 ? this.recipients.cc.join(', ') : undefined,
             subject: `[AUTOMATED] Laboratory Supply Order ${orderNumber} - ${itemsToOrder.length} Items`,
             html: emailBody,
             attachments: [
@@ -172,12 +188,17 @@ class EmailService {
      * Send critical alert email
      */
     async sendCriticalAlertEmail(criticalItems) {
+        if (!this.isConfigured) {
+            console.error('Email service not configured. Cannot send critical alert.');
+            throw new Error('Email service not configured.');
+        }
+
         const emailBody = this.generateCriticalAlertHTML(criticalItems);
 
         const mailOptions = {
-            from: '"Largo Lab Portal URGENT" <largo-lab-portal@kp.org>',
+            from: `"Largo Lab Portal URGENT" <${process.env.SMTP_USER}>`,
             to: this.recipients.to.join(', '),
-            cc: this.recipients.cc.join(', '),
+            cc: this.recipients.cc.length > 0 ? this.recipients.cc.join(', ') : undefined,
             subject: `[URGENT] Critical Inventory Alert - ${criticalItems.length} Items Need Immediate Attention`,
             priority: 'high',
             html: emailBody

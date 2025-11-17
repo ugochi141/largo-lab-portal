@@ -194,6 +194,28 @@
 
     <main class="main-content">
         <div class="tat-container">
+            <!-- DEMO DATA WARNING -->
+            <div class="demo-data-warning" style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8b3 100%); border: 3px solid #ffc107; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="font-size: 48px;">⚠️</div>
+                    <div style="flex: 1;">
+                        <h3 style="margin: 0 0 8px 0; color: #856404; font-size: 1.3em;">
+                            <strong>DEMO DATA ONLY - NOT LIVE METRICS</strong>
+                        </h3>
+                        <p style="margin: 0; color: #856404; font-size: 1em;">
+                            <strong>Important:</strong> The TAT data shown on this page is <strong>simulated/demo data for testing purposes</strong>.
+                            This is NOT real-time laboratory data. To view actual TAT metrics, you must start the backend server which connects to the laboratory information system (LIS).
+                        </p>
+                        <div style="background: rgba(255,255,255,0.6); padding: 12px; border-radius: 6px; margin-top: 12px;">
+                            <strong style="color: #721c24;">🔧 Enable Real TAT Monitoring:</strong><br>
+                            <code style="background: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block; margin-top: 6px; color: #000;">npm run pm2:start</code>
+                            or
+                            <code style="background: #fff; padding: 6px 12px; border-radius: 4px; display: inline-block; color: #000;">npm run dev</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <h2>Laboratory Turnaround Time Monitoring</h2>
             <p>Real-time tracking of specimen turnaround times by department and test type</p>
 

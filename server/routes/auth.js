@@ -60,6 +60,11 @@ router.post('/login', asyncHandler(async (req, res) => {
   }
 
   // Generate JWT token
+  if (!process.env.JWT_SECRET) {
+    global.logger.error('JWT_SECRET environment variable not set');
+    throw new AppError('Server configuration error. Contact administrator.', 500);
+  }
+
   const token = jwt.sign(
     {
       id: user.id,
@@ -67,7 +72,7 @@ router.post('/login', asyncHandler(async (req, res) => {
       role: user.role,
       department: user.department
     },
-    process.env.JWT_SECRET || 'default-secret-change-in-production',
+    process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_EXPIRE || '7d'
     }
@@ -125,10 +130,14 @@ router.get('/verify', asyncHandler(async (req, res) => {
     throw new AppError('No token provided', 401);
   }
 
+  if (!process.env.JWT_SECRET) {
+    throw new AppError('Server configuration error. Contact administrator.', 500);
+  }
+
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'default-secret-change-in-production'
+      process.env.JWT_SECRET
     );
 
     res.json({
@@ -155,9 +164,13 @@ router.post('/change-password', asyncHandler(async (req, res) => {
   }
 
   // Decode token
+  if (!process.env.JWT_SECRET) {
+    throw new AppError('Server configuration error. Contact administrator.', 500);
+  }
+
   const decoded = jwt.verify(
     token,
-    process.env.JWT_SECRET || 'default-secret-change-in-production'
+    process.env.JWT_SECRET
   );
 
   const user = users.get(decoded.username);
@@ -206,10 +219,14 @@ router.get('/session', asyncHandler(async (req, res) => {
     throw new AppError('No session', 401);
   }
 
+  if (!process.env.JWT_SECRET) {
+    throw new AppError('Server configuration error. Contact administrator.', 500);
+  }
+
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'default-secret-change-in-production'
+      process.env.JWT_SECRET
     );
 
     const user = users.get(decoded.username);
@@ -243,10 +260,14 @@ router.get('/check-permission/:permission', asyncHandler(async (req, res) => {
     return res.json({ hasPermission: false });
   }
 
+  if (!process.env.JWT_SECRET) {
+    return res.json({ hasPermission: false, error: 'Server configuration error' });
+  }
+
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'default-secret-change-in-production'
+      process.env.JWT_SECRET
     );
 
     const user = users.get(decoded.username);
