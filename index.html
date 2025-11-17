@@ -16,6 +16,403 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+    <style>
+        /* Enhanced Visual Styles */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 20px 60px rgba(0, 94, 184, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5em;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4em;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1em;
+            color: rgba(255,255,255,0.85);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #005EB8 0%, #00a8e8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        /* Enhanced Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .dashboard-card:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #005EB8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, #005EB8 0%, #00a8e8 100%);
+            border-radius: 10px;
+        }
+
+        /* Enhanced Quick Actions */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            border-color: #005EB8;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,94,184,0.2);
+        }
+
+        .action-btn:hover .action-icon {
+            transform: scale(1.2);
+        }
+
+        .action-btn:hover .action-label {
+            color: white;
+        }
+
+        .action-icon {
+            font-size: 2em;
+            transition: transform 0.3s ease;
+        }
+
+        .action-label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        /* Enhanced Alerts */
+        .alerts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .alert-item {
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            font-size: 0.95em;
+            animation: fadeInUp 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .alert-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .alert-item.critical-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .alert-item.warning {
+            background: linear-gradient(135deg, #fffbf0 0%, #fff3cd 100%);
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .alert-item.info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: #2196F3;
+            color: #0d47a1;
+        }
+
+        /* Enhanced Progress Bars */
+        .progress-bar {
+            background: #e9ecef;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+            background: linear-gradient(90deg, currentColor 0%, currentColor 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* SBAR Section Enhancement */
+        .sbar-quick-access {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+            border: 3px solid #2196F3;
+            box-shadow: 0 15px 40px rgba(33, 150, 243, 0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .sbar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sbar-btn {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,94,184,0.3);
+        }
+
+        .sbar-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,94,184,0.4);
+        }
+
+        /* External Systems Enhancement */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .system-link {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .system-link:hover {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,94,184,0.3);
+        }
+
+        .system-icon {
+            font-size: 2.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .system-link:hover .system-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .system-name {
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1em;
+            }
+
+            .stats-banner {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: -30px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .systems-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Header -->
@@ -75,52 +472,45 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">🔬 Largo Laboratory Portal</h1>
+            <p class="hero-subtitle">Kaiser Permanente Clinical Laboratory Operations</p>
+            <p class="hero-description">Comprehensive laboratory management system for scheduling, inventory, QC tracking, and staff operations</p>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <div class="stats-banner">
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <span class="stat-value" id="staff-count">22</span>
+            <span class="stat-label">Staff On Duty</span>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <span class="stat-value" id="pending-orders">5</span>
+            <span class="stat-label">Pending Orders</span>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <span class="stat-value" id="qc-tasks">8</span>
+            <span class="stat-label">QC Tasks Due</span>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <span class="stat-value status-green">100%</span>
+            <span class="stat-label">Compliance</span>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
             <!-- Dashboard Overview -->
             <section class="dashboard-section">
-                <h2 class="section-title">Laboratory Operations Dashboard</h2>
                 <div class="dashboard-grid">
-                    <!-- Quick Stats -->
-                    <div class="dashboard-card stats-card">
-                        <h3 class="card-title">Today's Overview</h3>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <span class="stat-value" id="staff-count">22</span>
-                                <span class="stat-label">Staff On Duty</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value" id="pending-orders">5</span>
-                                <span class="stat-label">Pending Orders</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value" id="qc-tasks">8</span>
-                                <span class="stat-label">QC Tasks Due</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value status-green">100%</span>
-                                <span class="stat-label">Compliance</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Critical Alerts -->
-                    <div class="dashboard-card alerts-card">
-                        <h3 class="card-title">Critical Alerts</h3>
-                        <div class="alerts-container" id="alerts-container">
-                            <div class="alert-item critical-box">
-                                <strong>Low Stock Alert:</strong> Chemistry reagents below PAR level
-                            </div>
-                            <div class="alert-item warning">
-                                <strong>Maintenance Due:</strong> Sysmex XN-2000 weekly maintenance
-                            </div>
-                            <div class="alert-item info-box">
-                                <strong>Schedule Update:</strong> Staff rotation updated for next week
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Quick Actions -->
                     <div class="dashboard-card actions-card">
                         <h3 class="card-title">Quick Actions</h3>
@@ -139,68 +529,40 @@
                             </button>
                             <button class="action-btn" onclick="location.href='staff/timecard.html'">
                                 <span class="action-icon">⏰</span>
-                                <span class="action-label">Approve Timecards</span>
+                                <span class="action-label">Timecards</span>
                             </button>
                             <button class="action-btn" onclick="location.href='manager-dashboard.html'">
                                 <span class="action-icon">📊</span>
-                                <span class="action-label">View Reports</span>
+                                <span class="action-label">Reports</span>
                             </button>
                             <button class="action-btn" onclick="location.href='technical-support.html'">
                                 <span class="action-icon">🔧</span>
-                                <span class="action-label">Tech Support</span>
+                                <span class="action-label">Support</span>
                             </button>
                             <button class="action-btn" onclick="location.href='announcements-portal.html'">
                                 <span class="action-icon">📢</span>
                                 <span class="action-label">Announcements</span>
                             </button>
-                            <button class="action-btn" onclick="location.href='debug-portal.html'" style="background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); color: #000;">
-                                <span class="action-icon">🔧</span>
-                                <span class="action-label">Debug Portal</span>
+                            <button class="action-btn" onclick="location.href='debug-portal.html'" style="background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);">
+                                <span class="action-icon">🛠️</span>
+                                <span class="action-label">Debug</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Phlebotomy Schedule Preview -->
-                    <div class="dashboard-card schedule-preview">
-                        <h3 class="card-title">Today's Phlebotomy Schedule</h3>
-                        <div class="schedule-summary">
-                            <table class="kp-table">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Staff</th>
-                                        <th>Role</th>
-                                        <th>Station</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="schedule-preview-body">
-                                    <tr>
-                                        <td>6:00 AM</td>
-                                        <td>Netta</td>
-                                        <td>Opener</td>
-                                        <td>Station 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7:00 AM</td>
-                                        <td>Tracy</td>
-                                        <td>Processor</td>
-                                        <td>Processing</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7:30 AM</td>
-                                        <td>Booker</td>
-                                        <td>Runner</td>
-                                        <td>Mobile</td>
-                                    </tr>
-                                    <tr>
-                                        <td>8:00 AM</td>
-                                        <td>Boyet</td>
-                                        <td>Backup Processor</td>
-                                        <td>Station 2</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="Schedules/Daily Schedule.html" class="view-full-link">View Full Schedule →</a>
+                    <!-- Critical Alerts -->
+                    <div class="dashboard-card alerts-card">
+                        <h3 class="card-title">Critical Alerts</h3>
+                        <div class="alerts-container" id="alerts-container">
+                            <div class="alert-item critical-box">
+                                <strong>⚠️ Low Stock Alert:</strong> Chemistry reagents below PAR level
+                            </div>
+                            <div class="alert-item warning">
+                                <strong>🔧 Maintenance Due:</strong> Sysmex XN-2000 weekly maintenance
+                            </div>
+                            <div class="alert-item info-box">
+                                <strong>📋 Schedule Update:</strong> Staff rotation updated for next week
+                            </div>
                         </div>
                     </div>
 
@@ -208,35 +570,35 @@
                     <div class="dashboard-card inventory-status">
                         <h3 class="card-title">Inventory Status</h3>
                         <div class="inventory-summary">
-                            <div class="inventory-category">
-                                <span class="category-label">Chemistry</span>
+                            <div class="inventory-category" style="margin-bottom: 20px;">
+                                <span class="category-label" style="font-weight: 600; color: #333; display: block; margin-bottom: 8px;">Chemistry</span>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 75%; background: #28a745;"></div>
+                                    <div class="progress-fill" style="width: 75%; background: linear-gradient(90deg, #28a745 0%, #20c997 100%);"></div>
                                 </div>
-                                <span class="stock-level">75% Stocked</span>
+                                <span class="stock-level" style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">75% Stocked</span>
                             </div>
-                            <div class="inventory-category">
-                                <span class="category-label">Hematology</span>
+                            <div class="inventory-category" style="margin-bottom: 20px;">
+                                <span class="category-label" style="font-weight: 600; color: #333; display: block; margin-bottom: 8px;">Hematology</span>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 45%; background: #ffc107;"></div>
+                                    <div class="progress-fill" style="width: 45%; background: linear-gradient(90deg, #ffc107 0%, #ffb300 100%);"></div>
                                 </div>
-                                <span class="stock-level">45% Stocked - Order Soon</span>
+                                <span class="stock-level" style="font-size: 0.9em; color: #856404; display: block; margin-top: 5px;">45% - Order Soon</span>
                             </div>
-                            <div class="inventory-category">
-                                <span class="category-label">Urinalysis</span>
+                            <div class="inventory-category" style="margin-bottom: 20px;">
+                                <span class="category-label" style="font-weight: 600; color: #333; display: block; margin-bottom: 8px;">Urinalysis</span>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 90%; background: #28a745;"></div>
+                                    <div class="progress-fill" style="width: 90%; background: linear-gradient(90deg, #28a745 0%, #20c997 100%);"></div>
                                 </div>
-                                <span class="stock-level">90% Stocked</span>
+                                <span class="stock-level" style="font-size: 0.9em; color: #666; display: block; margin-top: 5px;">90% Stocked</span>
                             </div>
-                            <div class="inventory-category">
-                                <span class="category-label">Kits</span>
+                            <div class="inventory-category" style="margin-bottom: 20px;">
+                                <span class="category-label" style="font-weight: 600; color: #333; display: block; margin-bottom: 8px;">Kits</span>
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 30%; background: #dc3545;"></div>
+                                    <div class="progress-fill" style="width: 30%; background: linear-gradient(90deg, #dc3545 0%, #c82333 100%);"></div>
                                 </div>
-                                <span class="stock-level">30% - Critical Low</span>
+                                <span class="stock-level" style="font-size: 0.9em; color: #721c24; display: block; margin-top: 5px;">30% - Critical Low</span>
                             </div>
-                            <a href="inventory/order-management.html" class="view-full-link">Manage Inventory →</a>
+                            <a href="inventory/order-management.html" class="view-full-link" style="color: #005EB8; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 10px;">Manage Inventory →</a>
                         </div>
                     </div>
 
@@ -244,61 +606,61 @@
                     <div class="dashboard-card compliance-tracker">
                         <h3 class="card-title">Compliance Status</h3>
                         <div class="compliance-items">
-                            <div class="compliance-item completed">
-                                <span class="check-icon">✓</span>
-                                <span>Daily Temperature Logs</span>
+                            <div class="compliance-item completed" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #e8f5e9; border-radius: 10px; margin-bottom: 10px;">
+                                <span class="check-icon" style="color: #28a745; font-size: 1.5em; font-weight: bold;">✓</span>
+                                <span style="color: #155724; font-weight: 500;">Daily Temperature Logs</span>
                             </div>
-                            <div class="compliance-item completed">
-                                <span class="check-icon">✓</span>
-                                <span>QC Review Completed</span>
+                            <div class="compliance-item completed" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #e8f5e9; border-radius: 10px; margin-bottom: 10px;">
+                                <span class="check-icon" style="color: #28a745; font-size: 1.5em; font-weight: bold;">✓</span>
+                                <span style="color: #155724; font-weight: 500;">QC Review Completed</span>
                             </div>
-                            <div class="compliance-item pending">
-                                <span class="pending-icon">○</span>
-                                <span>Weekly Maintenance Due</span>
+                            <div class="compliance-item pending" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #fff3cd; border-radius: 10px; margin-bottom: 10px;">
+                                <span class="pending-icon" style="color: #856404; font-size: 1.5em; font-weight: bold;">○</span>
+                                <span style="color: #856404; font-weight: 500;">Weekly Maintenance Due</span>
                             </div>
-                            <div class="compliance-item completed">
-                                <span class="check-icon">✓</span>
-                                <span>Safety Inspection</span>
+                            <div class="compliance-item completed" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #e8f5e9; border-radius: 10px; margin-bottom: 10px;">
+                                <span class="check-icon" style="color: #28a745; font-size: 1.5em; font-weight: bold;">✓</span>
+                                <span style="color: #155724; font-weight: 500;">Safety Inspection</span>
                             </div>
-                            <div class="compliance-item completed">
-                                <span class="check-icon">✓</span>
-                                <span>Staff Training Current</span>
+                            <div class="compliance-item completed" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #e8f5e9; border-radius: 10px;">
+                                <span class="check-icon" style="color: #28a745; font-size: 1.5em; font-weight: bold;">✓</span>
+                                <span style="color: #155724; font-weight: 500;">Staff Training Current</span>
                             </div>
                         </div>
-                        <a href="resources/compliance.html" class="view-full-link">View Compliance Details →</a>
+                        <a href="resources/compliance.html" class="view-full-link" style="color: #005EB8; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 15px;">View Compliance Details →</a>
                     </div>
                 </div>
             </section>
 
             <!-- SBAR Communication Quick Access -->
-            <section class="sbar-quick-access" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 15px; padding: 30px; margin-bottom: 30px; border: 3px solid #2196F3;">
-                <h2 class="section-title" style="color: #1976D2; margin-top: 0;">📋 SBAR Communication Technique</h2>
-                <p style="color: #555; font-size: 16px; margin-bottom: 25px;">
+            <section class="sbar-quick-access">
+                <h2 class="section-title" style="color: #1976D2; margin-top: 0; font-size: 2em; margin-bottom: 15px;">📋 SBAR Communication Technique</h2>
+                <p style="color: #555; font-size: 1.1em; margin-bottom: 25px; line-height: 1.6;">
                     <strong>Structured communication for UBT teams, shift handoffs, and escalations.</strong>
                     Use SBAR (Situation-Background-Assessment-Recommendation) to communicate clearly and effectively.
                 </p>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    <a href="sbar-implementation-guide.html" target="_blank" style="background: #005EB8; color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div class="sbar-grid">
+                    <a href="sbar-implementation-guide.html" target="_blank" class="sbar-btn">
                         📚 Complete SBAR Guide
                     </a>
-                    <a href="manager-dashboard.html#sbar" style="background: #2196F3; color: white; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <a href="manager-dashboard.html#sbar" class="sbar-btn" style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);">
                         📝 Open SBAR Dashboard
                     </a>
-                    <button onclick="generatePocketCard()" style="background: #4CAF50; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <button onclick="generatePocketCard()" class="sbar-btn" style="background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); border: none; cursor: pointer;">
                         🎫 Pocket Reference Card
                     </button>
-                    <button onclick="generateBadgeCard()" style="background: #9C27B0; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <button onclick="generateBadgeCard()" class="sbar-btn" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%); border: none; cursor: pointer;">
                         🆔 Badge Card
                     </button>
-                    <button onclick="generateSpanishSBAR()" style="background: #FF9800; color: white; padding: 15px; border-radius: 8px; border: none; text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <button onclick="generateSpanishSBAR()" class="sbar-btn" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); border: none; cursor: pointer;">
                         🌐 Spanish/SBAR
                     </button>
                 </div>
 
-                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 5px solid #2196F3;">
-                    <p style="margin: 0; color: #666; font-size: 14px;">
-                        <strong style="color: #1976D2;">💡 Quick Tip:</strong>
+                <div style="background: white; padding: 20px; border-radius: 15px; border-left: 5px solid #2196F3; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; color: #666; font-size: 1em; line-height: 1.6;">
+                        <strong style="color: #1976D2; font-size: 1.1em;">💡 Quick Tip:</strong>
                         Access SBAR tools from the Manager Dashboard for forms, flyers, posters, and real-world examples.
                     </p>
                 </div>
@@ -306,7 +668,7 @@
 
             <!-- External Systems Links -->
             <section class="external-systems">
-                <h2 class="section-title">External Systems</h2>
+                <h2 class="section-title" style="text-align: center; font-size: 2em; color: #005EB8; margin-bottom: 30px;">External Systems</h2>
                 <div class="systems-grid">
                     <a href="https://oracle.kp.org" target="_blank" class="system-link" title="Requires Kaiser SSO login">
                         <span class="system-icon">🔗</span>
@@ -506,6 +868,7 @@
                 <strong>A - Assessment</strong>
                 <p>What's the problem?</p>
             </div>
+
             <div class="sbar-section r">
                 <strong>R - Recommendation</strong>
                 <p>What should we do?</p>
