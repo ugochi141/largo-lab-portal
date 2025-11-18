@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC & Maintenance Calendars - Largo Lab Portal</title>
+    <link rel="stylesheet" href="../css/kp-styles.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .calendar-card {
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            border: 2px solid #0066cc;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .calendar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        .calendar-card h3 {
+            color: #0066cc;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .calendar-card p {
+            color: #004499;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .calendar-btn {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .calendar-btn:hover {
+            background: #004499;
+            color: white;
+        }
+
+        .info-section {
+            background: #f0f8ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .info-section h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            color: #004499;
+        }
+
+        .info-section li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="portal-title">QC & Maintenance Calendars</h1>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../equipment-tracker.html" class="nav-link">Equipment</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h2>Quality Control & Maintenance Calendars 2025</h2>
+            <p>View monthly QC and maintenance schedules for Kaiser Permanente Largo Laboratory</p>
+
+            <div class="calendar-grid">
+                <div class="calendar-card" onclick="location.href='QC_Maintenance_October_2025.html'">
+                    <h3>📅 October 2025</h3>
+                    <p>Weekly, biweekly, and monthly maintenance schedules</p>
+                    <a href="QC_Maintenance_October_2025.html" class="calendar-btn">View Calendar</a>
+                </div>
+
+                <div class="calendar-card" onclick="location.href='QC_Maintenance_November_2025.html'">
+                    <h3>📅 November 2025</h3>
+                    <p>Weekly, biweekly, and monthly maintenance schedules</p>
+                    <a href="QC_Maintenance_November_2025.html" class="calendar-btn">View Calendar</a>
+                </div>
+
+                <div class="calendar-card" onclick="location.href='QC_Maintenance_December_2025.html'">
+                    <h3>📅 December 2025</h3>
+                    <p>Weekly, biweekly, and monthly maintenance schedules</p>
+                    <a href="QC_Maintenance_December_2025.html" class="calendar-btn">View Calendar</a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h4>📋 Scheduled Maintenance Tasks</h4>
+                <ul>
+                    <li><strong>Weekly Tasks:</strong> Hematek (Saturdays), Sysmex XN Shutdown (Saturdays 9pm AUC/10pm MOB), Previ Gram Stain MOB (Tuesdays), Novus AUC (Tuesday nights after 3am), Novus MOB (Wednesdays day), GeneXpert (Thursday nights), Stago (Wednesday evenings)</li>
+                    <li><strong>Biweekly Tasks:</strong> Pure Analyzer 1 MOB (every other Friday 10pm, starts 10/4/25), Pure Analyzer 2 AUC (every other Saturday 3am, starts 10/11/25)</li>
+                    <li><strong>Monthly Tasks:</strong> Hematek (2nd Wed day), Medtox (3rd Wed day), Previ Gram (3rd Tue day), Novus (3rd Thu day), GeneXpert (2nd Wed night), Stago (2nd Thu 9pm evening), Pure Analyzers Both (3rd Sat 3am night)</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h4>🔧 Features</h4>
+                <ul>
+                    <li>Interactive calendar with color-coded tasks by shift (Day/Evening/Night)</li>
+                    <li>Filterable by task frequency (Weekly/Biweekly/Monthly) or shift</li>
+                    <li>Printable format optimized for posting in lab areas</li>
+                    <li>Task counts and summary statistics</li>
+                    <li>Location indicators (AUC, MOB, or Both)</li>
+                </ul>
+            </div>
+
+            <p><a href="../index.html">← Back to Home</a></p>
+        </div>
+    </main>
+</body>
+</html>

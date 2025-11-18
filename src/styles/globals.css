@@ -17,6 +17,12 @@
   --color-primary-800: #003d7a;
   --color-primary-900: #00265c;
 
+@layer base {
+  body {
+    @apply bg-gray-100;
+  }
+}
+
   /* Secondary Colors */
   --color-secondary-50: #f0f8ff;
   --color-secondary-100: #e0f0ff;

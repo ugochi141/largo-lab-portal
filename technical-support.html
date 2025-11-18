@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Technical Support - Largo Laboratory Portal">
+    <title>Technical Support - Largo Lab Portal</title>
+
+    <!-- KP Brand Styles -->
+    <link rel="stylesheet" href="css/kp-styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        .support-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .support-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .support-card h3 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .contact-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-list strong {
+            color: #0066cc;
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .vendor-support {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 12px;
+        }
+
+        .vendor-item {
+            padding: 8px 0;
+        }
+
+        .status-message {
+            display: none;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .quick-link-btn {
+            padding: 12px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .quick-link-btn:hover {
+            background: #e0e0e0;
+            border-color: #0066cc;
+            color: #0066cc;
+        }
+    
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <h1 class="portal-title">Largo Laboratory Portal - Technical Support</h1>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="equipment-tracker.html" class="nav-link">Equipment</a></li>
+                    <li><a href="inventory.html" class="nav-link">Inventory</a></li>
+                    <li><a href="manager-dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="technical-support.html" class="nav-link active">Support</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="support-container">
+            <h2 class="section-title">Technical Support Center</h2>
+
+            <div class="support-grid">
+                <!-- Support Request Form -->
+                <div class="support-card" style="grid-column: 1 / -1;">
+                    <h3>Submit Support Request</h3>
+                    <div id="statusMessage" class="status-message"></div>
+
+                    <form id="supportForm">
+                        <div class="form-group">
+                            <label for="requesterName">Your Name *</label>
+                            <input type="text" id="requesterName" required placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requesterEmail">Email *</label>
+                            <input type="email" id="requesterEmail" required placeholder="your.email@kp.org">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requesterPhone">Phone Extension</label>
+                            <input type="tel" id="requesterPhone" placeholder="x1234">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issueType">Issue Type *</label>
+                            <select id="issueType" required>
+                                <option value="">Select issue type</option>
+                                <option value="equipment">Equipment Malfunction</option>
+                                <option value="software">Software/System Issue</option>
+                                <option value="network">Network/Connectivity</option>
+                                <option value="login">Login/Access Problem</option>
+                                <option value="printer">Printer Issue</option>
+                                <option value="phone">Phone/Communication</option>
+                                <option value="data">Data/Results Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="urgency">Priority Level *</label>
+                            <select id="urgency" required>
+                                <option value="">Select priority</option>
+                                <option value="critical">CRITICAL - Lab Down/Patient Safety</option>
+                                <option value="high">HIGH - Impacting Workflow</option>
+                                <option value="medium">MEDIUM - Can Work Around</option>
+                                <option value="low">LOW - Minor Inconvenience</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="affectedEquipment">Affected Equipment/System</label>
+                            <input type="text" id="affectedEquipment" placeholder="e.g., Sysmex XN-2000, Oracle, Printer 3">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Issue Description *</label>
+                            <textarea id="description" required placeholder="Please describe the issue in detail including:&#10;- What happened?&#10;- When did it start?&#10;- What have you tried?&#10;- Any error messages?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="submitBtn">Submit Support Request</button>
+                    </form>
+                </div>
+
+                <!-- Internal IT Contacts -->
+                <div class="support-card">
+                    <h3>Internal IT Support</h3>
+                    <ul class="contact-list">
+                        <li><strong>Help Desk:</strong> x-HELP (4357)</li>
+                        <li><strong>Email:</strong> IT-Support@kp.org</li>
+                        <li><strong>Emergency:</strong> 1-800-KP-URGENT</li>
+                        <li><strong>Hours:</strong> 24/7 for critical issues</li>
+                    </ul>
+
+                    <div class="quick-links">
+                        <a href="#" class="quick-link-btn" onclick="fillQuickIssue('network'); return false;">Network Issue</a>
+                        <a href="#" class="quick-link-btn" onclick="fillQuickIssue('printer'); return false;">Printer Down</a>
+                        <a href="#" class="quick-link-btn" onclick="fillQuickIssue('login'); return false;">Can't Login</a>
+                    </div>
+                </div>
+
+                <!-- Equipment Vendor Support -->
+                <div class="support-card">
+                    <h3>Equipment Vendor Support</h3>
+                    <div class="vendor-support">
+                        <div class="vendor-item"><strong>Roche (Chemistry):</strong> 1-800-428-2336</div>
+                        <div class="vendor-item"><strong>Sysmex (Hematology):</strong> 1-888-879-7639</div>
+                        <div class="vendor-item"><strong>Cepheid (GeneXpert):</strong> 1-888-838-3222</div>
+                        <div class="vendor-item"><strong>Stago (Coagulation):</strong> 1-800-725-0607</div>
+                        <div class="vendor-item"><strong>Abbott (iSTAT):</strong> 1-800-822-2947</div>
+                        <div class="vendor-item"><strong>Beckman (Automation):</strong> 1-800-526-3821</div>
+                        <div class="vendor-item"><strong>Bio-Rad (QC):</strong> 1-800-224-6723</div>
+                    </div>
+                </div>
+
+                <!-- Facilities & Other Support -->
+                <div class="support-card">
+                    <h3>Facilities & Other Support</h3>
+                    <ul class="contact-list">
+                        <li><strong>Facilities:</strong> x-3456</li>
+                        <li><strong>Biomed:</strong> x-7890</li>
+                        <li><strong>EVS:</strong> x-6543</li>
+                        <li><strong>Security:</strong> x-2222</li>
+                        <li><strong>Safety Officer:</strong> x-5555</li>
+                    </ul>
+                </div>
+
+                <!-- Common Issues & Solutions -->
+                <div class="support-card" style="grid-column: 1 / -1;">
+                    <h3>Common Issues & Quick Solutions</h3>
+                    <div class="vendor-support">
+                        <details>
+                            <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;"><strong>Printer Not Working</strong></summary>
+                            <p>1. Check power and connections<br>2. Restart printer<br>3. Check print queue on computer<br>4. Contact IT if issue persists</p>
+                        </details>
+                        <details>
+                            <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;"><strong>Can't Access Oracle/System</strong></summary>
+                            <p>1. Verify network connection<br>2. Clear browser cache<br>3. Try different browser<br>4. Reset password if needed<br>5. Contact Help Desk</p>
+                        </details>
+                        <details>
+                            <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;"><strong>Equipment Error Code</strong></summary>
+                            <p>1. Note exact error code/message<br>2. Check equipment manual (SOP folder)<br>3. Restart equipment if safe<br>4. Contact vendor support with error code</p>
+                        </details>
+                        <details>
+                            <summary style="cursor: pointer; font-weight: 600; padding: 8px 0;"><strong>Label Printer Issues</strong></summary>
+                            <p>1. Check label supply<br>2. Clean print head<br>3. Restart printer<br>4. Reinstall driver if needed</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Kaiser Permanente Largo Laboratory. All rights reserved. | HIPAA Compliant</p>
+        </div>
+    </footer>
+
+    <script>
+        // Quick issue fill helper
+        function fillQuickIssue(type) {
+            const issueType = document.getElementById('issueType');
+            const urgency = document.getElementById('urgency');
+
+            issueType.value = type;
+            urgency.value = 'high';
+
+            // Scroll to form
+            document.getElementById('supportForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Save form data to localStorage to prevent data loss
+        const formFields = ['requesterName', 'requesterEmail', 'requesterPhone', 'issueType',
+                           'urgency', 'affectedEquipment', 'description'];
+
+        // Load saved data
+        window.addEventListener('load', function() {
+            formFields.forEach(field => {
+                const savedValue = localStorage.getItem('support_' + field);
+                if (savedValue) {
+                    document.getElementById(field).value = savedValue;
+                }
+            });
+        });
+
+        // Auto-save as user types
+        formFields.forEach(field => {
+            const element = document.getElementById(field);
+            element.addEventListener('input', function() {
+                localStorage.setItem('support_' + field, this.value);
+            });
+        });
+
+        // Form submission
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // Collect form data
+            const formData = {
+                timestamp: new Date().toISOString(),
+                name: document.getElementById('requesterName').value,
+                email: document.getElementById('requesterEmail').value,
+                phone: document.getElementById('requesterPhone').value,
+                issueType: document.getElementById('issueType').value,
+                urgency: document.getElementById('urgency').value,
+                equipment: document.getElementById('affectedEquipment').value,
+                description: document.getElementById('description').value
+            };
+
+            // Save to localStorage (in production, this would send to backend)
+            const tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+            const ticketNumber = 'TICKET-' + Date.now();
+            formData.ticketNumber = ticketNumber;
+            tickets.push(formData);
+            localStorage.setItem('support_tickets', JSON.stringify(tickets));
+
+            // Simulate submission delay
+            setTimeout(function() {
+                // Show success message
+                statusMessage.className = 'status-message success';
+                statusMessage.style.display = 'block';
+                statusMessage.innerHTML = `
+                    <strong>✓ Support Request Submitted Successfully!</strong><br>
+                    Ticket Number: ${ticketNumber}<br>
+                    IT will contact you shortly at ${formData.email}
+                `;
+
+                // Clear saved form data
+                formFields.forEach(field => {
+                    localStorage.removeItem('support_' + field);
+                });
+
+                // Reset form
+                document.getElementById('supportForm').reset();
+
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Support Request';
+
+                // Scroll to message
+                statusMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Auto-hide message after 10 seconds
+                setTimeout(function() {
+                    statusMessage.style.display = 'none';
+                }, 10000);
+            }, 1000);
+        });
+
+        // Warn before leaving if form has data
+        window.addEventListener('beforeunload', function(e) {
+            const description = document.getElementById('description').value;
+            if (description && description.length > 10) {
+                e.preventDefault();
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        });
+    </script>
+</body>
+</html>

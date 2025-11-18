@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timecard Management System - Kaiser Permanente Largo</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/kaiser-portal.css">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -274,9 +274,46 @@
         .status-indicator.red {
             background: #dc3545;
         }
+    
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #005EB8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 94, 184, 0.3);
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: #003d7a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.5);
+        }
+
+        @media print {
+            .home-btn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">🏠 Home</a>
+
     <div class="container">
         <!-- Header -->
         <div class="header">

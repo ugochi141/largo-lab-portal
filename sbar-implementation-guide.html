@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAR Implementation Guide - Kaiser Permanente Largo Laboratory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .toc {
+            background: #E3F2FD;
+            border-left: 5px solid #2196F3;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .toc h2 {
+            color: #1976D2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(33, 150, 243, 0.2);
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #1976D2;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            color: #005EB8;
+            padding-left: 10px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            scroll-margin-top: 20px;
+        }
+
+        .section h2 {
+            color: #005EB8;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2196F3;
+        }
+
+        .section h3 {
+            color: #1976D2;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+
+        .section h4 {
+            color: #2196F3;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .sbar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .sbar-card {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .sbar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,94,184,0.2);
+        }
+
+        .sbar-card.situation {
+            border-left: 6px solid #FF5722;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFEBEE 100%);
+        }
+
+        .sbar-card.background {
+            border-left: 6px solid #2196F3;
+            background: linear-gradient(135deg, #E3F2FD 0%, #E1F5FE 100%);
+        }
+
+        .sbar-card.assessment {
+            border-left: 6px solid #4CAF50;
+            background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+        }
+
+        .sbar-card.recommendation {
+            border-left: 6px solid #9C27B0;
+            background: linear-gradient(135deg, #F3E5F5 0%, #EDE7F6 100%);
+        }
+
+        .sbar-card h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+
+        .sbar-card ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        .sbar-card li {
+            margin-bottom: 8px;
+        }
+
+        .example-box {
+            background: #F5F5F5;
+            border-left: 5px solid #4CAF50;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .example-box h4 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+
+        .example-box .sbar-section {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .example-box .sbar-section strong {
+            display: block;
+            color: #1976D2;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            background: #FFF3CD;
+            border-left: 5px solid #FFC107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box h4 {
+            color: #F57C00;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #E3F2FD;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .template-card {
+            background: white;
+            border: 2px solid #005EB8;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .template-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,94,184,0.3);
+        }
+
+        .template-card h4 {
+            color: #005EB8;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .template-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .template-card .description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .template-card .specs {
+            background: #F5F5F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .template-card .specs strong {
+            display: block;
+            color: #1976D2;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,94,184,0.3);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #003d7a 0%, #002855 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,94,184,0.4);
+        }
+
+        .best-practices {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 5px solid #4CAF50;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .best-practices h4 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+
+        .best-practices ul {
+            margin-left: 20px;
+        }
+
+        .best-practices li {
+            margin-bottom: 10px;
+        }
+
+        .mistakes-box {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            border-left: 5px solid #F44336;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .mistakes-box h4 {
+            color: #C62828;
+            margin-bottom: 15px;
+        }
+
+        .mistakes-box ul {
+            margin-left: 20px;
+        }
+
+        .mistakes-box li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background: #F5F5F5;
+            padding: 30px;
+            text-align: center;
+            border-top: 3px solid #005EB8;
+        }
+
+        .footer p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .quick-ref {
+            background: white;
+            border: 2px solid #2196F3;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .quick-ref h3 {
+            color: #1976D2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quick-ref table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .quick-ref th {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .quick-ref td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .quick-ref tr:hover {
+            background: #E3F2FD;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .sbar-grid, .template-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 SBAR Implementation Guide</h1>
+            <p>Comprehensive Resource for Structured Communication at Kaiser Permanente Largo Laboratory</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">GL Code: 1808-18801-5693 | Policy: NATL.NFDC.001</p>
+        </div>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#what-is-sbar">1. What is SBAR?</a></li>
+                    <li><a href="#why-use-sbar">2. Why Use SBAR at Largo Laboratory?</a></li>
+                    <li><a href="#sbar-components">3. SBAR Components Explained</a></li>
+                    <li><a href="#when-to-use">4. When to Use SBAR</a></li>
+                    <li><a href="#available-templates">5. Available Templates in the Portal</a></li>
+                    <li><a href="#template-usage">6. How to Use Each Template</a></li>
+                    <li><a href="#examples">7. Real-World Laboratory Examples</a></li>
+                    <li><a href="#best-practices">8. Best Practices</a></li>
+                    <li><a href="#common-mistakes">9. Common Mistakes to Avoid</a></li>
+                    <li><a href="#training">10. Training Recommendations</a></li>
+                    <li><a href="#kp-compliance">11. KP Policy Compliance</a></li>
+                    <li><a href="#quick-reference">12. Quick Reference Guide</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: What is SBAR -->
+            <div class="section" id="what-is-sbar">
+                <h2>1. What is SBAR?</h2>
+                <p><strong>SBAR</strong> (Situation-Background-Assessment-Recommendation) is a standardized communication framework used throughout healthcare to improve clarity and patient safety. Originally developed by the U.S. Navy for nuclear submarines, it was adapted for healthcare in the 1990s and is now considered a best practice by The Joint Commission.</p>
+
+                <div class="info-box">
+                    <h4>🎯 Purpose of SBAR</h4>
+                    <p>SBAR provides a predictable structure for communication, ensuring that critical information is conveyed efficiently and completely. This is especially important in high-stress situations where clear communication can impact patient outcomes.</p>
+                </div>
+
+                <p style="margin-top: 20px;">At Kaiser Permanente Largo Laboratory, SBAR is used for:</p>
+                <ul style="margin-left: 40px; margin-top: 15px;">
+                    <li>Shift handoffs between laboratory staff</li>
+                    <li>Communication with nurses and physicians about critical values</li>
+                    <li>Reporting equipment malfunctions or safety issues</li>
+                    <li>Escalating concerns to management</li>
+                    <li>UBT (Unit-Based Team) action requests</li>
+                    <li>Supply chain and inventory urgent requests</li>
+                </ul>
+            </div>
+
+            <!-- Section 2: Why Use SBAR -->
+            <div class="section" id="why-use-sbar">
+                <h2>2. Why Use SBAR at Largo Laboratory?</h2>
+
+                <div class="sbar-grid">
+                    <div class="sbar-card">
+                        <h3>🎯 Reduces Errors</h3>
+                        <p>Standardized communication reduces miscommunication and ensures nothing is missed during handoffs or urgent situations.</p>
+                    </div>
+
+                    <div class="sbar-card">
+                        <h3>⏱️ Saves Time</h3>
+                        <p>SBAR gets to the point quickly. No rambling or disorganized information—just facts, assessment, and action needed.</p>
+                    </div>
+
+                    <div class="sbar-card">
+                        <h3>📊 Improves Outcomes</h3>
+                        <p>Research shows SBAR improves patient safety, reduces adverse events, and increases staff satisfaction.</p>
+                    </div>
+
+                    <div class="sbar-card">
+                        <h3>🤝 Creates Consistency</h3>
+                        <p>Everyone speaks the same "language," making collaboration across departments and shifts seamless.</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>📈 Evidence-Based Benefits</h4>
+                    <p>Studies published in the <em>Joint Commission Journal on Quality and Patient Safety</em> found that SBAR implementation reduced communication-related adverse events by 30% and improved nurse-physician collaboration scores by 42%.</p>
+                </div>
+            </div>
+
+            <!-- Section 3: SBAR Components -->
+            <div class="section" id="sbar-components">
+                <h2>3. SBAR Components Explained</h2>
+
+                <div class="sbar-grid">
+                    <div class="sbar-card situation">
+                        <h3>S - Situation</h3>
+                        <p><strong>What is happening RIGHT NOW?</strong></p>
+                        <ul>
+                            <li>Identify yourself and your role</li>
+                            <li>State the patient/equipment/issue</li>
+                            <li>Describe what's happening in 1-2 sentences</li>
+                            <li>Be concise and specific</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Example:</strong><br>"This is Tracy from Largo Lab Processing. Our Sysmex XN-2000 in the AUC lab is showing a recurring Aperture Error 3201 and cannot complete CBC analysis."</p>
+                    </div>
+
+                    <div class="sbar-card background">
+                        <h3>B - Background</h3>
+                        <p><strong>What led to this situation?</strong></p>
+                        <ul>
+                            <li>Provide relevant history and context</li>
+                            <li>Include dates, times, previous attempts</li>
+                            <li>Share pertinent patient data or equipment history</li>
+                            <li>Keep it factual and chronological</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Example:</strong><br>"This error started at 7:45 AM during morning QC. We've attempted 3 Startup/Shutdown cycles and cleaned the aperture bath twice per SOP. The instrument passed all QC yesterday on day shift."</p>
+                    </div>
+
+                    <div class="sbar-card assessment">
+                        <h3>A - Assessment</h3>
+                        <p><strong>What do YOU think is going on?</strong></p>
+                        <ul>
+                            <li>Share your clinical judgment or professional opinion</li>
+                            <li>Identify severity and urgency</li>
+                            <li>State the impact on operations</li>
+                            <li>Use critical thinking</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Example:</strong><br>"I believe this is a hardware failure requiring field service. We have 47 pending CBC orders in Epic Beaker. If not resolved within 1 hour, we'll need to divert specimens to Landover."</p>
+                    </div>
+
+                    <div class="sbar-card recommendation">
+                        <h3>R - Recommendation</h3>
+                        <p><strong>What should we DO about it?</strong></p>
+                        <ul>
+                            <li>Propose specific actions</li>
+                            <li>Suggest who should do what and when</li>
+                            <li>Offer alternatives if applicable</li>
+                            <li>Be clear and direct</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Example:</strong><br>"I recommend: (1) Call Sysmex field service immediately (800-232-1205), (2) Activate backup processing protocol using Landover for stat CBCs, (3) Notify nursing via Qmatic of 30-minute delay for routine CBCs."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: When to Use SBAR -->
+            <div class="section" id="when-to-use">
+                <h2>4. When to Use SBAR</h2>
+
+                <h3>Always Use SBAR For:</h3>
+                <div class="best-practices">
+                    <ul>
+                        <li><strong>Critical Value Reporting:</strong> When calling critical/panic values to providers</li>
+                        <li><strong>Equipment Failures:</strong> Major analyzer malfunctions affecting patient care</li>
+                        <li><strong>Shift Handoffs:</strong> Transitioning complex situations to the next shift</li>
+                        <li><strong>Safety Concerns:</strong> Reporting potential patient safety issues</li>
+                        <li><strong>Escalations to Management:</strong> When issues require supervisor/manager intervention</li>
+                        <li><strong>UBT Action Requests:</strong> Proposing improvements or changes</li>
+                        <li><strong>Urgent Supply Needs:</strong> Critical reagent shortages affecting testing</li>
+                        <li><strong>Staffing Crises:</strong> When staffing levels create patient care risks</li>
+                    </ul>
+                </div>
+
+                <h3>Consider Using SBAR For:</h3>
+                <div class="info-box">
+                    <ul>
+                        <li>Complex patient cases requiring discussion</li>
+                        <li>Procedure clarifications with supervisors</li>
+                        <li>Interdepartmental communication about workflow issues</li>
+                        <li>Training scenarios to practice structured thinking</li>
+                        <li>Email communication requiring clear action items</li>
+                    </ul>
+                </div>
+
+                <h3>When NOT to Use SBAR:</h3>
+                <div class="warning-box">
+                    <h4>⚠️ SBAR is Not Required For:</h4>
+                    <ul>
+                        <li>Routine daily check-ins or casual updates</li>
+                        <li>Simple yes/no questions</li>
+                        <li>General information sharing without action needed</li>
+                        <li>Social conversations or team-building discussions</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Tip:</strong> If a situation requires immediate action or involves patient safety, use SBAR. When in doubt, using SBAR is always better than missing critical information.</p>
+                </div>
+            </div>
+
+            <!-- Section 5: Available Templates -->
+            <div class="section" id="available-templates">
+                <h2>5. Available Templates in the Portal</h2>
+                <p>The Largo Laboratory Portal provides 8 different SBAR templates optimized for different use cases:</p>
+
+                <div class="template-grid">
+                    <div class="template-card">
+                        <div class="icon">📝</div>
+                        <h4>1. Interactive SBAR Form</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> HTML fillable form<br>
+                            <strong>Size:</strong> 8.5" x 11"<br>
+                            <strong>Use:</strong> Digital or printed documentation
+                        </div>
+                        <p class="description">Comprehensive form with text fields for detailed communication. Can be filled out digitally and printed or saved as PDF.</p>
+                        <a href="manager-dashboard.html#sbar" class="btn">Access Form</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">📄</div>
+                        <h4>2. Flyer Template</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Educational flyer<br>
+                            <strong>Size:</strong> 8.5" x 11"<br>
+                            <strong>Use:</strong> Training materials, bulletin boards
+                        </div>
+                        <p class="description">Professional flyer explaining SBAR with examples. Perfect for break rooms, training sessions, and new hire orientation.</p>
+                        <a href="manager-dashboard.html#sbar" class="btn">Download Flyer</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">🖼️</div>
+                        <h4>3. Poster/Signage</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Large format poster<br>
+                            <strong>Size:</strong> 11" x 17" to 18" x 24"<br>
+                            <strong>Use:</strong> Wall display, workstation reference
+                        </div>
+                        <p class="description">High-visibility poster compliant with KP Facilities Sign Program (NATL.NFDC.001). Professional printing recommended.</p>
+                        <a href="manager-dashboard.html#sbar" class="btn">Download Poster</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">👁️</div>
+                        <h4>4. Example Scenarios</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Interactive examples<br>
+                            <strong>Count:</strong> 3 laboratory scenarios<br>
+                            <strong>Use:</strong> Training and reference
+                        </div>
+                        <p class="description">Real-world laboratory examples: equipment malfunction, staffing shortage, and supply chain issue.</p>
+                        <a href="manager-dashboard.html#sbar" class="btn">View Examples</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">🎫</div>
+                        <h4>5. Pocket Reference Card</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Wallet-sized card<br>
+                            <strong>Size:</strong> 3.5" x 2"<br>
+                            <strong>Use:</strong> Personal quick reference
+                        </div>
+                        <p class="description">Business card sized reference. Print on cardstock and laminate for durability. Fits in badge holder or wallet.</p>
+                        <a href="index.html#sbar" class="btn">Generate Card</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">🆔</div>
+                        <h4>6. Badge Card</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> ID badge sized card<br>
+                            <strong>Size:</strong> 2.13" x 3.38"<br>
+                            <strong>Use:</strong> Clip to badge holder
+                        </div>
+                        <p class="description">Standard ID badge dimensions. Color-coded sections. Designed for badge clips and lanyards for easy access.</p>
+                        <a href="index.html#sbar" class="btn">Generate Badge Card</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">🌐</div>
+                        <h4>7. Spanish SBAR (SAER)</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Bilingual flyer<br>
+                            <strong>Size:</strong> 8.5" x 11"<br>
+                            <strong>Use:</strong> Multilingual staff support
+                        </div>
+                        <p class="description">Complete Spanish translation: Situación-Antecedentes-Evaluación-Recomendación. Complies with KP threshold language policy.</p>
+                        <a href="index.html#sbar" class="btn">Generate Spanish Version</a>
+                    </div>
+
+                    <div class="template-card">
+                        <div class="icon">📋</div>
+                        <h4>8. SBAR Dashboard</h4>
+                        <div class="specs">
+                            <strong>Format:</strong> Web interface<br>
+                            <strong>Access:</strong> Manager Dashboard<br>
+                            <strong>Use:</strong> Central access point
+                        </div>
+                        <p class="description">Comprehensive SBAR hub with all templates, examples, and resources in one location for managers and staff.</p>
+                        <a href="manager-dashboard.html#sbar" class="btn">Open Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Template Usage -->
+            <div class="section" id="template-usage">
+                <h2>6. How to Use Each Template</h2>
+
+                <h3>Interactive SBAR Form - Step by Step</h3>
+                <div class="info-box">
+                    <ol style="margin-left: 20px;">
+                        <li><strong>Access:</strong> Go to Manager Dashboard → SBAR Communication section → Click "Generate SBAR Form"</li>
+                        <li><strong>Fill Out:</strong> Complete each section (S-B-A-R) with specific details about your situation</li>
+                        <li><strong>Review:</strong> Ensure all critical information is included</li>
+                        <li><strong>Save/Print:</strong> Use browser Print function (Ctrl+P or Cmd+P) → Save as PDF or print</li>
+                        <li><strong>Submit:</strong> Email, hand to supervisor, or file in patient chart as appropriate</li>
+                    </ol>
+                </div>
+
+                <h3>Pocket Reference Card - Setup Instructions</h3>
+                <div class="best-practices">
+                    <h4>Materials Needed:</h4>
+                    <ul>
+                        <li>White cardstock (110 lb weight recommended)</li>
+                        <li>Laminating pouches (3.5" x 2" business card size)</li>
+                        <li>Scissors or paper cutter</li>
+                        <li>Badge clip or hole punch (optional)</li>
+                    </ul>
+                    <h4 style="margin-top: 20px;">Steps:</h4>
+                    <ol style="margin-left: 20px;">
+                        <li>Open the portal → Click "Pocket Reference Card"</li>
+                        <li>Print on cardstock using high-quality printer settings</li>
+                        <li>Cut along dotted lines (8 cards per page)</li>
+                        <li>Laminate each card using laminating pouches</li>
+                        <li>Trim excess lamination leaving 1/8" border</li>
+                        <li>Optional: Punch hole and attach to keychain or badge</li>
+                    </ol>
+                </div>
+
+                <h3>Badge Card - Wearable Reference</h3>
+                <div class="info-box">
+                    <p>The Badge Card is designed for daily use clipped to your badge holder:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Print:</strong> Use cardstock and color printer for best results</li>
+                        <li><strong>Laminate:</strong> Essential for durability with daily wear</li>
+                        <li><strong>Attach:</strong> Use a badge clip, retractable reel, or slip behind your ID badge</li>
+                        <li><strong>Visibility:</strong> Color-coded sections make quick reference easy during phone calls</li>
+                    </ul>
+                </div>
+
+                <h3>Poster/Signage - Display Guidelines</h3>
+                <div class="warning-box">
+                    <h4>⚠️ KP Facilities Sign Program Compliance</h4>
+                    <p>All signage must comply with NATL.NFDC.001:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Obtain approval from Facilities Management before posting</li>
+                        <li>Use approved mounting methods (no tape on painted walls)</li>
+                        <li>Place in designated communication areas</li>
+                        <li>Professional printing recommended for sizes over 11x17</li>
+                        <li>Include GL Code: 1808-18801-5693 on all printed materials</li>
+                    </ul>
+                </div>
+
+                <h3>Spanish SBAR - When to Use</h3>
+                <div class="info-box">
+                    <h4>🌐 Threshold Language Policy</h4>
+                    <p>Spanish qualifies as a threshold language (>5% of population) in the Mid-Atlantic service area. Use Spanish SBAR templates when:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Training Spanish-speaking staff members</li>
+                        <li>Creating bilingual reference materials for diverse teams</li>
+                        <li>Ensuring equitable access to communication tools</li>
+                        <li>Promoting inclusive workplace culture</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Note:</strong> In Spanish, SBAR becomes <strong>SAER</strong>: Situación-Antecedentes-Evaluación-Recomendación</p>
+                </div>
+            </div>
+
+            <!-- Section 7: Examples -->
+            <div class="section" id="examples">
+                <h2>7. Real-World Laboratory Examples</h2>
+
+                <div class="example-box">
+                    <h4>Example 1: Equipment Malfunction</h4>
+                    <div class="sbar-section">
+                        <strong>S - SITUATION:</strong>
+                        "This is Tracy calling from Largo Lab Processing. Our Sysmex XN-2000 hematology analyzer in the AUC location is showing recurring Aperture Error 3201 and cannot complete CBC analysis."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>B - BACKGROUND:</strong>
+                        "The error first appeared at 7:45 AM this morning during routine morning QC. We've attempted 3 complete Startup/Shutdown cycles per troubleshooting protocol and cleaned the aperture bath twice according to SOP. The instrument passed all Level 1, 2, and 3 QC yesterday on day shift without any issues. We have not had any power outages or environmental changes overnight."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>A - ASSESSMENT:</strong>
+                        "Based on the persistent error after proper troubleshooting and the fact that QC passed yesterday, I believe this is a hardware failure requiring Sysmex field service intervention. We currently have 47 pending CBC orders in Epic Beaker with 12 marked as STAT. If we cannot resolve this within 1 hour, we risk significant delays in patient care and may violate our TAT targets."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>R - RECOMMENDATION:</strong>
+                        "I recommend the following immediate actions: (1) Call Sysmex field service at 800-232-1205 and request emergency service, (2) Activate our backup processing protocol by routing all STAT CBCs to Landover Lab, (3) Notify ED and ICU nursing via Qmatic messaging of a 30-minute delay for routine CBCs, (4) Document this incident in the equipment maintenance log for compliance purposes. Can you authorize the field service call and approve the backup protocol?"
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 2: Staffing Shortage Crisis</h4>
+                    <div class="sbar-section">
+                        <strong>S - SITUATION:</strong>
+                        "This is Netta, day shift lead at Largo Lab. We have 3 unexpected call-outs this morning leaving us with only 2 Medical Laboratory Scientists and 1 MLT for a Monday morning shift."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>B - BACKGROUND:</strong>
+                        "Tracy called out at 5:45 AM (sick), Boyet called out at 6:15 AM (childcare emergency), and Jackie just called at 6:30 AM (car accident - non-injury but car not drivable). Our normal Monday staffing is 5 MLS, 2 MLT. We have 3 floors of inpatients, a full ED, and morning phlebotomy rounds just starting. We typically process 400-500 specimens on Monday mornings between 6 AM and 11 AM."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>A - ASSESSMENT:</strong>
+                        "With only 3 lab staff, we cannot safely cover processing, QC/maintenance, and technical support for 3 hospital floors. STAT specimens from ED and ICU will be prioritized, but routine morning labs will be significantly delayed. This creates patient safety risks as morning physician rounds depend on overnight lab results for clinical decision-making. We're also at risk of violating CLIA staffing requirements for supervision ratios."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>R - RECOMMENDATION:</strong>
+                        "I recommend: (1) Call in Booker on overtime to cover processing (he's agreed to come if called), (2) Request a floater MLS from Landover or Capitol Hill labs if available, (3) Notify hospital administration and nursing supervisors of potential delays, (4) Postpone all non-critical maintenance until tomorrow, (5) I will personally extend my shift by 2 hours to cover the gap. Please approve overtime for Booker and coordinate with other labs for potential float staff."
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <h4>Example 3: Critical Supply Chain Issue</h4>
+                    <div class="sbar-section">
+                        <strong>S - SITUATION:</strong>
+                        "This is Emma calling from Largo Lab Chemistry section. We are down to our last 2 bottles of Roche Cobas Electrolyte Reagent Pack (Ref 04460715190) and will run out by tomorrow morning at 10 AM based on current specimen volume."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>B - BACKGROUND:</strong>
+                        "Our normal PAR level is 10 bottles with reorder point at 4 bottles. We placed a routine order with Largo Inventory Team (LargoInventoryTeam@KP.org) on October 28th, but received notification yesterday that Roche has a national backorder on this reagent due to manufacturing issues at their Indianapolis facility. The expected ship date was November 5th but has been pushed to November 12th. We use approximately 1 bottle per day with Monday-Wednesday being our highest volume days (1.5 bottles/day)."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>A - ASSESSMENT:</strong>
+                        "Electrolyte testing (Sodium, Potassium, Chloride, CO2) is critical for patient care across all departments—especially ED, ICU, and dialysis patients. Without reagent, we cannot perform these tests in-house. Sending specimens to Landover would add 2-3 hours to turnaround time, which is unacceptable for critical care patients. This could impact patient safety and delay clinical decision-making for approximately 200 patients per day."
+                    </div>
+                    <div class="sbar-section">
+                        <strong>R - RECOMMENDATION:</strong>
+                        "I recommend urgent action on three fronts: (1) Contact Alex Roberson or Erick Albarracin at Largo Inventory immediately to request emergency procurement from an alternate distributor or regional KP lab with surplus stock, (2) Notify Medical Director Dr. Chen and Laboratory Director to alert clinical staff of potential service disruption, (3) Prepare backup plan to courier all electrolyte specimens to Landover starting November 4th if reagent not secured, (4) Investigate possibility of borrowing reagent from Capitol Hill or Landover labs if they have surplus. Can you authorize emergency procurement and coordinate with other labs?"
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>💡 What Makes These Examples Effective</h4>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Specificity:</strong> Exact times, numbers, equipment models, and contact information</li>
+                        <li><strong>Urgency:</strong> Clear explanation of patient impact and timeline</li>
+                        <li><strong>Actionable:</strong> Specific recommendations with names, phone numbers, and steps</li>
+                        <li><strong>Professional:</strong> Factual tone without emotion or blame</li>
+                        <li><strong>Complete:</strong> Decision-maker has all information needed to act immediately</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 8: Best Practices -->
+            <div class="section" id="best-practices">
+                <h2>8. Best Practices</h2>
+
+                <div class="best-practices">
+                    <h4>✅ DO: Communication Best Practices</h4>
+                    <ul>
+                        <li><strong>Be Prepared:</strong> Gather all relevant information before starting your SBAR</li>
+                        <li><strong>Use Numbers:</strong> Quantify whenever possible (times, specimen counts, error rates)</li>
+                        <li><strong>Be Specific:</strong> Use equipment names, model numbers, specific times, and exact locations</li>
+                        <li><strong>Stay Factual:</strong> Present objective information without emotional language</li>
+                        <li><strong>Think Critically:</strong> In Assessment, use your professional judgment and expertise</li>
+                        <li><strong>Propose Solutions:</strong> Always offer at least one concrete recommendation</li>
+                        <li><strong>Follow Up:</strong> Document the SBAR communication and any actions taken</li>
+                        <li><strong>Practice Regularly:</strong> Use SBAR even for less urgent situations to build the habit</li>
+                        <li><strong>Request Acknowledgment:</strong> End with a question to confirm understanding ("Can you approve this?" or "Do you agree with this plan?")</li>
+                        <li><strong>Time It Right:</strong> For phone calls, ask "Is now a good time?" before launching into your SBAR</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4>📞 SBAR Phone Call Protocol</h4>
+                    <p>For phone communications using SBAR:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Identify yourself:</strong> Name, role, department, location</li>
+                        <li><strong>Verify recipient:</strong> "Is this Dr. Smith?" or "Am I speaking with the charge nurse?"</li>
+                        <li><strong>State urgency:</strong> "I need to report a critical value" or "I have an urgent equipment issue"</li>
+                        <li><strong>Check readiness:</strong> "Do you have a moment?" or "Are you able to take this information now?"</li>
+                        <li><strong>Deliver SBAR:</strong> Go through S-B-A-R systematically</li>
+                        <li><strong>Get confirmation:</strong> "Can you read that back to me?" for critical values</li>
+                        <li><strong>Document:</strong> Record time, recipient, and outcome</li>
+                    </ol>
+                </div>
+
+                <div class="best-practices" style="margin-top: 30px;">
+                    <h4>📧 SBAR Email Format</h4>
+                    <p><strong>Subject Line:</strong> Include urgency level and topic</p>
+                    <ul style="margin-left: 20px;">
+                        <li>URGENT: Sysmex XN-2000 Equipment Failure - SBAR</li>
+                        <li>ACTION NEEDED: Staffing Crisis Monday 11/3 - SBAR</li>
+                        <li>SBAR: Critical Reagent Shortage - Electrolyte Testing</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Email Body:</strong></p>
+                    <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 10px; overflow-x: auto;">
+To: [Recipient Name and Title]
+From: [Your Name], [Your Role]
+Date: [Date and Time]
+Subject: [Urgency Level]: [Topic] - SBAR
+
+SITUATION:
+[1-2 sentences describing what is happening right now]
+
+BACKGROUND:
+[Relevant history and context in 3-5 sentences]
+
+ASSESSMENT:
+[Your professional judgment about the issue and its impact]
+
+RECOMMENDATION:
+[Specific actions needed with timeline and responsible parties]
+
+Please confirm receipt and action plan.
+
+Thank you,
+[Your Name]
+[Your Contact Information]
+[GL Code: 1808-18801-5693]
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Section 9: Common Mistakes -->
+            <div class="section" id="common-mistakes">
+                <h2>9. Common Mistakes to Avoid</h2>
+
+                <div class="mistakes-box">
+                    <h4>❌ DON'T: Common Pitfalls</h4>
+                    <ul>
+                        <li><strong>Don't Ramble:</strong> Keep each section concise. SBAR should take 2-3 minutes to deliver verbally</li>
+                        <li><strong>Don't Skip Sections:</strong> All four components (S-B-A-R) are essential—never omit any</li>
+                        <li><strong>Don't Be Vague:</strong> "The machine is broken" → Instead: "Sysmex XN-2000 showing Aperture Error 3201"</li>
+                        <li><strong>Don't Omit Assessment:</strong> Don't just report facts—share your professional opinion</li>
+                        <li><strong>Don't Forget Recommendations:</strong> Never end SBAR without proposing at least one action</li>
+                        <li><strong>Don't Use Jargon:</strong> When communicating outside the lab, explain technical terms</li>
+                        <li><strong>Don't Assume Context:</strong> Provide enough background even if you think they "should know"</li>
+                        <li><strong>Don't Get Emotional:</strong> Stay professional and factual, even in stressful situations</li>
+                        <li><strong>Don't Wait Too Long:</strong> SBAR urgent issues immediately—don't delay</li>
+                        <li><strong>Don't Fail to Document:</strong> Always document SBAR communications in appropriate logs</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">Before and After Examples</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div class="mistakes-box">
+                        <h4>❌ POOR SBAR</h4>
+                        <p style="margin-top: 10px;">"Hey, the machine isn't working and we have a bunch of samples backed up. Can you call someone to fix it? This is really bad and I don't know what to do. We tried turning it off and on. Someone should really do something about this soon."</p>
+                        <p style="margin-top: 15px; color: #C62828;"><strong>Problems:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>No identification of self or equipment</li>
+                            <li>Vague and emotional language</li>
+                            <li>No specific timeline or impact</li>
+                            <li>No clear recommendation</li>
+                            <li>Unprofessional tone</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>✅ GOOD SBAR</h4>
+                        <p style="margin-top: 10px;"><strong>S:</strong> "This is Tracy from Processing. Sysmex XN-2000 in AUC showing Error 3201."<br><br>
+                        <strong>B:</strong> "Error started 7:45 AM during QC. Attempted 3 restarts and aperture cleaning. Passed QC yesterday."<br><br>
+                        <strong>A:</strong> "Hardware failure. 47 pending CBCs, 12 STATs. Will exceed TAT in 1 hour."<br><br>
+                        <strong>R:</strong> "Call Sysmex at 800-232-1205, route STATs to Landover, notify nursing of 30-min delay."</p>
+                        <p style="margin-top: 15px; color: #2E7D32;"><strong>Strengths:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Clear identification</li>
+                            <li>Specific equipment and error code</li>
+                            <li>Quantified impact (47 samples, 12 STATs)</li>
+                            <li>Concrete recommendations with phone number</li>
+                            <li>Professional and concise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10: Training Recommendations -->
+            <div class="section" id="training">
+                <h2>10. Training Recommendations</h2>
+
+                <h3>New Employee Orientation</h3>
+                <div class="info-box">
+                    <p><strong>Week 1 - Introduction:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Provide SBAR Flyer and Pocket Reference Card during orientation</li>
+                        <li>Explain the purpose and importance of structured communication</li>
+                        <li>Review the portal's SBAR templates and when to use them</li>
+                        <li>Have new hire observe experienced staff using SBAR during shift</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Week 2-4 - Practice:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Role-play SBAR scenarios during huddles (use portal examples)</li>
+                        <li>Have new hire write SBAR for hypothetical situations</li>
+                        <li>Pair with mentor to practice SBAR during actual situations</li>
+                        <li>Provide feedback on SBAR structure and content</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Week 5+ - Independence:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>New hire uses SBAR independently with supervisor spot-checking</li>
+                        <li>Include SBAR competency in 90-day evaluation</li>
+                        <li>Continue to reinforce SBAR in daily operations</li>
+                    </ul>
+                </div>
+
+                <h3>Ongoing Staff Development</h3>
+                <div class="best-practices">
+                    <h4>Monthly Reinforcement Activities:</h4>
+                    <ul>
+                        <li><strong>Case Studies:</strong> Review real SBAR communications from the past month (with PHI removed)</li>
+                        <li><strong>Skills Drills:</strong> 5-minute SBAR practice scenarios during staff meetings</li>
+                        <li><strong>Recognition:</strong> Acknowledge staff who demonstrate excellent SBAR communication</li>
+                        <li><strong>Refreshers:</strong> Quarterly review of SBAR components and best practices</li>
+                        <li><strong>Feedback Loop:</strong> Encourage staff to share challenging SBAR situations for group discussion</li>
+                    </ul>
+                </div>
+
+                <h3>UBT Integration</h3>
+                <div class="info-box">
+                    <p>Incorporate SBAR into Unit-Based Team (UBT) activities:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>UBT Action Requests:</strong> Require SBAR format for all improvement proposals</li>
+                        <li><strong>Huddle Practice:</strong> Use first 5 minutes of weekly huddle for SBAR skill drills</li>
+                        <li><strong>Safety Reporting:</strong> Use SBAR for all patient safety event reports</li>
+                        <li><strong>Performance Metrics:</strong> Track SBAR adoption as a team performance indicator</li>
+                    </ul>
+                </div>
+
+                <h3>Competency Assessment</h3>
+                <div class="warning-box">
+                    <h4>⚠️ Annual SBAR Competency</h4>
+                    <p>All laboratory staff should demonstrate SBAR competency annually:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Written Assessment:</strong> Complete SBAR form for a provided scenario</li>
+                        <li><strong>Verbal Assessment:</strong> Deliver SBAR verbally during mock phone call</li>
+                        <li><strong>Observed Competency:</strong> Supervisor observes SBAR use in real situation</li>
+                        <li><strong>Peer Review:</strong> Staff review each other's SBAR documentation</li>
+                    </ol>
+                    <p style="margin-top: 15px;"><strong>Passing Criteria:</strong> Must correctly include all 4 components (S-B-A-R) with specific, actionable information</p>
+                </div>
+            </div>
+
+            <!-- Section 11: KP Compliance -->
+            <div class="section" id="kp-compliance">
+                <h2>11. KP Policy Compliance</h2>
+
+                <h3>NATL.NFDC.001 - KP Facilities Sign Program</h3>
+                <div class="info-box">
+                    <p>All SBAR signage and printed materials must comply with Kaiser Permanente National Facilities Development and Construction policy NATL.NFDC.001:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Brand Standards:</strong> Use official KP blue (#005EB8) and approved color palettes</li>
+                        <li><strong>Approval Process:</strong> Obtain Facilities Management approval for permanent signage</li>
+                        <li><strong>Professional Quality:</strong> Large format printing (>11x17) must be professionally produced</li>
+                        <li><strong>Mounting:</strong> Use approved methods (magnetic, frame systems)—no tape on painted walls</li>
+                        <li><strong>Accessibility:</strong> Ensure readability (font size, contrast, placement height)</li>
+                        <li><strong>Bilingual Requirements:</strong> Include Spanish in areas with 5%+ Spanish-speaking population</li>
+                    </ul>
+                </div>
+
+                <h3>HIPAA Compliance</h3>
+                <div class="warning-box">
+                    <h4>⚠️ Protected Health Information (PHI)</h4>
+                    <p>When using SBAR for patient-related communication:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Minimum Necessary:</strong> Only include patient identifiers when essential for communication purpose</li>
+                        <li><strong>Secure Communication:</strong> Use KP email system, not personal email or unsecured messaging</li>
+                        <li><strong>Disposal:</strong> Shred paper SBAR forms containing PHI when no longer needed</li>
+                        <li><strong>Storage:</strong> Store SBAR documentation in secure, locked locations</li>
+                        <li><strong>Training Materials:</strong> Remove all PHI before using real SBAR examples for training</li>
+                    </ul>
+                </div>
+
+                <h3>Laboratory Regulatory Standards</h3>
+                <div class="info-box">
+                    <p>SBAR supports compliance with:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>CLIA (Clinical Laboratory Improvement Amendments):</strong> Documentation of quality issues and corrective actions</li>
+                        <li><strong>CAP (College of American Pathologists):</strong> Communication protocols for critical values and patient safety</li>
+                        <li><strong>The Joint Commission:</strong> Standardized communication as patient safety goal</li>
+                        <li><strong>OSHA:</strong> Reporting of safety hazards and workplace incidents</li>
+                    </ul>
+                </div>
+
+                <h3>GL Code and Budget Compliance</h3>
+                <div class="best-practices">
+                    <h4>Financial Documentation</h4>
+                    <p>All SBAR materials produced for Largo Laboratory must include:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>GL Code:</strong> 1808-18801-5693 (Largo Laboratory Operations)</li>
+                        <li><strong>Account Number:</strong> 55042619</li>
+                        <li><strong>Cost Center:</strong> Document printing and production costs appropriately</li>
+                        <li><strong>Vendor Compliance:</strong> Use approved KP vendors for professional printing services</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 12: Quick Reference -->
+            <div class="section" id="quick-reference">
+                <h2>12. Quick Reference Guide</h2>
+
+                <div class="quick-ref">
+                    <h3>🔍 SBAR At-a-Glance</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Key Question</th>
+                                <th>What to Include</th>
+                                <th>Example Keywords</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SITUATION</strong></td>
+                                <td>What is happening RIGHT NOW?</td>
+                                <td>• Identify yourself<br>• State the issue<br>• Be concise (1-2 sentences)</td>
+                                <td>"This is..."<br>"I'm calling about..."<br>"We are experiencing..."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BACKGROUND</strong></td>
+                                <td>What led to this situation?</td>
+                                <td>• Relevant history<br>• Timeline of events<br>• Previous actions taken</td>
+                                <td>"Started at..."<br>"We've attempted..."<br>"Previous history shows..."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ASSESSMENT</strong></td>
+                                <td>What do YOU think is going on?</td>
+                                <td>• Your professional judgment<br>• Severity/urgency<br>• Patient/operational impact</td>
+                                <td>"I believe..."<br>"This appears to be..."<br>"The impact is..."</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RECOMMENDATION</strong></td>
+                                <td>What should we DO about it?</td>
+                                <td>• Specific actions<br>• Who, what, when<br>• Alternative options</td>
+                                <td>"I recommend..."<br>"We should..."<br>"Can you authorize..."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+                    <div class="info-box">
+                        <h4>📞 Quick Access Numbers</h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Sysmex Support:</strong> 800-232-1205</li>
+                            <li><strong>Roche Support:</strong> 800-428-5076</li>
+                            <li><strong>Bio-Rad Support:</strong> 800-224-6723</li>
+                            <li><strong>Largo Inventory Team:</strong> LargoInventoryTeam@KP.org</li>
+                            <li><strong>Facilities Management:</strong> x4500</li>
+                            <li><strong>IT Support:</strong> x4357 (HELP)</li>
+                            <li><strong>Security:</strong> x4444</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>✅ SBAR Checklist</h4>
+                        <ul style="list-style: none; margin-left: 0;">
+                            <li>☐ Identified myself and my role</li>
+                            <li>☐ Stated the issue clearly and concisely</li>
+                            <li>☐ Provided relevant background/timeline</li>
+                            <li>☐ Shared my professional assessment</li>
+                            <li>☐ Quantified impact (numbers, times)</li>
+                            <li>☐ Proposed specific recommendations</li>
+                            <li>☐ Included who/what/when for actions</li>
+                            <li>☐ Requested acknowledgment</li>
+                            <li>☐ Documented the communication</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box" style="margin-top: 30px;">
+                    <h4>🚨 Emergency SBAR Priority</h4>
+                    <p><strong>Use SBAR IMMEDIATELY for:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Critical values requiring immediate provider notification</li>
+                        <li>Patient safety events or near misses</li>
+                        <li>Equipment failures affecting patient care</li>
+                        <li>Staffing shortages creating unsafe conditions</li>
+                        <li>Supply shortages preventing critical testing</li>
+                        <li>Any situation where patient care is at risk</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: bold; color: #C62828;">When in doubt, use SBAR. Better to over-communicate than under-communicate in healthcare.</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="background: linear-gradient(135deg, #005EB8 0%, #003d7a 100%); color: white; padding: 40px; text-align: center; border-radius: 10px; margin: 40px 0;">
+                <h2 style="color: white; margin-bottom: 20px;">Ready to Start Using SBAR?</h2>
+                <p style="font-size: 1.2em; margin-bottom: 30px;">Access all SBAR templates and resources through the portal</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="index.html#sbar" class="btn" style="background: white; color: #005EB8;">Go to Portal Home</a>
+                    <a href="manager-dashboard.html#sbar" class="btn" style="background: white; color: #005EB8;">Open SBAR Dashboard</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Kaiser Permanente Largo Laboratory</strong></p>
+            <p>SBAR Implementation Guide v1.0 | November 2025</p>
+            <p>GL Code: 1808-18801-5693 | Account: 55042619</p>
+            <p>Compliant with KP Policy NATL.NFDC.001 | HIPAA Compliant</p>
+            <p style="margin-top: 20px; color: #999; font-size: 0.9em;">
+                This guide is for internal use by authorized Kaiser Permanente staff only.<br>
+                For questions or feedback, contact Laboratory Management.
+            </p>
+            <p style="margin-top: 15px; font-size: 0.85em; color: #666;">
+                🤖 Generated with <a href="https://claude.com/claude-code" style="color: #005EB8;">Claude Code</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Print button functionality
+        function printGuide() {
+            window.print();
+        }
+
+        // Highlight current section in TOC on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.fontWeight = '500';
+                link.style.color = '#1976D2';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.fontWeight = '700';
+                    link.style.color = '#005EB8';
+                }
+            });
+        });
+
+        // Add print button at the top
+        window.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.content');
+            const printBtn = document.createElement('button');
+            printBtn.className = 'btn';
+            printBtn.innerHTML = '🖨️ Print Guide';
+            printBtn.onclick = printGuide;
+            printBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1000;';
+            document.body.appendChild(printBtn);
+        });
+    </script>
+</body>
+</html>

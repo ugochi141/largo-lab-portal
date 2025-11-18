@@ -1,10 +1,10 @@
 import React from 'react';
-import InteractiveScheduleManager from '@/components/schedule/InteractiveScheduleManager';
+import DailyScheduleViewer from '@/components/schedule/DailyScheduleViewer';
 
 const SchedulePage: React.FC = () => {
   return (
     <div>
-      <InteractiveScheduleManager />
+      <DailyScheduleViewer />
     </div>
   );
 };

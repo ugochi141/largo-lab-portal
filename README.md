@@ -47,23 +47,15 @@
 ## 🚀 Quick Start
 
 ### Access the Portal
-
-#### Option 1: Static Website (Original)
 Visit: [https://ugochi141.github.io/largo-lab-portal/](https://ugochi141.github.io/largo-lab-portal/)
 
-#### Option 2: Production Server (New)
+### Local Development
 ```bash
 # Install dependencies
 npm install
 
-# Copy and configure environment
-cp .env.example .env
-
-# Start production server
-npm start
-
-# Or use PM2 for production
-npm run pm2:start
+# Start development server with hot reload
+npm run dev
 ```
 
 Access at: http://localhost:3000
@@ -73,14 +65,12 @@ Access at: http://localhost:3000
 ### Prerequisites
 - Node.js >= 18.0.0
 - npm >= 9.0.0
-- PostgreSQL >= 13 (optional)
-- Redis >= 6.0 (optional)
 
-### Detailed Setup
+### Setup
 
 1. **Clone Repository**
 ```bash
-git clone https://github.com/kaiserpermanente/largo-lab-portal.git
+git clone https://github.com/ugochi141/largo-lab-portal.git
 cd largo-lab-portal
 ```
 
@@ -89,38 +79,45 @@ cd largo-lab-portal
 npm install
 ```
 
-3. **Configure Environment**
-```bash
-cp .env.example .env
-# Edit .env with your settings
-```
-
-4. **Run Application**
+3. **Run Application**
 
 **Development Mode:**
 ```bash
 npm run dev
 ```
 
-**Production Mode:**
+**Production Build:**
 ```bash
-npm run pm2:start
+npm run build
+npm run preview   # Optional local preview of production build
 ```
 
-**Static HTML Only (Original):**
+**Deploy to GitHub Pages:**
 ```bash
-python -m http.server 8000
-# Open http://localhost:8000
+npm run deploy
+```
+
+Or use the deployment script:
+```bash
+./deploy.sh
 ```
 
 ## 🏗️ Project Structure
 
 ```
 largo-lab-portal/
-├── index.html                  # Main portal page (original)
-├── assets/                     # CSS and icons
-│   ├── css/
-│   └── icons/
+├── index.html                  # Vite entry point (React SPA)
+├── public/                     # Static assets served as-is
+│   ├── data/                   # JSON fallbacks for dashboard/inventory
+│   └── manifest.webmanifest    # PWA/metadata manifest
+├── src/                        # React application
+│   ├── App.tsx                 # Router + shell
+│   ├── components/             # UI components (layout, dashboard, SBAR, etc.)
+│   ├── pages/                  # Route views (home, schedule, staff, safety, inventory, SBAR)
+│   ├── store/                  # Zustand stores (dashboard, inventory, staff, safety, training)
+│   ├── data/                   # Sample/fallback datasets
+│   └── styles/                 # Tailwind + KP tokens
+├── assets/                     # Legacy CSS/icons for static references
 ├── server/                     # NEW: Node.js backend
 │   ├── index.js               # Express server
 │   ├── middleware/            # Security & logging
@@ -215,20 +212,26 @@ npm run lint
 
 ## 📦 Deployment
 
-### PM2 Production Deployment
+### GitHub Pages Deployment
+
+The React SPA is automatically built and deployed to GitHub Pages:
+
+**Automated Deployment:**
 ```bash
-# Start with PM2
-pm2 start ecosystem.config.js --env production
-
-# Save PM2 config
-pm2 save
-
-# Setup startup script
-pm2 startup
+./deploy.sh
 ```
 
-### GitHub Pages (Static Only)
-The original static HTML version is automatically deployed to GitHub Pages on push to main branch.
+Or manually:
+```bash
+npm install
+npm run build
+npm run deploy
+```
+
+**GitHub Pages Configuration:**
+- Ensure repository settings → Pages → Source is set to `gh-pages` branch
+- The app will be available at: `https://ugochi141.github.io/largo-lab-portal/`
+- Allow 2-3 minutes for deployment to complete
 
 ## 🔄 Backup & Recovery
 

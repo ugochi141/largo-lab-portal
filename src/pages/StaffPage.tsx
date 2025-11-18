@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { useStaffStore } from '@/store/staffStore';
+import { useTrainingStore } from '@/store/trainingStore';
 import { PhlebotomyRole } from '@/types';
 import { format, differenceInDays } from 'date-fns';
 
 const StaffPage: React.FC = () => {
   const [filter, setFilter] = useState<'ALL' | PhlebotomyRole>('ALL');
+  const [search, setSearch] = useState('');
   const { staff } = useStaffStore();
+  const { requirements, updateStatus } = useTrainingStore((state) => ({
+    requirements: state.requirements,
+    updateStatus: state.updateStatus,
+  }));
 
-  const filteredStaff = filter === 'ALL' 
-    ? staff 
-    : staff.filter((s) => s.role === filter);
+  const filteredStaff = staff.filter((s) => {
+    const matchesRole = filter === 'ALL' || s.role === filter;
+    const query = `${s.firstName} ${s.lastName}`.toLowerCase();
+    const matchesSearch = !search || query.includes(search.toLowerCase());
+    return matchesRole && matchesSearch;
+  });
 
   const getRoleColor = (role: PhlebotomyRole) => {
     const colors: Record<PhlebotomyRole, string> = {
@@ -61,31 +70,44 @@ const StaffPage: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <button
-          onClick={() => setFilter('ALL')}
-          className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-            filter === 'ALL'
-              ? 'bg-primary-500 text-white shadow-md'
-              : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-300'
-          }`}
-        >
-          All Staff
-        </button>
-        
-        {Object.values(PhlebotomyRole).map((role) => (
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+        <div className="flex flex-wrap gap-2">
           <button
-            key={role}
-            onClick={() => setFilter(role)}
+            onClick={() => setFilter('ALL')}
             className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-              filter === role
+              filter === 'ALL'
                 ? 'bg-primary-500 text-white shadow-md'
                 : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-300'
             }`}
           >
-            {role}
+            All Staff
           </button>
-        ))}
+          
+          {Object.values(PhlebotomyRole).map((role) => (
+            <button
+              key={role}
+              onClick={() => setFilter(role)}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                filter === role
+                  ? 'bg-primary-500 text-white shadow-md'
+                  : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-300'
+              }`}
+            >
+              {role}
+            </button>
+          ))}
+        </div>
+
+        <label className="flex-1 lg:max-w-xs">
+          <span className="sr-only">Search staff</span>
+          <input
+            type="search"
+            placeholder="Search by name or nickname"
+            className="form-input"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </label>
       </div>
 
       {/* Staff List */}
@@ -198,6 +220,86 @@ const StaffPage: React.FC = () => {
           })}
         </div>
       )}
+
+      {/* Training Tracker */}
+      <section className="card mt-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-neutral-900">Training & Competency Tracker</h2>
+            <p className="text-sm text-neutral-500">
+              Monitor CLIA, CAP, and safety competencies across the team.
+            </p>
+          </div>
+        </div>
+
+        {requirements.length === 0 ? (
+          <div className="text-center py-8 text-neutral-400">
+            <p>No training assignments yet.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-neutral-50 text-neutral-600">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold">Training</th>
+                  <th className="px-4 py-3 text-left font-semibold">Assigned To</th>
+                  <th className="px-4 py-3 text-left font-semibold">Due Date</th>
+                  <th className="px-4 py-3 text-left font-semibold">Status</th>
+                  <th className="px-4 py-3 text-left font-semibold">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {requirements.map((req) => {
+                  const staffMember = staff.find((s) => s.id === req.assignedTo);
+                  const overdue = req.status !== 'COMPLETED' && new Date(req.dueDate) < new Date();
+                  return (
+                    <tr key={req.id} className="border-t border-neutral-100">
+                      <td className="px-4 py-3">
+                        <p className="font-semibold text-neutral-900">{req.title}</p>
+                        <p className="text-xs text-neutral-500">{req.competencyArea}</p>
+                      </td>
+                      <td className="px-4 py-3">{staffMember ? `${staffMember.firstName} ${staffMember.lastName}` : '—'}</td>
+                      <td className="px-4 py-3">
+                        {format(new Date(req.dueDate), 'MMM dd, yyyy')}
+                        {overdue && <span className="ml-2 text-xs text-danger-600 font-semibold">Overdue</span>}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            req.status === 'COMPLETED'
+                              ? 'bg-success-50 text-success-700 border border-success-200'
+                              : req.status === 'IN_PROGRESS'
+                              ? 'bg-warning-50 text-warning-800 border border-warning-200'
+                              : req.status === 'OVERDUE'
+                              ? 'bg-danger-50 text-danger-700 border border-danger-200'
+                              : 'bg-neutral-100 text-neutral-700 border border-neutral-200'
+                          }`}
+                        >
+                          {req.status.replace('_', ' ')}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        {req.status !== 'COMPLETED' ? (
+                          <button
+                            className="btn btn-sm bg-success-100 text-success-800 hover:bg-success-200"
+                            onClick={() => updateStatus(req.id, 'COMPLETED')}
+                          >
+                            Mark Complete
+                          </button>
+                        ) : (
+                          <span className="text-xs text-neutral-500">
+                            Completed {req.lastCompleted ? format(new Date(req.lastCompleted), 'MMM dd') : ''}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
     </div>
   );
 };
