@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipment Tracker - Kaiser Permanente Largo Laboratory</title>
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
     <link rel="stylesheet" href="assets/css/kaiser-portal.css">
     <style>
         body {
@@ -720,9 +722,9 @@
 
             <div class="tab-container">
                 <div class="tab-buttons">
-                    <button class="tab-button active" onclick="switchTab('daily', this)">Daily</button>
-                    <button class="tab-button" onclick="switchTab('weekly', this)">Weekly</button>
-                    <button class="tab-button" onclick="switchTab('monthly', this)">Monthly</button>
+                    <button class="tab-button active" data-tab="daily">Daily</button>
+                    <button class="tab-button" data-tab="weekly">Weekly</button>
+                    <button class="tab-button" data-tab="monthly">Monthly</button>
                 </div>
 
                 <div id="daily" class="tab-content active">
@@ -997,18 +999,22 @@
         document.getElementById('statusFilter').addEventListener('change', filterEquipment);
         document.getElementById('searchInput').addEventListener('input', filterEquipment);
 
-        // Tab switching
-        function switchTab(tabName, element) {
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
+        // Tab switching with event delegation
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
 
-            element.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        }
+                this.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
