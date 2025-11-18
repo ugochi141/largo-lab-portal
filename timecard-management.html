@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timecard Management System - Kaiser Permanente Largo</title>
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
     <link rel="stylesheet" href="assets/css/kaiser-portal.css">
     <style>
         body {
@@ -535,13 +537,13 @@
 
         <!-- Quick Actions -->
         <div style="margin-top: 30px; text-align: center;">
-            <button class="btn btn-primary" onclick="window.open('https://kaisermidatlantic.smart-square.com/v2/login?DB_OEM_ID=2700&DB_ACCOUNT_TYPE=USER', '_blank')">
+            <button class="btn btn-primary" id="openInsightBtn">
                 Open Insight
             </button>
-            <button class="btn btn-success" onclick="window.open('https://hrconnect.kp.org', '_blank')">
+            <button class="btn btn-success" id="openHRConnectBtn">
                 Open HR Connect
             </button>
-            <button class="btn btn-danger" onclick="window.print()">
+            <button class="btn btn-danger" id="printChecklistBtn">
                 Print Checklist
             </button>
         </div>
@@ -571,6 +573,19 @@
                 });
             }
         }
+
+        // Add event listeners for action buttons
+        document.getElementById('openInsightBtn').addEventListener('click', function() {
+            window.open('https://kaisermidatlantic.smart-square.com/v2/login?DB_OEM_ID=2700&DB_ACCOUNT_TYPE=USER', '_blank');
+        });
+
+        document.getElementById('openHRConnectBtn').addEventListener('click', function() {
+            window.open('https://hrconnect.kp.org', '_blank');
+        });
+
+        document.getElementById('printChecklistBtn').addEventListener('click', function() {
+            window.print();
+        });
 
         // Add current date display
         const today = new Date();
