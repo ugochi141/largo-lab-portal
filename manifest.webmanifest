@@ -1,1 +1,16 @@
-{"name":"Largo Laboratory Portal","short_name":"Largo Lab","start_url":"/largo-lab-portal/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/largo-lab-portal/","description":"Healthcare laboratory portal for staff scheduling and management","theme_color":"#0066cc","icons":[{"src":"pwa-192x192.png","sizes":"192x192","type":"image/png"},{"src":"pwa-512x512.png","sizes":"512x512","type":"image/png"},{"src":"pwa-512x512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
+{
+  "name": "Largo Laboratory Portal",
+  "short_name": "Largo Lab",
+  "start_url": "/largo-lab-portal/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066cc",
+  "description": "Healthcare laboratory portal for scheduling, inventory, compliance, and staff operations.",
+  "icons": [
+    {
+      "src": "/assets/kp-logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
