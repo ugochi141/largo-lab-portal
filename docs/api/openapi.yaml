@@ -1,0 +1,723 @@
+openapi: 3.0.3
+info:
+  title: Kaiser Permanente Largo Laboratory Portal API
+  description: |
+    RESTful API for the Largo Laboratory Portal, providing endpoints for staff scheduling,
+    equipment management, inventory tracking, and laboratory operations management.
+
+    ## Authentication
+    All protected endpoints require JWT authentication. Include the JWT token in the Authorization header:
+    ```
+    Authorization: Bearer <your-jwt-token>
+    ```
+
+    ## Rate Limiting
+    - General API: 100 requests per 15 minutes
+    - Authentication: 5 requests per 15 minutes
+
+    ## HIPAA Compliance
+    All API requests are logged for audit purposes. PHI data is encrypted in transit and at rest.
+
+  version: 3.0.0
+  contact:
+    name: Largo Laboratory IT Team
+    email: largo-lab-it@kp.org
+  license:
+    name: Proprietary
+    url: https://kp.org/license
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+  - url: https://staging-largo-lab.kp.org
+    description: Staging server
+  - url: https://largo-lab.kp.org
+    description: Production server
+
+tags:
+  - name: Health
+    description: Health check and monitoring endpoints
+  - name: Authentication
+    description: User authentication and authorization
+  - name: Inventory
+    description: Laboratory inventory management
+  - name: Equipment
+    description: Equipment tracking and maintenance
+  - name: Critical Values
+    description: Critical value reporting and management
+  - name: Schedule
+    description: Staff scheduling operations
+  - name: Audit
+    description: HIPAA audit logging
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Basic health check
+      description: Returns basic application health status
+      operationId: getHealth
+      responses:
+        '200':
+          description: Application is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health/detailed:
+    get:
+      tags: [Health]
+      summary: Detailed health check
+      description: Returns detailed health status including all subsystems
+      operationId: getDetailedHealth
+      responses:
+        '200':
+          description: Detailed health information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedHealthResponse'
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: User login
+      description: Authenticate user and receive JWT token
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many login attempts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh JWT token
+      description: Get a new JWT token using a valid existing token
+      operationId: refreshToken
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid or expired token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/logout:
+    post:
+      tags: [Authentication]
+      summary: User logout
+      description: Invalidate the current JWT token
+      operationId: logout
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+
+  /api/inventory:
+    get:
+      tags: [Inventory]
+      summary: Get inventory list
+      description: Retrieve all inventory items with optional filtering
+      operationId: getInventory
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter by category (tubes, needles, gloves, etc.)
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [in_stock, low_stock, critical, out_of_stock]
+          description: Filter by stock status
+        - in: query
+          name: vendor
+          schema:
+            type: string
+          description: Filter by vendor name
+      responses:
+        '200':
+          description: Inventory items retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags: [Inventory]
+      summary: Add inventory item
+      description: Add a new item to inventory
+      operationId: addInventoryItem
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryItemCreate'
+      responses:
+        '201':
+          description: Inventory item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/inventory/{id}:
+    get:
+      tags: [Inventory]
+      summary: Get inventory item by ID
+      description: Retrieve a specific inventory item
+      operationId: getInventoryItem
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Inventory item ID
+      responses:
+        '200':
+          description: Inventory item retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags: [Inventory]
+      summary: Update inventory item
+      description: Update an existing inventory item
+      operationId: updateInventoryItem
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Inventory item ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryItemUpdate'
+      responses:
+        '200':
+          description: Inventory item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags: [Inventory]
+      summary: Delete inventory item
+      description: Remove an inventory item
+      operationId: deleteInventoryItem
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Inventory item ID
+      responses:
+        '204':
+          description: Inventory item deleted successfully
+        '404':
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/critical-values:
+    get:
+      tags: [Critical Values]
+      summary: Get critical values list
+      description: Retrieve all critical value reports
+      operationId: getCriticalValues
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date
+          description: Filter by start date
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date
+          description: Filter by end date
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [pending, notified, acknowledged, resolved]
+          description: Filter by status
+      responses:
+        '200':
+          description: Critical values retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriticalValuesListResponse'
+
+    post:
+      tags: [Critical Values]
+      summary: Report critical value
+      description: Create a new critical value report
+      operationId: reportCriticalValue
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriticalValueCreate'
+      responses:
+        '201':
+          description: Critical value reported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriticalValue'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from /auth/login endpoint
+
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+          example: healthy
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-11-03T12:00:00.000Z"
+        uptime:
+          type: number
+          description: Server uptime in seconds
+          example: 3600
+        environment:
+          type: string
+          example: production
+
+    DetailedHealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        checks:
+          type: object
+          properties:
+            database:
+              type: string
+              example: connected
+            redis:
+              type: string
+              example: connected
+            disk:
+              type: string
+              example: ok
+            memory:
+              type: string
+              example: ok
+        version:
+          type: string
+          example: 3.0.0
+        integrations:
+          type: object
+          properties:
+            epicBeaker:
+              type: string
+              example: configured
+            bioRadUnity:
+              type: string
+              example: configured
+
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: john.doe@kp.org
+        password:
+          type: string
+          format: password
+          example: SecurePassword123!
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresIn:
+          type: string
+          example: 7d
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "12345"
+            username:
+              type: string
+              example: john.doe@kp.org
+            role:
+              type: string
+              enum: [staff, manager, admin]
+              example: staff
+
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        expiresIn:
+          type: string
+          example: 7d
+
+    InventoryItem:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ITEM001"
+        name:
+          type: string
+          example: "Vacutainer Tubes - Lavender Top (EDTA)"
+        category:
+          type: string
+          example: tubes
+        vendor:
+          type: string
+          example: "BD Diagnostics"
+        catalogNumber:
+          type: string
+          example: "367863"
+        currentStock:
+          type: number
+          example: 50
+        parLevel:
+          type: number
+          example: 200
+        reorderPoint:
+          type: number
+          example: 100
+        unitOfMeasure:
+          type: string
+          example: "Box of 100"
+        unitPrice:
+          type: number
+          format: double
+          example: 45.99
+        location:
+          type: string
+          example: "Supply Room A, Shelf 3"
+        status:
+          type: string
+          enum: [in_stock, low_stock, critical, out_of_stock]
+          example: low_stock
+        lastRestockDate:
+          type: string
+          format: date
+          example: "2025-10-15"
+        notes:
+          type: string
+          example: "Check expiration dates monthly"
+
+    InventoryItemCreate:
+      type: object
+      required:
+        - name
+        - category
+        - vendor
+        - parLevel
+        - reorderPoint
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        vendor:
+          type: string
+        catalogNumber:
+          type: string
+        currentStock:
+          type: number
+        parLevel:
+          type: number
+        reorderPoint:
+          type: number
+        unitOfMeasure:
+          type: string
+        unitPrice:
+          type: number
+        location:
+          type: string
+        notes:
+          type: string
+
+    InventoryItemUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        currentStock:
+          type: number
+        parLevel:
+          type: number
+        reorderPoint:
+          type: number
+        unitPrice:
+          type: number
+        location:
+          type: string
+        notes:
+          type: string
+
+    InventoryListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+        total:
+          type: number
+          example: 44
+        summary:
+          type: object
+          properties:
+            inStock:
+              type: number
+              example: 30
+            lowStock:
+              type: number
+              example: 10
+            critical:
+              type: number
+              example: 3
+            outOfStock:
+              type: number
+              example: 1
+
+    CriticalValue:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "CV-2025-001"
+        patientId:
+          type: string
+          example: "MRN12345"
+        testName:
+          type: string
+          example: "Potassium"
+        result:
+          type: string
+          example: "6.8 mmol/L"
+        criticalRange:
+          type: string
+          example: "> 6.0 or < 2.5 mmol/L"
+        reportedBy:
+          type: string
+          example: "John Doe"
+        reportedAt:
+          type: string
+          format: date-time
+          example: "2025-11-03T14:30:00.000Z"
+        notifiedTo:
+          type: string
+          example: "Dr. Smith"
+        notifiedAt:
+          type: string
+          format: date-time
+          example: "2025-11-03T14:32:00.000Z"
+        status:
+          type: string
+          enum: [pending, notified, acknowledged, resolved]
+          example: notified
+        notes:
+          type: string
+          example: "Patient called back for immediate follow-up"
+
+    CriticalValueCreate:
+      type: object
+      required:
+        - patientId
+        - testName
+        - result
+        - criticalRange
+      properties:
+        patientId:
+          type: string
+        testName:
+          type: string
+        result:
+          type: string
+        criticalRange:
+          type: string
+        notifiedTo:
+          type: string
+        notes:
+          type: string
+
+    CriticalValuesListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriticalValue'
+        total:
+          type: number
+          example: 15
+        summary:
+          type: object
+          properties:
+            pending:
+              type: number
+              example: 2
+            notified:
+              type: number
+              example: 8
+            acknowledged:
+              type: number
+              example: 3
+            resolved:
+              type: number
+              example: 2
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid credentials"
+        requestId:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-11-03T12:00:00.000Z"

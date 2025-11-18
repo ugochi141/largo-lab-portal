@@ -3,13 +3,28 @@ import { useEffect } from 'react';
 import Navigation from './components/layout/Navigation';
 import HomePage from './pages/HomePage';
 import SchedulePage from './pages/SchedulePage';
+import ScheduleManagerPage from './pages/ScheduleManagerPage';
+import PhlebotomyRotationPage from './pages/schedules/PhlebotomyRotationPage';
+import QCMaintenancePage from './pages/schedules/QCMaintenancePage';
 import DashboardPage from './pages/DashboardPage';
 import SafetyPage from './pages/SafetyPage';
 import StaffPage from './pages/StaffPage';
+import StaffDirectoryPage from './pages/staff/StaffDirectoryPage';
+import TrainingPage from './pages/staff/TrainingPage';
+import TimecardPage from './pages/staff/TimecardPage';
 import InventoryPage from './pages/InventoryPage';
-import SbarPage from './pages/SbarPage';
+import ChemistryPage from './pages/inventory/ChemistryPage';
+import HematologyPage from './pages/inventory/HematologyPage';
+import UrinalysisPage from './pages/inventory/UrinalysisPage';
+import CoagulationPage from './pages/inventory/CoagulationPage';
+import KitsPage from './pages/inventory/KitsPage';
+import OrderManagementPage from './pages/inventory/OrderManagementPage';
+import SOPPage from './pages/resources/SOPPage';
+import CompliancePage from './pages/resources/CompliancePage';
+import ContactsPage from './pages/resources/ContactsPage';
+import TechnicalSupportPage from './pages/TechnicalSupportPage';
 import EquipmentTrackerPage from './pages/EquipmentTrackerPage';
-import ScheduleManagerPage from './pages/ScheduleManagerPage';
+import SbarPage from './pages/SbarPage';
 import { sampleStaff, sampleIncidents, sampleComplianceItems, sampleTrainingRequirements } from './data/sampleData';
 import { useStaffStore } from './store/staffStore';
 import { useSafetyStore } from './store/safetyStore';
@@ -70,14 +85,39 @@ function App() {
           <main id="main-content" className="py-6">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              
+              {/* Schedule Routes */}
               <Route path="/schedule" element={<SchedulePage />} />
               <Route path="/schedule-manager" element={<ScheduleManagerPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/schedules/phlebotomy-rotation" element={<PhlebotomyRotationPage />} />
+              <Route path="/schedules/qc-maintenance" element={<QCMaintenancePage />} />
+              
+              {/* Inventory Routes */}
               <Route path="/inventory" element={<InventoryPage />} />
+              <Route path="/inventory/chemistry" element={<ChemistryPage />} />
+              <Route path="/inventory/hematology" element={<HematologyPage />} />
+              <Route path="/inventory/urinalysis" element={<UrinalysisPage />} />
+              <Route path="/inventory/coagulation" element={<CoagulationPage />} />
+              <Route path="/inventory/kits" element={<KitsPage />} />
+              <Route path="/inventory/order-management" element={<OrderManagementPage />} />
+              
+              {/* Staff Routes */}
+              <Route path="/staff" element={<StaffPage />} />
+              <Route path="/staff/directory" element={<StaffDirectoryPage />} />
+              <Route path="/staff/training" element={<TrainingPage />} />
+              <Route path="/staff/timecard" element={<TimecardPage />} />
+              
+              {/* Resource Routes */}
+              <Route path="/resources/sop" element={<SOPPage />} />
+              <Route path="/resources/compliance" element={<CompliancePage />} />
+              <Route path="/resources/contacts" element={<ContactsPage />} />
+              
+              {/* Other Routes */}
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/safety" element={<SafetyPage />} />
               <Route path="/equipment" element={<EquipmentTrackerPage />} />
               <Route path="/sbar" element={<SbarPage />} />
-              <Route path="/safety" element={<SafetyPage />} />
-              <Route path="/staff" element={<StaffPage />} />
+              <Route path="/technical-support" element={<TechnicalSupportPage />} />
             </Routes>
           </main>
 

@@ -40,15 +40,42 @@ const Navigation: React.FC = () => {
       icon: '📅',
       items: [
         { path: '/schedule', label: 'Daily Schedule', icon: '📅' },
-        { path: '/schedule-manager', label: 'Schedule Manager', icon: '📝' },
+        { path: '/schedules/phlebotomy-rotation', label: 'Phlebotomy Rotation', icon: '🔄' },
+        { path: '/schedules/qc-maintenance', label: 'QC & Maintenance', icon: '✅' },
       ],
     },
-    { path: '/inventory', label: 'Inventory', icon: '📦' },
-    { path: '/equipment', label: 'Equipment', icon: '🔧' },
-    { path: '/sbar', label: 'SBAR Toolkit', icon: '🗂️' },
+    {
+      label: 'Inventory',
+      icon: '📦',
+      items: [
+        { path: '/inventory/chemistry', label: 'Chemistry', icon: '🧪' },
+        { path: '/inventory/hematology', label: 'Hematology', icon: '🔬' },
+        { path: '/inventory/urinalysis', label: 'Urinalysis', icon: '🧪' },
+        { path: '/inventory/coagulation', label: 'Coagulation', icon: '💉' },
+        { path: '/inventory/kits', label: 'Kits', icon: '📦' },
+        { path: '/inventory/order-management', label: 'Order Management', icon: '📋' },
+      ],
+    },
+    {
+      label: 'Staff',
+      icon: '👥',
+      items: [
+        { path: '/staff/directory', label: 'Staff Directory', icon: '📇' },
+        { path: '/staff/training', label: 'Training & Competency', icon: '📚' },
+        { path: '/staff/timecard', label: 'Timecard Management', icon: '⏰' },
+      ],
+    },
     { path: '/dashboard', label: 'Manager Dashboard', icon: '📊' },
-    { path: '/safety', label: 'Safety & Compliance', icon: '🛡️' },
-    { path: '/staff', label: 'Staff Management', icon: '👥' },
+    { path: '/technical-support', label: 'Technical Support', icon: '🔧' },
+    {
+      label: 'Resources',
+      icon: '📚',
+      items: [
+        { path: '/resources/sop', label: 'SOPs', icon: '📄' },
+        { path: '/resources/compliance', label: 'Compliance', icon: '✅' },
+        { path: '/resources/contacts', label: 'Emergency Contacts', icon: '📞' },
+      ],
+    },
   ];
 
   // Close dropdown when clicking outside
