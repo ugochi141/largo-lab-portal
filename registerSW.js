@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/largo-lab-portal/sw.js', { scope: '/largo-lab-portal/' })})}
