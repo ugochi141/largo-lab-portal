@@ -73,7 +73,7 @@ const Navigation: React.FC = () => {
   const primaryNavId = 'primary-navigation';
 
   return (
-    <nav className="bg-white shadow-soft sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+    <nav className="bg-gradient-to-r from-blue-50 to-blue-100 shadow-md sticky top-0 z-50 border-b-2 border-primary-500" role="navigation" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Title */}

@@ -74,53 +74,54 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
+      {/* Hero Section with Blue Gradient */}
       <section
-        className="bg-gradient-to-r from-primary-500 to-primary-700 rounded-2xl shadow-strong p-8 md:p-12 mb-8 text-white"
+        className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-soft p-8 md:p-12 mb-8 border-b-4 border-primary-500"
         aria-labelledby="portal-hero-title"
       >
-        <div className="max-w-4xl space-y-6">
+        <div className="max-w-4xl space-y-6 text-center">
+          <div className="text-6xl mb-4" aria-hidden="true">🏥</div>
           <div>
-            <p className="text-sm uppercase tracking-widest text-primary-100 font-semibold">
+            <h1 id="portal-hero-title" className="text-4xl md:text-5xl font-bold mb-3 text-primary-600">
               Kaiser Permanente Largo Laboratory
-            </p>
-            <h1 id="portal-hero-title" className="text-4xl md:text-5xl font-bold mb-3">
-              Operational Control Center
             </h1>
-            <p className="text-xl md:text-2xl opacity-95" id="portal-hero-description">
+            <h2 className="text-xl md:text-2xl text-gray-600 mb-6" id="portal-hero-description">
+              Operations Portal - Standard Operating Procedures &amp; Staff Scheduling
+            </h2>
+            <p className="text-base text-gray-700 max-w-2xl mx-auto">
               Coordinate schedules, inventory, compliance, and staff readiness from a single accessible workspace.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4" aria-label="Primary actions">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center" aria-label="Primary actions">
             <Link
               to="/schedule"
-              className="btn bg-white text-primary-700 hover:bg-neutral-100 font-bold text-lg px-8 py-3"
+              className="btn bg-primary-500 text-white hover:bg-primary-600 font-bold text-lg px-8 py-3 rounded-lg shadow-md transition-all"
               aria-describedby="portal-hero-description"
             >
-              Create Schedule
+              📅 Daily Schedule
             </Link>
             <Link
               to="/dashboard"
-              className="btn bg-primary-600 text-white hover:bg-primary-800 font-bold text-lg px-8 py-3 border-2 border-white"
+              className="btn bg-success-500 text-white hover:bg-success-600 font-bold text-lg px-8 py-3 rounded-lg shadow-md transition-all"
             >
-              Manager Dashboard
+              📊 Manager Dashboard
             </Link>
             <Link
               to="/safety"
-              className="btn bg-transparent text-white border-2 border-white/70 hover:bg-white/10 font-bold text-lg px-8 py-3"
+              className="btn bg-warning-500 text-white hover:bg-warning-600 font-bold text-lg px-8 py-3 rounded-lg shadow-md transition-all"
             >
-              View Compliance Tasks
+              🛡️ Safety & Compliance
             </Link>
           </div>
 
-          <div className="bg-white/10 rounded-xl p-4 backdrop-blur" role="list" aria-label="Key service levels">
+          <div className="bg-white/80 rounded-xl p-6 backdrop-blur shadow-md" role="list" aria-label="Key service levels">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {heroStats.map((stat) => (
-                <div key={stat.label} role="listitem">
-                  <p className="text-sm uppercase tracking-wide text-primary-100">{stat.label}</p>
-                  <p className="text-3xl font-bold">{stat.value}</p>
-                  <p className="text-sm opacity-80">{stat.helper}</p>
+                <div key={stat.label} role="listitem" className="text-center">
+                  <p className="text-sm uppercase tracking-wide text-gray-600 font-semibold">{stat.label}</p>
+                  <p className="text-3xl font-bold text-primary-600">{stat.value}</p>
+                  <p className="text-sm text-gray-500">{stat.helper}</p>
                 </div>
               ))}
             </div>
