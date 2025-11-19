@@ -9,18 +9,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
-
-// Mock user database (in production, use real database)
-const users = new Map([
-  ['admin', {
-    id: '1',
-    username: 'admin',
-    password: '$2a$10$xQX6J.6nGGQXRTLmRKQWXeQxL5mYFyUqVQaTUVbJSuHvhQGx7pLm6', // 'admin123'
-    role: 'ADMIN',
-    department: 'Laboratory',
-    permissions: ['all']
-  }]
-]);
+const { users } = require('../data/users');
 
 // Login endpoint
 router.post('/login', asyncHandler(async (req, res) => {
@@ -87,16 +76,29 @@ router.post('/login', asyncHandler(async (req, res) => {
   const userResponse = {
     id: user.id,
     username: user.username,
+    nuid: user.nuid,
     role: user.role,
+    name: user.name,
+    nickname: user.nickname,
+    position: user.position,
+    email: user.email,
+    phone: user.phone,
+    shift: user.shift,
     department: user.department,
-    permissions: user.permissions
+    permissions: user.permissions,
+    requirePasswordReset: user.requirePasswordReset || false,
+    firstLogin: user.firstLogin || false
   };
+
+  // Update last login
+  user.lastLogin = new Date().toISOString();
 
   res.json({
     success: true,
     token,
     user: userResponse,
-    expiresIn: '7d'
+    expiresIn: '7d',
+    requirePasswordReset: user.requirePasswordReset || false
   });
 }));
 
@@ -183,6 +185,9 @@ router.post('/change-password', asyncHandler(async (req, res) => {
 
   // Update password (in production, update in database)
   user.password = hashedPassword;
+  user.requirePasswordReset = false;
+  user.firstLogin = false;
+  user.passwordChangedAt = new Date().toISOString();
 
   // Log password change (HIPAA audit)
   global.logger.info('Password changed', {

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: {
@@ -16,7 +16,7 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, './src/styles')
     }
   },
-  base: '/largo-lab-portal/',
+  base: mode === 'production' ? '/' : '/largo-lab-portal/',
   build: {
     outDir: 'dist',
     sourcemap: true,
@@ -35,6 +35,12 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      }
+    }
   }
-});
+}));

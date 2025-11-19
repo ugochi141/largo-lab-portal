@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navigation from './components/layout/Navigation';
 import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import SchedulePage from './pages/SchedulePage';
 import ScheduleManagerPage from './pages/ScheduleManagerPage';
@@ -84,13 +87,15 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Router basename="/largo-lab-portal">
+      <Router basename={import.meta.env.MODE === 'production' ? '/' : '/largo-lab-portal'}>
         <Routes>
-          {/* Landing Page */}
+          {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/reset-password" element={<ProtectedRoute><ResetPasswordPage /></ProtectedRoute>} />
           
-          {/* Staff Portal - Read-Only Access */}
-          <Route path="/staff" element={<StaffPortalLayout />}>
+          {/* Staff Portal - Read-Only Access (Protected) */}
+          <Route path="/staff" element={<ProtectedRoute><StaffPortalLayout /></ProtectedRoute>}>
             <Route index element={<StaffHomePage />} />
             <Route path="sops" element={<StaffSOPsPage />} />
             <Route path="schedule" element={<StaffSchedulePage />} />
@@ -99,13 +104,14 @@ function App() {
             <Route path="support" element={<StaffSupportPage />} />
           </Route>
 
-          {/* Admin Portal - Full Access */}
+          {/* Admin Portal - Full Access (Protected - Admin Only) */}
           <Route path="/admin" element={
-            <div className="min-h-screen bg-neutral-50">
-              <a href="#main-content" className="skip-link">Skip to main content</a>
-              <Navigation />
-              <main id="main-content" className="py-6">
-                <Routes>
+            <ProtectedRoute requireAdmin>
+              <div className="min-h-screen bg-neutral-50">
+                <a href="#main-content" className="skip-link">Skip to main content</a>
+                <Navigation />
+                <main id="main-content" className="py-6">
+                  <Routes>
                   <Route index element={<HomePage />} />
                   
                   {/* Schedule Routes */}
@@ -161,7 +167,8 @@ function App() {
                   </div>
                 </div>
               </footer>
-            </div>
+              </div>
+            </ProtectedRoute>
           } />
         </Routes>
       </Router>

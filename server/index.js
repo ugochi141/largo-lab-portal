@@ -25,6 +25,7 @@ const healthRoutes = require('./routes/health');
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
 const criticalValueRoutes = require('./routes/criticalValues');
+const scheduleRoutes = require('./routes/schedules');
 
 // Initialize Express app
 const app = express();
@@ -247,6 +248,9 @@ app.use('/api', apiRoutes);
 
 // Critical values management
 app.use('/api/critical-values', criticalValueRoutes);
+
+// Schedule management
+app.use('/api/schedules', scheduleRoutes);
 
 // Serve index.html for all other routes (SPA support)
 app.get('*', (req, res) => {

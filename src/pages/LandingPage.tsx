@@ -27,7 +27,7 @@ const LandingPage: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Admin Portal */}
           <Link
-            to="/admin"
+            to="/login"
             className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
           >
             <div className="bg-gradient-to-br from-red-500 to-red-700 p-8 text-white">
@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
 
           {/* Staff Portal */}
           <Link
-            to="/staff"
+            to="/login"
             className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
           >
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 p-8 text-white">
