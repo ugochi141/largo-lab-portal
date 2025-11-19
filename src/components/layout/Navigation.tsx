@@ -105,7 +105,7 @@ const Navigation: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo and Title */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <Link to="/admin/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">
                 L
               </div>
@@ -337,7 +337,7 @@ const Navigation: React.FC = () => {
         <div className="bg-neutral-50 border-t border-neutral-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
             <nav aria-label="Breadcrumb" className="flex items-center text-sm">
-              <Link to="/" className="text-primary-600 hover:text-primary-800 font-medium">
+              <Link to="/admin/" className="text-primary-600 hover:text-primary-800 font-medium">
                 Home
               </Link>
               <svg className="w-4 h-4 mx-2 text-neutral-400" fill="currentColor" viewBox="0 0 20 20">

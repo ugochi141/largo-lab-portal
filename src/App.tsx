@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navigation from './components/layout/Navigation';
+import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import SchedulePage from './pages/SchedulePage';
 import ScheduleManagerPage from './pages/ScheduleManagerPage';
@@ -25,6 +26,15 @@ import ContactsPage from './pages/resources/ContactsPage';
 import TechnicalSupportPage from './pages/TechnicalSupportPage';
 import EquipmentTrackerPage from './pages/EquipmentTrackerPage';
 import SbarPage from './pages/SbarPage';
+
+// Staff Portal Pages
+import StaffPortalLayout from './pages/staff/StaffPortalLayout';
+import StaffHomePage from './pages/staff/StaffHomePage';
+import StaffSOPsPage from './pages/staff/StaffSOPsPage';
+import StaffSchedulePage from './pages/staff/StaffSchedulePage';
+import StaffQCPage from './pages/staff/StaffQCPage';
+import StaffInventoryPage from './pages/staff/StaffInventoryPage';
+import StaffSupportPage from './pages/staff/StaffSupportPage';
 import { sampleStaff, sampleIncidents, sampleComplianceItems, sampleTrainingRequirements } from './data/sampleData';
 import { useStaffStore } from './store/staffStore';
 import { useSafetyStore } from './store/safetyStore';
@@ -75,79 +85,85 @@ function App() {
   return (
     <ErrorBoundary>
       <Router basename="/largo-lab-portal">
-        <div className="min-h-screen bg-neutral-50">
-          <a href="#main-content" className="skip-link">
-            Skip to main content
-          </a>
+        <Routes>
+          {/* Landing Page */}
+          <Route path="/" element={<LandingPage />} />
+          
+          {/* Staff Portal - Read-Only Access */}
+          <Route path="/staff" element={<StaffPortalLayout />}>
+            <Route index element={<StaffHomePage />} />
+            <Route path="sops" element={<StaffSOPsPage />} />
+            <Route path="schedule" element={<StaffSchedulePage />} />
+            <Route path="qc" element={<StaffQCPage />} />
+            <Route path="inventory" element={<StaffInventoryPage />} />
+            <Route path="support" element={<StaffSupportPage />} />
+          </Route>
 
-          <Navigation />
-
-          <main id="main-content" className="py-6">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              
-              {/* Schedule Routes */}
-              <Route path="/schedule" element={<SchedulePage />} />
-              <Route path="/schedule-manager" element={<ScheduleManagerPage />} />
-              <Route path="/schedules/phlebotomy-rotation" element={<PhlebotomyRotationPage />} />
-              <Route path="/schedules/qc-maintenance" element={<QCMaintenancePage />} />
-              
-              {/* Inventory Routes */}
-              <Route path="/inventory" element={<InventoryPage />} />
-              <Route path="/inventory/chemistry" element={<ChemistryPage />} />
-              <Route path="/inventory/hematology" element={<HematologyPage />} />
-              <Route path="/inventory/urinalysis" element={<UrinalysisPage />} />
-              <Route path="/inventory/coagulation" element={<CoagulationPage />} />
-              <Route path="/inventory/kits" element={<KitsPage />} />
-              <Route path="/inventory/order-management" element={<OrderManagementPage />} />
-              
-              {/* Staff Routes */}
-              <Route path="/staff" element={<StaffPage />} />
-              <Route path="/staff/directory" element={<StaffDirectoryPage />} />
-              <Route path="/staff/training" element={<TrainingPage />} />
-              <Route path="/staff/timecard" element={<TimecardPage />} />
-              
-              {/* Resource Routes */}
-              <Route path="/resources/sop" element={<SOPPage />} />
-              <Route path="/resources/compliance" element={<CompliancePage />} />
-              <Route path="/resources/contacts" element={<ContactsPage />} />
-              
-              {/* Other Routes */}
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/safety" element={<SafetyPage />} />
-              <Route path="/equipment" element={<EquipmentTrackerPage />} />
-              <Route path="/sbar" element={<SbarPage />} />
-              <Route path="/technical-support" element={<TechnicalSupportPage />} />
-            </Routes>
-          </main>
-
-          <footer className="bg-white border-t border-neutral-200 mt-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <p className="text-sm text-neutral-600">
-                    © {new Date().getFullYear()} Largo Laboratory Portal
-                  </p>
-                  <p className="text-xs text-neutral-500 mt-1">
-                    Healthcare laboratory operations management system
-                  </p>
+          {/* Admin Portal - Full Access */}
+          <Route path="/admin" element={
+            <div className="min-h-screen bg-neutral-50">
+              <a href="#main-content" className="skip-link">Skip to main content</a>
+              <Navigation />
+              <main id="main-content" className="py-6">
+                <Routes>
+                  <Route index element={<HomePage />} />
+                  
+                  {/* Schedule Routes */}
+                  <Route path="schedule" element={<SchedulePage />} />
+                  <Route path="schedule-manager" element={<ScheduleManagerPage />} />
+                  <Route path="schedules/phlebotomy-rotation" element={<PhlebotomyRotationPage />} />
+                  <Route path="schedules/qc-maintenance" element={<QCMaintenancePage />} />
+                  
+                  {/* Inventory Routes */}
+                  <Route path="inventory" element={<InventoryPage />} />
+                  <Route path="inventory/chemistry" element={<ChemistryPage />} />
+                  <Route path="inventory/hematology" element={<HematologyPage />} />
+                  <Route path="inventory/urinalysis" element={<UrinalysisPage />} />
+                  <Route path="inventory/coagulation" element={<CoagulationPage />} />
+                  <Route path="inventory/kits" element={<KitsPage />} />
+                  <Route path="inventory/order-management" element={<OrderManagementPage />} />
+                  
+                  {/* Staff Management Routes */}
+                  <Route path="staff" element={<StaffPage />} />
+                  <Route path="staff/directory" element={<StaffDirectoryPage />} />
+                  <Route path="staff/training" element={<TrainingPage />} />
+                  <Route path="staff/timecard" element={<TimecardPage />} />
+                  
+                  {/* Resource Routes */}
+                  <Route path="resources/sop" element={<SOPPage />} />
+                  <Route path="resources/compliance" element={<CompliancePage />} />
+                  <Route path="resources/contacts" element={<ContactsPage />} />
+                  
+                  {/* Other Routes */}
+                  <Route path="dashboard" element={<DashboardPage />} />
+                  <Route path="safety" element={<SafetyPage />} />
+                  <Route path="equipment" element={<EquipmentTrackerPage />} />
+                  <Route path="sbar" element={<SbarPage />} />
+                  <Route path="technical-support" element={<TechnicalSupportPage />} />
+                </Routes>
+              </main>
+              <footer className="bg-white border-t border-neutral-200 mt-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                      <p className="text-sm text-neutral-600">
+                        © {new Date().getFullYear()} Largo Laboratory Portal
+                      </p>
+                      <p className="text-xs text-neutral-500 mt-1">
+                        Healthcare laboratory operations management system
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-6 text-sm text-neutral-600">
+                      <a href="#" className="hover:text-primary-700 transition-colors">Support</a>
+                      <a href="#" className="hover:text-primary-700 transition-colors">Documentation</a>
+                      <a href="#" className="hover:text-primary-700 transition-colors">Privacy Policy</a>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-6 text-sm text-neutral-600">
-                  <a href="#" className="hover:text-primary-700 transition-colors">
-                    Support
-                  </a>
-                  <a href="#" className="hover:text-primary-700 transition-colors">
-                    Documentation
-                  </a>
-                  <a href="#" className="hover:text-primary-700 transition-colors">
-                    Privacy Policy
-                  </a>
-                </div>
-              </div>
+              </footer>
             </div>
-          </footer>
-        </div>
+          } />
+        </Routes>
       </Router>
     </ErrorBoundary>
   );
