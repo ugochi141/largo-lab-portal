@@ -1,80 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-interface InventoryItem {
-  id: string;
-  name: string;
-  currentStock: number;
-  parLevel: number;
-  reorderPoint: number;
-  location: string;
-  status: 'good' | 'warning' | 'critical';
-  lastUpdated: string;
-}
+import { useInventory } from '../../hooks/useInventory';
 
 const ChemistryPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  
-  const chemistryItems: InventoryItem[] = [
-    {
-      id: 'CHEM-001',
-      name: 'Chemistry Reagent Pack - Roche cobas 8000',
-      currentStock: 45,
-      parLevel: 60,
-      reorderPoint: 20,
-      location: 'Chemistry Storage - Shelf A1',
-      status: 'warning',
-      lastUpdated: '2 hours ago',
-    },
-    {
-      id: 'CHEM-002',
-      name: 'Calibration Solution Set',
-      currentStock: 12,
-      parLevel: 15,
-      reorderPoint: 5,
-      location: 'Chemistry Storage - Shelf A2',
-      status: 'good',
-      lastUpdated: '1 day ago',
-    },
-    {
-      id: 'CHEM-003',
-      name: 'QC Material Level 1',
-      currentStock: 3,
-      parLevel: 20,
-      reorderPoint: 8,
-      location: 'Chemistry Storage - Refrigerator',
-      status: 'critical',
-      lastUpdated: '3 hours ago',
-    },
-    {
-      id: 'CHEM-004',
-      name: 'QC Material Level 2',
-      currentStock: 5,
-      parLevel: 20,
-      reorderPoint: 8,
-      location: 'Chemistry Storage - Refrigerator',
-      status: 'critical',
-      lastUpdated: '3 hours ago',
-    },
-    {
-      id: 'CHEM-005',
-      name: 'ISE Cleaning Solution',
-      currentStock: 8,
-      parLevel: 12,
-      reorderPoint: 4,
-      location: 'Chemistry Storage - Shelf B1',
-      status: 'warning',
-      lastUpdated: '1 day ago',
-    },
-  ];
+  const { items: chemistryItems, loading, error } = useInventory('CHEMISTRY');
 
-  const filteredItems = chemistryItems.filter(item =>
+  // Determine status based on stock levels
+  const getStatus = (currentStock: number, reorderPoint: number, parLevel: number) => {
+    if (currentStock === 0) return 'critical';
+    if (currentStock <= reorderPoint) return 'critical';
+    if (currentStock < parLevel * 0.5) return 'warning';
+    return 'good';
+  };
+
+  // Add status to items
+  const itemsWithStatus = chemistryItems.map(item => ({
+    ...item,
+    status: getStatus(item.currentStock, item.reorderPoint, item.parLevel),
+  }));
+
+  const filteredItems = itemsWithStatus.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.id.toLowerCase().includes(searchTerm.toLowerCase())
+    item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.catalogNumber?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const criticalCount = chemistryItems.filter(item => item.status === 'critical').length;
-  const warningCount = chemistryItems.filter(item => item.status === 'warning').length;
+  const criticalCount = itemsWithStatus.filter(item => item.status === 'critical').length;
+  const warningCount = itemsWithStatus.filter(item => item.status === 'warning').length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -93,17 +46,47 @@ const ChemistryPage: React.FC = () => {
         <p className="text-gray-600">Manage chemistry reagents, calibrators, and QC materials</p>
       </div>
 
-      {/* Alert Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-lg shadow p-4 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Items</p>
-              <p className="text-2xl font-bold text-gray-900">{chemistryItems.length}</p>
+      {/* Loading State */}
+      {loading && (
+        <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading chemistry inventory...</p>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
             </div>
-            <div className="text-3xl">🧪</div>
+            <div className="ml-3">
+              <p className="text-sm text-red-700">
+                <strong>Error loading data:</strong> {error}
+              </p>
+              <p className="text-xs text-red-600 mt-1">
+                Make sure the backend server is running on port 3000
+              </p>
+            </div>
           </div>
         </div>
+      )}
+
+      {/* Alert Summary */}
+      {!loading && !error && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-white rounded-lg shadow p-4 border border-gray-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">Total Items</p>
+                <p className="text-2xl font-bold text-gray-900">{itemsWithStatus.length}</p>
+              </div>
+              <div className="text-3xl">🧪</div>
+            </div>
+          </div>
         
         <div className="bg-red-50 rounded-lg shadow p-4 border border-red-200">
           <div className="flex items-center justify-between">
@@ -124,33 +107,37 @@ const ChemistryPage: React.FC = () => {
             <div className="text-3xl">⚠️</div>
           </div>
         </div>
-      </div>
+        </div>
+      )}
 
       {/* Search and Actions */}
-      <div className="bg-white rounded-lg shadow p-4 mb-6 border border-gray-200">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Search by name or ID..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+      {!loading && !error && (
+        <div className="bg-white rounded-lg shadow p-4 mb-6 border border-gray-200">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search by name, ID, or catalog number..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              Order Supplies
+            </button>
+            <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+              Export CSV
+            </button>
           </div>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-            Order Supplies
-          </button>
-          <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
-            Export CSV
-          </button>
         </div>
-      </div>
+      )}
 
       {/* Inventory Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden border border-gray-200">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
+      {!loading && !error && (
+        <div className="bg-white rounded-lg shadow overflow-hidden border border-gray-200">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -185,10 +172,19 @@ const ChemistryPage: React.FC = () => {
                       {item.id}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
-                      {item.name}
+                      <div>{item.name}</div>
+                      {item.catalogNumber && (
+                        <div className="text-xs text-gray-500 mt-1">Cat# {item.catalogNumber}</div>
+                      )}
+                      {item.vendor && (
+                        <div className="text-xs text-gray-500">{item.vendor}</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {item.currentStock}
+                      {item.unitPrice && (
+                        <div className="text-xs text-gray-500">${item.unitPrice.toFixed(2)}</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -206,7 +202,10 @@ const ChemistryPage: React.FC = () => {
                       </p>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {item.location}
+                      <div>{item.location || 'Not specified'}</div>
+                      {item.storageTemp && (
+                        <div className="text-xs text-gray-500">{item.storageTemp}</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
@@ -218,6 +217,14 @@ const ChemistryPage: React.FC = () => {
                          item.status === 'warning' ? 'Low Stock' :
                          'Critical'}
                       </span>
+                      {item.expirationDate && (
+                        <div className="text-xs text-gray-500 mt-1">
+                          Exp: {new Date(item.expirationDate).toLocaleDateString()}
+                        </div>
+                      )}
+                      {item.criticalItem && (
+                        <div className="text-xs text-red-600 mt-1">⚠️ Critical Item</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button className="text-blue-600 hover:text-blue-800 font-medium">
@@ -230,7 +237,14 @@ const ChemistryPage: React.FC = () => {
             </tbody>
           </table>
         </div>
+        
+        {filteredItems.length === 0 && (
+          <div className="text-center py-8 text-gray-500">
+            No items found matching your search.
+          </div>
+        )}
       </div>
+      )}
 
       {/* Info Box */}
       <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">

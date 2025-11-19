@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useInventory } from '../hooks/useInventory';
 
 const HomePage: React.FC = () => {
+  const { items: allInventory } = useInventory();
+  
+  // Calculate real-time stats from inventory data
+  const criticalItems = allInventory.filter(item => 
+    item.currentStock === 0 || item.currentStock <= item.reorderPoint
+  ).length;
+  
+  const lowStockItems = allInventory.filter(item =>
+    item.currentStock > item.reorderPoint && item.currentStock < item.parLevel * 0.5
+  ).length;
+
   const todayStats = [
     { label: 'Staff On Duty', value: '22', status: 'normal' },
-    { label: 'Pending Orders', value: '5', status: 'warning' },
-    { label: 'QC Tasks Due', value: '8', status: 'info' },
-    { label: 'Compliance', value: '100%', status: 'success' },
+    { label: 'Critical Items', value: String(criticalItems), status: 'warning' },
+    { label: 'Low Stock', value: String(lowStockItems), status: 'info' },
+    { label: 'Total Inventory', value: String(allInventory.length), status: 'success' },
   ];
 
   const criticalAlerts = [
@@ -24,12 +36,31 @@ const HomePage: React.FC = () => {
     { icon: '🔧', label: 'Tech Support', link: '/dashboard' },
   ];
 
-  const inventoryStatus = [
-    { category: 'Chemistry', percentage: 75, status: 'good' },
-    { category: 'Hematology', percentage: 45, status: 'warning' },
-    { category: 'Urinalysis', percentage: 90, status: 'good' },
-    { category: 'Kits', percentage: 30, status: 'critical' },
-  ];
+  // Calculate inventory status by category from real data
+  const categories = ['CHEMISTRY', 'HEMATOLOGY', 'URINALYSIS', 'KITS'];
+  const inventoryStatus = categories.map(cat => {
+    const categoryItems = allInventory.filter(item => 
+      item.category?.toUpperCase() === cat
+    );
+    
+    if (categoryItems.length === 0) {
+      return { category: cat, percentage: 0, status: 'critical' as const };
+    }
+    
+    const avgStockPercentage = categoryItems.reduce((sum, item) => {
+      return sum + ((item.currentStock / item.parLevel) * 100);
+    }, 0) / categoryItems.length;
+    
+    const status = avgStockPercentage >= 70 ? 'good' as const : 
+                   avgStockPercentage >= 40 ? 'warning' as const : 
+                   'critical' as const;
+    
+    return {
+      category: cat.charAt(0) + cat.slice(1).toLowerCase(),
+      percentage: Math.round(avgStockPercentage),
+      status,
+    };
+  });
 
   const complianceItems = [
     { label: 'Daily Temperature Logs', completed: true },

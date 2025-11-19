@@ -145,7 +145,12 @@ app.use(helmet({
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];
+    const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+      'http://localhost:3000',
+      'http://localhost:5173', // Vite dev server
+      'http://localhost:4173', // Vite preview
+      'https://ugochi141.github.io' // GitHub Pages
+    ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
